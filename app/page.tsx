@@ -18,7 +18,6 @@ export default async function HomePage() {
     return <div>Not Found</div>;
   }
 
-  console.log(pageData.modules[0], 'pageData')
   return (
     <div>
       {topBarData && (
