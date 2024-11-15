@@ -47,7 +47,7 @@ export default function NavBar() {
           </Link>
         </div>
         <div className="free-estimate flex items-center">
-          <button className="bg-midnightblue block xl:hidden py-[7px] px-[5px] mr-6 rounded hover:bg-dimgray" onClick={() => setOpenMenu(!openMenu)}>
+          <button className="bg-midnightblue block xl:hidden py-[7px] px-[5px] md:mr-6 rounded hover:bg-dimgray" onClick={() => setOpenMenu(!openMenu)}>
             <FaBars className={`${openMenu ? 'hidden' : 'block'} w-6 h-5`} />
             <FaPlus className={`${openMenu ? 'block' : 'hidden'} rotate-45 w-6 h-5`} />
           </button>
