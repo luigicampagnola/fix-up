@@ -27,8 +27,8 @@ export default async function HomePage() {
   return (
     <div>
       <TopSection
-        title="Top Roofing Services"
-        secondTitle="in Miami for Reliable Repairs!"
+        title="Top Roofing Services in"
+        secondTitle="Miami for Reliable Repairs!"
         description="Choose Fix Up Roofing and Construction for reliable roof services that fit your busy schedule and avoid repair headaches."
         benefits={benefits}
         buttonLabel="Contact us today!"

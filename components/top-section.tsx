@@ -23,20 +23,25 @@ export default function TopSection({
     <section className="flex flex-col items-center overflow-hidden relative">
       <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80 transition-background transition-border-radius transition-opacity duration-300 hover:bg-blue-500 hover:rounded-full hover:opacity-75"></div>
       <div className="basis-10/12 w-10/12 z-10 pt-12 flex flex-col items-center lg:justify-start">
-        <h1 className="text-[60px] lg:text-[65px] font-bold uppercase leading-none text-center lg:text-left">
-          {title} <span className="text-forestgreen lg:block">{secondTitle}</span>
+        <h1 className="text-[39px] md:text-[60px] lg:text-[65px] font-bold uppercase leading-none text-center lg:text-left">
+          {title}{" "}
+          <span className="text-forestgreen lg:block">{secondTitle}</span>
         </h1>
-        <p className=" text-[15px] text-center lg:text-left lg:text-[16px] pt-[30px] pb-[14px]">{description}</p>
+        <p className="text-[14px] md:text-[15px] text-center lg:text-left lg:text-[16px] pt-[30px] pb-[14px]">
+          {description}
+        </p>
         <div className="flex flex-wrap justify-center">
           {benefits &&
             benefits.map((benefit, index) => (
               <div key={`${pathName}-${index}`} className="flex items-center">
                 <FaRegCheckCircle className="text-forestgreen text-[25px]" />{" "}
-                <p className="text-[15px] lg:text-[16px] ml-2 mr-3 font-semibold">{benefit}</p>
+                <p className="text-[14px] md:text-[15px] lg:text-[16px] ml-2 mr-3 font-semibold">
+                  {benefit}
+                </p>
               </div>
             ))}
         </div>
-        <button className="px-9 py-4 lg:px-10 lg:py-5 mt-5 text-[15px] lg:text-[16px] bg-forestgreen rounded font-semibold">
+        <button className="py-4 px-7 md:px-9 md:py-4 lg:px-10 lg:py-5 mt-5 text-[14px] md:text-[15px] lg:text-[16px] bg-forestgreen rounded font-semibold">
           {buttonLabel}
         </button>
       </div>
