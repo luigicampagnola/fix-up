@@ -27,9 +27,11 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        dimgray: "#54595f",
+        dimgray: "#54595F",
         forestgreen: "#539544",
         midnightblue: "#131245",
+        brightgray: "#EEEEEE",
+        platinum: "#E6E6E6"
       },
     },
   },
