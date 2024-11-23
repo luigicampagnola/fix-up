@@ -3,9 +3,11 @@ import { getPage } from "@/utils/api";
 // import DynamicModule from "@/components/dynamic-module";
 import TopBar from "@/components/top-bar";
 import { PageData } from "../components/types";
+import ServicesSection from "@/components/services-section";
+import { workingWithUsCards } from "@/utils/mock-data";
 // import TopSection from "@/components/top-section";
-import OptionSection from "@/components/option-section";
-import { faqs } from "@/utils/mock-data";
+// import OptionSection from "@/components/option-section";
+// import { faqs } from "@/utils/mock-data";
 
 export const revalidate = 60;
 
@@ -21,7 +23,8 @@ export default async function HomePage() {
   // }
 
   // const {title, secondTitle, description, benefits, buttonLabel} = topRoofing; //Uncomment this section to see the TopSection data in its element
-  const {title, secondTitle, topDescription, options, middleDescription, bottomDescription} = faqs;
+  // const {title, secondTitle, topDescription, options, middleDescription, bottomDescription} = faqs;
+  const {title, subtitle, cards} = workingWithUsCards;
 
 
   return (
@@ -35,14 +38,15 @@ export default async function HomePage() {
         benefits={benefits}
         buttonLabel={buttonLabel}
       /> */}
-      <OptionSection
+      {/* <OptionSection
         title={title}
         secondTitle={secondTitle}
         topDescription={topDescription}
         options={options}
         middleDescription={middleDescription}
         bottomDescription={bottomDescription}
-      />
+      /> */}
+      <ServicesSection title={title} subtitle={subtitle} cards={cards} />
       {topBarData && (
         <TopBar
           phoneNumber={topBarData.phoneNumber}
