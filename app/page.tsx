@@ -3,7 +3,11 @@ import { getPage } from "@/utils/api";
 // import DynamicModule from "@/components/dynamic-module";
 import TopBar from "@/components/top-bar";
 import { PageData } from "../components/types";
-import TopSection from "@/components/top-section";
+import ServicesSection from "@/components/services-section";
+import { workingWithUsCards } from "@/utils/mock-data";
+// import TopSection from "@/components/top-section";
+// import OptionSection from "@/components/option-section";
+// import { faqs } from "@/utils/mock-data";
 
 export const revalidate = 60;
 
@@ -18,21 +22,31 @@ export default async function HomePage() {
   //   return <div>Not Found</div>;
   // }
 
-  const benefits = [
-    "Get the Best Value for Your Money",
-    "Enjoy Quick, Efficient Service",
-    "Maintain Your Peace of Mind!",
-  ];
+  // const {title, secondTitle, description, benefits, buttonLabel} = topRoofing; //Uncomment this section to see the TopSection data in its element
+  // const {title, secondTitle, topDescription, options, middleDescription, bottomDescription} = faqs;
+  const {title, subtitle, cards} = workingWithUsCards;
+
 
   return (
     <div>
-      <TopSection
-        title="Top Roofing Services in"
-        secondTitle="Miami for Reliable Repairs!"
-        description="Choose Fix Up Roofing and Construction for reliable roof services that fit your busy schedule and avoid repair headaches."
+      {/* 
+        // Uncomment this section to see the TopSection element 
+        <TopSection
+        title={title}
+        secondTitle={secondTitle}
+        description={description}
         benefits={benefits}
-        buttonLabel="Contact us today!"
-      />
+        buttonLabel={buttonLabel}
+      /> */}
+      {/* <OptionSection
+        title={title}
+        secondTitle={secondTitle}
+        topDescription={topDescription}
+        options={options}
+        middleDescription={middleDescription}
+        bottomDescription={bottomDescription}
+      /> */}
+      <ServicesSection title={title} subtitle={subtitle} cards={cards} />
       {topBarData && (
         <TopBar
           phoneNumber={topBarData.phoneNumber}
