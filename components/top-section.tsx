@@ -21,7 +21,7 @@ export default function TopSection({
 
   return (
     <section className="flex flex-col items-center overflow-hidden relative">
-      <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80 transition-background transition-border-radius transition-opacity duration-300 hover:bg-blue-500 hover:rounded-full hover:opacity-75"></div>
+      <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80 transition-background transition-border-radius transition-opacity hover:opacity-75"></div>
       <div className="basis-10/12 w-10/12 z-10 pt-12 flex flex-col items-center lg:justify-start">
         <h1 className="text-[39px] md:text-[60px] lg:text-[65px] font-bold uppercase leading-none text-center lg:text-left">
           {title}{" "}
