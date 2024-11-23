@@ -55,10 +55,10 @@ export const workingWithUsCards = {
       title: "Residential Roofing:",
       subtitle: "Your Home, Our Priority",
       options: [
-        "Keep your family safe with roofing that's built to withstand Miami's wildest weather.",
-        "Boost your home's value with a sleek, new roof that withstands the test of time.",
-        "Enjoy peace of mind with our expert installation and maintenance—no surprises, just security.",
-        "Save money in the long term with durable materials that minimize repairs.",
+        "- Keep your family safe with roofing that's built to withstand Miami's wildest weather.",
+        "- Boost your home's value with a sleek, new roof that withstands the test of time.",
+        "- Enjoy peace of mind with our expert installation and maintenance—no surprises, just security.",
+        "- Save money in the long term with durable materials that minimize repairs.",
       ],
       link: {
         label: 'learn more',
@@ -74,10 +74,10 @@ export const workingWithUsCards = {
       title: "Commercial Roofing:",
       subtitle: "Protect Your Business",
       options: [
-        "Secure your investment with roofing that meets the highest standards.",
-        "Minimal disruption to your business with fast, efficient service.",
-        "Benefit from roofing that not only protects but also enhances your property's appearance.",
-        "Get a roof that's energy-efficient, cutting costs on utility bills.",
+        "- Secure your investment with roofing that meets the highest standards.",
+        "- Minimal disruption to your business with fast, efficient service.",
+        "- Benefit from roofing that not only protects but also enhances your property's appearance.",
+        "- Get a roof that's energy-efficient, cutting costs on utility bills.",
       ],
       link: {
         label: 'learn more',
@@ -93,10 +93,10 @@ export const workingWithUsCards = {
       title: "Windows and Doors:",
       subtitle: "Style Meets Safety",
       options: [
-        "Enhance your property's curb appeal with modern design options.",
-        "Improve energy efficiency and reduce electric bills with the latest insulation technology.",
-        "Experience increased security with sturdy materials and expert installation.",
-        "Access your home's new look with no money down and low-interest financing.",
+        "- Enhance your property's curb appeal with modern design options.",
+        "- Improve energy efficiency and reduce electric bills with the latest insulation technology.",
+        "- Experience increased security with sturdy materials and expert installation.",
+        "- Access your home's new look with no money down and low-interest financing.",
       ],
       link: {
         label: 'learn more',
@@ -112,10 +112,10 @@ export const workingWithUsCards = {
       title: "Air Conditioning:",
       subtitle: "Cool Comfort Year-Round",
       options: [
-        "Stay cool in Miami’s heat with reliable and efficient air conditioning systems.",
-        "Breathe healthier air with systems that purify as they cool.",
-        "Customize your comfort with options that fit every size and budget.",
-        "Feel the difference with quick installation and maintenance services that keep the chill.",
+        "- Stay cool in Miami’s heat with reliable and efficient air conditioning systems.",
+        "- Breathe healthier air with systems that purify as they cool.",
+        "- Customize your comfort with options that fit every size and budget.",
+        "- Feel the difference with quick installation and maintenance services that keep the chill.",
       ],
       link: {
         label: "learn more",
@@ -131,9 +131,9 @@ export const workingWithUsCards = {
       title: "Solar Panels:",
       subtitle: "Invest in Your Energy Independence",
       options: [
-        "Watch your utility bills drop thanks to Miami's abundant sunshine.",
-        "Make a smart investment with solar panels that pay for themselves over time.",
-        "ake advantage of tax incentives and PACE financing for affordable upgrades."
+        "- Watch your utility bills drop thanks to Miami's abundant sunshine.",
+        "- Make a smart investment with solar panels that pay for themselves over time.",
+        "- Make advantage of tax incentives and PACE financing for affordable upgrades."
       ],
       link: {
         label: "learn more",

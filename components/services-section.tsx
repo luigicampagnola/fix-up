@@ -14,10 +14,10 @@ export default function ServicesSection({
   return (
     <div className="flex flex-col items-center overflow-hidden relative">
       <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80" />
-      <div className="basis-10/12 w-10/12 z-10 pt-12 flex flex-col items-center lg:justify-start">
+      <div className="basis-11/12 w-11/12 md:basis-10/12 md:w-10/12 z-10 pt-12 flex flex-col items-center lg:justify-start">
         <div className="flex flex-col items-center">
-          <h1 className="">
-            {title} <span className="text-forestgreen">{subtitle}</span>
+          <h1 className="font-bold text-[30px] md:text-[50px] leading-none uppercase text-center pt-[50px] pb-[30px]">
+            {title} <span className="text-forestgreen md:block">{subtitle}</span>
           </h1>
           {cards.map((card, index) => {
             const { name, image, options, title, subtitle, link } = card;
