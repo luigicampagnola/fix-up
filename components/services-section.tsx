@@ -1,10 +1,5 @@
-import CardWidget, { CardWidgetProps } from "./card-widget";
-
-export type ServicesSectionProps = {
-  title: string;
-  subtitle: string;
-  cards: CardWidgetProps[];
-};
+import { ServicesSectionProps } from "./types";
+import CardWidget from "./card-widget";
 
 export default function ServicesSection({
   title,
@@ -23,12 +18,14 @@ export default function ServicesSection({
           <div className="flex flex-wrap overflow-hidden">
             {cards.map((card, index) => {
               const { name, image, options, title, subtitle, link } = card;
+              const formattedOptions = options.map((option) => option.option);
+
               return (
                 <CardWidget
                   key={`${title}-${index}`}
                   name={name}
                   image={image}
-                  options={options}
+                  options={formattedOptions}
                   title={title}
                   subtitle={subtitle}
                   link={link}

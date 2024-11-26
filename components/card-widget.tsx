@@ -43,7 +43,10 @@ export default function CardWidget({
           </h3>
           <ul className="font-medium pb-[20px]">
             {options.map((option, index) => (
-              <li key={`${name}-${index}`} className="text-[15px] md:text-[14px] text-black">
+              <li
+                key={`${name}-${index}`}
+                className="text-[15px] md:text-[14px] text-black"
+              >
                 {option}
               </li>
             ))}

@@ -1,35 +1,32 @@
-// components/DynamicModule.tsx
 import { Hero } from "./hero";
+import NavBar from "./nav-bar";
+import ServicesSection from "./services-section";
+import { TopBar } from "./top-bar";
+import { ModuleData } from "./types";
 
-interface ModuleData {
-  __component: string;
-  id: number;
-  title?: string;
-}
-
-
-const moduleComponents: { [key: string]: React.ComponentType<ModuleData> } = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const moduleComponents: { [key: string]: React.ComponentType<any> } = {
   "shared.hero": Hero,
+  "shared.top-bar": TopBar,
+  "shared.nav-bar": NavBar,
+  "shared.card-container": ServicesSection,
 };
-
 
 interface DynamicModuleProps {
   moduleData: ModuleData;
 }
 
 const DynamicModule = ({ moduleData }: DynamicModuleProps) => {
-  console.log(moduleData, '<---- Module Data');
-
   const ModuleComponent = moduleComponents[moduleData.__component];
-
-  console.log(ModuleComponent, 'Module Component');
 
   if (!ModuleComponent) {
     console.warn(`No component found for type ${moduleData.__component}`);
     return null;
   }
 
-  return <ModuleComponent {...moduleData} />;
+  const props = { ...moduleData };
+  console.log(props, "props");
+  return <ModuleComponent {...props} />;
 };
 
 export default DynamicModule;

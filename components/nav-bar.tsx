@@ -1,11 +1,25 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FaBars, FaChevronDown, FaPlus } from "react-icons/fa";
 
-export default function NavBar() {
+interface NavBarProps {
+  locations: { id: number; label: string }[];
+  financing: { id: number; label: string; href: string; target: string | null };
+  projects: { id: number; label: string; href: string; target: string | null };
+  aboutUs: { id: number; label: string; href: string; target: string | null };
+  blog: { id: number; label: string; href: string; target: string | null };
+  freeEstimates: {
+    id: number;
+    label: string;
+    href: string;
+    target: string | null;
+  };
+}
+
+export default function NavBar({ financing }: NavBarProps) {
   const linkStyle =
     "text-[16px] text-dimgray py-[18px] px-[16px] mx-1 font-semibold uppercase rounded transition-all ease-in delay-100 hover:text-white hover:bg-midnightblue";
   const [openMenu, setOpenMenu] = useState(false);
@@ -47,9 +61,14 @@ export default function NavBar() {
           </Link>
         </div>
         <div className="free-estimate flex items-center">
-          <button className="bg-midnightblue block xl:hidden py-[7px] px-[5px] md:mr-6 rounded hover:bg-dimgray" onClick={() => setOpenMenu(!openMenu)}>
-            <FaBars className={`${openMenu ? 'hidden' : 'block'} w-6 h-5`} />
-            <FaPlus className={`${openMenu ? 'block' : 'hidden'} rotate-45 w-6 h-5`} />
+          <button
+            className="bg-midnightblue block xl:hidden py-[7px] px-[5px] md:mr-6 rounded hover:bg-dimgray"
+            onClick={() => setOpenMenu(!openMenu)}
+          >
+            <FaBars className={`${openMenu ? "hidden" : "block"} w-6 h-5`} />
+            <FaPlus
+              className={`${openMenu ? "block" : "hidden"} rotate-45 w-6 h-5`}
+            />
           </button>
           <Link
             href={"/estimates"}
@@ -59,33 +78,56 @@ export default function NavBar() {
           </Link>
         </div>
       </div>
-      <div className={`mobile-menu w-full transition-all ease-in-out duration-75 flex xl:hidden bg-midnightblue flex-col ${openMenu ? 'flex xl:hidden' : 'hidden'}`}>
-          <Link href={"/about"} className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen">
-            About Us
-          </Link>
-          <div className={`services-dropdown uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen focus:bg-forestgreen`}>
-            <Link href={"/services"} className="flex items-center">
-              Services <FaChevronDown className="text-xs ml-2" />
-            </Link>
-          </div>
-          <div className={`location-dropdown uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen focus:bg-forestgreen`}>
-            <Link href={"/services"} className="flex items-center">
-              Services <FaChevronDown className="text-xs ml-2" />
-            </Link>
-          </div>
-          <Link href={"/financing"} className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen">
-            Financing
-          </Link>
-          <Link href={"/projects"} className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen">
-            Projects
-          </Link>
-          <Link href={"/blog"} className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white md:border-none font-medium hover:bg-forestgreen">
-            Blog
-          </Link>
-          <Link href={"/estimates"} className="block md:hidden uppercase text-[15px] px-10 py-[10px] font-medium hover:bg-forestgreen">
-            Free Estimates
+      <div
+        className={`mobile-menu w-full transition-all ease-in-out duration-75 flex xl:hidden bg-midnightblue flex-col ${
+          openMenu ? "flex xl:hidden" : "hidden"
+        }`}
+      >
+        <Link
+          href={"/about"}
+          className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen"
+        >
+          About Us
+        </Link>
+        <div
+          className={`services-dropdown uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen focus:bg-forestgreen`}
+        >
+          <Link href={"/services"} className="flex items-center">
+            Services <FaChevronDown className="text-xs ml-2" />
           </Link>
         </div>
+        <div
+          className={`location-dropdown uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen focus:bg-forestgreen`}
+        >
+          <Link href={"/services"} className="flex items-center">
+            Services <FaChevronDown className="text-xs ml-2" />
+          </Link>
+        </div>
+        <Link
+          href={"/financing"}
+          className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen"
+        >
+          {financing?.label}
+        </Link>
+        <Link
+          href={"/projects"}
+          className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen"
+        >
+          Projects
+        </Link>
+        <Link
+          href={"/blog"}
+          className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white md:border-none font-medium hover:bg-forestgreen"
+        >
+          Blog
+        </Link>
+        <Link
+          href={"/estimates"}
+          className="block md:hidden uppercase text-[15px] px-10 py-[10px] font-medium hover:bg-forestgreen"
+        >
+          Free Estimates
+        </Link>
+      </div>
     </nav>
   );
 }
