@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'amazing-fireworks-dd56623770.strapiapp.com'
+      }
     ],
   },
 };

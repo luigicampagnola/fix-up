@@ -4,13 +4,17 @@ export type ServicesSectionProps = {
   title: string;
   subtitle: string;
   cards: CardWidgetProps[];
+  pageSlug: unknown;
 };
 
 export default function ServicesSection({
   title,
   subtitle,
   cards,
+  pageSlug
 }: ServicesSectionProps) {
+
+  console.log('=========>', pageSlug)
   return (
     <div className="flex flex-col items-center overflow-hidden relative">
       <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80" />
