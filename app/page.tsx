@@ -50,7 +50,7 @@ export default async function HomePage() {
         middleDescription={middleDescription}
         bottomDescription={bottomDescription}
       /> */}
-      <ServicesSection title={title} subtitle={subtitle} cards={cards} pageSlug={pageSlug} />
+      <ServicesSection title={title} subtitle={subtitle} cards={cards} />
       {/* {topBarData && (
         <TopBar
           phoneNumber={topBarData.phoneNumber}

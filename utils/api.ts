@@ -24,5 +24,5 @@ export async function getSlug(page: string, slug: string) {
 
   const jsonData = await res.json();
 
-  return jsonData;
+  return jsonData.data[0];
 }

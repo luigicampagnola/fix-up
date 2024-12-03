@@ -1,20 +1,19 @@
 import CardWidget, { CardWidgetProps } from "./card-widget";
 
 export type ServicesSectionProps = {
-  title: string;
-  subtitle: string;
-  cards: CardWidgetProps[];
-  pageSlug: unknown;
+  title?: string;
+  subtitle?: string;
+  cards?: CardWidgetProps[];
 };
 
 export default function ServicesSection({
   title,
   subtitle,
   cards,
-  pageSlug
 }: ServicesSectionProps) {
+  
+  console.log('=========>', cards);
 
-  console.log('=========>', pageSlug)
   return (
     <div className="flex flex-col items-center overflow-hidden relative">
       <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80" />
@@ -25,7 +24,7 @@ export default function ServicesSection({
             <span className="text-forestgreen md:block">{subtitle}</span>
           </h1>
           <div className="flex flex-wrap overflow-hidden">
-            {cards.map((card, index) => {
+            {cards && cards.map((card, index) => {
               const { name, image, options, title, subtitle, link } = card;
               return (
                 <CardWidget

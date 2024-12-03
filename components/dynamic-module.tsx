@@ -1,15 +1,26 @@
 // components/DynamicModule.tsx
-import { Hero } from "./hero";
+import { CardWidgetProps } from "./card-widget";
+import ServicesSection from "./services-section";
+// import ServicesSection from "./services-section";
+import TopSection from "./top-section";
+import { ScrollTo, TextList } from "./types";
 
 interface ModuleData {
   __component: string;
   id: number;
   title?: string;
+  subtitle?: string;
+  cards?: CardWidgetProps[];
+  secondTitle?: string;
+  description?: string;
+  benefits?: TextList[];
+  button?: ScrollTo;
 }
 
 
 const moduleComponents: { [key: string]: React.ComponentType<ModuleData> } = {
-  "shared.hero": Hero,
+  "shared.top-section": TopSection,
+  "shared.services": ServicesSection,
 };
 
 
@@ -18,11 +29,9 @@ interface DynamicModuleProps {
 }
 
 const DynamicModule = ({ moduleData }: DynamicModuleProps) => {
-  console.log(moduleData, '<---- Module Data');
-
   const ModuleComponent = moduleComponents[moduleData.__component];
 
-  console.log(ModuleComponent, 'Module Component');
+  // console.log(ModuleComponent, 'Module Component');
 
   if (!ModuleComponent) {
     console.warn(`No component found for type ${moduleData.__component}`);

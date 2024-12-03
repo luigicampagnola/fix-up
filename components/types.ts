@@ -29,3 +29,22 @@ export interface PhoneNumber {
 export interface PageData {
   modules: ModuleData[];
 }
+
+export interface ScrollTo {
+  label: string;
+  cssSelector: string;
+}
+
+export interface TextList {
+  values: string
+}
+
+export interface LinkData {
+  label: string;
+  url: string;
+}
+
+export interface ImageData {
+  alt: string;
+  src: string;
+}
