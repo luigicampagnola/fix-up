@@ -9,10 +9,8 @@ export type ServicesSectionProps = {
 export default function ServicesSection({
   title,
   subtitle,
-  cards,
+  cards, // cards had issues with strapi right now
 }: ServicesSectionProps) {
-  
-  console.log('=========>', cards);
 
   return (
     <div className="flex flex-col items-center overflow-hidden relative">

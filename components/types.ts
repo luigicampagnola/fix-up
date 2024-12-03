@@ -48,3 +48,8 @@ export interface ImageData {
   alt: string;
   src: string;
 }
+
+export interface Options {
+  label: string;
+  description?: string;
+}
