@@ -21,7 +21,7 @@ export default function ServicesSection({
             {title}{" "}
             <span className="text-forestgreen md:block">{subtitle}</span>
           </h1>
-          <div className="flex flex-wrap overflow-hidden">
+          <div className="flex flex-wrap overflow-hidden lg:justify-center">
             {cards && cards.map((card, index) => {
               const { name, image, options, title, subtitle, link } = card;
               return (
