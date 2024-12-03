@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'custom-forestgreen': '-10px 10px 0px #539544',
+      },
       spacing: { "custom-width": "calc(300% + 1.3px)" },
       keyframes: {
         fill: {

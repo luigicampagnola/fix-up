@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    domains: ['localhost'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -12,6 +13,10 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'amazing-fireworks-dd56623770.strapiapp.com'
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost:1337'
       }
     ],
   },
