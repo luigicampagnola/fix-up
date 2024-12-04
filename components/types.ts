@@ -53,3 +53,21 @@ export interface Options {
   label: string;
   description?: string;
 }
+
+export interface LinksList {
+  title: string;
+  links: LinkData[];
+}
+
+export interface LinksSocialMedia {
+  yelp?: string;
+  googlePlus?: string;
+  facebook?: string;
+}
+
+export interface LinksContact {
+  hashtag?: string;
+  phoneNumber?: PhoneNumber;
+  email?: Email;
+  address?: string;
+}
