@@ -1,10 +1,11 @@
 // components/DynamicModule.tsx
 import { CardWidgetProps } from "./card-widget";
+import InformationSection from "./information-section";
 import OptionSection from "./option-section";
 import OptionSection2 from "./option-section2";
 import ServicesSection from "./services-section";
 import TopSection from "./top-section";
-import { Options, ScrollTo, TextList } from "./types";
+import { Options, Rates, ScrollTo, TextList } from "./types";
 
 interface ModuleData {
   __component: string;
@@ -22,6 +23,7 @@ interface ModuleData {
   bottomDescription?: string;
   descriptionWithLink?: string;
   image?: {url: string};
+  rates?: Rates;
 }
 
 
@@ -29,7 +31,8 @@ const moduleComponents: { [key: string]: React.ComponentType<ModuleData> } = {
   "shared.top-section": TopSection,
   "shared.services": ServicesSection,
   "shared.options-section": OptionSection,
-  "shared.option-section2": OptionSection2
+  "shared.option-section2": OptionSection2,
+  "shared.information-section": InformationSection
 };
 
 

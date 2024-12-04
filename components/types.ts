@@ -71,3 +71,17 @@ export interface LinksContact {
   email?: Email;
   address?: string;
 }
+
+export interface Rates {
+  label: string;
+  subLabel: string;
+  googleLogo: {url: string};
+  comments: Comment[];
+}
+
+export interface Comment {
+    name: string;
+    date: string;
+    comment: string;
+    rate: number;
+}

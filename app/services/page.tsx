@@ -5,9 +5,7 @@ import { getSlug } from "@/utils/api";
 export const revalidate = 60;
 
 export default async function Services() {
-  const pageData: PageData | null = await getSlug('services', 'air-conditioning')
-
-  console.log('============>x', pageData?.modules);
+  const pageData: PageData | null = await getSlug('services', 'commercial-roofing')
 
   return (
     <div>
