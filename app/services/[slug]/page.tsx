@@ -1,8 +1,6 @@
 import DynamicModule from "@/components/dynamic-module";
 import { PageData } from "@/components/types";
-import { getSlug } from "@/utils/api";
-
-export const revalidate = 60;                                          
+import { getSlug } from "@/utils/api";                                       
 
 export default async function ServicesSlug({params} : {params: Promise<{slug: string}>}) {
   const slug = (await params).slug;

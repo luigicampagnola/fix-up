@@ -1,21 +1,19 @@
 // app/page.tsx (para App Router) o pages/index.tsx (para Pages Router)
-import { getSlug } from "@/utils/api";
+import { getPage } from "@/utils/api";
+import { PageData } from "../components/types";
+import { workingWithUsCards } from "@/utils/mock-data";
+import ServicesSection from "@/components/services-section";
 // import DynamicModule from "@/components/dynamic-module";
 // import TopBar from "@/components/top-bar";
-// import { PageData } from "../components/types";
-import ServicesSection from "@/components/services-section";
-import { workingWithUsCards } from "@/utils/mock-data";
-// import TopSection from "@/components/top-section";
-// import OptionSection from "@/components/option-section";
 // import { faqs } from "@/utils/mock-data";
 
 export const revalidate = 60;
 
 export default async function HomePage() {
-  //const pageData = await getPage('home');
-  const pageSlug = await getSlug('services', 'air-conditioning')
+  const pageData: PageData | null = await getPage('home');
+  //const pageSlug = await getSlug('services', 'air-conditioning')
 
-  console.log('============>', pageSlug);
+  console.log('HOME:', pageData);
 
 
   // const topBarData = pageData?.modules.find(
