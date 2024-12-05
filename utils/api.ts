@@ -4,8 +4,8 @@ import configs from '../environment.configs';
 
 const { STRAPI_URL } = configs.development;
 
-export async function getPage(name: string) {
-  const res = await fetch(`${STRAPI_URL}${name}`);
+export async function getPage(page: string) {
+  const res = await fetch(`${STRAPI_URL}${page}?populate[modules][populate]=*`);
 
   // const res = await fetch(`${STRAPI_API_URL}pages?filters[slug][$eq]=${slug}&populate[modules][populate]=*`);
   if (!res.ok) {
