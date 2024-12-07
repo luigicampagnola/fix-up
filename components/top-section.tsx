@@ -1,21 +1,22 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { ScrollTo, TextList } from "./types";
 
 type Props = {
-  title: string;
-  secondTitle: string;
+  title?: string;
+  subtitle?: string;
   description?: string;
-  benefits?: string[];
-  buttonLabel?: string;
+  benefits?: TextList[];
+  button?: ScrollTo;
 };
 
 export default function TopSection({
   title,
-  secondTitle,
+  subtitle,
   description,
   benefits,
-  buttonLabel,
+  button,
 }: Props) {
   const pathName = usePathname();
 
@@ -25,7 +26,7 @@ export default function TopSection({
       <div className="basis-10/12 w-10/12 z-10 pt-12 flex flex-col items-center lg:justify-start">
         <h1 className="text-[39px] md:text-[60px] lg:text-[65px] font-bold uppercase leading-none text-center lg:text-left">
           {title}{" "}
-          <span className="text-forestgreen lg:block">{secondTitle}</span>
+          <span className="text-forestgreen lg:block">{subtitle}</span>
         </h1>
         <p className="text-[14px] md:text-[15px] text-center lg:text-left lg:text-[16px] pt-[30px] pb-[14px]">
           {description}
@@ -36,13 +37,13 @@ export default function TopSection({
               <div key={`${pathName}-${index}`} className="flex items-center">
                 <FaRegCheckCircle className="text-forestgreen text-[25px]" />{" "}
                 <p className="text-[14px] md:text-[15px] lg:text-[16px] ml-2 mr-3 font-semibold">
-                  {benefit}
+                  {benefit.values}
                 </p>
               </div>
             ))}
         </div>
         <button className="py-4 px-7 md:px-9 md:py-4 lg:px-10 lg:py-5 mt-5 text-[14px] md:text-[15px] lg:text-[16px] bg-forestgreen rounded font-semibold">
-          {buttonLabel}
+          {button?.label}
         </button>
       </div>
       <div className="rotate-180 overflow-hidden left-0 w-full">

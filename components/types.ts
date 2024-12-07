@@ -29,3 +29,59 @@ export interface PhoneNumber {
 export interface PageData {
   modules: ModuleData[];
 }
+
+export interface ScrollTo {
+  label: string;
+  cssSelector: string;
+}
+
+export interface TextList {
+  values: string
+}
+
+export interface LinkData {
+  label: string;
+  url: string;
+}
+
+export interface ImageData {
+  alt: string;
+  src: string;
+}
+
+export interface Options {
+  label: string;
+  description?: string;
+}
+
+export interface LinksList {
+  title: string;
+  links: LinkData[];
+}
+
+export interface LinksSocialMedia {
+  yelp?: string;
+  googlePlus?: string;
+  facebook?: string;
+}
+
+export interface LinksContact {
+  hashtag?: string;
+  phoneNumber?: PhoneNumber;
+  email?: Email;
+  address?: string;
+}
+
+export interface Rates {
+  label: string;
+  subLabel: string;
+  googleLogo: {url: string};
+  comments: Comment[];
+}
+
+export interface Comment {
+    name: string;
+    date: string;
+    comment: string;
+    rate: number;
+}

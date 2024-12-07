@@ -13,7 +13,6 @@ interface TopBarProps {
 
 export const TopBar = ({ phoneNumber, email, address, facebook }: TopBarProps) => {
 
-  console.log(email, 'phoneNumber')
   return (
     <div className="bg-midnightblue text-white text-sm py-2 px-4 flex justify-between items-center">
       {/* Contact Information */}

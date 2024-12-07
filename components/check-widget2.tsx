@@ -5,10 +5,10 @@ type Props = {
   description?: string;
 };
 
-export default function CheckWidget({ label, description }: Props) {
+export default function CheckWidget2({ label, description }: Props) {
   return (
-    <div className="w-full basis-full lg:w-1/2 lg:basis-1/2">
-      <div className="bg-brightgray rounded-[20px] p-[20px] m-[10px] flex flex-col lg:flex-row lg:justify-start items-center lg:items-start">
+    <div className="w-full basis-full">
+      <div className="bg-brightgray rounded-[20px] pt-[20px] px-[20px] pb-[10px] my-[10px] flex flex-col lg:flex-row lg:justify-start items-center lg:items-start">
         <div className="mb-[15px] lg:mb-0 lg:mr-[10px]">
           <FaRegCheckCircle className="text-forestgreen text-[50px]" />
         </div>
