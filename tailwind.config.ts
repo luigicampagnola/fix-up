@@ -34,7 +34,9 @@ export default {
         forestgreen: "#539544",
         midnightblue: "#131245",
         brightgray: "#EEEEEE",
-        platinum: "#E6E6E6"
+        platinum: "#E6E6E6",
+        chinesesilver: '#CCCCCC',
+        antiflaswhite: '#F2F1F2'
       },
     },
   },

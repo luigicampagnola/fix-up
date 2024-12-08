@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'cdn-ilbgjlh.nitrocdn.com',
+        pathname: '/**'
+      },
+      {
+        protocol: 'https',
         hostname: 'amazing-fireworks-dd56623770.strapiapp.com'
       },
       {
