@@ -4,7 +4,7 @@ export type CardWidgetProps = {
   name: string;
   image: {
     alt: string;
-    src: string;
+    url: string;
   };
   title: string;
   subtitle: string;
@@ -23,7 +23,9 @@ export default function CardWidget({
   options,
   link,
 }: CardWidgetProps) {
-  const { alt, src } = image;
+  const { alt, url } = image;
+
+  console.log(alt, 'src')
 
   return (
     <div className="box-widget lg:w-4/12 lg:basis-4/12 flex flex-col">
@@ -31,7 +33,7 @@ export default function CardWidget({
         <div className="">
           <Image
             className="rounded-lg"
-            src={src}
+            src={url}
             alt={alt}
             width={1000}
             height={750}

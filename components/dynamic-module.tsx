@@ -20,12 +20,12 @@ const DynamicModule = ({ moduleData }: DynamicModuleProps) => {
   const ModuleComponent = moduleComponents[moduleData.__component];
 
   if (!ModuleComponent) {
-    console.warn(`No component found for type ${moduleData.__component}`);
+    // console.warn(`No component found for type ${moduleData.__component}`);
     return null;
   }
 
   const props = { ...moduleData };
-  console.log(props, "props");
+  // console.log(props, "props");
   return <ModuleComponent {...props} />;
 };
 
