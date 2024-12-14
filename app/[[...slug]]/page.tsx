@@ -1,21 +1,54 @@
-import DynamicModule from "@/components/dynamic-module";
-import { PageData } from "@/components/types";
 import { getPage } from "@/utils/api";
+import DynamicModule from "@/components/dynamic-module";
+import { notFound } from "next/navigation";
+import { ModuleData } from "@/components/types";
+import { Key } from "react";
 
-export default async function ServicesSlug({params} : {params: Promise<{slug: string}>}) {
-  const slug = (await params).slug;
-  const page = slug[slug.length - 1];
-  const pageData: PageData | null = await getPage(page);
+interface PageProps {
+  params: { slug?: string }; // Define explícitamente el tipo de params
+}
 
-  if(!pageData) {
-    return <section className="flex justify-center h-lvh items-center" >
-      <div className="text-forestgreen uppercase font-bold text-[50px]"><span className="text-white">404 |</span> page not found.</div>
-    </section>;
+export default async function DynamicPage({ params }: PageProps) {
+  const slug = '/' + (params?.slug?.toString()?.replace(/,/g, '/') || ''); // Usar "home" como predeterminado para la raíz
+
+  console.log(slug)
+  const pageData = await getPage(slug);
+
+
+  console.log(pageData)
+
+  if (!pageData) {
+    notFound(); // Muestra una página 404 si no se encuentra la data
   }
 
   return (
     <div>
-      {pageData && pageData.modules.map((module, index) => <DynamicModule key={`${slug[0]}module-${index}`} moduleData={module} />)}
+      <h1>Home Page</h1>
+      {pageData.modules.map((module: ModuleData, index: Key | null | undefined) => (
+        <DynamicModule key={index} moduleData={module} />
+      ))}
     </div>
   );
 }
+
+
+// export async function generateStaticParams() {
+//   try {
+//     const res = await fetch(`http://localhost:1337/api/pages?fields=slug`);
+//     const data = await res.json();
+
+//     if (!data || !data.data) {
+//       console.error("No data returned or incorrect structure:", data);
+//       return [];
+//     }
+
+//     return data.data.map((page: { slug: string }) => {
+//       const slug = page.slug === "/" ? "" : page.slug; // Manejar el caso especial de "/"
+//       console.log(slug, "slug from generateStaticParams");
+//       return { slug };
+//     });
+//   } catch (error) {
+//     console.error("Error fetching slugs:", error);
+//     return [];
+//   }
+// }
