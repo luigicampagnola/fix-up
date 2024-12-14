@@ -29,18 +29,18 @@ export default function LinksSection({ logo, links, contact, social }: Props) {
         )}
         {contact && (
           <div className="flex flex-col">
-            <div className="flex items-center space-x-1">
+            <a href={`tel:${contact.phoneNumber?.href}`} className="flex items-center space-x-1">
               <FaPhone />
               <span>{contact.phoneNumber?.label}</span>
-            </div>
-            <div className="flex items-center space-x-1">
+            </a>
+            <a href={`mailto:${contact.email?.emailHref}`} className="flex items-center space-x-1">
               <FaEnvelope />
               <span>{contact.email?.label}</span>
-            </div>
-            <div className="flex items-center space-x-1">
+            </a>
+            <a href={contact.address?.href} className="flex items-center space-x-1">
               <FaMapMarkerAlt />
-              <span>{contact.address}</span>
-            </div>
+              <span>{contact.address?.label}</span>
+            </a>
           </div>
         )}
         {social && (

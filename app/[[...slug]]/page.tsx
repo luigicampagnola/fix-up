@@ -6,7 +6,7 @@ import { informationData } from "@/utils/mock-data";
 
 export default async function ServicesSlug({params} : {params: Promise<{slug: string}>}) {
   const slug = (await params).slug;
-  const page = slug[slug.length - 1];
+  const page = slug && slug[slug.length - 1];
   const pageData: PageData | null = await getPage(page);
 
   // if(!pageData) {

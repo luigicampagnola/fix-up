@@ -33,7 +33,7 @@ export default function GoogleRate({ rates }: Props) {
       <p className="text-[14px]">{subLabel}</p>
       <div className="flex justify-between pt-[10px] pb-[15px]">
         <Image
-          className=""
+          className="w-[90px] h-[30px]]"
           src={googleLogo.url}
           alt="google-logo"
           width={90}
