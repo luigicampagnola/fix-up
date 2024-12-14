@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ImageData, LinkData } from "./types";
 
 export type CardWidgetProps = {
   name: string;

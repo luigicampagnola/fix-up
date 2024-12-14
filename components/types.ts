@@ -44,43 +44,58 @@ export interface PageData {
   modules: ModuleData[];
 }
 
-// Interface para Link
-export interface Link {
-  id: number;
+export interface ScrollTo {
+  label: string;
+  cssSelector: string;
+}
+
+export interface TextList {
+  values: string
+}
+
+export interface LinkData {
   label: string;
   url: string;
 }
 
-// Interface para Image
-export interface Image {
-  id: number;
+export interface ImageData {
   alt: string;
-  src?: string;
+  src: string;
 }
 
-// Interface para Option dentro de Cards
-export interface Option {
-  id: number;
-  option: string;
+export interface Options {
+  label: string;
+  description?: string;
 }
 
-export interface CardWidgetProps {
-  name: string;
-  image: {
-    alt: string;
-    src: string;
-  };
+export interface LinksList {
   title: string;
-  subtitle: string;
-  options: Option[]; // Arreglo de objetos con "id" y "option"
-  link?: {
-    label: string;
-    url: string;
-  };
+  links: LinkData[];
 }
 
-export interface ServicesSectionProps {
-  title: string;
-  subtitle: string;
-  cards: CardWidgetProps[];
+export interface LinksSocialMedia {
+  yelp?: string;
+  googlePlus?: string;
+  facebook?: string;
+}
+
+export interface LinksContact {
+  hashtag?: string;
+  phoneNumber?: PhoneNumber;
+  email?: Email;
+  address?: string;
+}
+
+export interface Rates {
+  label: string;
+  subLabel: string;
+  googleLogo: {url: string};
+  comments: Comment[];
+}
+
+export interface Comment {
+    name: string;
+    date: string;
+    comment: string;
+    rate: number;
 }

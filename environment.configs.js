@@ -1,7 +1,7 @@
 
 const configs = {
   development: {
-    STRAPI_API_URL: 'http://localhost:1337/api/'
+    STRAPI_URL: process.env.STRAPI_URL
   }
 }
 
