@@ -15,6 +15,11 @@ export interface Email {
   target: string;
 }
 
+export interface Address {
+  label: string;
+  href: string;
+}
+
 export interface Facebook { 
   label: string;
   href: string;
@@ -69,7 +74,7 @@ export interface LinksContact {
   hashtag?: string;
   phoneNumber?: PhoneNumber;
   email?: Email;
-  address?: string;
+  address?: Address;
 }
 
 export interface Rates {
