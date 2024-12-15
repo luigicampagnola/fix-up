@@ -200,6 +200,18 @@ export const linkSection = {
   ],
 };
 
+export const bottomBarSection = {
+  createdby: {
+    label: 'Website Created By VEC Tech',
+    url: '/'
+  },
+  privacypolicy: {
+    label: 'Privacy Policy',
+    url: '/privacy-policy'
+  },
+  copyright: 'Copyright © 2024 Fix Up Roofing - All Rights Reserved.'
+}
+
 export const informationData = {
   title: "Here's Our Cool",
   subtitle: "Commitment to You...",
