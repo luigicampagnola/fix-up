@@ -6,9 +6,9 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: "fixuproofing.com",
+        hostname: 'cdn-ilbgjlh.nitrocdn.com',
         port: '',
-        pathname: "/wp-content/uploads/**",
+        pathname: '/**',
       },
       {
         protocol: 'https',

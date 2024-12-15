@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
-// import NavBar from "@/components/nav-bar";
+import NavBar from "@/components/nav-bar";
 import { Poppins } from "next/font/google";
 // import TopBar from "@/components/top-bar";
 
 export const metadata: Metadata = {
   title: "Best Roofing and Construction Services | Fix Up Roofing",
-  description:
-    "Choose Miami's top Best Roofing & Construction Company! Affordable, quick, and reliable solutions for your home or business.",
+  description: "Choose Miami's top Best Roofing & Construction Company! Affordable, quick, and reliable solutions for your home or business.",
 };
 
 const poppins = Poppins({
@@ -24,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.className}>
       <body>
-        {/* <NavBar /> */}
+        <NavBar />
         {children}
       </body>
     </html>

@@ -1,16 +1,40 @@
-import { Hero } from "./hero";
-import NavBar from "./nav-bar";
+// components/DynamicModule.tsx
+import { CardWidgetProps } from "./card-widget";
+import InformationSection from "./information-section";
+import OptionSection from "./option-section";
+import OptionSection2 from "./option-section2";
 import ServicesSection from "./services-section";
-import { TopBar } from "./top-bar";
-import { ModuleData } from "./types";
+import TopSection from "./top-section";
+import { Options, Rates, ScrollTo, TextList } from "./types";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const moduleComponents: { [key: string]: React.ComponentType<any> } = {
-  "shared.hero": Hero,
-  "shared.top-bar": TopBar,
-  "shared.nav-bar": NavBar,
-  "shared.card-container": ServicesSection,
+interface ModuleData {
+  __component: string;
+  id: number;
+  title?: string;
+  subtitle?: string;
+  cards?: CardWidgetProps[];
+  secondTitle?: string;
+  description?: string;
+  benefits?: TextList[];
+  button?: ScrollTo;
+  topDescription?: string;
+  options?: Options[];
+  middleDescription?: string;
+  bottomDescription?: string;
+  descriptionWithLink?: string;
+  image?: {url: string};
+  rates?: Rates;
+}
+
+
+const moduleComponents: { [key: string]: React.ComponentType<ModuleData> } = {
+  "shared.top-section": TopSection,
+  "shared.services": ServicesSection,
+  "shared.options-section": OptionSection,
+  "shared.option-section2": OptionSection2,
+  "shared.information-section": InformationSection
 };
+
 
 interface DynamicModuleProps {
   moduleData: ModuleData;
@@ -19,14 +43,14 @@ interface DynamicModuleProps {
 const DynamicModule = ({ moduleData }: DynamicModuleProps) => {
   const ModuleComponent = moduleComponents[moduleData.__component];
 
+  // console.log(ModuleComponent, 'Module Component');
+
   if (!ModuleComponent) {
-    // console.warn(`No component found for type ${moduleData.__component}`);
+    console.warn(`No component found for type ${moduleData.__component}`);
     return null;
   }
 
-  const props = { ...moduleData };
-  // console.log(props, "props");
-  return <ModuleComponent {...props} />;
+  return <ModuleComponent {...moduleData} />;
 };
 
 export default DynamicModule;

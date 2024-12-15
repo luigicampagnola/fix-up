@@ -1,35 +1,22 @@
-export interface BaseModule {
-  __component: string; // Identificador del componente
-  id: number; // ID común para todos los módulos
+// types.ts
+export interface ModuleData {
+  __component: string;
+  id: number;
+  title?: string;
+  phoneNumber?: PhoneNumber;
+  email?: Email;
+  address?: string;
+  facebook?: Facebook;
 }
 
-// Tipo específico para el componente Hero
-export interface HeroModule extends BaseModule {
-  __component: "shared.hero";
-  title: string;
-}
-
-// Tipo específico para el componente TopBar
-export interface TopBarModule extends BaseModule {
-  __component: "shared.top-bar";
-  phoneNumber: PhoneNumber;
-  email: Email;
-  address: string;
-  facebook: Facebook;
-}
-
-// Tipo para todas las posibles estructuras de módulos
-export type ModuleData = HeroModule | TopBarModule;
-
-// Subtipos para datos específicos usados en los módulos
-export interface Email {
+export interface Email { 
   label: string;
   emailHref: string;
   target: string;
 }
 
-export interface Facebook {
-  label: string | null;
+export interface Facebook { 
+  label: string;
   href: string;
   target: string;
 }
@@ -39,7 +26,6 @@ export interface PhoneNumber {
   href: string;
 }
 
-// Tipo para toda la página
 export interface PageData {
   modules: ModuleData[];
 }
