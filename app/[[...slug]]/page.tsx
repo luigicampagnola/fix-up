@@ -1,26 +1,32 @@
-import DynamicModule from "@/components/dynamic-module";
-import InformationSection from "@/components/information-section";
-import { PageData } from "@/components/types";
 import { getPage } from "@/utils/api";
-import { informationData } from "@/utils/mock-data";
+import DynamicModule from "@/components/dynamic-module";
+import { notFound } from "next/navigation";
+import { ModuleData } from "@/components/types";
+import { Key } from "react";
 
-export default async function ServicesSlug({params} : {params: Promise<{slug: string}>}) {
-  const slug = (await params).slug;
-  const page = slug && slug[slug.length - 1];
-  const pageData: PageData | null = await getPage(page);
+interface PageProps {
+  params: { slug?: string }; // Define explícitamente el tipo de params
+}
 
-  // if(!pageData) {
-  //   return <section className="flex justify-center h-lvh items-center" >
-  //     <div className="text-forestgreen uppercase font-bold text-[50px]"><span className="text-white">404 |</span> page not found.</div>
-  //   </section>;
-  // }
+export default async function DynamicPage({ params }: PageProps) {
+  const slug = '/' + (params?.slug?.toString()?.replace(/,/g, '/') || ''); // Usar "home" como predeterminado para la raíz
 
-  const {title, subtitle, button, description, image, rates} = informationData;
+  console.log(slug)
+  const pageData = await getPage(slug);
+
+
+  console.log(pageData)
+
+  if (!pageData) {
+    notFound(); // Muestra una página 404 si no se encuentra la data
+  }
 
   return (
     <div>
-      {pageData && pageData.modules.map((module, index) => <DynamicModule key={`${slug[0]}module-${index}`} moduleData={module} />)}
-      <InformationSection title={title} subtitle={subtitle} description={description} image={image} button={button} rates={rates} />
+      {pageData.modules.map((module: ModuleData, index: Key | null | undefined) => (
+        <DynamicModule key={index} moduleData={module} />
+      ))}
     </div>
   );
 }
+
