@@ -1,12 +1,17 @@
 import Image from "next/image";
 import { ImageData, LinkData } from "./types";
+import configs from './../environment.configs'
+
+type Option = {
+  values: string;
+};
 
 export type CardWidgetProps = {
   name?: string;
   image?: ImageData;
   title?: string;
   subtitle?: string;
-  options?: string[];
+  options?: Option[];
   link?: LinkData;
 };
 
@@ -19,6 +24,10 @@ export default function CardWidget({
   link,
 }: CardWidgetProps) {
 
+  const imageUrl = image?.src?.url ? `${configs.BASE_URL}${image.src.url}` : "/placeholder.png";
+
+  console.log(imageUrl, 'imageUrl')
+
   return (
     <div className="box-widget lg:w-4/12 lg:basis-4/12 flex flex-col">
       <div className="bg-white rounded-lg flex-1 flex flex-col mb-[10px] md:mb-[20px] mx-[10px]">
@@ -26,7 +35,7 @@ export default function CardWidget({
           {image && 
             <Image
               className="rounded-lg"
-              src={image.src}
+              src={imageUrl}
               alt={image.alt}
               width={1000}
               height={750}
@@ -40,7 +49,7 @@ export default function CardWidget({
           <ul className="font-medium pb-[20px]">
             {options && options.map((option, index) => (
               <li key={`${name}-${index}`} className="text-[15px] md:text-[14px] text-black">
-                {option}
+                {option?.values}
               </li>
             ))}
           </ul>

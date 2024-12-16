@@ -38,10 +38,12 @@ export interface PageData {
 export interface ScrollTo {
   label: string;
   cssSelector: string;
+  position: string;
 }
 
 export interface TextList {
-  values: string
+  values: string;
+  position: string;
 }
 
 export interface LinkData {
@@ -51,7 +53,9 @@ export interface LinkData {
 
 export interface ImageData {
   alt: string;
-  src: string;
+  src: {
+    url: string;
+  };
 }
 
 export interface Options {
