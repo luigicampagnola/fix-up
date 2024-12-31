@@ -38,7 +38,8 @@ export default {
         platinum: "#E6E6E6",
         chinesesilver: '#CCCCCC',
         antiflaswhite: '#F2F1F2',
-        internationOrange: '#C02B0A'
+        internationOrange: '#C02B0A',
+        snow: '#FFF9F9'
       },
     },
   },
