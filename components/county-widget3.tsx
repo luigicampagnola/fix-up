@@ -39,13 +39,13 @@ export default function CountyWidget({
           {title && link && (
             <Link
               href={link}
-              className="pt-1 md:pt-3 font-bold leading-[1.2] text-[20px] md:text-[18px] lg:text-[19px] text-midnightblue text-center lg:text-left"
+              className="pt-1 md:pt-3 font-bold leading-[1.2] text-[20px] md:text-[18px] lg:text-[19px] text-midnightblue text-center"
             >
               {title}
             </Link>
           )}
           {description && (
-            <p className="text-[14px] text-black font-medium md:text-[13.5px] lg:text-[14.5px] text-center lg:text-left mt-4">
+            <p className="text-[14px] text-black font-medium md:text-[13.5px] lg:text-[14.5px] text-center mt-4">
               {description}
             </p>
           )}
