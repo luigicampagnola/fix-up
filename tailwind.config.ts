@@ -10,6 +10,7 @@ export default {
     extend: {
       boxShadow: {
         'custom-forestgreen': '-10px 10px 0px #539544',
+        'custom-forestgreen-right': '10px 10px 0px #539544',
       },
       spacing: { "custom-width": "calc(300% + 1.3px)" },
       keyframes: {
@@ -36,7 +37,9 @@ export default {
         brightgray: "#EEEEEE",
         platinum: "#E6E6E6",
         chinesesilver: '#CCCCCC',
-        antiflaswhite: '#F2F1F2'
+        antiflaswhite: '#F2F1F2',
+        internationOrange: '#C02B0A',
+        snow: '#FFF9F9'
       },
     },
   },

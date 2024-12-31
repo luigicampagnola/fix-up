@@ -94,3 +94,26 @@ export interface Comment {
     comment: string;
     rate: number;
 }
+
+export interface FieldData {
+  label?: string;
+  placeholder?: string;
+  required: boolean;
+  warning: string;
+  formatWarning?: string;
+}
+
+export interface ContactForm {
+  title: string;
+  warning: string;
+  name: FieldData;
+  phone: FieldData;
+  email: FieldData;
+  street: FieldData;
+  captcha: FieldData;
+  button: {
+    label: string;
+    url: string;
+  };
+  sponsors?: string[];
+}
