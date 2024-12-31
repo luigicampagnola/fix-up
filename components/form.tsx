@@ -4,6 +4,9 @@ import { useState } from "react";
 import { FaCircleExclamation, FaRegEnvelopeOpen } from "react-icons/fa6";
 import { ContactForm } from "./types";
 import { InputField, InputPhoneField } from "./input-fields";
+import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
+import Autoplay from "embla-carousel-autoplay";
 
 interface Props {
   contactForm: ContactForm;
@@ -17,6 +20,7 @@ export default function Form({ contactForm }: Props) {
     street: true,
     captcha: true,
   });
+  const [emblaRef] = useEmblaCarousel({loop: true}, [Autoplay()]);
 
   async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
@@ -38,9 +42,8 @@ export default function Form({ contactForm }: Props) {
     });
   }
 
-  const { button, captcha, email, name, phone, street, title, warning } =
+  const { button, captcha, email, name, phone, street, title, warning, sponsors } =
     contactForm;
-  
   const fieldsAreInvalid = Object.keys(validFields).some((key) => validFields[key as keyof typeof validFields] === false);
 
   return (
@@ -115,6 +118,14 @@ export default function Form({ contactForm }: Props) {
         >
           {button.label}
         </button>
+
+        {sponsors && // work in progress
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex">
+             {sponsors.map((sponsor, index) => <div className="flex-[0_0_100%] min-w-0" key={`slide-${index}`}><Image alt="ahuvo" width={100} height={100} src={sponsor}/></div>)}
+            </div>
+          </div>
+        }
       </form>
     </div>
   );
