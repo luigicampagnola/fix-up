@@ -1,6 +1,7 @@
 "use client";
 import { ChangeEvent, useState } from "react";
 import { ContactForm, FieldData } from "./get-started-section";
+import { FaRegEnvelopeOpen } from "react-icons/fa6";
 
 interface Props {
   contactForm: ContactForm;
@@ -23,13 +24,23 @@ export function InputField({
 }: InputFieldProps) {
   const { required, warning, formatWarning, label, placeholder } = labels;
   return (
-    <div className={`field-${name}`}>
+    <div className={`field-${name} flex flex-col py-2`}>
       <label
         htmlFor={id}
-        className={`${invalid ? "text-red-500" : "text-black"} font-bold`}
+        className={`${
+          invalid ? "text-red-500" : "text-black"
+        } font-bold text-[16px]`}
       >
         {label}{" "}
-        <span className={required ? "text-red" : "hidden"}>(Required)</span>
+        <span
+          className={
+            required
+              ? "text-internationOrange font-medium text-[13px] italic"
+              : "hidden"
+          }
+        >
+          (Required)
+        </span>
       </label>
       <input
         id={id}
@@ -37,22 +48,20 @@ export function InputField({
         type={type}
         placeholder={placeholder}
         className={`${
-          invalid
-            ? "border-red-500 border-solid border-[2px]"
-            : "border-black border-solid border-[2px]"
-        }`}
+          invalid ? "border-red-500" : "border-black"
+        } p-[10px] border-solid border text-[15px] text-black`}
       />
       <span
         className={`${
           invalid && warning ? "block" : "hidden"
-        } border-red-500 border-solid border-[2px] bg-red-100 text-red-500`}
+        } border-red-500 border-solid border bg-red-100 text-red-500`}
       >
         {formatWarning}
       </span>
       <span
         className={`${
           invalid && warning ? "block" : "hidden"
-        } border-red-500 border-solid border-[2px] bg-red-100 text-red-500`}
+        } border-red-500 border-solid border bg-red-100 text-red-500`}
       >
         {warning}
       </span>
@@ -78,13 +87,23 @@ export function InputPhoneField({
   }
 
   return (
-    <div className={`field-${name}`}>
+    <div className={`field-${name} flex flex-col py-2`}>
       <label
         htmlFor={id}
-        className={`${invalid ? "text-red-500" : "text-black"} font-bold`}
+        className={`${
+          invalid ? "text-red-500" : "text-black"
+        } font-bold text-[16px]`}
       >
         {label}{" "}
-        <span className={required ? "text-red" : "hidden"}>(Required)</span>
+        <span
+          className={
+            required
+              ? "text-internationOrange font-medium text-[13px] italic"
+              : "hidden"
+          }
+        >
+          (Required)
+        </span>
       </label>
       <input
         id={id}
@@ -94,23 +113,20 @@ export function InputPhoneField({
         // pattern="[0-9]{3} [0-9]{3} [0-9]{4}\d" improve this
         maxLength={12}
         onChange={(e) => checkNumber(e)}
-        className={`${
-          invalid
-            ? "border-red-500 border-solid border-[2px]"
-            : "border-black border-solid border-[2px]"
-        }`}
+        className={`${invalid ? "border-red-500" : "border-black"}
+            p-[10px] border-solid border text-[15px] text-black`}
       />
       <span
         className={`${
           invalid && warning ? "block" : "hidden"
-        } border-red-500 border-solid border-[2px] bg-red-100 text-red-500`}
+        } border-red-500 border-solid border bg-red-100 text-red-500`}
       >
         {formatWarning}
       </span>
       <span
         className={`${
           invalid && warning ? "block" : "hidden"
-        } border-red-500 border-solid border-[2px] bg-red-100 text-red-500`}
+        } border-red-500 border-solid border bg-red-100 text-red-500`}
       >
         {warning}
       </span>
@@ -126,7 +142,7 @@ export default function Form({ contactForm }: Props) {
     street: true,
     captcha: true,
   });
-  
+
   async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     const target = event.target as typeof event.target & {
@@ -143,18 +159,33 @@ export default function Form({ contactForm }: Props) {
       phone: target.phone.value.length === 12,
       captcha: true, // improve this,
       email: emailRegex.test(target.email.value),
-      street: target.street.value.length > 3
+      street: target.street.value.length > 3,
     });
   }
 
   const { button, captcha, email, name, phone, street, title, warning } =
     contactForm;
+  
+  const fieldsAreInvalid = Object.keys(validFields).some((key) => validFields[key as keyof typeof validFields] === false);
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h2>{title}</h2>
-        <span>{warning}</span>
+    <div className="form bg-white shadow-custom-forestgreen-right rounded-sm">
+      <form className="pt-[48px] px-[48] pb-[32px]" onSubmit={handleSubmit}>
+        <div className="flex pb-2">
+          <FaRegEnvelopeOpen className="text-forestgreen text-[35px]" />
+          <h2 className="text-black font-bold text-[25px] uppercase pl-3">
+            {title}
+          </h2>
+        </div>
+        <span
+          className={`${
+            fieldsAreInvalid
+              ? "border-red-500 border-solid border-[2px] bg-red-100 text-red-500"
+              : "hidden"
+          }`}
+        >
+          {warning}
+        </span>
         <InputField
           id="fullname"
           name="fullname"
@@ -182,8 +213,15 @@ export default function Form({ contactForm }: Props) {
           invalid={!validFields.street}
           type="text"
         />
-        <div>
-          <label htmlFor="captcha">{captcha.label}</label>
+        <div className="flex flex-col py-2">
+          <label
+            className={`${
+              !validFields.captcha ? "text-red-500" : "text-black"
+            } font-bold text-[16px] uppercase`}
+            htmlFor="captcha"
+          >
+            {captcha.label}
+          </label>
           <span
             className={`${
               !validFields.captcha && warning ? "block" : "hidden"
@@ -193,8 +231,13 @@ export default function Form({ contactForm }: Props) {
           </span>
           {/** captcha pending */}
         </div>
-        <button type="submit">{button.label}</button>
+        <button
+          className="w-full bg-forestgreen my-2 py-[10px] px-[15px] rounded text-white font-semibold hover:bg-midnightblue transition-all"
+          type="submit"
+        >
+          {button.label}
+        </button>
       </form>
-    </>
+    </div>
   );
 }
