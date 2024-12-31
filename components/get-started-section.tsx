@@ -1,29 +1,7 @@
 import { FaHouse } from "react-icons/fa6";
 import Form from "./form";
-import { PhoneNumber } from "./types";
+import { ContactForm, PhoneNumber } from "./types";
 import { FaEnvelope, FaPhone } from "react-icons/fa";
-
-export interface FieldData {
-  label?: string;
-  placeholder?: string;
-  required: boolean;
-  warning: string;
-  formatWarning?: string;
-}
-
-export interface ContactForm {
-  title: string;
-  warning: string;
-  name: FieldData;
-  phone: FieldData;
-  email: FieldData;
-  street: FieldData;
-  captcha: FieldData;
-  button: {
-    label: string;
-    url: string;
-  };
-}
 
 interface Props {
   title?: string;

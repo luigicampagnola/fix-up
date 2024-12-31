@@ -1,7 +1,7 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { ContactForm, FieldData } from "./get-started-section";
 import { FaCircleExclamation, FaRegEnvelopeOpen } from "react-icons/fa6";
+import { ContactForm, FieldData } from "./types";
 
 interface Props {
   contactForm: ContactForm;
