@@ -1,5 +1,7 @@
 // components/DynamicModule.tsx
 import { CardWidgetProps } from "./card-widget";
+import GetFreeEstimateSection from "./get-free-estimate-section";
+import GetStartedSection from "./get-started-section";
 import InformationSection from "./information-section";
 import OptionSection from "./option-section";
 import OptionSection2 from "./option-section2";
@@ -32,7 +34,9 @@ const moduleComponents: { [key: string]: React.ComponentType<ModuleData> } = {
   "shared.services": ServicesSection,
   "shared.options-section": OptionSection,
   "shared.option-section2": OptionSection2,
-  "shared.information-section": InformationSection
+  "shared.information-section": InformationSection,
+  "shared.form-section": GetStartedSection,
+  "shared.form-section2": GetFreeEstimateSection
 };
 
 
