@@ -5,6 +5,7 @@ import GetStartedSection from "./get-started-section";
 import InformationSection from "./information-section";
 import OptionSection from "./option-section";
 import OptionSection2 from "./option-section2";
+import OptionSection3 from "./option-section3";
 import ServicesSection from "./services-section";
 import TopSection from "./top-section";
 import { Options, Rates, ScrollTo, TextList } from "./types";
@@ -36,7 +37,8 @@ const moduleComponents: { [key: string]: React.ComponentType<ModuleData> } = {
   "shared.option-section2": OptionSection2,
   "shared.information-section": InformationSection,
   "shared.form-section": GetStartedSection,
-  "shared.form-section2": GetFreeEstimateSection
+  "shared.form-section2": GetFreeEstimateSection,
+  "shared.options-section3": OptionSection3
 };
 
 
