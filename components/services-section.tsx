@@ -13,7 +13,7 @@ export default function ServicesSection({
 }: ServicesSectionProps) {
 
   return (
-    <div className="flex flex-col items-center overflow-hidden relative">
+    <section className="flex flex-col items-center overflow-hidden relative">
       <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80" />
       <div className="basis-11/12 w-11/12 lg:basis-10/12 md:w-10/12 z-10 pt-12 pb-16 flex flex-col items-center lg:justify-start">
         <div className="flex flex-col items-center">
@@ -39,6 +39,6 @@ export default function ServicesSection({
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

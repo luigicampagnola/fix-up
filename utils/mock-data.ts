@@ -248,3 +248,93 @@ export const informationData = {
     cssSelector: "form-contact",
   },
 };
+
+export const formData = {
+  title: 'Ready to Connect',
+  subtitle: 'With Us?',
+  description: 'At Fix Up Roofing and Construction, we pride ourselves on being <b>more than just a service</b>; we’re a partner in the protection and enhancement of your property. Don’t leave your roofing to chance. Get in touch with the team that understands, respects, and can withstand the whims of Miami’s weather.',
+  phone: {
+    label: '(786) 235-2435',
+    href: '+17862352425'
+  },
+  email: 'cs@fixuproofing.com',
+  address: '6917 NW 77th Ave, Miami, FL 33166',
+  contactForm: {
+    title: 'Get Started',
+    warning: 'There was a problem with your submission. Please review the fields below.', 
+    name: {
+      label: 'Full Name',
+      placeholder: 'Your Full Name',
+      required: true,
+      warning: 'This field is required.'
+    },
+    phone: {
+      label: 'Phone',
+      placeholder: '(000) 000-0000',
+      required: true,
+      formatWarning: 'Phone format: (###) ###-####',
+      warning: 'This field is required.'
+    },
+    email: {
+      label: 'Email',
+      placeholder: 'your@email.com',
+      required: true,
+      warning: 'This field is required.'
+    },
+    street: {
+      label: 'Street Address',
+      placeholder: 'Street',
+      required: true,
+      warning: 'This field is required.'
+    },
+    captcha: {
+      label: 'Captcha',
+      required: true,
+      warning: 'The reCAPTCHA was invalid. Go back and try it again.'
+    },
+    button: {
+      label: 'Contact Fix Up Roofing',
+      url: ''
+    }
+  }
+}
+
+export const FormEstimate = {
+  title: 'Best Roofing Company In',
+  subtitle: 'South Florida!',
+  estimateForm: {
+    title: 'Get Free Estimate',
+    warning: 'There was a problem with your submission. Please review the fields below.',
+
+    name: {
+      placeholder: 'Your Full Name',
+      required: true,
+      warning: 'This field is required.'
+    },
+    phone: {
+      placeholder: '(000) 000-0000',
+      required: true,
+      formatWarning: 'Phone format: (###) ###-####',
+      warning: 'This field is required.'
+    },
+    email: {
+      placeholder: 'your@email.com',
+      required: true,
+      warning: 'This field is required.'
+    },
+    street: {
+      placeholder: 'Street',
+      required: true,
+      warning: 'This field is required.'
+    },
+    captcha: {
+      required:'true',
+      warning: 'The reCAPTCHA was invalid. Go back and try it again.'
+    },
+    button: {
+      label: 'Contact Fix Up Roofing',
+      url: ''
+    },
+    sponsors: ['https://fixuproofing.com/wp-content/uploads/2024/06/Boral.png.webp', 'https://fixuproofing.com/wp-content/uploads/2024/06/Boral.png.webp', 'https://fixuproofing.com/wp-content/uploads/2024/06/Boral.png.webp', 'https://fixuproofing.com/wp-content/uploads/2024/06/Boral.png.webp']
+  }
+}
