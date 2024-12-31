@@ -299,36 +299,36 @@ export const formData = {
   }
 }
 
-export const FormEstimate = {
+export const formEstimate = {
   title: 'Best Roofing Company In',
   subtitle: 'South Florida!',
-  estimateForm: {
+  contactForm: {
     title: 'Get Free Estimate',
     warning: 'There was a problem with your submission. Please review the fields below.',
 
     name: {
       placeholder: 'Your Full Name',
-      required: true,
+      required: false,
       warning: 'This field is required.'
     },
     phone: {
       placeholder: '(000) 000-0000',
-      required: true,
+      required: false,
       formatWarning: 'Phone format: (###) ###-####',
       warning: 'This field is required.'
     },
     email: {
       placeholder: 'your@email.com',
-      required: true,
+      required: false,
       warning: 'This field is required.'
     },
     street: {
       placeholder: 'Street',
-      required: true,
+      required: false,
       warning: 'This field is required.'
     },
     captcha: {
-      required:'true',
+      required: true,
       warning: 'The reCAPTCHA was invalid. Go back and try it again.'
     },
     button: {

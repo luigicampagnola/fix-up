@@ -115,4 +115,5 @@ export interface ContactForm {
     label: string;
     url: string;
   };
+  sponsors?: string[];
 }

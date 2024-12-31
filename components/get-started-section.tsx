@@ -25,7 +25,7 @@ export default function GetStartedSection({
   return (
     <section className="flex flex-col items-center overflow-hidden relative">
       <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80" />
-      <div className="basis-11/12 w-11/12 lg:basis-10/12 md:w-10/12 z-10 pt-12 pb-16 flex flex-wrap flex-col sm:flex-row items-center lg:justify-start">
+      <div className="max-w-[1440px] basis-11/12 w-11/12 lg:basis-10/12 md:w-10/12 z-10 pt-12 pb-16 flex flex-wrap flex-col sm:flex-row items-center lg:justify-start">
         <div className="flex flex-col basis-full w-full lg:basis-7/12 lg:w-7/12 lg:pr-[75px]">
           <h1 className="font-bold text-center lg:text-left text-[39px] md:text-[60px] lg:text-[50px] leading-none uppercase pb-0 md:pb-[10px] md:pt-[30px] lg:pt-[50px] lg:pb-[35px]">
             {title}{" "}
