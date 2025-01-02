@@ -1,4 +1,4 @@
-import CountyWidget from "./county-widget3";
+import CountyWidget from "./county-widget";
 
 export interface CountyOption {
   image?: {
