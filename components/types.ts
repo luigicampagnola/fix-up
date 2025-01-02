@@ -55,6 +55,8 @@ export interface ImageData {
   alt: string;
   src: {
     url: string;
+    width?: number;
+    height?: number;
   };
 }
 

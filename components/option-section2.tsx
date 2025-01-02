@@ -1,12 +1,13 @@
 import Image from "next/image";
-import { Options } from "./types";
+import {ImageData, Options } from "./types";
+import configs from "./../environment.configs";
 import CheckWidget2 from "./check-widget2";
 
 type Props = {
   title?: string;
   subtitle?: string;
   description?: string;
-  image?: {url: string};
+  image?: ImageData;
   options?: Options[];
 };
 
@@ -18,7 +19,16 @@ export default function OptionSection2({
   options,
 }: Props) {
 
-  const STRAPI_URL = 'http://localhost:1337/'; // change this in the envs
+  const STRAPI_URL = configs.BASE_URL || "https://amazing-fireworks-dd56623770.strapiapp.com";
+
+  const imageUrl = image?.src?.url
+    ? image.src.url.startsWith('http')
+      ? image.src.url
+      : `${STRAPI_URL}${image.src.url}`
+    : "/placeholder.png";
+
+  console.log(imageUrl, "imageUrl");
+
 
   return (
     <section className="option-section bg-white w-full flex text-[14px] md:text-[15px] lg:text-[16px] font-normal text-black justify-center">
@@ -27,10 +37,10 @@ export default function OptionSection2({
           {image && title && 
             <Image
               className="rounded-lg object-cover h-full"
-              src={`${STRAPI_URL}${image.url}`}
-              alt={title}
-              width={1000}
-              height={800}
+              src={imageUrl}
+              alt={image.alt || "Imagen"}
+              width={image.src.width || 1000}
+              height={image.src.height || 750}
             />
           }
         </div>

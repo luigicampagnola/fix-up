@@ -1,4 +1,3 @@
-// components/DynamicModule.tsx
 import { CardWidgetProps } from "./card-widget";
 import GetFreeEstimateSection from "./get-free-estimate-section";
 import GetStartedSection from "./get-started-section";
@@ -9,7 +8,7 @@ import OptionSection2 from "./option-section2";
 import OptionSection3 from "./option-section3";
 import ServicesSection from "./services-section";
 import TopSection from "./top-section";
-import { Options, Rates, ScrollTo, TextList } from "./types";
+import { Options, Rates, ScrollTo, TextList, ImageData } from "./types";
 
 interface ModuleData {
   __component: string;
@@ -26,12 +25,12 @@ interface ModuleData {
   middleDescription?: string;
   bottomDescription?: string;
   descriptionWithLink?: string;
-  image?: {url: string};
+  image?: { url: string };
   rates?: Rates;
 }
 
 
-const moduleComponents: { [key: string]: React.ComponentType<ModuleData> } = {
+const moduleComponents: { [key: string]: React.ComponentType<any> } = {
   "shared.top-section": TopSection,
   "shared.services": ServicesSection,
   "shared.options-section": OptionSection,
@@ -40,9 +39,8 @@ const moduleComponents: { [key: string]: React.ComponentType<ModuleData> } = {
   "shared.form-section": GetStartedSection,
   "shared.form-section2": GetFreeEstimateSection,
   "shared.options-section3": OptionSection3,
-  "shared.map-section": MapSection
+"shared.map-section": MapSection
 };
-
 
 interface DynamicModuleProps {
   moduleData: ModuleData;
@@ -58,7 +56,20 @@ const DynamicModule = ({ moduleData }: DynamicModuleProps) => {
     return null;
   }
 
-  return <ModuleComponent {...moduleData} />;
+  // Transformar `image` para que sea compatible con `ImageData`
+  const transformedModuleData = {
+    ...moduleData,
+    image: moduleData.image
+      ? {
+          alt: moduleData.title || "Default Alt Text", // Texto alternativo
+          src: {
+            url: moduleData.image.url,
+          },
+        }
+      : undefined,
+  };
+
+  return <ModuleComponent {...transformedModuleData} />;
 };
 
 export default DynamicModule;
