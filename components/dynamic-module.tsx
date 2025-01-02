@@ -1,4 +1,5 @@
 import { CardWidgetProps } from "./card-widget";
+import FinancingProgramSection from "./financing-program-section";
 import GetFreeEstimateSection from "./get-free-estimate-section";
 import GetStartedSection from "./get-started-section";
 import InformationSection from "./information-section";
@@ -33,13 +34,14 @@ interface ModuleData {
 const moduleComponents: { [key: string]: React.ComponentType<any> } = {
   "shared.top-section": TopSection,
   "shared.services": ServicesSection,
+  "shared.financing-program-section": FinancingProgramSection,
   "shared.options-section": OptionSection,
   "shared.option-section2": OptionSection2,
   "shared.information-section": InformationSection,
   "shared.form-section": GetStartedSection,
   "shared.form-section2": GetFreeEstimateSection,
   "shared.options-section3": OptionSection3,
-"shared.map-section": MapSection
+  "shared.map-section": MapSection
 };
 
 interface DynamicModuleProps {
