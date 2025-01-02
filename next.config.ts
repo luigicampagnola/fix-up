@@ -22,7 +22,8 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'amazing-fireworks-dd56623770.strapiapp.com'
+        hostname: 'amazing-fireworks-dd56623770.media.strapiapp.com',
+        pathname: '/**'
       },
       {
         protocol: 'http',

@@ -26,6 +26,7 @@ export default function GoogleRate({ rates }: Props) {
       setSlide(slide - 1);
     }
   };
+console.log(googleLogo.url, '---------------?');
 
   return (
     <div className="bg-white py-[15px] px-[20px] rounded-lg mx-[5px] mt-[-100px] relative z-10">
@@ -34,7 +35,8 @@ export default function GoogleRate({ rates }: Props) {
       <div className="flex justify-between pt-[10px] pb-[15px]">
         <Image
           className="w-[90px] h-[30px]]"
-          src={googleLogo.url}
+          // src={googleLogo.url}
+          src={`https://amazing-fireworks-dd56623770.strapiapp.com/${googleLogo.url}`}
           alt="google-logo"
           width={90}
           height={30}
