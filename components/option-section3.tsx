@@ -1,4 +1,4 @@
-import CountyWidget from "./county-widget3";
+import CountyWidget from "./county-widget";
 
 export interface CountyOption {
   image?: {
@@ -28,7 +28,7 @@ export default function OptionSection3({
   return (
     <section className="flex flex-col items-center overflow-hidden relative">
       <div className="bg-platinum top-0 left-0 rounded-none w-full h-full absolute opacity-80" />
-      <div className="basis-11/12 w-11/12 lg:basis-10/12 md:w-10/12 z-10 pt-12 pb-16 flex flex-col items-center lg:justify-start">
+      <div className="max-w-7xl basis-11/12 w-11/12 lg:basis-10/12 md:w-10/12 z-10 pt-12 pb-16 flex flex-col items-center lg:justify-start">
         <div className="flex flex-col items-center">
           <h1 className="font-bold text-midnightblue text-[30px] md:text-[50px] leading-none uppercase text-center pt-[50px]">
             {title} <span className="text-forestgreen">{subtitle}</span>

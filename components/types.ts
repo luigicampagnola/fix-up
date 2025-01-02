@@ -117,3 +117,14 @@ export interface ContactForm {
   };
   sponsors?: string[];
 }
+
+export interface MapData {
+  label?: string;
+  link?: string;
+  mapLocations?: {label: string}[];
+  zoom: number;
+  center: {
+    lat: number;
+    lng: number;
+  };
+}
