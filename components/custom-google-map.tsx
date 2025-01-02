@@ -22,7 +22,7 @@ export default function CustomGoogleMap({
   };
 
   return (
-    <div className="map-container w-full h-44 border border-internationOrange]">
+    <div className="map-container w-full h-52 md:h-40 lg:h-44">
       <MapProvider>
         <GoogleMap
           mapContainerStyle={defaultMapContainerStyle}
