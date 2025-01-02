@@ -3,6 +3,7 @@ import { CardWidgetProps } from "./card-widget";
 import GetFreeEstimateSection from "./get-free-estimate-section";
 import GetStartedSection from "./get-started-section";
 import InformationSection from "./information-section";
+import MapSection from "./map-section";
 import OptionSection from "./option-section";
 import OptionSection2 from "./option-section2";
 import OptionSection3 from "./option-section3";
@@ -38,7 +39,8 @@ const moduleComponents: { [key: string]: React.ComponentType<ModuleData> } = {
   "shared.information-section": InformationSection,
   "shared.form-section": GetStartedSection,
   "shared.form-section2": GetFreeEstimateSection,
-  "shared.options-section3": OptionSection3
+  "shared.options-section3": OptionSection3,
+  "shared.map-section": MapSection
 };
 
 

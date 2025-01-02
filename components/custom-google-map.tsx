@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { GoogleMap } from "@react-google-maps/api";
 import { MapProvider } from "./map-provider";
@@ -8,22 +8,28 @@ interface CustomGoogleMapProps {
   center: {
     lat: number;
     lng: number;
-  }
+  };
 }
 
-export default function CustomGoogleMap({zoom, center}: CustomGoogleMapProps) {
-
+export default function CustomGoogleMap({
+  zoom,
+  center,
+}: CustomGoogleMapProps) {
   const defaultMapContainerStyle = {
-    width: '100%',
-    height: '100vh',
-    borderRadius: '15px 0px 0px 15px',
+    width: "100%",
+    height: "100%",
+    borderRadius: "15px",
   };
 
   return (
-    <div className="map-container w-full h-40 border border-internationOrange]">
+    <div className="map-container w-full h-44 border border-internationOrange]">
       <MapProvider>
-      <GoogleMap mapContainerStyle={defaultMapContainerStyle} center={center} zoom={zoom} />
-    </MapProvider>
+        <GoogleMap
+          mapContainerStyle={defaultMapContainerStyle}
+          center={center}
+          zoom={zoom}
+        />
+      </MapProvider>
     </div>
   );
 }

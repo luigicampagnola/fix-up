@@ -13,7 +13,7 @@ export function MapProvider({ children }: { children: ReactNode }) {
 
   if(loadError) return <div className='bg-forestgreen'><p className='text-black'>Encountered error while loading google maps</p></div>
 
-  if(!scriptLoaded) return <div className='bg-forestgreen'><svg className='animate-spin h-5 w-5 mr-3 fill-forestgreen text-black' viewBox='0 0 24 24'>Loading Map...</svg></div>
+  if(!scriptLoaded) return <div className='bg-forestgreen'><svg className='animate-spin z-10 h-5 w-5 mr-3 fill-white text-black' viewBox='0 0 24 24'>Loading Map...</svg></div>
 
   return children;
 }

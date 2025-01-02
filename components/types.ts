@@ -121,7 +121,7 @@ export interface ContactForm {
 export interface MapData {
   label?: string;
   link?: string;
-  mapLocations?: string[];
+  mapLocations?: {label: string}[];
   zoom: number;
   center: {
     lat: number;

@@ -1,19 +1,20 @@
 import Link from "next/link";
 import CustomGoogleMap from "./custom-google-map";
 import { MapData } from "./types";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 export interface MapSectionProps {
   title?: string;
   subtitle?: string;
   description?: string;
-  mapData?: MapData[];
+  mapsData?: MapData[];
 }
 
 export default function MapSection({
   title,
   subtitle,
   description,
-  mapData
+  mapsData,
 }: MapSectionProps) {
   return (
     <>
@@ -26,22 +27,43 @@ export default function MapSection({
             </h1>
             {description && (
               <div
-                className="text-center text-black lg:text-left md:px-[10px] lg:px-0 py-7 text-[14px] md:text-[15px] lg:text-[16px]"
+                className="text-center text-black md:px-[10px] lg:px-0 py-7 text-[14px] md:text-[15px] lg:text-[16px]"
                 dangerouslySetInnerHTML={{ __html: description }}
               ></div>
             )}
-              {mapData && mapData.map((map, index) => 
-                <div key={`map-${index}`} className="flex flex-wrap overflow-hidden justify-center w-full">
+            {mapsData &&
+              mapsData.map((map, index) => (
+                <div
+                  key={`map-${index}`}
+                  className="flex flex-wrap overflow-hidden justify-center w-full"
+                >
                   <CustomGoogleMap center={map.center} zoom={map.zoom} />
-                  {map.label && 
-                    <div className="">
-                      <Link className="text-black hover:text-forestgreen" href={map.link ? map.link : '/'}>{map.label}</Link>
-                      {map.mapLocations && map.mapLocations?.map((location) => <p key={location}>{location}</p>)}
+                  {map.label && (
+                    <div className="z-10 w-full flex justify-center flex-col items-center">
+                      <Link
+                        className="text-black hover:text-forestgreen text-[16px] lg:text-[18px] font-bold"
+                        aria-label={map.label}
+                        href={map.link ? map.link : "/"}
+                      >
+                        {map.label}
+                      </Link>
+                      {map.mapLocations && (
+                        <div className="flex justify-center flex-wrap w-5/12 basis-5/12">
+                          {map.mapLocations.map((location, index) => (
+                            <div
+                              key={location.label + index}
+                              className="flex items-center px-6 text-black hover:text-forestgreen text-[14px] md:text-[15px] lg:text-[16px]"
+                            >
+                              <FaMapMarkerAlt />
+                              <p>{location.label}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  }
+                  )}
                 </div>
-              )
-              }
+              ))}
           </div>
         </div>
       </section>
