@@ -3,7 +3,6 @@
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback } from "react";
 import { SlideImage } from "./types";
-import configs from "@/environment.configs";
 import Image from "next/image";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
@@ -17,8 +16,6 @@ export default function ImageSlider({ slider, position }: ImageSliderProps) {
     startIndex: position,
     loop: true,
   });
-  const STRAPI_URL =
-    configs.BASE_URL || "https://amazing-fireworks-dd56623770.strapiapp.com";
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -45,7 +42,7 @@ export default function ImageSlider({ slider, position }: ImageSliderProps) {
             >
               <Image
                 key={slide.alternativeText + index}
-                src={`${STRAPI_URL}${slide.url}`}
+                src={`${slide.url}`}
                 width={slide.width}
                 height={slide.height}
                 alt={slide.alternativeText}
