@@ -30,7 +30,6 @@ interface ModuleData {
   rates?: Rates;
 }
 
-
 const moduleComponents: { [key: string]: React.ComponentType<any> } = {
   "shared.top-section": TopSection,
   "shared.services": ServicesSection,
@@ -41,7 +40,7 @@ const moduleComponents: { [key: string]: React.ComponentType<any> } = {
   "shared.form-section": GetStartedSection,
   "shared.form-section2": GetFreeEstimateSection,
   "shared.options-section3": OptionSection3,
-  "shared.map-section": MapSection
+  "shared.map-section": MapSection,
 };
 
 interface DynamicModuleProps {
@@ -57,6 +56,8 @@ const DynamicModule = ({ moduleData }: DynamicModuleProps) => {
     console.warn(`No component found for type ${moduleData.__component}`);
     return null;
   }
+
+  console.log(moduleData, "moduleData");
 
   // Transformar `image` para que sea compatible con `ImageData`
   const transformedModuleData = {

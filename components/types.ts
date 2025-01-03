@@ -60,6 +60,13 @@ export interface ImageData {
   };
 }
 
+export interface BackgroundImage {
+  backgroundImage: {
+    url: string;
+    alt: string;
+  };
+}
+
 export interface Options {
   label: string;
   description?: string;

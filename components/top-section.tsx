@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { FaRegCheckCircle } from "react-icons/fa";
-import { ScrollTo, TextList } from "./types";
+import { ScrollTo, TextList, BackgroundImage } from "./types";
 
 type Props = {
   title?: string;
@@ -9,7 +9,8 @@ type Props = {
   description?: string;
   benefits?: TextList[];
   button?: ScrollTo;
-  titlePosition?: string,
+  titlePosition?: string;
+  backgroundImage?: BackgroundImage;
 };
 
 export default function TopSection({
@@ -18,26 +19,36 @@ export default function TopSection({
   description,
   benefits,
   button,
-  titlePosition
-}: Props) {
+  titlePosition,
+  backgroundImage,
+}: // image,
+Props) {
   const pathName = usePathname();
 
   return (
-    <section className="flex flex-col items-center overflow-hidden relative">
+    <section
+      className="flex flex-col items-center overflow-hidden relative h-632px md:h-[704px] lg:h-[689px]"
+      style={{
+        backgroundImage: `url(${backgroundImage?.backgroundImage.url})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80 transition-background transition-border-radius transition-opacity hover:opacity-75"></div>
-      <div className="basis-10/12 w-10/12 z-10 pt-12 flex flex-col items-center lg:justify-start lg:max-w-[1140px]">
+      <div className="basis-10/12 w-10/12 z-10 pt-12 flex flex-col items-center lg:max-w-[1140px] mx-auto justify-center">
         <div className={`flex w-full justify-${titlePosition}`}>
           <h1 className="text-[39px] md:text-[60px] lg:text-[65px] font-bold uppercase leading-none text-center lg:text-left">
-              {title}{" "}
-              <span className="text-forestgreen lg:block">{subtitle}</span>
-            </h1>
+            {title}{" "}
+            <span className="text-forestgreen lg:block">{subtitle}</span>
+          </h1>
         </div>
         <div className={`flex lg:w-full lg:justify-${titlePosition}`}>
           <p className="text-[14px] md:text-[15px] text-center lg:text-left lg:text-[16px] pt-[30px] pb-[14px]">
             {description}
           </p>
         </div>
-        <div className="flex flex-wrap lg:w-full justify-start">
+        <div className="flex flex-wrap lg:w-full sm:justify-start md:justify-center lg:justify-start">
           {benefits &&
             benefits.map((benefit, index) => (
               <div key={`${pathName}-${index}`} className="flex items-center">
@@ -48,13 +59,15 @@ export default function TopSection({
               </div>
             ))}
         </div>
-        <div className={`flex w-full justify-${button?.position}`}>
+        <div
+          className={`flex w-full justify-center lg:justify-${button?.position}`}
+        >
           <button className="py-4 px-7 md:px-9 md:py-4 lg:px-10 lg:py-5 mt-5 text-[14px] md:text-[15px] lg:text-[16px] bg-forestgreen rounded font-semibold">
             {button?.label}
           </button>
         </div>
       </div>
-      <div className="rotate-180 overflow-hidden left-0 w-full">
+      <div className="rotate-180 overflow-hidden left-0 w-full mt-auto">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-32 w-custom-width block relative left-1/2 -translate-x-2/4"
