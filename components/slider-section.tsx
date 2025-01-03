@@ -1,6 +1,5 @@
 "use client";
 
-import configs from "@/environment.configs";
 import Image from "next/image";
 import { SlideImage } from "./types";
 import ImageSlider from "./image-slider";
@@ -12,8 +11,6 @@ export interface SliderSectionProps {
 }
 
 export default function SliderSection({ slider }: SliderSectionProps) {
-  const STRAPI_URL =
-    configs.BASE_URL || "https://amazing-fireworks-dd56623770.strapiapp.com";
   const [showSlider, setShowSlider] = useState(false);
   const [slideSelected, setSelectedSlide] = useState(0);
 
@@ -32,7 +29,7 @@ export default function SliderSection({ slider }: SliderSectionProps) {
               <div key={slide.alternativeText + index} onClick={() => onClickSlide(!showSlider, index)} className="relative p-2 md:basis-6/12 md:w-6/12 lg:basis-4/12 lg:w-4/12 lg:h-[245px] overflow-hidden">
                 <Image
                   className="my-1 overflow-hidden"
-                  src={`${STRAPI_URL}${slide.url}`}
+                  src={`${slide.url}`}
                   width={slide.width}
                   height={slide.height}
                   alt={slide.alternativeText}
