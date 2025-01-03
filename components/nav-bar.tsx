@@ -29,7 +29,7 @@ function NavBar() {
     setServicesOpen(false);
     setLocationsOpen(false);
     setSelectedLocation(null);
-  };
+  };  
 
   useEffect(() => {
     let scrollTimeout: NodeJS.Timeout;
@@ -134,21 +134,23 @@ function NavBar() {
 
             {/* Services Dropdown */}
             <div className="relative group">
-              <button className={`${linkStyle} flex items-center`}>
+            <Link href="/services" className={`${linkStyle} flex items-center`}>
                 Services <FaChevronDown className="text-xs ml-2" />
-              </button>
+              </Link>
               <div className="absolute z-50 hidden group-hover:block w-64 bg-midnightblue rounded-lg overflow-hidden shadow-lg transform translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-75">
                 {services.map((service, index) => (
                   <Link
                     key={service.name}
                     href={service.href}
                     className={`block px-6 py-4 text-white hover:bg-forestgreen transition-colors ${index === 0 ? 'bg-forestgreen' : ''}`}
+                    onClick={handleMobileMenuClick}
                   >
                     {service.name}
                   </Link>
                 ))}
               </div>
             </div>
+
 
             {/* Locations Dropdown */}
             <div className="relative group">
