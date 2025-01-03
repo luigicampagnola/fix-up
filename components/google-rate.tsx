@@ -35,7 +35,7 @@ console.log(googleLogo.url, '---------------?');
       <div className="flex justify-between pt-[10px] pb-[15px]">
       <Image
         className="w-[90px] h-[30px]"
-        src={googleLogo.url} // Usa googleLogo.url directamente si ya incluye la URL completa
+        src={googleLogo.url}
         alt="google-logo"
         width={90}
         height={30}
