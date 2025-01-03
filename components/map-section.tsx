@@ -18,7 +18,7 @@ export default function MapSection({
 }: MapSectionProps) {
   return (
     <section className="flex flex-col items-center overflow-hidden relative">
-      <div className="bg-platinum top-0 left-0 rounded-none w-full h-full absolute opacity-80" />
+      <div className="bg-platinum top-0 left-0 rounded-none w-full h-full absolute opacity-100" />
       <div className="max-w-7xl basis-11/12 w-11/12 lg:basis-10/12 md:w-10/12 z-10 pt-12 pb-16 flex flex-col items-center lg:justify-start">
         <div className="flex flex-col items-center">
           <h1 className="font-bold text-midnightblue text-[30px] md:text-[50px] leading-none uppercase text-center pt-[50px] max-w-4xl">
@@ -37,7 +37,18 @@ export default function MapSection({
                   key={`map-${index}`}
                   className="flex flex-wrap overflow-hidden justify-center basis-full w-full bg-white border rounded-2xl p-5 lg:basis-5/12 lg:w-5/12 mb-4 lg:mb-0 lg:mx-3"
                 >
-                  <CustomGoogleMap center={map.center} zoom={map.zoom} />
+                  {map.link ? (
+                    <iframe
+                      src={map.link}
+                      width="100%"
+                      height="300"
+                      style={{ border: 0 }}
+                      allowFullScreen={true}
+                      loading="lazy"
+                    ></iframe>
+                  ) : (
+                    <p>No map available</p>
+                  )}
                   {map.label && (
                     <div className="z-10 w-full flex justify-center flex-col items-center">
                       <Link
