@@ -60,9 +60,10 @@ export default function OptionSection2({
             {title} <span className="text-forestgreen">{subtitle}</span>
           </h1>
           {description && (
-            <p className="text-center lg:text-left px-[10px] lg:px-0 py-7">
-              {description}
-            </p>
+            <p
+              className="text-center lg:text-left px-[10px] lg:px-0 py-7"
+              dangerouslySetInnerHTML={{ __html: description }}
+            ></p>
           )}
           <div className="flex flex-wrap">
             {options &&
