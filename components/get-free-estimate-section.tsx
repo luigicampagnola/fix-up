@@ -22,7 +22,6 @@ export default function GetFreeEstimateSection({
   address,
   contactForm,
 }: Props) {
-  console.log(contactForm, "contactForm");
   return (
     <section
       className="flex flex-col items-center overflow-hidden relative lg:h-[792px]"
