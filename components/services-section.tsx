@@ -18,7 +18,7 @@ export default function ServicesSection({
     <section
       className="flex flex-col items-center overflow-hidden relative"
       style={{
-        backgroundImage: `url(${backgroundImage.backgroundImage.url})`,
+        backgroundImage: `url(${backgroundImage?.backgroundImage.url})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
