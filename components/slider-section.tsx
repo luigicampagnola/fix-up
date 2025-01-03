@@ -5,6 +5,7 @@ import { SlideImage } from "./types";
 import ImageSlider from "./image-slider";
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import ReactDOM from 'react-dom';
 
 export interface SliderSectionProps {
   slider?: SlideImage[];
@@ -37,8 +38,8 @@ export default function SliderSection({ slider }: SliderSectionProps) {
                 <div className="absolute top-0 h-full w-full bg-black opacity-0 hover:opacity-20 transition-all"/>
               </div>
             ))}
-            {showSlider && (
-              <div className="fixed flex justify-center items-center top-0 right-0 z-20 bg-black bg-opacity-80 w-full h-full">
+            {showSlider && ReactDOM.createPortal(
+              <div className="fixed flex justify-center items-center top-0 right-0 z-[10000] bg-black bg-opacity-80 w-full h-full">
                 <div className="flex flex-col w-full basis-full md:basis-11/12 md:w-11/12 lg:basis-8/12 lg:w-8/12">
                   <div className="top-2 right-2 absolute">
                     <FaTimes
@@ -51,7 +52,8 @@ export default function SliderSection({ slider }: SliderSectionProps) {
                     Roofing photos projects
                   </div>
                 </div>
-              </div>
+              </div>,
+              document.body
             )}
           </div>
         )}
