@@ -33,14 +33,13 @@ console.log(googleLogo.url, '---------------?');
       <p className="text-[14px] font-bold">{label}</p>
       <p className="text-[14px]">{subLabel}</p>
       <div className="flex justify-between pt-[10px] pb-[15px]">
-        <Image
-          className="w-[90px] h-[30px]]"
-          // src={googleLogo.url}
-          src={`https://amazing-fireworks-dd56623770.strapiapp.com/${googleLogo.url}`}
-          alt="google-logo"
-          width={90}
-          height={30}
-        />
+      <Image
+        className="w-[90px] h-[30px]"
+        src={googleLogo.url}
+        alt="google-logo"
+        width={90}
+        height={30}
+      />
         {comments.map((comment, index) => (
           <div
             key={`star-${index}`}
