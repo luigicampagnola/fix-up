@@ -9,7 +9,7 @@ export interface ModuleData {
   facebook?: Facebook;
 }
 
-export interface Email { 
+export interface Email {
   label: string;
   emailHref: string;
   target: string;
@@ -20,7 +20,7 @@ export interface Address {
   href: string;
 }
 
-export interface Facebook { 
+export interface Facebook {
   label: string;
   href: string;
   target: string;
@@ -60,6 +60,13 @@ export interface ImageData {
   };
 }
 
+export interface BackgroundImage {
+  backgroundImage: {
+    url: string;
+    alt: string;
+  };
+}
+
 export interface Options {
   label: string;
   description?: string;
@@ -86,15 +93,15 @@ export interface LinksContact {
 export interface Rates {
   label: string;
   subLabel: string;
-  googleLogo: {url: string};
+  googleLogo: { url: string };
   comments: Comment[];
 }
 
 export interface Comment {
-    name: string;
-    date: string;
-    comment: string;
-    rate: number;
+  name: string;
+  date: string;
+  comment: string;
+  rate: number;
 }
 
 export interface FieldData {
@@ -123,7 +130,7 @@ export interface ContactForm {
 export interface MapData {
   label?: string;
   link?: string;
-  mapLocations?: {label: string}[];
+  mapLocations?: { label: string }[];
   zoom: number;
   center: {
     lat: number;
