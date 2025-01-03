@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import { ModuleData } from "@/components/types";
 import { Key } from "react";
 import { PageData } from "@/components/types";
+import LinksSection from "@/components/links-section";
+import BottomBar from "@/components/bottom-bar";
+import { bottomBarSection, linkSection } from "@/utils/mock-data";
 
 interface PageProps {
   params: Promise<{ slug?: string[] }>;
@@ -28,6 +31,8 @@ export default async function DynamicPage({ params }: PageProps) {
       {pageData.modules.map((module: ModuleData, index: Key | null | undefined) => (
         <DynamicModule key={index} moduleData={module} />
       ))}
+      <LinksSection {...linkSection}/>
+      <BottomBar {...bottomBarSection} />
     </div>
   );
 }
