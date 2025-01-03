@@ -1,16 +1,21 @@
-import CardWidget, { CardWidgetProps } from "./card-widget";
 
-export type ServicesSectionProps = {
+import Link from "next/link";
+import CardWidget2, { CardWidget2Props } from "./card-widget2";
+import { ScrollTo } from "./types";
+
+export type FinancingProgramSectionProps = {
   title?: string;
   subtitle?: string;
-  cards?: CardWidgetProps[];
+  cards?: CardWidget2Props[];
+  button?: ScrollTo;
 };
 
-export default function ServicesSection({
+export default function FinancingProgramSection({
   title,
   subtitle,
-  cards, // cards had issues with strapi right now
-}: ServicesSectionProps) {
+  cards,
+  button,
+}: FinancingProgramSectionProps) {
 
   return (
     <section className="flex flex-col items-center overflow-hidden relative">
@@ -19,13 +24,13 @@ export default function ServicesSection({
         <div className="flex flex-col items-center">
           <h1 className="font-bold text-[30px] md:text-[50px] leading-none uppercase text-center pt-[50px] pb-[35px]">
             {title}{" "}
-            <span className="text-forestgreen md:block">{subtitle}</span>
+            <span className="text-forestgreen">{subtitle}</span>
           </h1>
           <div className="flex flex-wrap overflow-hidden lg:justify-center">
             {cards && cards.map((card, index) => {
               const { name, image, options, title, subtitle, link } = card;
               return (
-                <CardWidget
+                <CardWidget2
                   key={`${title}-${index}`}
                   name={name}
                   image={image}
@@ -38,6 +43,11 @@ export default function ServicesSection({
             })}
           </div>
         </div>
+        {button?.cssSelector && button.label &&
+          <div className="bg-forestgreen text-[14px] md:text-[15px] lg:text-[16px] font-bold rounded-lg mt-3 py-[15px] px-[30px] md:py-[20px] md:px-[40px] hover:scale-110 transition-all ">
+            <Link href={button.cssSelector}>{button.label}</Link>
+          </div>
+        }
       </div>
     </section>
   );

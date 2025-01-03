@@ -17,11 +17,22 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'amazing-fireworks-dd56623770.strapiapp.com'
+        hostname: 'fixuproofing.com',
+        pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'amazing-fireworks-dd56623770.media.strapiapp.com',
+        pathname: '/**'
       },
       {
         protocol: 'http',
         hostname: 'localhost:1337'
+      },
+      {
+        protocol: 'https',
+        hostname: 'maps.googleapis.com',
+        pathname: '/**'
       }
     ],
   },
