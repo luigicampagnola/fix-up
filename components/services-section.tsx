@@ -14,7 +14,6 @@ export default function ServicesSection({
   cards,
   backgroundImage,
 }: ServicesSectionProps) {
-  console.log(backgroundImage, "backgroundImagess");
   return (
     <section
       className="flex flex-col items-center overflow-hidden relative"
