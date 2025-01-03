@@ -133,7 +133,6 @@ function NavBar() {
             </Link>
 
             {/* Services Dropdown */}
-            {/* Services Dropdown */}
             <div className="relative group">
             <Link href="/services" className={`${linkStyle} flex items-center`}>
                 Services <FaChevronDown className="text-xs ml-2" />
@@ -144,7 +143,7 @@ function NavBar() {
                     key={service.name}
                     href={service.href}
                     className={`block px-6 py-4 text-white hover:bg-forestgreen transition-colors ${index === 0 ? 'bg-forestgreen' : ''}`}
-                    onClick={handleMobileMenuClick} // Cierra el menú móvil si está abierto
+                    onClick={handleMobileMenuClick}
                   >
                     {service.name}
                   </Link>
