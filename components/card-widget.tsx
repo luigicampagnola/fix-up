@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ImageData, LinkData } from "./types";
-import configs from './../environment.configs'
+import configs from "./../environment.configs";
 
 type Option = {
   values: string;
@@ -23,10 +23,11 @@ export default function CardWidget({
   options,
   link,
 }: CardWidgetProps) {
-  const STRAPI_URL = configs.BASE_URL || "https://amazing-fireworks-dd56623770.strapiapp.com";
+  const STRAPI_URL =
+    configs.BASE_URL || "https://amazing-fireworks-dd56623770.strapiapp.com";
 
   const imageUrl = image?.src?.url
-    ? image.src.url.startsWith('http')
+    ? image.src.url.startsWith("http")
       ? image.src.url
       : `${STRAPI_URL}${image.src.url}`
     : "/placeholder.png";
@@ -55,7 +56,10 @@ export default function CardWidget({
           </h3>
           <ul className="font-medium pb-[20px]">
             {options?.map((option, index) => (
-              <li key={`${name}-${index}`} className="text-[15px] md:text-[14px] text-black">
+              <li
+                key={`${name}-${index}`}
+                className="text-[15px] md:text-[14px] text-black"
+              >
                 {option?.values}
               </li>
             ))}

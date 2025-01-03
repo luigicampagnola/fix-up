@@ -62,6 +62,8 @@ const DynamicModule = ({ moduleData }: DynamicModuleProps) => {
     return null;
   }
 
+  console.log(moduleData, "moduleData");
+
   // Transformar `image` para que sea compatible con `ImageData`
   const transformedModuleData = {
     ...moduleData,

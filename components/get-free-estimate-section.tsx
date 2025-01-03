@@ -23,7 +23,15 @@ export default function GetFreeEstimateSection({
   contactForm,
 }: Props) {
   return (
-    <section className="flex flex-col items-center overflow-hidden relative">
+    <section
+      className="flex flex-col items-center overflow-hidden relative lg:h-[792px]"
+      style={{
+        backgroundImage: `url(${contactForm?.backgroundImage.backgroundImage.url})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80" />
       <div className="max-w-[1440px] basis-11/12 w-11/12 lg:basis-10/12 md:w-10/12 z-10 pt-12 pb-16 flex flex-wrap flex-col sm:flex-row items-center lg:justify-start">
         <div className="flex flex-col basis-full w-full lg:basis-7/12 lg:w-7/12 lg:pr-[75px]">
@@ -38,7 +46,7 @@ export default function GetFreeEstimateSection({
             ></div>
           )}
           <div className="flex flex-col items-center lg:items-start text-[13px] md:text-[15px] lg:text-[16px] pb-[25px] lg:pb-0">
-            {phone && 
+            {phone && (
               <a
                 href={`tel:${phone?.href}`}
                 className="flex transition-all items-center py-[5px] space-x-2 hover:text-forestgreen"
@@ -46,8 +54,8 @@ export default function GetFreeEstimateSection({
                 <FaPhone className="text-forestgreen rotate-90" />
                 <span>{phone.label}</span>
               </a>
-            }
-            {email && 
+            )}
+            {email && (
               <a
                 href={`mailto:${email}`}
                 className="flex transition-all items-center py-[5px] space-x-2 hover:text-forestgreen"
@@ -55,15 +63,13 @@ export default function GetFreeEstimateSection({
                 <FaEnvelope className="text-forestgreen" />
                 <span>{email}</span>
               </a>
-            }
-            {address && 
-              <p
-                className="flex transition-all items-center py-[5px] space-x-2 hover:text-forestgreen"
-              >
+            )}
+            {address && (
+              <p className="flex transition-all items-center py-[5px] space-x-2 hover:text-forestgreen">
                 <FaHouse className="text-forestgreen" />
                 <span>{address}</span>
               </p>
-            }
+            )}
           </div>
         </div>
         {contactForm && (
