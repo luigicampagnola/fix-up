@@ -9,6 +9,7 @@ import OptionSection from "./option-section";
 import OptionSection2 from "./option-section2";
 import OptionSection3 from "./option-section3";
 import ServicesSection from "./services-section";
+import SliderSection from "./slider-section";
 import TopSection from "./top-section";
 import { Options, Rates, ScrollTo, TextList } from "./types";
 
@@ -43,7 +44,8 @@ const moduleComponents: { [key: string]: React.ComponentType<any> } = {
   "shared.form-section2": GetFreeEstimateSection,
   "shared.options-section3": OptionSection3,
   "shared.blog-section": BlogSection,
-  "shared.map-section": MapSection
+  "shared.map-section": MapSection,
+  "shared.images-section": SliderSection
 };
 
 interface DynamicModuleProps {
