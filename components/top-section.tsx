@@ -6,7 +6,7 @@ import { ScrollTo, TextList, BackgroundImage } from "./types";
 type Props = {
   title?: string;
   subtitle?: string;
-  description?: string;
+  description: string;
   benefits?: TextList[];
   button?: ScrollTo;
   titlePosition?: string;
@@ -44,9 +44,10 @@ Props) {
           </h1>
         </div>
         <div className={`flex lg:w-full lg:justify-${titlePosition}`}>
-          <p className="text-[14px] md:text-[15px] text-center lg:text-left lg:text-[16px] pt-[30px] pb-[14px]">
-            {description}
-          </p>
+          <p
+            className="text-[14px] md:text-[15px] text-center lg:text-left lg:text-[16px] pt-[30px] pb-[14px]"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
         </div>
         <div className="flex flex-wrap lg:w-full sm:justify-start md:justify-center lg:justify-start">
           {benefits &&
@@ -59,7 +60,7 @@ Props) {
               </div>
             ))}
         </div>
-        {button && 
+        {button && (
           <div
             className={`flex w-full justify-left lg:justify-${button?.position}`}
           >
@@ -67,7 +68,7 @@ Props) {
               {button?.label}
             </button>
           </div>
-        }
+        )}
       </div>
       <div className="rotate-180 overflow-hidden left-0 w-full mt-auto">
         <svg
