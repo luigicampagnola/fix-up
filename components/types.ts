@@ -125,6 +125,7 @@ export interface ContactForm {
     url: string;
   };
   sponsors?: string[];
+  backgroundImage: BackgroundImage;
 }
 
 export interface MapData {
