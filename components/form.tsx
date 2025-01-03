@@ -8,8 +8,17 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 
+interface SponsorFile {
+  documentId: string;
+  url: string; 
+}
+
 interface Props {
-  contactForm: ContactForm;
+  contactForm: ContactForm & {
+    sponsors: {
+      files: SponsorFile[];
+    };
+  };
 }
 
 export default function Form({ contactForm }: Props) {
@@ -36,7 +45,7 @@ export default function Form({ contactForm }: Props) {
     setValidFields({
       fullname: target.fullname.value.length > 0,
       phone: target.phone.value.length === 12,
-      captcha: true, // improve this,
+      captcha: true,
       email: emailRegex.test(target.email.value),
       street: target.street.value.length > 3,
     });
@@ -53,9 +62,15 @@ export default function Form({ contactForm }: Props) {
     warning,
     sponsors,
   } = contactForm;
+
   const fieldsAreInvalid = Object.keys(validFields).some(
     (key) => validFields[key as keyof typeof validFields] === false
   );
+
+  const sponsorImages = sponsors?.files?.map(
+    (file) =>
+      `${process.env.NEXT_PUBLIC_STRAPI_BASE_URL || ""}${file.url}`
+  ) || [];
 
   return (
     <div
@@ -69,7 +84,7 @@ export default function Form({ contactForm }: Props) {
         <div className="flex pb-2">
           <FaRegEnvelopeOpen className="text-forestgreen text-[35px]" />
           <h2 className="text-black font-bold text-[25px] uppercase pl-3">
-            {title + "title"}
+            {title}
           </h2>
         </div>
         <div
@@ -127,21 +142,28 @@ export default function Form({ contactForm }: Props) {
           >
             {captcha.warning}
           </span>
-          {/** captcha pending */}
         </div>
         <button
-          className="w-full bg-forestgreen my-2 py-[10px] px-[15px] rounded text-white font-semibold hover:bg-midnightblue transition-all"
+          className="w-full bg-forestgreen my-2 py-[10px] px-[15px] rounded text-white font-semibold hover:bg-midnightblue transition-all mb-[1rem]"
           type="submit"
         >
           {button.label}
         </button>
-
-        {sponsors && ( // work in progress
+        {sponsorImages.length > 0 && (
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex">
-              {sponsors.map((sponsor, index) => (
-                <div className="flex-[0_0_100%] min-w-0" key={`slide-${index}`}>
-                  <Image alt="ahuvo" width={100} height={100} src={sponsor} />
+              {sponsorImages.map((image, index) => (
+                <div
+                  className="flex-[0_0_50%] sm:flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_33.333%] min-w-0 px-2"
+                  key={`slide-${index}`}
+                >
+                  <Image
+                    alt={`Sponsor ${index + 1}`}
+                    width={300}
+                    height={200}
+                    className="object-cover w-full h-auto"
+                    src={image}
+                  />
                 </div>
               ))}
             </div>
