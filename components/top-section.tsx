@@ -61,7 +61,7 @@ Props) {
         </div>
         {button && 
           <div
-            className={`flex w-full justify-center lg:justify-${button?.position}`}
+            className={`flex w-full justify-left lg:justify-${button?.position}`}
           >
             <button className="py-4 px-7 md:px-9 md:py-4 lg:px-10 lg:py-5 mt-5 text-[14px] md:text-[15px] lg:text-[16px] bg-forestgreen rounded font-semibold">
               {button?.label}
