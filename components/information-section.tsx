@@ -3,7 +3,6 @@ import { ImageData, Rates, ScrollTo } from "./types";
 import configs from "./../environment.configs";
 import GoogleRate from "./google-rate";
 
-
 type Props = {
   title?: string;
   subtitle?: string;
@@ -21,11 +20,11 @@ export default function InformationSection({
   rates,
   button,
 }: Props) {
-
-  const STRAPI_URL = configs.BASE_URL || "https://amazing-fireworks-dd56623770.strapiapp.com";
+  const STRAPI_URL =
+    configs.BASE_URL || "https://amazing-fireworks-dd56623770.strapiapp.com";
 
   const imageUrl = image?.src?.url
-    ? image.src.url.startsWith('http')
+    ? image.src.url.startsWith("http")
       ? image.src.url
       : `${STRAPI_URL}${image.src.url}`
     : "/placeholder.png";
@@ -43,25 +42,25 @@ export default function InformationSection({
               height={image.src.height || 750}
             />
           )}
-          {rates && 
-            <GoogleRate rates={rates} />
-          }
+          {rates && <GoogleRate rates={rates} />}
         </div>
-        <div className="information flex flex-col w-full basis-full lg:w-7/12 lg:basis-7/12 lg:px-[25px] order-1 lg:order-2">
+        <div className="information flex flex-col w-full basis-full lg:w-7/12 lg:basis-7/12 lg:px-[25px] order-1 lg:order-2 lg:mt-[92px]">
           <h1 className="text-[30px] md:text-[50px] font-bold uppercase leading-none text-midnightblue text-center lg:text-left px-0 md:px-[50px] lg:px-0">
             {title} <span className="text-forestgreen">{subtitle}</span>
           </h1>
           {description && (
             <div
-              className="text-center lg:text-left px-[10px] lg:px-0 py-7"
+              className="text-center lg:text-left px-[10px] lg:px-0 py-7 lg:text-[18px]"
               dangerouslySetInnerHTML={{ __html: description }}
             ></div>
           )}
-          {button &&
+          {button && (
             <div className="flex justify-center lg:justify-start pb-[20px]">
-              <button className="bg-forestgreen rounded font-semibold text-white py-[15px] px-[30px]" >{button?.label}</button>
+              <button className="bg-forestgreen rounded font-semibold text-white py-[15px] px-[30px]">
+                {button?.label}
+              </button>
             </div>
-          }
+          )}
         </div>
       </div>
     </section>
