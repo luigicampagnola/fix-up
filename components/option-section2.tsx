@@ -34,13 +34,13 @@ export default function OptionSection2({
   return (
     <section className="option-section bg-white w-full flex text-[14px] md:text-[15px] lg:text-[16px] font-normal text-black justify-center">
       <div
-        className={`basis-11/12 w-11/12 lg:basis-10/12 lg:w-10/12 xl:basis-[70%] py-[100] flex items-center ${
+        className={`basis-11/12 w-11/12 lg:w-10/12 xl:basis-[70%] py-[100] flex items-center ${
           position === "left"
             ? "flex-col-reverse xl:flex-row-reverse"
             : "flex-col lg:flex-row"
         }`}
       >
-        <div className="shadow-custom-forestgreen rounded-lg mt-[20px] lg:mt-0 w-full h-full xl:h-[750px] xl:max-w-[414px] pr-[10px]">
+        <div className="shadow-custom-forestgreen rounded-lg mt-[20px] lg:mt-0 w-full h-full  xl:max-w-[414px] pr-[10px]">
           {image && title && (
             <Image
               className="rounded-lg object-cover h-full"
@@ -56,7 +56,7 @@ export default function OptionSection2({
             position === "left" ? "xl:mr-[16px]" : ""
           }  xl:max-w-[706px] lg:px-[25px]`}
         >
-          <h1 className="text-[30px] md:text-[50px] font-bold uppercase leading-none text-midnightblue text-center lg:text-left px-0 md:px-[50px] lg:px-0">
+          <h1 className="text-[30px] md:text-[50px] font-bold uppercase leading-none text-midnightblue text-center lg:text-left px-0 md:px-[50px] lg:px-0 mt-[3rem]">
             {title} <span className="text-forestgreen">{subtitle}</span>
           </h1>
           {description && (
