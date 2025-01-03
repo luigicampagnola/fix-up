@@ -20,7 +20,7 @@ export default function Form({ contactForm }: Props) {
     street: true,
     captcha: true,
   });
-  const [emblaRef] = useEmblaCarousel({loop: true}, [Autoplay()]);
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
 
   async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
@@ -42,30 +42,47 @@ export default function Form({ contactForm }: Props) {
     });
   }
 
-  const { button, captcha, email, name, phone, street, title, warning, sponsors } =
-    contactForm;
-  const fieldsAreInvalid = Object.keys(validFields).some((key) => validFields[key as keyof typeof validFields] === false);
+  const {
+    button,
+    captcha,
+    email,
+    name,
+    phone,
+    street,
+    title,
+    warning,
+    sponsors,
+  } = contactForm;
+  const fieldsAreInvalid = Object.keys(validFields).some(
+    (key) => validFields[key as keyof typeof validFields] === false
+  );
 
   return (
-    <div id="roofing-form" className="form bg-white shadow-custom-forestgreen-right rounded-sm m-[14px] md:m-0">
-      <form className="pt-[48px] px-[42px] md:px-[48] pb-[32px]" onSubmit={handleSubmit}>
+    <div
+      id="roofing-form"
+      className="form bg-white shadow-custom-forestgreen-right rounded-sm m-[14px] md:m-0"
+    >
+      <form
+        className="pt-[48px] px-[42px] md:px-[48] pb-[32px]"
+        onSubmit={handleSubmit}
+      >
         <div className="flex pb-2">
           <FaRegEnvelopeOpen className="text-forestgreen text-[35px]" />
           <h2 className="text-black font-bold text-[25px] uppercase pl-3">
-            {title}
+            {title + "title"}
           </h2>
         </div>
-        <div className={`${
+        <div
+          className={`${
             fieldsAreInvalid
               ? "border-internationOrange border-solid border p-4 bg-snow text-internationOrange text-[13px] font-medium flex"
               : "hidden"
-          }`}>
-        <div className="flex items-center">
-          <FaCircleExclamation className="text-[28px] text-internationOrange" />
-        </div>
-        <p className="pl-4">
-          {warning}
-        </p>
+          }`}
+        >
+          <div className="flex items-center">
+            <FaCircleExclamation className="text-[28px] text-internationOrange" />
+          </div>
+          <p className="pl-4">{warning}</p>
         </div>
         <InputField
           id="fullname"
@@ -119,13 +136,17 @@ export default function Form({ contactForm }: Props) {
           {button.label}
         </button>
 
-        {sponsors && // work in progress
+        {sponsors && ( // work in progress
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex">
-             {sponsors.map((sponsor, index) => <div className="flex-[0_0_100%] min-w-0" key={`slide-${index}`}><Image alt="ahuvo" width={100} height={100} src={sponsor}/></div>)}
+              {sponsors.map((sponsor, index) => (
+                <div className="flex-[0_0_100%] min-w-0" key={`slide-${index}`}>
+                  <Image alt="ahuvo" width={100} height={100} src={sponsor} />
+                </div>
+              ))}
             </div>
           </div>
-        }
+        )}
       </form>
     </div>
   );
