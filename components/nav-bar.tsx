@@ -51,8 +51,8 @@ export default function NavBar() {
     <>
       {/* Top Bar */}
       <div className="bg-midnightblue text-white py-2 px-4 md:px-14">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-4">
+        <div className="flex justify-center md:justify-between items-center">
+          <div className="hidden md:flex items-center gap-4">
             <a href="tel:7862352435" className="flex items-center hover:text-forestgreen transition-colors">
               <FaPhone className="mr-2" />
               <span>(786) 235-2435</span>
@@ -70,7 +70,7 @@ export default function NavBar() {
               </a>
             </div>
           </div>
-          <div className="hidden md:flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all">
               <FaPhone className="w-4 h-4" />
             </a>
