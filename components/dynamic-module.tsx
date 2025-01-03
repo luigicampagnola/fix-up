@@ -11,6 +11,7 @@ import OptionSection3 from "./option-section3";
 import ServicesSection from "./services-section";
 import SliderSection from "./slider-section";
 import TopSection from "./top-section";
+import Cta from "./cta";
 import { Options, Rates, ScrollTo, TextList } from "./types";
 
 interface ModuleData {
@@ -45,7 +46,8 @@ const moduleComponents: { [key: string]: React.ComponentType<any> } = {
   "shared.options-section3": OptionSection3,
   "shared.blog-section": BlogSection,
   "shared.map-section": MapSection,
-  "shared.images-section": SliderSection
+  "shared.images-section": SliderSection,
+  "shared.cta": Cta,
 };
 
 interface DynamicModuleProps {
