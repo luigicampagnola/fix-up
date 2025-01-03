@@ -34,7 +34,7 @@ export default function OptionSection2({
   return (
     <section className="option-section bg-white w-full flex text-[14px] md:text-[15px] lg:text-[16px] font-normal text-black justify-center">
       <div
-        className={`basis-11/12 w-11/12 lg:basis-10/12 lg:w-10/12 py-[100] flex items-center ${
+        className={`basis-11/12 w-11/12 lg:basis-10/12 lg:w-10/12 xl:basis-[70%] py-[100] flex items-center ${
           position === "left"
             ? "flex-col-reverse xl:flex-row-reverse"
             : "flex-col lg:flex-row"
