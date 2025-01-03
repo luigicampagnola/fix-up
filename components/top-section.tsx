@@ -59,13 +59,15 @@ Props) {
               </div>
             ))}
         </div>
-        <div
-          className={`flex w-full justify-center lg:justify-${button?.position}`}
-        >
-          <button className="py-4 px-7 md:px-9 md:py-4 lg:px-10 lg:py-5 mt-5 text-[14px] md:text-[15px] lg:text-[16px] bg-forestgreen rounded font-semibold">
-            {button?.label}
-          </button>
-        </div>
+        {button && 
+          <div
+            className={`flex w-full justify-center lg:justify-${button?.position}`}
+          >
+            <button className="py-4 px-7 md:px-9 md:py-4 lg:px-10 lg:py-5 mt-5 text-[14px] md:text-[15px] lg:text-[16px] bg-forestgreen rounded font-semibold">
+              {button?.label}
+            </button>
+          </div>
+        }
       </div>
       <div className="rotate-180 overflow-hidden left-0 w-full mt-auto">
         <svg
