@@ -1,3 +1,4 @@
+import BlogSection from "./blog-section";
 import { CardWidgetProps } from "./card-widget";
 import FinancingProgramSection from "./financing-program-section";
 import GetFreeEstimateSection from "./get-free-estimate-section";
@@ -9,7 +10,7 @@ import OptionSection2 from "./option-section2";
 import OptionSection3 from "./option-section3";
 import ServicesSection from "./services-section";
 import TopSection from "./top-section";
-import { Options, Rates, ScrollTo, TextList, ImageData } from "./types";
+import { Options, Rates, ScrollTo, TextList } from "./types";
 
 interface ModuleData {
   __component: string;
@@ -30,7 +31,7 @@ interface ModuleData {
   rates?: Rates;
 }
 
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const moduleComponents: { [key: string]: React.ComponentType<any> } = {
   "shared.top-section": TopSection,
   "shared.services": ServicesSection,
@@ -41,6 +42,7 @@ const moduleComponents: { [key: string]: React.ComponentType<any> } = {
   "shared.form-section": GetStartedSection,
   "shared.form-section2": GetFreeEstimateSection,
   "shared.options-section3": OptionSection3,
+  "shared.blog-section": BlogSection,
   "shared.map-section": MapSection
 };
 
