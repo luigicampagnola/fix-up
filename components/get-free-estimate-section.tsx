@@ -78,6 +78,27 @@ export default function GetFreeEstimateSection({
           </div>
         )}
       </div>
+      <div className="rotate-180 overflow-hidden left-0 w-full mt-auto">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-32 w-custom-width block relative left-1/2 -translate-x-2/4"
+          viewBox="0 0 2600 131.1"
+          preserveAspectRatio="none"
+        >
+          <path
+            className="fill-white origin-center rotate-0"
+            d="M0 0L2600 0 2600 69.1 0 0z"
+          ></path>
+          <path
+            className="fill-white origin-center rotate-0 opacity-50"
+            d="M0 0L2600 0 2600 69.1 0 69.1z"
+          ></path>
+          <path
+            className="fill-white origin-center rotate-0 opacity-25"
+            d="M2600 0L0 0 0 130.1 2600 69.1z"
+          ></path>
+        </svg>{" "}
+      </div>
     </section>
   );
 }
