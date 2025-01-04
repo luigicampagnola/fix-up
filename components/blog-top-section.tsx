@@ -10,13 +10,13 @@ export default function BlogTopSection({image, sharedLinks}: BlogTop) {
       <div className="w-full h-auto">
         <Image
           src={image.url}
-          alt={image.alternativeText}
+          alt={image.alternativeText || 'roof blog'}
           width={image.width}
           height={image.height}
         />
       </div>
       <div className="text-black flex w-full items-center py-5">
-        <p className="font-semibold text-[24px]">{label}</p>
+        <p className="font-semibold text-[20px] md:text-[22px] lg:text-[24px]">{label}</p>
         <FaShareAlt className="text-[16px] mx-2" />
         <a
           className="p-3 mx-1 bg-blue-900 hover:bg-opacity-80"
