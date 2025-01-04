@@ -13,6 +13,7 @@ import SliderSection from "./slider-section";
 import TopSection from "./top-section";
 import Cta from "./cta";
 import { Options, Rates, ScrollTo, TextList } from "./types";
+import BlogSlugSection from "./blog-slug-section";
 
 interface ModuleData {
   __component: string;
@@ -46,6 +47,7 @@ const moduleComponents: { [key: string]: React.ComponentType<any> } = {
   "shared.options-section3": OptionSection3,
   "shared.blog-section": BlogSection,
   "shared.map-section": MapSection,
+  "shared.blog-slug-section": BlogSlugSection,
   "shared.images-section": SliderSection,
   "shared.cta": Cta,
 };
