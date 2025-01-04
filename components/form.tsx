@@ -15,7 +15,7 @@ interface SponsorFile {
 
 interface Props {
   contactForm: ContactForm & {
-    sponsors?: { // remove the '?' if is needed.
+    sponsors: {
       files: SponsorFile[];
     };
   };
