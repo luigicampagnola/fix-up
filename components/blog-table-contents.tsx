@@ -11,7 +11,7 @@ export default function BlogTableContents({ blogThemes }: BlogThemes) {
     <section className="text-black w-full">
       <div className="w-full">
         <div className="p-5 border border-solid border-metalSilver flex justify-between items-center">
-          <h1 className="text-[24px] font-bold">Table Contents</h1>
+          <h1 className="text-[20px] md:text-[22px] lg:text-[24px] font-bold">Table Contents</h1>
           <FaAngleUp
             aria-label="show-content"
             onClick={() => setIsOpen(!isOpen)}
@@ -20,7 +20,7 @@ export default function BlogTableContents({ blogThemes }: BlogThemes) {
         </div>
 
         <ol
-          className={`text-[16px] flex flex-col border border-solid border-metalSilver p-5 ${
+          className={`text-[14px] md:text-[15px] lg:text-[16px] flex flex-col border border-solid border-metalSilver p-5 ${
             isOpen ? "flex" : "hidden"
           } transition-all overflow-hidden delay-150 duration-300`}
         >
