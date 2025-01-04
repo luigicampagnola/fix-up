@@ -6,7 +6,7 @@ export default function BlogTopSection({image, sharedLinks}: BlogTop) {
   const {label, facebook, twitter, linkedin} = sharedLinks;
 
   return (
-    <div className="flex flex-col items-center">
+    <article className="flex flex-col items-center">
       <div className="w-full h-auto">
         <Image
           src={image.url}
@@ -40,6 +40,6 @@ export default function BlogTopSection({image, sharedLinks}: BlogTop) {
           <FaLinkedin className="text-white" />
         </a>
       </div>
-    </div>
+    </article>
   );
 }
