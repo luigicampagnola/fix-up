@@ -26,7 +26,7 @@ export default function BlogTableContents({ blogThemes }: BlogThemes) {
         >
           {blogThemes &&
             blogThemes.map((theme, index) => (
-              <li key={theme.title + "-t" + index}>
+              <li className="my-1" key={theme.title + "-t" + index}>
                 <div className="flex">
                   <p className="pr-1">{index+1}.</p>
                   <Link
@@ -37,10 +37,10 @@ export default function BlogTableContents({ blogThemes }: BlogThemes) {
                     {theme.title}
                   </Link>
                 </div>
-                <ol className=" pl-3">
+                <ol className="pl-5">
                   {theme &&
                     theme.blogTips.map((tip, jndex) => (
-                      <li className="flex" key={tip.title + "-tip" + jndex}>
+                      <li className="flex my-1" key={tip.title + "-tip" + jndex}>
                         <p className="pr-1">{`${index}.${jndex + 1}. `}</p>
                         <Link
                           className="hover:underline"
