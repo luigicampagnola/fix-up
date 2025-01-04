@@ -39,7 +39,8 @@ export default {
         chinesesilver: '#CCCCCC',
         antiflaswhite: '#F2F1F2',
         internationOrange: '#C02B0A',
-        snow: '#FFF9F9'
+        snow: '#FFF9F9',
+        metalSilver: '#9DA5AE'
       },
     },
   },
