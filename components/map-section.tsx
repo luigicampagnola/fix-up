@@ -1,5 +1,5 @@
 import Link from "next/link";
-import CustomGoogleMap from "./custom-google-map";
+// import CustomGoogleMap from "./custom-google-map";
 import { MapData } from "./types";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
