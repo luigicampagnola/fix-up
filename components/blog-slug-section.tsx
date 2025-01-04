@@ -3,6 +3,8 @@ import BlogTopSection from "./blog-top-section";
 import BlogPopularPost from "./blog-popular-post";
 import BlogThemeSection from "./blog-theme-section";
 import BlogTableContents from "./blog-table-contents";
+import { formData } from "@/utils/mock-data";
+import FormBlog from "./form-blog";
 
 export interface BlogTop {
   image: SlideImage;
@@ -66,6 +68,9 @@ export default function BlogSlugSection({
         </div>
         <div className="w-full basis-full lg:w-4/12 lg:basis-4/12 lg:ml-5">
           <BlogPopularPost {...blogPopularPostSection} />
+          <div className="pt-10">
+            <FormBlog contactForm={formData.contactForm} /> {/** This is a hard code component for now*/}
+          </div>
         </div>
       </div>
       </div>

@@ -21,7 +21,7 @@ interface Props {
   };
 }
 
-export default function Form({ contactForm }: Props) {
+export default function FormBlog({ contactForm }: Props) {
   const [validFields, setValidFields] = useState({
     fullname: true,
     phone: true,
@@ -75,7 +75,7 @@ export default function Form({ contactForm }: Props) {
   return (
     <div
       id="roofing-form"
-      className="form bg-white shadow-custom-forestgreen-right rounded-sm m-[14px] md:m-0"
+      className="form bg-white shadow-lg rounded-lg"
     >
       <form
         className="pt-[48px] px-[42px] md:px-[48] pb-[32px]"

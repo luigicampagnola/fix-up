@@ -298,6 +298,12 @@ export const formData = {
       label: "Contact Fix Up Roofing",
       url: "",
     },
+    backgroundImage: {
+      backgroundImage: {
+        url: '',
+        alt: ''
+      }
+    }
   },
 };
 
