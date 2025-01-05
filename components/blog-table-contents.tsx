@@ -11,7 +11,7 @@ export default function BlogTableContents({ blogThemes }: BlogThemes) {
     <section className="text-black w-full">
       <div className="w-full">
         <div className="p-5 border border-solid border-metalSilver flex justify-between items-center">
-          <h1 className="text-[20px] md:text-[22px] lg:text-[24px] font-bold">Table Contents</h1>
+          <h1 className="text-[20px] md:text-[22px] lg:text-[24px] font-bold">Table of Contents</h1>
           <FaAngleUp
             aria-label="show-content"
             onClick={() => setIsOpen(!isOpen)}

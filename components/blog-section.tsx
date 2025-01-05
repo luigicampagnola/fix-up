@@ -24,7 +24,7 @@ function splitArray(arr: CardWidget3Props[], numParts: number) {
 
 export default function BlogSection({ blogCards }: BlogSectionProps) {
   const [currentPage, changeCurrentPage] = useState(0);
-  const totalPages = (blogCards && blogCards.length / 7) || 1;
+  const totalPages = (blogCards && blogCards.length / 10) || 1;
 
   let chunkedArray: CardWidget3Props[][] = [];
 
