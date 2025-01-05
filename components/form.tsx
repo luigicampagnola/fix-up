@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { FaCircleExclamation, FaRegEnvelopeOpen } from "react-icons/fa6";
+import ReCAPTCHA from "react-google-recaptcha";
+import type { ChangeEvent } from "react";
 import { ContactForm } from "./types";
 import { InputField, InputPhoneField } from "./input-fields";
 import useEmblaCarousel from "embla-carousel-react";
@@ -29,7 +31,17 @@ export default function Form({ contactForm }: Props) {
     street: true,
     captcha: true,
   });
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  const domain = typeof window !== 'undefined' ? window.location.hostname : '';
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
+
+  function handleRecaptchaChange(value: string | null): void {
+    setRecaptchaValue(value);
+    setValidFields(prev => ({
+      ...prev,
+      captcha: !!value
+    }));
+  }
 
   async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
@@ -45,10 +57,15 @@ export default function Form({ contactForm }: Props) {
     setValidFields({
       fullname: target.fullname.value.length > 0,
       phone: target.phone.value.length === 12,
-      captcha: true,
+      captcha: !!recaptchaValue,
       email: emailRegex.test(target.email.value),
       street: target.street.value.length > 3,
     });
+
+    if (!recaptchaValue || Object.values(validFields).some(field => !field)) {
+      return;
+    }
+    //  submission logic here
   }
 
   const {
@@ -135,6 +152,13 @@ export default function Form({ contactForm }: Props) {
           >
             {captcha.label}
           </label>
+          <ReCAPTCHA
+            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+            onChange={handleRecaptchaChange}
+            hl="es"
+            theme="light"
+            size="normal"
+          />
           <span
             className={`${
               !validFields.captcha && warning ? "block" : "hidden"
