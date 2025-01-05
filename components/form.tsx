@@ -7,10 +7,11 @@ import { InputField, InputPhoneField } from "./input-fields";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
+// import { sendMail } from "@/utils/mail-services";
 
 interface SponsorFile {
   documentId: string;
-  url: string; 
+  url: string;
 }
 
 interface Props {
@@ -31,8 +32,9 @@ export default function Form({ contactForm }: Props) {
   });
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
 
-  async function handleSubmit(event: React.SyntheticEvent) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     const target = event.target as typeof event.target & {
       fullname: { value: string };
       phone: { value: string };
@@ -49,6 +51,29 @@ export default function Form({ contactForm }: Props) {
       email: emailRegex.test(target.email.value),
       street: target.street.value.length > 3,
     });
+
+    if( target.fullname.value.length > 0 && target.phone.value.length === 12 && emailRegex.test(target.email.value) && target.street.value.length > 3) {
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json', },
+          body: JSON.stringify({
+            fullname: target.fullname.value,
+            phone: target.phone.value,
+            email: target.email.value,
+            street: target.street.value,
+          })
+        });
+  
+        if (!response.ok) {
+          throw new Error(`response status: ${response.status}`);
+        }
+        const responseData = await response.json();
+        console.log(responseData["message"]);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 
   const {
@@ -67,10 +92,10 @@ export default function Form({ contactForm }: Props) {
     (key) => validFields[key as keyof typeof validFields] === false
   );
 
-  const sponsorImages = sponsors?.files?.map(
-    (file) =>
-      `${process.env.NEXT_PUBLIC_STRAPI_BASE_URL || ""}${file.url}`
-  ) || [];
+  const sponsorImages =
+    sponsors?.files?.map(
+      (file) => `${process.env.NEXT_PUBLIC_STRAPI_BASE_URL || ""}${file.url}`
+    ) || [];
 
   return (
     <div
