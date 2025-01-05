@@ -14,6 +14,7 @@ import TopSection from "./top-section";
 import Cta from "./cta";
 import { Options, Rates, ScrollTo, TextList } from "./types";
 import BlogSlugSection from "./blog-slug-section";
+import TopSection2 from "./top-section2";
 
 interface ModuleData {
   __component: string;
@@ -37,6 +38,7 @@ interface ModuleData {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const moduleComponents: { [key: string]: React.ComponentType<any> } = {
   "shared.top-section": TopSection,
+  "shared.top-section2": TopSection2,
   "shared.services": ServicesSection,
   "shared.financing-program-section": FinancingProgramSection,
   "shared.options-section": OptionSection,

@@ -14,6 +14,7 @@ export interface BlogTop {
     twitter: string;
     linkedin: string;
   };
+  link?: string;
 }
 
 export interface BlogTip {
