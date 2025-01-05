@@ -8,7 +8,6 @@ import { InputField, InputPhoneField } from "./input-fields";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
-// import { sendMail } from "@/utils/mail-services";
 
 interface SponsorFile {
   documentId: string;
@@ -32,14 +31,13 @@ export default function Form({ contactForm }: Props) {
     captcha: true,
   });
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
-  const domain = typeof window !== 'undefined' ? window.location.hostname : '';
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
 
   function handleRecaptchaChange(value: string | null): void {
     setRecaptchaValue(value);
-    setValidFields(prev => ({
+    setValidFields((prev) => ({
       ...prev,
-      captcha: !!value
+      captcha: !!value,
     }));
   }
 
@@ -63,19 +61,25 @@ export default function Form({ contactForm }: Props) {
       street: target.street.value.length > 3,
     });
 
-    if( target.fullname.value.length > 0 && target.phone.value.length === 12 && emailRegex.test(target.email.value) && target.street.value.length > 3) {
+    if (
+      target.fullname.value.length > 0 &&
+      target.phone.value.length === 12 &&
+      emailRegex.test(target.email.value) &&
+      target.street.value.length > 3 &&
+      recaptchaValue
+    ) {
       try {
         const response = await fetch("/api/contact", {
           method: "POST",
-          headers: { 'Content-Type': 'application/json', },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             fullname: target.fullname.value,
             phone: target.phone.value,
             email: target.email.value,
             street: target.street.value,
-          })
+          }),
         });
-  
+
         if (!response.ok) {
           throw new Error(`response status: ${response.status}`);
         }
@@ -85,10 +89,6 @@ export default function Form({ contactForm }: Props) {
         console.error(error);
       }
     }
-    if (!recaptchaValue || Object.values(validFields).some(field => !field)) {
-      return;
-    }
-    //  submission logic here
   }
 
   const {
