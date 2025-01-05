@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { FaCircleExclamation, FaRegEnvelopeOpen } from "react-icons/fa6";
 import ReCAPTCHA from "react-google-recaptcha";
-import type { ChangeEvent } from "react";
 import { ContactForm } from "./types";
 import { InputField, InputPhoneField } from "./input-fields";
 import useEmblaCarousel from "embla-carousel-react";
@@ -12,7 +11,7 @@ import Autoplay from "embla-carousel-autoplay";
 
 interface SponsorFile {
   documentId: string;
-  url: string; 
+  url: string;
 }
 
 interface Props {
@@ -32,19 +31,19 @@ export default function Form({ contactForm }: Props) {
     captcha: true,
   });
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
-  const domain = typeof window !== 'undefined' ? window.location.hostname : '';
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
 
   function handleRecaptchaChange(value: string | null): void {
     setRecaptchaValue(value);
-    setValidFields(prev => ({
+    setValidFields((prev) => ({
       ...prev,
-      captcha: !!value
+      captcha: !!value,
     }));
   }
 
-  async function handleSubmit(event: React.SyntheticEvent) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     const target = event.target as typeof event.target & {
       fullname: { value: string };
       phone: { value: string };
@@ -62,10 +61,34 @@ export default function Form({ contactForm }: Props) {
       street: target.street.value.length > 3,
     });
 
-    if (!recaptchaValue || Object.values(validFields).some(field => !field)) {
-      return;
+    if (
+      target.fullname.value.length > 0 &&
+      target.phone.value.length === 12 &&
+      emailRegex.test(target.email.value) &&
+      target.street.value.length > 3 &&
+      recaptchaValue
+    ) {
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fullname: target.fullname.value,
+            phone: target.phone.value,
+            email: target.email.value,
+            street: target.street.value,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`response status: ${response.status}`);
+        }
+        const responseData = await response.json();
+        console.log(responseData["message"]);
+      } catch (error) {
+        console.error(error);
+      }
     }
-    //  submission logic here
   }
 
   const {
@@ -84,10 +107,10 @@ export default function Form({ contactForm }: Props) {
     (key) => validFields[key as keyof typeof validFields] === false
   );
 
-  const sponsorImages = sponsors?.files?.map(
-    (file) =>
-      `${process.env.NEXT_PUBLIC_STRAPI_BASE_URL || ""}${file.url}`
-  ) || [];
+  const sponsorImages =
+    sponsors?.files?.map(
+      (file) => `${process.env.NEXT_PUBLIC_STRAPI_BASE_URL || ""}${file.url}`
+    ) || [];
 
   return (
     <div
