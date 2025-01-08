@@ -1,6 +1,9 @@
+'use client';
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { ImageData, LinkData } from "./types";
-import configs from '../environment.configs'
+import configs from '../environment.configs';
 
 type Option = {
   values: string;
@@ -23,6 +26,7 @@ export default function CardWidget2({
   options,
   link,
 }: CardWidget2Props) {
+  const [isVisible, setIsVisible] = useState(false);
   const STRAPI_URL = configs.BASE_URL || "https://amazing-fireworks-dd56623770.strapiapp.com";
 
   const imageUrl = image?.src?.url
@@ -31,12 +35,37 @@ export default function CardWidget2({
       : `${STRAPI_URL}${image.src.url}`
     : "/placeholder.png";
 
-  // Default dimensions for the image
   const DEFAULT_WIDTH = 1000;
   const DEFAULT_HEIGHT = 750;
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    const element = document.querySelector(`[data-id="${name}"]`);
+    if (element) observer.observe(element);
+
+    return () => {
+      if (element) observer.unobserve(element);
+    };
+  }, [name]);
+
   return (
-    <div className="box-widget lg:w-6/12 lg:basis-6/12 flex flex-col">
+    <div
+      className={`box-widget lg:w-6/12 lg:basis-6/12 flex flex-col transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
+      }`}
+      data-id={name}
+    >
       <div className="bg-white rounded-lg flex-1 flex flex-col mb-[10px] md:mb-[20px] mx-[10px]">
         <div className="image">
           {image && (
