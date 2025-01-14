@@ -36,6 +36,7 @@ export default function Form({ contactForm }: Props) {
   });
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
+  const recaptchaKey = process.env.NEXT_PUBLIC_RECAPTCHA_KEY;
 
   function handleRecaptchaChange(value: string | null) {
     setRecaptchaValue(value);
@@ -145,18 +146,23 @@ export default function Form({ contactForm }: Props) {
         <div className="flex flex-col py-2">
           <label
             className={`${
-              !validFields.captcha ? "text-internationOrange" : "text-black"
+              !validFields.captcha ? "text-internationOrange" : "text-black" 
             } font-bold text-[16px] uppercase`}
           >
             {captcha.label}
           </label>
-          <ReCAPTCHADynamic
-            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-            onChange={handleRecaptchaChange}
-            hl="es"
-            theme="light"
-            size="normal"
-          />
+
+          <div className="recaptcha-container">
+            {recaptchaKey && (
+              <ReCAPTCHA
+                sitekey={recaptchaKey}
+                onChange={handleRecaptchaChange}
+                hl="es"
+                theme="light"
+                size="normal"
+              />
+            )}
+          </div>
           <span
             className={`${
               !validFields.captcha && warning ? "block" : "hidden"

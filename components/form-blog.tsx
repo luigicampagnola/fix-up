@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FaCircleExclamation, FaRegEnvelopeOpen } from "react-icons/fa6";
+import ReCAPTCHA from "react-google-recaptcha";
 import { ContactForm } from "./types";
 import { InputField, InputPhoneField } from "./input-fields";
 import useEmblaCarousel from "embla-carousel-react";
@@ -10,18 +11,18 @@ import Autoplay from "embla-carousel-autoplay";
 
 interface SponsorFile {
   documentId: string;
-  url: string; 
+  url: string;
 }
 
 interface Props {
   contactForm: ContactForm & {
-    sponsors?: { // remove the '?' if is needed.
+    sponsors: {
       files: SponsorFile[];
     };
   };
 }
 
-export default function FormBlog({ contactForm }: Props) {
+export default function Form({ contactForm }: Props) {
   const [validFields, setValidFields] = useState({
     fullname: true,
     phone: true,
@@ -29,10 +30,21 @@ export default function FormBlog({ contactForm }: Props) {
     street: true,
     captcha: true,
   });
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
+  const recaptchaKey = process.env.NEXT_PUBLIC_RECAPTCHA_KEY;
 
-  async function handleSubmit(event: React.SyntheticEvent) {
+  function handleRecaptchaChange(value: string | null): void {
+    setRecaptchaValue(value);
+    setValidFields((prev) => ({
+      ...prev,
+      captcha: !!value,
+    }));
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     const target = event.target as typeof event.target & {
       fullname: { value: string };
       phone: { value: string };
@@ -45,10 +57,39 @@ export default function FormBlog({ contactForm }: Props) {
     setValidFields({
       fullname: target.fullname.value.length > 0,
       phone: target.phone.value.length === 12,
-      captcha: true,
+      captcha: !!recaptchaValue,
       email: emailRegex.test(target.email.value),
       street: target.street.value.length > 3,
     });
+
+    if (
+      target.fullname.value.length > 0 &&
+      target.phone.value.length === 12 &&
+      emailRegex.test(target.email.value) &&
+      target.street.value.length > 3 &&
+      recaptchaValue
+    ) {
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fullname: target.fullname.value,
+            phone: target.phone.value,
+            email: target.email.value,
+            street: target.street.value,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`response status: ${response.status}`);
+        }
+        const responseData = await response.json();
+        console.log(responseData["message"]);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 
   const {
@@ -67,10 +108,10 @@ export default function FormBlog({ contactForm }: Props) {
     (key) => validFields[key as keyof typeof validFields] === false
   );
 
-  const sponsorImages = sponsors?.files?.map(
-    (file) =>
-      `${process.env.NEXT_PUBLIC_STRAPI_BASE_URL || ""}${file.url}`
-  ) || [];
+  const sponsorImages =
+    sponsors?.files?.map(
+      (file) => `${process.env.NEXT_PUBLIC_STRAPI_BASE_URL || ""}${file.url}`
+    ) || [];
 
   return (
     <div
@@ -129,12 +170,23 @@ export default function FormBlog({ contactForm }: Props) {
         <div className="flex flex-col py-2">
           <label
             className={`${
-              !validFields.captcha ? "text-internationOrange" : "text-black"
+              !validFields.captcha ? "text-internationOrange" : "text-black" 
             } font-bold text-[16px] uppercase`}
             htmlFor="captcha"
           >
             {captcha.label}
           </label>
+          <div className="recaptcha-container">
+            {recaptchaKey && (
+              <ReCAPTCHA
+                sitekey={recaptchaKey}
+                onChange={handleRecaptchaChange}
+                hl="es"
+                theme="light"
+                size="normal"
+              />
+            )}
+          </div>
           <span
             className={`${
               !validFields.captcha && warning ? "block" : "hidden"
