@@ -24,6 +24,8 @@ export default function Cta({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const observedElement = contentRef.current;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -39,13 +41,13 @@ export default function Cta({
       }
     );
 
-    if (contentRef.current) {
-      observer.observe(contentRef.current);
+    if (observedElement) {
+      observer.observe(observedElement);
     }
 
     return () => {
-      if (contentRef.current) {
-        observer.unobserve(contentRef.current);
+      if (observedElement) {
+        observer.unobserve(observedElement);
       }
     };
   }, []);
@@ -64,8 +66,8 @@ export default function Cta({
       <div
         ref={contentRef}
         className={`basis-10/12 z-10 py-[60px] px-[15px] md:py-[80px] sm:px-[20] flex flex-col items-center lg:max-w-[1140px] mx-auto justify-center
-          transition-all duration-1000 ease-out
-          opacity-0 translate-y-6 ${isVisible ? "animate-fade-up" : ""}`}
+         transition-all duration-1000 ease-out
+         opacity-0 translate-y-6 ${isVisible ? "animate-fade-up" : ""}`}
       >
         <div>
           <h1 className="text-[30px] sm:text-[50px] font-bold uppercase leading-none text-center text-white">

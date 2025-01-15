@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaBars, FaChevronDown, FaPlus, FaPhone, FaEnvelope, FaMapMarkerAlt, FaGoogle, FaFacebook, FaYelp } from "react-icons/fa";
+import {
+  FaBars,
+  FaChevronDown,
+  FaPlus,
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaGoogle,
+  FaFacebook,
+  FaYelp,
+} from "react-icons/fa";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div>
-      <NavBar />
-      <main className="pt-[148px]">
-        {children}
-      </main>
-    </div>
-  );
-}
-
-function NavBar() {
-  const linkStyle = "text-[16px] text-dimgray py-[18px] px-[16px] mx-1 font-semibold uppercase rounded transition-all duration-75 hover:text-white hover:bg-midnightblue";
+export default function NavBar() {
+  const linkStyle =
+    "text-[16px] text-dimgray py-[18px] px-[16px] mx-1 font-semibold uppercase rounded transition-all duration-75 hover:text-white hover:bg-midnightblue";
   const [openMenu, setOpenMenu] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [locationsOpen, setLocationsOpen] = useState(false);
@@ -29,11 +29,11 @@ function NavBar() {
     setServicesOpen(false);
     setLocationsOpen(false);
     setSelectedLocation(null);
-  };  
+  };
 
   useEffect(() => {
     let scrollTimeout: NodeJS.Timeout;
-    
+
     const handleScroll = () => {
       setShowNav(false);
       clearTimeout(scrollTimeout);
@@ -42,9 +42,9 @@ function NavBar() {
       }, 150);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
       clearTimeout(scrollTimeout);
     };
   }, []);
@@ -54,59 +54,103 @@ function NavBar() {
     { name: "COMMERCIAL ROOFING", href: "/services/commercial-roofing" },
     { name: "RESIDENTIAL ROOFING", href: "/services/residential-roofing" },
     { name: "SOLAR PANELS", href: "/services/solar-panels" },
-    { name: "WINDOWS AND DOORS", href: "/services/windows-and-doors" }
+    { name: "WINDOWS AND DOORS", href: "/services/windows-and-doors" },
   ] as const;
 
   const locations = [
     {
       name: "BROWARD COUNTY",
       href: "/locations/broward-county",
-      cities: ["FORT LAUDERDALE", "HOLLYWOOD", "MIRAMAR", "PEMBROKE PINES", "POMPANO BEACH"]
+      cities: [
+        "FORT LAUDERDALE",
+        "HOLLYWOOD",
+        "MIRAMAR",
+        "PEMBROKE PINES",
+        "POMPANO BEACH",
+      ],
     },
     {
       name: "MIAMI-DADE COUNTY",
       href: "/locations/miami-dade-county",
-      cities: ["CORAL GABLES", "HIALEAH", "KENDALL", "MIAMI", "MIAMI BEACH", "MIAMI GARDENS", "WESTCHESTER"]
-    }
+      cities: [
+        "CORAL GABLES",
+        "HIALEAH",
+        "KENDALL",
+        "MIAMI",
+        "MIAMI BEACH",
+        "MIAMI GARDENS",
+        "WESTCHESTER",
+      ],
+    },
   ] as const;
 
   return (
-    <div className={`fixed top-0 w-full z-50 transition-transform duration-100 ${showNav ? 'translate-y-0' : '-translate-y-full'}`}>
+    <div
+      className={`fixed top-0 w-full z-50 transition-transform duration-100 ${
+        showNav ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       {/* Top Bar */}
       <div className="bg-midnightblue text-white py-2 px-4 md:px-14">
         <div className="flex justify-center xl:justify-between items-center">
           <div className="hidden xl:flex items-center gap-4">
-            <a href="tel:7862352435" className="flex items-center hover:text-forestgreen transition-colors">
+            <a
+              href="tel:7862352435"
+              className="flex items-center hover:text-forestgreen transition-colors"
+            >
               <FaPhone className="mr-2" />
               <span>(786) 235-2435</span>
             </a>
             <span className="text-white/50">|</span>
-            <a href="mailto:cs@fixuproofing.com" className="flex items-center hover:text-forestgreen transition-colors">
+            <a
+              href="mailto:cs@fixuproofing.com"
+              className="flex items-center hover:text-forestgreen transition-colors"
+            >
               <FaEnvelope className="mr-2" />
               <span>cs@fixuproofing.com</span>
             </a>
             <span className="text-white/50">|</span>
             <div className="flex items-center">
               <FaMapMarkerAlt className="mr-2 text-white" />
-              <a href="https://maps.app.goo.gl/di85NMJoy3pPYd387" target="_blank" rel="noopener noreferrer" className="hover:text-forestgreen transition-colors">
+              <a
+                href="https://maps.app.goo.gl/di85NMJoy3pPYd387"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-forestgreen transition-colors"
+              >
                 6917 NW 77th Ave, Miami, FL 33166
               </a>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <a href="tel:7862352435" className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all">
+            <a
+              href="tel:7862352435"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all"
+            >
               <FaPhone className="w-4 h-4" />
             </a>
-            <a href="mailto:cs@fixuproofing.com" className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all">
+            <a
+              href="mailto:cs@fixuproofing.com"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all"
+            >
               <FaEnvelope className="w-4 h-4" />
             </a>
-            <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all">
+            <a
+              href="#"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all"
+            >
               <FaGoogle className="w-4 h-4" />
             </a>
-            <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all">
+            <a
+              href="#"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all"
+            >
               <FaFacebook className="w-4 h-4" />
             </a>
-            <a href="#" className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all">
+            <a
+              href="#"
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all"
+            >
               <FaYelp className="w-4 h-4" />
             </a>
           </div>
@@ -134,7 +178,10 @@ function NavBar() {
 
             {/* Services Dropdown */}
             <div className="relative group">
-            <Link href="/services" className={`${linkStyle} flex items-center`}>
+              <Link
+                href="/services"
+                className={`${linkStyle} flex items-center`}
+              >
                 Services <FaChevronDown className="text-xs ml-2" />
               </Link>
               <div className="absolute z-50 hidden group-hover:block w-64 bg-midnightblue rounded-lg overflow-hidden shadow-lg transform translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-75">
@@ -142,7 +189,9 @@ function NavBar() {
                   <Link
                     key={service.name}
                     href={service.href}
-                    className={`block px-6 py-4 text-white hover:bg-forestgreen transition-colors ${index === 0 ? 'bg-forestgreen' : ''}`}
+                    className={`block px-6 py-4 text-white hover:bg-forestgreen transition-colors ${
+                      index === 0 ? "bg-forestgreen" : ""
+                    }`}
                     onClick={handleMobileMenuClick}
                   >
                     {service.name}
@@ -151,13 +200,15 @@ function NavBar() {
               </div>
             </div>
 
-
             {/* Locations Dropdown */}
             <div className="relative group">
-              <Link href="/locations" className={`${linkStyle} flex items-center`}>
+              <Link
+                href="/locations"
+                className={`${linkStyle} flex items-center`}
+              >
                 Locations <FaChevronDown className="text-xs ml-2" />
               </Link>
-              <div 
+              <div
                 className="absolute z-50 hidden group-hover:block w-64 top-full left-0"
                 onMouseLeave={() => setSelectedLocation(null)}
               >
@@ -166,30 +217,43 @@ function NavBar() {
                     <div key={location.name}>
                       <Link
                         href={location.href}
-                        className={`block px-6 py-4 text-white hover:bg-forestgreen flex justify-between items-center transition-colors ${index === 0 ? 'bg-forestgreen' : ''}`}
-                        onMouseEnter={() => location.cities.length && setSelectedLocation(location.name)}
+                        className={`block px-6 py-4 text-white hover:bg-forestgreen flex justify-between items-center transition-colors ${
+                          index === 0 ? "bg-forestgreen" : ""
+                        }`}
+                        onMouseEnter={() =>
+                          location.cities.length &&
+                          setSelectedLocation(location.name)
+                        }
                       >
                         {location.name}
-                        {location.cities.length > 0 && <span className="ml-2">›</span>}
+                        {location.cities.length > 0 && (
+                          <span className="ml-2">›</span>
+                        )}
                       </Link>
                     </div>
                   ))}
                 </div>
                 {selectedLocation && (
-                  <div 
+                  <div
                     className="absolute left-64 top-0 w-64 bg-midnightblue rounded-lg overflow-hidden shadow-lg transform"
-                    style={{ marginLeft: '1px' }}
+                    style={{ marginLeft: "1px" }}
                   >
-                    {locations.find(loc => loc.name === selectedLocation)?.cities.map((city) => (
-                      <Link
-                        key={city}
-                        href={`/locations/${selectedLocation.toLowerCase().replace(' ', '-')}/${city.toLowerCase().replace(' ', '-')}`}
-                        className="block px-6 py-4 text-white hover:bg-forestgreen transition-colors"
-                        onClick={handleMobileMenuClick}
-                      >
-                        {city}
-                      </Link>
-                    ))}
+                    {locations
+                      .find((loc) => loc.name === selectedLocation)
+                      ?.cities.map((city) => (
+                        <Link
+                          key={city}
+                          href={`/locations/${selectedLocation
+                            .toLowerCase()
+                            .replace(" ", "-")}/${city
+                            .toLowerCase()
+                            .replace(" ", "-")}`}
+                          className="block px-6 py-4 text-white hover:bg-forestgreen transition-colors"
+                          onClick={handleMobileMenuClick}
+                        >
+                          {city}
+                        </Link>
+                      ))}
                   </div>
                 )}
               </div>
@@ -208,12 +272,14 @@ function NavBar() {
 
           {/* Mobile menu button and Free Estimates */}
           <div className="free-estimate flex items-center gap-4">
-            <button 
+            <button
               className="bg-midnightblue block xl:hidden py-[7px] px-[5px] rounded hover:bg-dimgray text-white"
               onClick={() => setOpenMenu(!openMenu)}
             >
-              <FaBars className={`${openMenu ? 'hidden' : 'block'} w-6 h-5`} />
-              <FaPlus className={`${openMenu ? 'block' : 'hidden'} rotate-45 w-6 h-5`} />
+              <FaBars className={`${openMenu ? "hidden" : "block"} w-6 h-5`} />
+              <FaPlus
+                className={`${openMenu ? "block" : "hidden"} rotate-45 w-6 h-5`}
+              />
             </button>
             <Link
               href={"/estimates"}
@@ -225,9 +291,13 @@ function NavBar() {
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`mobile-menu w-full transition-all ease-in-out duration-75 flex xl:hidden bg-midnightblue flex-col text-white ${openMenu ? 'flex xl:hidden' : 'hidden'}`}>
-          <Link 
-            href={"/about"} 
+        <div
+          className={`mobile-menu w-full transition-all ease-in-out duration-75 flex xl:hidden bg-midnightblue flex-col text-white ${
+            openMenu ? "flex xl:hidden" : "hidden"
+          }`}
+        >
+          <Link
+            href={"/about"}
             className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen"
             onClick={handleMobileMenuClick}
           >
@@ -241,7 +311,11 @@ function NavBar() {
               className="w-full uppercase text-[15px] px-10 py-[10px] font-medium hover:bg-forestgreen text-left flex items-center justify-between"
             >
               Services
-              <FaChevronDown className={`text-xs ml-2 transform transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
+              <FaChevronDown
+                className={`text-xs ml-2 transform transition-transform ${
+                  servicesOpen ? "rotate-180" : ""
+                }`}
+              />
             </button>
             {servicesOpen && (
               <div className="bg-[#1a1f3a] border-t border-solid border-white">
@@ -266,7 +340,11 @@ function NavBar() {
               className="w-full uppercase text-[15px] px-10 py-[10px] font-medium hover:bg-forestgreen text-left flex items-center justify-between"
             >
               Locations
-              <FaChevronDown className={`text-xs ml-2 transform transition-transform ${locationsOpen ? 'rotate-180' : ''}`} />
+              <FaChevronDown
+                className={`text-xs ml-2 transform transition-transform ${
+                  locationsOpen ? "rotate-180" : ""
+                }`}
+              />
             </button>
             {locationsOpen && (
               <div className="bg-[#1a1f3a] border-t border-solid border-white">
@@ -282,7 +360,11 @@ function NavBar() {
                     {location.cities.map((city) => (
                       <Link
                         key={city}
-                        href={`/locations/${location.name.toLowerCase().replace(' ', '-')}/${city.toLowerCase().replace(' ', '-')}`}
+                        href={`/locations/${location.name
+                          .toLowerCase()
+                          .replace(" ", "-")}/${city
+                          .toLowerCase()
+                          .replace(" ", "-")}`}
                         className="block uppercase text-[15px] px-16 py-[10px] font-medium hover:bg-forestgreen bg-[#141729]"
                         onClick={handleMobileMenuClick}
                       >
@@ -295,31 +377,31 @@ function NavBar() {
             )}
           </div>
 
-          <Link 
-            href={"/financing"} 
+          <Link
+            href={"/financing"}
             className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen"
             onClick={handleMobileMenuClick}
           >
             Financing
           </Link>
-          <Link 
-            href={"/projects"} 
+          <Link
+            href={"/projects"}
             className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen"
             onClick={handleMobileMenuClick}
           >
             Projects
           </Link>
-          <Link 
-          href={"/projects"} 
-          className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen"
-          onClick={handleMobileMenuClick}
-        >
-          Blog
-        </Link>
-          <Link 
-          href={"/estimates"} 
-          className="block xl:hidden uppercase text-[15px] px-10 py-[10px] font-medium hover:bg-forestgreen"
-          onClick={handleMobileMenuClick}
+          <Link
+            href={"/blog"}
+            className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen"
+            onClick={handleMobileMenuClick}
+          >
+            Blog
+          </Link>
+          <Link
+            href={"/estimates"}
+            className="block xl:hidden uppercase text-[15px] px-10 py-[10px] font-medium hover:bg-forestgreen"
+            onClick={handleMobileMenuClick}
           >
             Free Estimates
           </Link>

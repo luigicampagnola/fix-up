@@ -38,14 +38,18 @@ export default function InformationSection({
     : "/placeholder.png";
 
   useEffect(() => {
+    // Guardamos las referencias al inicio del efecto
+    const observedImageElement = imageRef.current;
+    const observedContentElement = contentRef.current;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            if (entry.target === imageRef.current) {
+            if (entry.target === observedImageElement) {
               setIsImageVisible(true);
             }
-            if (entry.target === contentRef.current) {
+            if (entry.target === observedContentElement) {
               setIsContentVisible(true);
             }
             observer.unobserve(entry.target);
@@ -58,19 +62,19 @@ export default function InformationSection({
       }
     );
 
-    if (imageRef.current) {
-      observer.observe(imageRef.current);
+    if (observedImageElement) {
+      observer.observe(observedImageElement);
     }
-    if (contentRef.current) {
-      observer.observe(contentRef.current);
+    if (observedContentElement) {
+      observer.observe(observedContentElement);
     }
 
     return () => {
-      if (imageRef.current) {
-        observer.unobserve(imageRef.current);
+      if (observedImageElement) {
+        observer.unobserve(observedImageElement);
       }
-      if (contentRef.current) {
-        observer.unobserve(contentRef.current);
+      if (observedContentElement) {
+        observer.unobserve(observedContentElement);
       }
     };
   }, []);
@@ -81,10 +85,10 @@ export default function InformationSection({
         <div
           ref={imageRef}
           className={`mt-5 lg:mt-0 lg:w-5/12 lg:basis-5/12 w-full pr-3 order-2 lg:order-1 
-            transition-all duration-1000 ease-out
-            opacity-0 -translate-x-24 ${
-              isImageVisible ? "animate-slide-left" : ""
-            }`}
+           transition-all duration-1000 ease-out
+           opacity-0 -translate-x-24 ${
+             isImageVisible ? "animate-slide-left" : ""
+           }`}
         >
           {image?.src?.url && (
             <Image
@@ -100,10 +104,10 @@ export default function InformationSection({
         <div
           ref={contentRef}
           className={`information flex flex-col w-full basis-full lg:w-7/12 lg:basis-7/12 lg:px-6 order-1 lg:order-2 lg:mt-24
-            transition-all duration-1000 ease-out
-            opacity-0 translate-y-6 ${
-              isContentVisible ? "animate-fade-up" : ""
-            }`}
+           transition-all duration-1000 ease-out
+           opacity-0 translate-y-6 ${
+             isContentVisible ? "animate-fade-up" : ""
+           }`}
         >
           <h1 className="text-3xl md:text-5xl font-bold uppercase leading-none text-midnightblue text-center lg:text-left px-0 md:px-12 lg:px-0">
             {title} <span className="text-forestgreen">{subtitle}</span>

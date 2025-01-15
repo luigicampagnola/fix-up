@@ -38,14 +38,18 @@ export default function OptionSection2({
     : "/placeholder.png";
 
   useEffect(() => {
+    // Guardamos las referencias al inicio del efecto
+    const observedImageElement = imageRef.current;
+    const observedContentElement = contentRef.current;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            if (entry.target === imageRef.current) {
+            if (entry.target === observedImageElement) {
               setIsImageVisible(true);
             }
-            if (entry.target === contentRef.current) {
+            if (entry.target === observedContentElement) {
               setIsContentVisible(true);
             }
             observer.unobserve(entry.target);
@@ -58,19 +62,19 @@ export default function OptionSection2({
       }
     );
 
-    if (imageRef.current) {
-      observer.observe(imageRef.current);
+    if (observedImageElement) {
+      observer.observe(observedImageElement);
     }
-    if (contentRef.current) {
-      observer.observe(contentRef.current);
+    if (observedContentElement) {
+      observer.observe(observedContentElement);
     }
 
     return () => {
-      if (imageRef.current) {
-        observer.unobserve(imageRef.current);
+      if (observedImageElement) {
+        observer.unobserve(observedImageElement);
       }
-      if (contentRef.current) {
-        observer.unobserve(contentRef.current);
+      if (observedContentElement) {
+        observer.unobserve(observedContentElement);
       }
     };
   }, []);
@@ -87,16 +91,16 @@ export default function OptionSection2({
         <div
           ref={imageRef}
           className={`shadow-custom-forestgreen rounded-lg mt-5 lg:mt-0 w-full h-full xl:max-w-[414px] pr-3 
-            transition-all duration-1000 ease-out
-            ${
-              position === "left"
-                ? `opacity-0 translate-x-24 ${
-                    isImageVisible ? "animate-slide-right" : ""
-                  }`
-                : `opacity-0 -translate-x-24 ${
-                    isImageVisible ? "animate-slide-left" : ""
-                  }`
-            }`}
+           transition-all duration-1000 ease-out
+           ${
+             position === "left"
+               ? `opacity-0 translate-x-24 ${
+                   isImageVisible ? "animate-slide-right" : ""
+                 }`
+               : `opacity-0 -translate-x-24 ${
+                   isImageVisible ? "animate-slide-left" : ""
+                 }`
+           }`}
         >
           {image && title && (
             <Image
@@ -113,8 +117,8 @@ export default function OptionSection2({
           className={`information ${
             position === "left" ? "xl:mr-4" : ""
           } xl:max-w-[706px] lg:px-6 
-          transition-all duration-1000 ease-out
-          opacity-0 translate-y-6 ${isContentVisible ? "animate-fade-up" : ""}`}
+         transition-all duration-1000 ease-out
+         opacity-0 translate-y-6 ${isContentVisible ? "animate-fade-up" : ""}`}
         >
           <h1 className="text-3xl md:text-5xl font-bold uppercase leading-none text-midnightblue text-center lg:text-left px-0 md:px-12 lg:px-0 mt-12">
             {title} <span className="text-forestgreen">{subtitle}</span>

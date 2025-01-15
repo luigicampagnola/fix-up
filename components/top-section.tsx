@@ -28,6 +28,8 @@ export default function TopSection({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const observedElement = contentRef.current; // Guardamos la referencia en una variable
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -43,13 +45,13 @@ export default function TopSection({
       }
     );
 
-    if (contentRef.current) {
-      observer.observe(contentRef.current);
+    if (observedElement) {
+      observer.observe(observedElement);
     }
 
     return () => {
-      if (contentRef.current) {
-        observer.unobserve(contentRef.current);
+      if (observedElement) {
+        observer.unobserve(observedElement);
       }
     };
   }, []);
