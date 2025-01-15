@@ -64,6 +64,7 @@ export default function TopSection({
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
+        marginTop: "142px"
       }}
     >
       <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80 transition-all duration-300 hover:opacity-75"></div>
