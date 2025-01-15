@@ -33,7 +33,7 @@ export default function GetFreeEstimateSection({
 }: Props) {
   return (
     <section
-      className="flex flex-col items-center overflow-hidden relative lg:h-[792px]"
+      className="flex flex-col items-center overflow-hidden relative lg:h-[792px] pt-[118px]"
       style={{
         backgroundImage: `url(${contactForm?.backgroundImage.backgroundImage.url})`,
         backgroundSize: "cover",
