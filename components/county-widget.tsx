@@ -44,6 +44,8 @@ export default function CountyWidget({
     };
   }, [title]);
 
+  console.log(`${strapiURL}${image?.url}`)
+
   return (
     <div
       className={`w-full basis-full transition-all duration-700 ${
@@ -60,7 +62,7 @@ export default function CountyWidget({
             className="mb-[15px] lg:mb-0 lg:mr-[10px] w-full flex justify-center"
           >
             <Image
-              src={`${strapiURL}${image.url}`}
+              src={`${strapiURL}${image?.url}`}
               width={100}
               height={100}
               className=""
