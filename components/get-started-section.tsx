@@ -6,13 +6,6 @@ import Form from './form';
 import { BackgroundImage, ContactForm, PhoneNumber } from './types';
 import { FaEnvelope, FaPhone } from 'react-icons/fa';
 
-
-interface SponsorFile {
-  documentId: string;
-  url: string;
-}
-
-
 interface Props {
   title?: string;
   subtitle?: string;
@@ -20,11 +13,7 @@ interface Props {
   phone?: PhoneNumber;
   email?: string;
   address?: string;
-  contactForm?: ContactForm & {
-    sponsors?: {
-      files: SponsorFile[];
-    };
-  };
+  contactForm?: ContactForm;
   backgroundImage?: BackgroundImage;
 }
 
