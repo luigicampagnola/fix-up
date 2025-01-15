@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import { ImageData, Options } from "./types";
 import configs from "./../environment.configs";
 import CheckWidget2 from "./check-widget2";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   title?: string;
@@ -20,6 +23,11 @@ export default function OptionSection2({
   options,
   position,
 }: Props) {
+  const imageRef = useRef(null);
+  const contentRef = useRef(null);
+  const [isImageVisible, setIsImageVisible] = useState(false);
+  const [isContentVisible, setIsContentVisible] = useState(false);
+
   const STRAPI_URL =
     configs.BASE_URL || "https://amazing-fireworks-dd56623770.strapiapp.com";
 
@@ -29,18 +37,67 @@ export default function OptionSection2({
       : `${STRAPI_URL}${image.src.url}`
     : "/placeholder.png";
 
-  console.log(position, "position");
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === imageRef.current) {
+              setIsImageVisible(true);
+            }
+            if (entry.target === contentRef.current) {
+              setIsContentVisible(true);
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "50px",
+      }
+    );
+
+    if (imageRef.current) {
+      observer.observe(imageRef.current);
+    }
+    if (contentRef.current) {
+      observer.observe(contentRef.current);
+    }
+
+    return () => {
+      if (imageRef.current) {
+        observer.unobserve(imageRef.current);
+      }
+      if (contentRef.current) {
+        observer.unobserve(contentRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <section className="option-section bg-white w-full flex text-[14px] md:text-[15px] lg:text-[16px] font-normal text-black justify-center">
+    <section className="option-section bg-white w-full flex text-sm md:text-base lg:text-base font-normal text-black justify-center ">
       <div
-        className={`basis-11/12 w-11/12 lg:w-10/12 xl:basis-[80%] max-w-[1140px] py-[100] flex items-center ${
+        className={`basis-11/12 w-11/12 lg:w-10/12 xl:basis-[80%] max-w-[1140px] py-24 flex items-center ${
           position === "left"
             ? "flex-col-reverse xl:flex-row-reverse"
             : "flex-col lg:flex-row"
         }`}
       >
-        <div className="shadow-custom-forestgreen rounded-lg mt-[20px] lg:mt-0 w-full h-full  xl:max-w-[414px] pr-[10px]">
+        <div
+          ref={imageRef}
+          className={`shadow-custom-forestgreen rounded-lg mt-5 lg:mt-0 w-full h-full xl:max-w-[414px] pr-3 
+            transition-all duration-1000 ease-out
+            ${
+              position === "left"
+                ? `opacity-0 translate-x-24 ${
+                    isImageVisible ? "animate-slide-right" : ""
+                  }`
+                : `opacity-0 -translate-x-24 ${
+                    isImageVisible ? "animate-slide-left" : ""
+                  }`
+            }`}
+        >
           {image && title && (
             <Image
               className="rounded-lg object-cover h-full"
@@ -52,16 +109,19 @@ export default function OptionSection2({
           )}
         </div>
         <div
+          ref={contentRef}
           className={`information ${
-            position === "left" ? "xl:mr-[16px]" : ""
-          }  xl:max-w-[706px] lg:px-[25px]`}
+            position === "left" ? "xl:mr-4" : ""
+          } xl:max-w-[706px] lg:px-6 
+          transition-all duration-1000 ease-out
+          opacity-0 translate-y-6 ${isContentVisible ? "animate-fade-up" : ""}`}
         >
-          <h1 className="text-[30px] md:text-[50px] font-bold uppercase leading-none text-midnightblue text-center lg:text-left px-0 md:px-[50px] lg:px-0 mt-[3rem]">
+          <h1 className="text-3xl md:text-5xl font-bold uppercase leading-none text-midnightblue text-center lg:text-left px-0 md:px-12 lg:px-0 mt-12">
             {title} <span className="text-forestgreen">{subtitle}</span>
           </h1>
           {description && (
             <p
-              className="text-center lg:text-left px-[10px] lg:px-0 py-7"
+              className="text-center lg:text-left px-3 lg:px-0 py-7"
               dangerouslySetInnerHTML={{ __html: description }}
             ></p>
           )}

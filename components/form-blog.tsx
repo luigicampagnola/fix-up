@@ -16,7 +16,7 @@ interface SponsorFile {
 
 interface Props {
   contactForm: ContactForm & {
-    sponsors: {
+    sponsors?: {
       files: SponsorFile[];
     };
   };
@@ -85,7 +85,7 @@ export default function Form({ contactForm }: Props) {
           throw new Error(`response status: ${response.status}`);
         }
         const responseData = await response.json();
-        console.log(responseData["message"]);
+        console.info(responseData["message"]);
       } catch (error) {
         console.error(error);
       }

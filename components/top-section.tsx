@@ -2,6 +2,7 @@
 import { usePathname } from "next/navigation";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { ScrollTo, TextList, BackgroundImage } from "./types";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   title?: string;
@@ -21,9 +22,37 @@ export default function TopSection({
   button,
   titlePosition,
   backgroundImage,
-}: // image,
-Props) {
+}: Props) {
   const pathName = usePathname();
+  const contentRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "50px",
+      }
+    );
+
+    if (contentRef.current) {
+      observer.observe(contentRef.current);
+    }
+
+    return () => {
+      if (contentRef.current) {
+        observer.unobserve(contentRef.current);
+      }
+    };
+  }, []);
 
   return (
     <section
@@ -35,17 +64,22 @@ Props) {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80 transition-background transition-border-radius transition-opacity hover:opacity-75"></div>
-      <div className="basis-10/12 w-10/12 z-10 pt-12 flex flex-col items-center lg:max-w-[1140px] mx-auto justify-center">
+      <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80 transition-all duration-300 hover:opacity-75"></div>
+      <div
+        ref={contentRef}
+        className={`basis-10/12 w-10/12 z-10 pt-12 flex flex-col items-center lg:max-w-[1140px] mx-auto justify-center
+          transition-all duration-1000 ease-out
+          opacity-0 translate-y-6 ${isVisible ? "animate-fade-up" : ""}`}
+      >
         <div className={`flex w-full justify-${titlePosition}`}>
-          <h1 className="text-[39px] md:text-[60px] lg:text-[65px] font-bold uppercase leading-none text-center lg:text-left">
+          <h1 className="text-[39px] md:text-[60px] lg:text-[65px] font-bold uppercase leading-none text-center lg:text-left text-white">
             {title}{" "}
             <span className="text-forestgreen lg:block">{subtitle}</span>
           </h1>
         </div>
         <div className={`flex lg:w-full lg:justify-${titlePosition}`}>
           <p
-            className="text-[14px] md:text-[15px] text-center lg:text-left lg:text-[16px] pt-[30px] pb-[14px]"
+            className="text-[14px] md:text-[15px] text-center lg:text-left lg:text-[16px] pt-[30px] pb-[14px] text-white"
             dangerouslySetInnerHTML={{ __html: description }}
           />
         </div>
@@ -54,7 +88,7 @@ Props) {
             benefits.map((benefit, index) => (
               <div key={`${pathName}-${index}`} className="flex items-center">
                 <FaRegCheckCircle className="text-forestgreen text-[25px]" />{" "}
-                <p className="text-[14px] md:text-[15px] lg:text-[16px] ml-2 mr-3 font-semibold">
+                <p className="text-[14px] md:text-[15px] lg:text-[16px] ml-2 mr-3 font-semibold text-white">
                   {benefit.values}
                 </p>
               </div>
@@ -64,7 +98,7 @@ Props) {
           <div
             className={`flex w-full justify-left lg:justify-${button?.position}`}
           >
-            <button className="py-4 px-7 md:px-9 md:py-4 lg:px-10 lg:py-5 mt-5 text-[14px] md:text-[15px] lg:text-[16px] bg-forestgreen rounded font-semibold">
+            <button className="py-4 px-7 md:px-9 md:py-4 lg:px-10 lg:py-5 mt-5 text-[14px] md:text-[15px] lg:text-[16px] bg-forestgreen rounded font-semibold text-white hover:bg-forestgreen/90 transition-colors duration-300">
               {button?.label}
             </button>
           </div>
@@ -89,7 +123,7 @@ Props) {
             className="fill-white origin-center rotate-0 opacity-25"
             d="M2600 0L0 0 0 130.1 2600 69.1z"
           ></path>
-        </svg>{" "}
+        </svg>
       </div>
     </section>
   );
