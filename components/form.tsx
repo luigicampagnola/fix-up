@@ -20,7 +20,7 @@ interface SponsorFile {
 
 interface Props {
   contactForm: ContactForm & {
-    sponsors?: {
+    sponsors: {
       files: SponsorFile[];
     };
   };
