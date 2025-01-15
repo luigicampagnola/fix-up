@@ -42,8 +42,6 @@ export default function CardWidget({
   const DEFAULT_HEIGHT = 750;
 
   useEffect(() => {
-    const observedElement = cardRef.current;
-    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -59,13 +57,13 @@ export default function CardWidget({
       }
     );
 
-    if (observedElement) {
-      observer.observe(observedElement);
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
     }
 
     return () => {
-      if (observedElement) {
-        observer.unobserve(observedElement);
+      if (cardRef.current) {
+        observer.unobserve(cardRef.current);
       }
     };
   }, []);
@@ -73,12 +71,11 @@ export default function CardWidget({
   return (
     <div 
       ref={cardRef}
-      className={`box-widget lg:w-4/12 lg:basis-4/12 flex flex-col transition-all duration-1000 ease-out ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-      }`}
+      className={`box-widget lg:w-4/12 lg:basis-4/12 flex flex-col transition-all duration-1000 ease-out
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
     >
       <div className="bg-white rounded-lg flex-1 flex flex-col mb-3 md:mb-5 mx-3">
-        <div>
+        <div className="">
           {image && (
             <Image
               className="rounded-lg"
