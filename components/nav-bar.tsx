@@ -297,7 +297,7 @@ export default function NavBar() {
           }`}
         >
           <Link
-            href={"/about"}
+            href={"/about-us"}
             className="uppercase text-[15px] px-10 py-[10px] border-b border-solid border-white font-medium hover:bg-forestgreen"
             onClick={handleMobileMenuClick}
           >
