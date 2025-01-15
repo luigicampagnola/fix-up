@@ -1,8 +1,5 @@
-'use client';
-
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   image?: {
@@ -19,41 +16,11 @@ export default function CountyWidget({
   link,
   image,
 }: Props) {
-  const [isVisible, setIsVisible] = useState(false);
-  const strapiURL = process.env.STRAPI_URL || '';
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '50px',
-      }
-    );
-
-    const element = document.querySelector(`[data-id="${title}"]`);
-    if (element) observer.observe(element);
-
-    return () => {
-      if (element) observer.unobserve(element);
-    };
-  }, [title]);
+  const strapiURL = process.env.STRAPI_URL;
 
   return (
-    <div
-      className={`w-full basis-full transition-all duration-700 ${
-        isVisible
-          ? 'opacity-100 translate-y-0 animate-fadeInUp'
-          : 'opacity-0 translate-y-8'
-      }`}
-      data-id={title}
-    >
-      <div className="bg-platinum rounded-[20px] pt-[20px] px-[20px] pb-[10px] my-[10px] flex flex-col items-center lg:items-start">
+    <div className="w-full basis-full">
+      <div className="bg-brightgray rounded-[20px] pt-[20px] px-[20px] pb-[10px] my-[10px] flex flex-col items-center lg:items-start">
         {image && link && (
           <Link
             href={link}
@@ -64,7 +31,7 @@ export default function CountyWidget({
               width={100}
               height={100}
               className=""
-              alt={title || 'Image'}
+              alt={"s"}
             />
           </Link>
         )}
