@@ -172,7 +172,7 @@ export default function NavBar() {
 
           {/* Desktop Navigation */}
           <div className="px-8 hidden xl:flex flex-wrap">
-            <Link href={"/about"} className={linkStyle}>
+            <Link href={"/about-us"} className={linkStyle}>
               About Us
             </Link>
 
