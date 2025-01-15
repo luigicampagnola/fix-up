@@ -93,7 +93,7 @@ export default function NavBar() {
       {/* Top Bar */}
       <div className="bg-midnightblue text-white py-2 px-4 md:px-14 flex justify-center">
         <div className="flex justify-center xl:justify-between items-center lg:max-w-7xl">
-          <div className="hidden xl:flex items-center gap-4">
+          <div className="hidden xl:flex items-center gap-4 mr-[20px]">
             <a
               href="tel:7862352435"
               className="flex items-center hover:text-forestgreen transition-colors"
