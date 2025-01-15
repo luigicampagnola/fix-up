@@ -63,7 +63,7 @@ export default function OptionSection({
 
   return (
     <section className="option-section bg-platinum w-full flex text-[14px] md:text-[15px] lg:text-[16px] font-normal text-black justify-center">
-      <div className="basis-11/12 w-11/12 lg:basis-10/12 lg:w-10/12 py-[100] flex flex-col items-center">
+      <div className="basis-11/12 w-11/12 lg:basis-10/12 lg:w-10/12 py-[100] flex flex-col items-center lg:max-w-7xl">
         <h1 className="text-[30px] md:text-[50px] font-bold uppercase leading-none text-center text-midnightblue px-0 md:px-[50px] lg:px-0">
           {title} <span className="text-forestgreen">{subtitle}</span>
         </h1>

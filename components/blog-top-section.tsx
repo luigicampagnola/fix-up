@@ -4,12 +4,17 @@ import Image from "next/image";
 import { BlogTop } from "./blog-slug-section";
 import { FaFacebook, FaLinkedin, FaShareAlt, FaTwitter } from "react-icons/fa";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function BlogTopSection({ image, sharedLinks }: BlogTop) {
   const { label, facebook, twitter } = sharedLinks;
+  const [host, setHost] = useState('');
   const pathname = usePathname();
-  const host = window.location.origin;
   const pageURL = `${host}${pathname}`;
+
+  useEffect(() => {
+    setHost(window.location.origin);
+  }, []);
 
   const shareToTwitter = () => {
     const text = encodeURIComponent(twitter);

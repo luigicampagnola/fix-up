@@ -91,8 +91,8 @@ export default function NavBar() {
       }`}
     >
       {/* Top Bar */}
-      <div className="bg-midnightblue text-white py-2 px-4 md:px-14">
-        <div className="flex justify-center xl:justify-between items-center">
+      <div className="bg-midnightblue text-white py-2 px-4 md:px-14 flex justify-center">
+        <div className="flex justify-center xl:justify-between items-center lg:max-w-7xl">
           <div className="hidden xl:flex items-center gap-4">
             <a
               href="tel:7862352435"
@@ -158,8 +158,8 @@ export default function NavBar() {
       </div>
 
       {/* Main Navigation */}
-      <nav className="bg-white flex items-center w-full flex-wrap">
-        <div className="flex flex-wrap justify-between items-center w-full py-5 px-5 md:px-14 relative">
+      <nav className="bg-white flex items-center w-full flex-wrap justify-center">
+        <div className="flex flex-wrap justify-between items-center w-full py-5 px-5 md:px-14 relative lg:max-w-7xl">
           <Link href={"/"} onClick={handleMobileMenuClick}>
             <Image
               src="/icon/fixup.svg"

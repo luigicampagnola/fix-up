@@ -81,7 +81,7 @@ export default function InformationSection({
 
   return (
     <section className="option-section bg-white w-full flex text-sm md:text-base lg:text-base font-normal text-black justify-center">
-      <div className="basis-11/12 w-11/12 lg:basis-10/12 lg:w-10/12 py-24 flex flex-wrap flex-row">
+      <div className="basis-11/12 w-11/12 lg:basis-10/12 lg:w-10/12 py-24 flex flex-wrap flex-row lg:max-w-7xl">
         <div
           ref={imageRef}
           className={`mt-5 lg:mt-0 lg:w-5/12 lg:basis-5/12 w-full pr-3 order-2 lg:order-1 
