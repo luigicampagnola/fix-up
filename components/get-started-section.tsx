@@ -75,7 +75,7 @@ export default function GetStartedSection({
 
   return (
     <section
-      className="flex flex-col items-center overflow-hidden relative lg:h-[792px]"
+      className="flex flex-col items-center overflow-hidden relative  pt-[118px]"
       style={{
         backgroundImage: `url(${contactForm?.backgroundImage?.backgroundImage.url})`,
         backgroundSize: "cover",
