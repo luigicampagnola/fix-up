@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ message: "Success: email was sent", mail });
   } catch (error) {
-    console.log(error);
+    console.info(error);
     NextResponse.json({ message: "COULD NOT SEND MESSAGE" });
   }
 }

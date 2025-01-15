@@ -1,7 +1,15 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { FaHouse } from "react-icons/fa6";
 import Form from "./form";
 import { BackgroundImage, ContactForm, PhoneNumber } from "./types";
 import { FaEnvelope, FaPhone } from "react-icons/fa";
+
+interface SponsorFile {
+  documentId: string;
+  url: string;
+}
 
 interface Props {
   title?: string;
@@ -10,7 +18,11 @@ interface Props {
   phone?: PhoneNumber;
   email?: string;
   address?: string;
-  contactForm?: ContactForm;
+  contactForm?: ContactForm & {
+    sponsors?: {
+      files: SponsorFile[];
+    };
+  };
   backgroundImage?: BackgroundImage;
 }
 
@@ -23,7 +35,44 @@ export default function GetStartedSection({
   address,
   contactForm,
 }: Props) {
-  console.log(contactForm, "backgroundImage");
+  const [visibleElements, setVisibleElements] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("data-id");
+            if (id) {
+              setVisibleElements((prev) => ({
+                ...prev,
+                [id]: true,
+              }));
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "50px",
+      }
+    );
+
+    const elements = document.querySelectorAll("[data-id]");
+    elements.forEach((element) => {
+      observer.observe(element);
+    });
+
+    return () => {
+      elements.forEach((element) => {
+        observer.unobserve(element);
+      });
+    };
+  }, []);
+
   return (
     <section
       className="flex flex-col items-center overflow-hidden relative lg:h-[792px]"
@@ -36,7 +85,14 @@ export default function GetStartedSection({
     >
       <div className="bg-midnightblue top-0 left-0 rounded-none w-full h-full absolute opacity-80" />
       <div className="max-w-[1440px] basis-11/12 w-11/12 lg:basis-10/12 md:w-10/12 z-10 pt-12 pb-16 flex flex-wrap flex-col sm:flex-row items-center lg:justify-start">
-        <div className="flex flex-col basis-full w-full lg:basis-7/12 lg:w-7/12 lg:pr-[75px]">
+        <div
+          className={`flex flex-col basis-full w-full lg:basis-7/12 lg:w-7/12 lg:pr-[75px] transition-all duration-700 ${
+            visibleElements["title-section"]
+              ? "opacity-100 slide-up"
+              : "opacity-0"
+          }`}
+          data-id="title-section"
+        >
           <h1 className="font-bold text-center lg:text-left text-[39px] md:text-[60px] lg:text-[50px] leading-none uppercase pb-0 md:pb-[10px] md:pt-[30px] lg:pt-[50px] lg:pb-[35px]">
             {title}{" "}
             <span className="text-forestgreen md:block">{subtitle}</span>
@@ -75,7 +131,14 @@ export default function GetStartedSection({
           </div>
         </div>
         {contactForm && (
-          <div className="basis-full w-full lg:basis-5/12 lg:w-5/12 bg-red">
+          <div
+            className={`basis-full w-full lg:basis-5/12 lg:w-5/12 bg-red transition-all duration-700 ${
+              visibleElements["form-section"]
+                ? "opacity-100 slide-right"
+                : "opacity-0"
+            }`}
+            data-id="form-section"
+          >
             <Form contactForm={contactForm} />
           </div>
         )}

@@ -22,7 +22,7 @@ export default function LinksSection({ logo, links, contact, social }: Props) {
 
   return (
     <section className="links-section py-[100px] bg-white w-full flex text-[14px] md:text-[15px] lg:text-[16px] font-normal text-black justify-center">
-      <div className="flex flex-col items-center lg:flex-row basis-11/12 w-11/12 lg:basis-9/12 lg:w-9/12 justify-between">
+      <div className="flex flex-col items-center lg:flex-row basis-11/12 w-11/12 lg:basis-9/12 lg:w-9/12 justify-between lg:max-w-7xl">
         <div className="contact-info flex flex-col items-center lg:items-start w-full basis-full lg:basis-4/12 lg:w-4/12">
           {logo && (
             <div className="flex justify-center lg:justify-start mt-[20px] lg:mt-0 w-full pr-[10px]">

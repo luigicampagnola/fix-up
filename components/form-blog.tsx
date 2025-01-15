@@ -2,21 +2,24 @@
 
 import { useState } from "react";
 import { FaCircleExclamation, FaRegEnvelopeOpen } from "react-icons/fa6";
-import ReCAPTCHA from "react-google-recaptcha";
+import dynamic from "next/dynamic";
 import { ContactForm } from "./types";
 import { InputField, InputPhoneField } from "./input-fields";
 import useEmblaCarousel from "embla-carousel-react";
-import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
+
+const ReCAPTCHADynamic = dynamic(() => import("react-google-recaptcha"), {
+  ssr: false,
+});
 
 interface SponsorFile {
   documentId: string;
   url: string;
 }
-
 interface Props {
   contactForm: ContactForm & {
-    sponsors: {
+    sponsors?: {
       files: SponsorFile[];
     };
   };
@@ -34,17 +37,13 @@ export default function Form({ contactForm }: Props) {
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
   const recaptchaKey = process.env.NEXT_PUBLIC_RECAPTCHA_KEY;
 
-  function handleRecaptchaChange(value: string | null): void {
+  function handleRecaptchaChange(value: string | null) {
     setRecaptchaValue(value);
-    setValidFields((prev) => ({
-      ...prev,
-      captcha: !!value,
-    }));
+    setValidFields((prev) => ({ ...prev, captcha: !!value }));
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     const target = event.target as typeof event.target & {
       fullname: { value: string };
       phone: { value: string };
@@ -52,14 +51,14 @@ export default function Form({ contactForm }: Props) {
       street: { value: string };
     };
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     setValidFields({
       fullname: target.fullname.value.length > 0,
       phone: target.phone.value.length === 12,
-      captcha: !!recaptchaValue,
       email: emailRegex.test(target.email.value),
       street: target.street.value.length > 3,
+      captcha: !!recaptchaValue,
     });
 
     if (
@@ -80,12 +79,9 @@ export default function Form({ contactForm }: Props) {
             street: target.street.value,
           }),
         });
-
         if (!response.ok) {
           throw new Error(`response status: ${response.status}`);
         }
-        const responseData = await response.json();
-        console.log(responseData["message"]);
       } catch (error) {
         console.error(error);
       }
@@ -103,7 +99,6 @@ export default function Form({ contactForm }: Props) {
     warning,
     sponsors,
   } = contactForm;
-
   const fieldsAreInvalid = Object.keys(validFields).some(
     (key) => validFields[key as keyof typeof validFields] === false
   );
@@ -114,10 +109,7 @@ export default function Form({ contactForm }: Props) {
     ) || [];
 
   return (
-    <div
-      id="roofing-form"
-      className="form bg-white shadow-lg rounded-lg"
-    >
+    <div className="form bg-white rounded-lg m-[14px] md:m-0">
       <form
         className="pt-[48px] px-[42px] md:px-[48] pb-[32px]"
         onSubmit={handleSubmit}
@@ -131,13 +123,11 @@ export default function Form({ contactForm }: Props) {
         <div
           className={`${
             fieldsAreInvalid
-              ? "border-internationOrange border-solid border p-4 bg-snow text-internationOrange text-[13px] font-medium flex"
+              ? "border-internationOrange border p-4 bg-snow text-internationOrange text-[13px] font-medium flex"
               : "hidden"
           }`}
         >
-          <div className="flex items-center">
-            <FaCircleExclamation className="text-[28px] text-internationOrange" />
-          </div>
+          <FaCircleExclamation className="text-[28px]" />
           <p className="pl-4">{warning}</p>
         </div>
         <InputField
@@ -170,15 +160,15 @@ export default function Form({ contactForm }: Props) {
         <div className="flex flex-col py-2">
           <label
             className={`${
-              !validFields.captcha ? "text-internationOrange" : "text-black" 
+              !validFields.captcha ? "text-internationOrange" : "text-black"
             } font-bold text-[16px] uppercase`}
-            htmlFor="captcha"
           >
             {captcha.label}
           </label>
+
           <div className="recaptcha-container">
             {recaptchaKey && (
-              <ReCAPTCHA
+              <ReCAPTCHADynamic
                 sitekey={recaptchaKey}
                 onChange={handleRecaptchaChange}
                 hl="es"
@@ -190,7 +180,7 @@ export default function Form({ contactForm }: Props) {
           <span
             className={`${
               !validFields.captcha && warning ? "block" : "hidden"
-            } border-internationOrange border-solid border bg-snow text-internationOrange`}
+            } border-internationOrange border bg-snow text-internationOrange`}
           >
             {captcha.warning}
           </span>
@@ -206,7 +196,7 @@ export default function Form({ contactForm }: Props) {
             <div className="flex">
               {sponsorImages.map((image, index) => (
                 <div
-                  className="flex-[0_0_50%] sm:flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_33.333%] min-w-0 px-2"
+                  className="flex-[0_0_50%] sm:flex-[0_0_50%] md:flex-[0_0_33.333%] lg:flex-[0_0_33.333%] px-2"
                   key={`slide-${index}`}
                 >
                   <Image

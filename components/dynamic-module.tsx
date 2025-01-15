@@ -61,14 +61,10 @@ interface DynamicModuleProps {
 const DynamicModule = ({ moduleData }: DynamicModuleProps) => {
   const ModuleComponent = moduleComponents[moduleData.__component];
 
-  // console.log(ModuleComponent, 'Module Component');
-
   if (!ModuleComponent) {
     console.warn(`No component found for type ${moduleData.__component}`);
     return null;
   }
-
-  console.log(moduleData, "moduleData");
 
   // Transformar `image` para que sea compatible con `ImageData`
   const transformedModuleData = {

@@ -23,7 +23,7 @@ export default function SliderSection({ slider }: SliderSectionProps) {
   return (
     <section className="flex flex-col items-center overflow-hidden relative -mt-1">
       <div className="bg-white top-0 left-0 rounded-none w-full h-full absolute" />
-      <div className="basis-11/12 w-11/12 lg:basis-10/12 md:w-10/12 z-10 pt-12 pb-16 flex flex-col items-center lg:justify-start">
+      <div className="basis-11/12 w-11/12 lg:basis-10/12 md:w-10/12 z-10 pt-12 pb-16 flex flex-col items-center lg:justify-start lg:max-w-7xl">
         {slider && (
           <div className="flex flex-col md:flex-row items-center w-full flex-wrap">
             {slider.map((slide, index) => (

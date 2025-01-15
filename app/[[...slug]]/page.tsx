@@ -17,10 +17,10 @@ export default async function DynamicPage({ params }: PageProps) {
   const resolvedParams = await params;
   const slug = '/' + (resolvedParams?.slug?.join('/') || '');
 
-  console.log(slug);
+  // console.log(slug); // this console logs are commented for now used in dev mode
   const pageData: PageData | null = await getPage(slug);
 
-  console.log(pageData);
+  // console.log(pageData); // this console logs are commented for now used in dev mode
 
   if (!pageData) {
     notFound();
