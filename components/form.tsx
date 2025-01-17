@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCircleExclamation, FaRegEnvelopeOpen } from "react-icons/fa6";
 import dynamic from "next/dynamic";
 import { ContactForm } from "./types";
@@ -35,8 +35,9 @@ export default function Form({ contactForm }: Props) {
   });
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
+  const [showValidMessage, setShowValidMessage] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const recaptchaKey = process.env.NEXT_PUBLIC_RECAPTCHA_KEY;
-
   function handleRecaptchaChange(value: string | null) {
     setRecaptchaValue(value);
     setValidFields((prev) => ({ ...prev, captcha: !!value }));
@@ -44,6 +45,7 @@ export default function Form({ contactForm }: Props) {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setSubmitting(true);
     const target = event.target as typeof event.target & {
       fullname: { value: string };
       phone: { value: string };
@@ -79,8 +81,15 @@ export default function Form({ contactForm }: Props) {
             street: target.street.value,
           }),
         });
+
         if (!response.ok) {
+          setSubmitting(false);
           throw new Error(`response status: ${response.status}`);
+        }
+
+        if (response.ok) {
+          setShowValidMessage(true);
+          setSubmitting(false);
         }
       } catch (error) {
         console.error(error);
@@ -103,13 +112,38 @@ export default function Form({ contactForm }: Props) {
     (key) => validFields[key as keyof typeof validFields] === false
   );
 
+  useEffect(() => {
+    if (showValidMessage) setTimeout(() => setShowValidMessage(false), 3000);
+  }, [showValidMessage]);
+
   const sponsorImages =
     sponsors?.files?.map(
       (file) => `${process.env.NEXT_PUBLIC_STRAPI_BASE_URL || ""}${file.url}`
     ) || [];
 
   return (
-    <div id="Form" className="form bg-white shadow-custom-forestgreen-right rounded-sm m-[14px] md:m-0">
+    <div
+      id="Form"
+      className="form bg-white shadow-custom-forestgreen-right rounded-sm m-[14px] md:m-0 relative"
+    >
+      <div
+        className={`${
+          showValidMessage
+            ? "opacity-100 z-10 flex flex-col"
+            : "opacity-0 -z-10 hidden"
+        } transition-opacity ease-in-out delay-75 duration-100 absolute border-4 border-solid border-white bg-forestgreen text-white p-5 rounded-md bottom-0 right-0 z-10 w-full`}
+      >
+        <h6 className="font-bold border-b-4 border-midnightblue text-white text-[20px]">
+          Thank You for Your Submission!
+        </h6>
+        <p className="left-5 pt-4">
+          We have received your contact request along with your personal
+          information. Our team will review your details and reach out to you
+          promptly. Please check your inbox (and your spam folder just in case)
+          for our response. We appreciate your trust and look forward to
+          connecting with you soon. Have a great day!
+        </p>
+      </div>
       <form
         className="pt-[48px] px-[42px] md:px-[48] pb-[32px]"
         onSubmit={handleSubmit}
@@ -173,7 +207,6 @@ export default function Form({ contactForm }: Props) {
                 onChange={handleRecaptchaChange}
                 hl="es"
                 theme="light"
-                size="normal"
               />
             )}
           </div>
@@ -186,9 +219,26 @@ export default function Form({ contactForm }: Props) {
           </span>
         </div>
         <button
-          className="w-full bg-forestgreen my-2 py-[10px] px-[15px] rounded text-white font-semibold hover:bg-midnightblue transition-all mb-[1rem]"
+          className="w-full bg-forestgreen my-2 py-[10px] px-[15px] flex justify-center rounded text-white font-semibold hover:bg-midnightblue transition-all mb-[1rem]"
           type="submit"
         >
+          {submitting && (
+            <svg
+              className="animate-spin h-5 w-5 mr-3 fill-forestgreen ..."
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-75"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeDasharray="30"
+                strokeLinecap="round"
+              ></circle>
+            </svg>
+          )}
           {button.label}
         </button>
         {sponsorImages.length > 0 && (
