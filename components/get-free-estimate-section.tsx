@@ -33,9 +33,9 @@ export default function GetFreeEstimateSection({
 }: Props) {
   return (
     <section
-      className="flex flex-col items-center overflow-hidden relative lg:h-[792px] pt-[118px]"
+      className="flex flex-col items-center overflow-visible relative min-h-screen lg:min-h-[792px] pt-[118px]"
       style={{
-        backgroundImage: `url(${contactForm?.backgroundImage.backgroundImage.url})`,
+        backgroundImage: `url(${contactForm?.backgroundImage?.backgroundImage?.url})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
@@ -87,10 +87,10 @@ export default function GetFreeEstimateSection({
           </div>
         )}
       </div>
-      <div className="rotate-180 overflow-hidden left-0 w-full mt-auto">
+      <div className="rotate-180 overflow-hidden left-0 w-full mt-auto relative top-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-32 w-custom-width block relative left-1/2 -translate-x-2/4"
+          className="h-32 w-full block"
           viewBox="0 0 2600 131.1"
           preserveAspectRatio="none"
         >
