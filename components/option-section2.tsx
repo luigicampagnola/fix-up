@@ -93,7 +93,7 @@ export default function OptionSection2({
           className={`shadow-custom-forestgreen rounded-lg mt-5 lg:mt-0 w-full h-full xl:max-w-[414px] pr-3 
            transition-all duration-1000 ease-out
            ${
-             position === "left"
+             position === "right"
                ? `opacity-0 translate-x-24 ${
                    isImageVisible ? "animate-slide-right" : ""
                  }`
