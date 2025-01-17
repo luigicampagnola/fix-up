@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCircleExclamation, FaRegEnvelopeOpen } from "react-icons/fa6";
 import dynamic from "next/dynamic";
 import { ContactForm } from "./types";
@@ -112,7 +112,9 @@ export default function Form({ contactForm }: Props) {
     (key) => validFields[key as keyof typeof validFields] === false
   );
 
-  if (showValidMessage) setTimeout(() => setShowValidMessage(false), 3000);
+  useEffect(() => {
+    if (showValidMessage) setTimeout(() => setShowValidMessage(false), 3000);
+  }, [showValidMessage]);
 
   const sponsorImages =
     sponsors?.files?.map(
@@ -126,7 +128,9 @@ export default function Form({ contactForm }: Props) {
     >
       <div
         className={`${
-          showValidMessage ? "opacity-100 z-10 flex flex-col" : "opacity-0 -z-10 hidden"
+          showValidMessage
+            ? "opacity-100 z-10 flex flex-col"
+            : "opacity-0 -z-10 hidden"
         } transition-opacity ease-in-out delay-75 duration-100 absolute border-4 border-solid border-white bg-forestgreen text-white p-5 rounded-md bottom-0 right-0 z-10 w-full`}
       >
         <h6 className="font-bold border-b-4 border-midnightblue text-white text-[20px]">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCircleExclamation, FaRegEnvelopeOpen } from "react-icons/fa6";
 import dynamic from "next/dynamic";
 import { ContactForm } from "./types";
@@ -112,7 +112,9 @@ export default function Form({ contactForm }: Props) {
     (key) => validFields[key as keyof typeof validFields] === false
   );
 
-  if (showValidMessage) setTimeout(() => setShowValidMessage(false), 4000);
+  useEffect(() => {
+    if (showValidMessage) setTimeout(() => setShowValidMessage(false), 3000);
+  }, [showValidMessage]);
 
   const sponsorImages =
     sponsors?.files?.map(
