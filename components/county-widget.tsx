@@ -44,7 +44,6 @@ export default function CountyWidget({
     };
   }, [title]);
 
-  console.log(`${strapiURL}${image?.url}`)
 
   return (
     <div

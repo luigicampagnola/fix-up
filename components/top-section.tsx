@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { ScrollTo, TextList, BackgroundImage } from "./types";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 type Props = {
   title?: string;
@@ -101,9 +102,9 @@ export default function TopSection({
           <div
             className={`flex w-full justify-left lg:justify-${button?.position}`}
           >
-            <button className="py-4 px-7 md:px-9 md:py-4 lg:px-10 lg:py-5 mt-5 text-[14px] md:text-[15px] lg:text-[16px] bg-forestgreen rounded font-semibold text-white hover:bg-forestgreen/90 transition-colors duration-300">
+            <Link href={`${button.cssSelector}`} className="py-4 px-7 md:px-9 md:py-4 lg:px-10 lg:py-5 mt-5 text-[14px] md:text-[15px] lg:text-[16px] bg-forestgreen rounded font-semibold text-white hover:bg-forestgreen/90 transition-colors duration-300">
               {button?.label}
-            </button>
+            </Link>
           </div>
         )}
       </div>

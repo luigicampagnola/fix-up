@@ -7,6 +7,9 @@ export interface ModuleData {
   email?: Email;
   address?: string;
   facebook?: Facebook;
+  metaDescription?: string;
+  metaTitle?: string;
+  shareImage?: SlideImage;
 }
 
 export interface Email {
