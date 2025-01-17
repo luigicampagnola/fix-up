@@ -207,6 +207,7 @@ export default function Form({ contactForm }: Props) {
                 onChange={handleRecaptchaChange}
                 hl="es"
                 theme="light"
+                size="normal"
               />
             )}
           </div>
