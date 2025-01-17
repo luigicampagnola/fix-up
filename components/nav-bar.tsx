@@ -136,19 +136,19 @@ export default function NavBar() {
               <FaEnvelope className="w-4 h-4" />
             </a>
             <a
-              href="#"
+              href="https://g.co/kgs/P4T3wXP"
               className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all"
             >
               <FaGoogle className="w-4 h-4" />
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/FixUpRoofingAndConstruction/"
               className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all"
             >
               <FaFacebook className="w-4 h-4" />
             </a>
             <a
-              href="#"
+              href="https://www.yelp.com/biz/fix-up-roofing-and-construction-miami-2"
               className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all"
             >
               <FaYelp className="w-4 h-4" />
