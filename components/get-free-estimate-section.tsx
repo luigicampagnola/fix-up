@@ -82,7 +82,7 @@ export default function GetFreeEstimateSection({
           </div>
         </div>
         {contactForm && (
-          <div className="basis-full w-full lg:basis-5/12 lg:w-5/12">
+          <div className="basis-full sm:max-w-[62%] lg:max-w-[35%] sm:m-auto w-full lg:basis-5/12 lg:w-5/12">
             <Form contactForm={contactForm} />
           </div>
         )}
