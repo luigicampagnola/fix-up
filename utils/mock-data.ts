@@ -209,7 +209,7 @@ export const bottomBarSection = {
     label: "Privacy Policy",
     url: "/privacy-policy",
   },
-  copyright: "Copyright © 2024 Fix Up Roofing - All Rights Reserved.",
+  copyright: "Copyright © 2025 Fix Up Roofing - All Rights Reserved.",
 };
 
 export const informationData = {
@@ -300,10 +300,10 @@ export const formData = {
     },
     backgroundImage: {
       backgroundImage: {
-        url: '',
-        alt: ''
-      }
-    }
+        url: "",
+        alt: "",
+      },
+    },
   },
 };
 
