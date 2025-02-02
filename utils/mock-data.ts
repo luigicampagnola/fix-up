@@ -164,9 +164,8 @@ export const linkSection = {
     },
   },
   social: {
-    yelp: "https://www.facebook.com/FixUpRoofingAndConstruction/",
-    facebook:
-      "https://www.yelp.com/biz/fix-up-roofing-and-construction-miami-2",
+    yelp: "https://www.yelp.com/biz/fix-up-roofing-and-construction-miami-2",
+    facebook: "https://www.facebook.com/FixUpRoofingAndConstruction/",
     googlePlus: "https://g.co/kgs/P4T3wXP",
   },
   links: [
