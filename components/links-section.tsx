@@ -68,6 +68,7 @@ export default function LinksSection({ logo, links, contact, social }: Props) {
               <div className="transition-all mr-2">
                 <a
                   href={social.facebook}
+                  target="_blank"
                   className="flex transition-all text-[20px] hover:text-[25px] text-white hover:text-forestgreen bg-forestgreen hover:bg-midnightblue p-[10px] rounded-full"
                 >
                   <FaFacebook className="bg-transparent" />
@@ -76,6 +77,7 @@ export default function LinksSection({ logo, links, contact, social }: Props) {
               <div className="transition-all mr-2">
                 <a
                   href={social.yelp}
+                  target="_blank"
                   className="flex transition-all text-[20px] hover:text-[25px] text-white hover:text-forestgreen bg-forestgreen hover:bg-midnightblue p-[10px] rounded-full"
                 >
                   <FaYelp className="bg-transparent" />
@@ -84,6 +86,7 @@ export default function LinksSection({ logo, links, contact, social }: Props) {
               <div className="transition-all mr-2">
                 <a
                   href={social.googlePlus}
+                  target="_blank"
                   className="flex transition-all text-[20px] hover:text-[25px] text-white hover:text-forestgreen bg-forestgreen hover:bg-midnightblue p-[10px] rounded-full"
                 >
                   <FaGooglePlusG className="bg-transparent" />
@@ -95,7 +98,10 @@ export default function LinksSection({ logo, links, contact, social }: Props) {
         <div className="links flex justify-between w-full basis-full flex-wrap lg:basis-7/12 lg:w-7/12">
           {links &&
             links.map((link) => (
-              <div key={link.title} className="flex flex-col items-center pt-5 lg:pt-0 lg:items-start basis-full md:basis-4/12">
+              <div
+                key={link.title}
+                className="flex flex-col items-center pt-5 lg:pt-0 lg:items-start basis-full md:basis-4/12"
+              >
                 <p className="font-bold text-[18px] md:text-[20px] mb-7">
                   {link.title}
                 </p>

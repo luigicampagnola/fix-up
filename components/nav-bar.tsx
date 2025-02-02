@@ -137,18 +137,21 @@ export default function NavBar() {
             </a>
             <a
               href="https://g.co/kgs/P4T3wXP"
+              target="_blank"
               className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all"
             >
               <FaGoogle className="w-4 h-4" />
             </a>
             <a
               href="https://www.facebook.com/FixUpRoofingAndConstruction/"
+              target="_blank"
               className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all"
             >
               <FaFacebook className="w-4 h-4" />
             </a>
             <a
               href="https://www.yelp.com/biz/fix-up-roofing-and-construction-miami-2"
+              target="_blank"
               className="w-8 h-8 flex items-center justify-center rounded-full bg-forestgreen hover:bg-white text-white hover:text-midnightblue transition-all"
             >
               <FaYelp className="w-4 h-4" />
