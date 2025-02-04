@@ -175,7 +175,7 @@ export default function Form({ contactForm }: Props) {
           id="phone"
           name="phone"
           labels={phone}
-          invalid={!validFields.phone}
+          invalid={false}
         />
         <InputField
           id="email"
