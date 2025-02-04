@@ -31,7 +31,7 @@ export default function Form({ contactForm }: Props) {
     phone: true,
     email: true,
     street: true,
-    captcha: true,
+    captcha: false,
   });
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
@@ -53,11 +53,11 @@ export default function Form({ contactForm }: Props) {
       street: { value: string };
     };
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
 
     setValidFields({
       fullname: target.fullname.value.length > 0,
-      phone: target.phone.value.length === 12,
+      phone: target.phone.value.length > 0,
       email: emailRegex.test(target.email.value),
       street: target.street.value.length > 3,
       captcha: !!recaptchaValue,
@@ -65,7 +65,7 @@ export default function Form({ contactForm }: Props) {
 
     if (
       target.fullname.value.length > 0 &&
-      target.phone.value.length === 12 &&
+      target.phone.value.length > 0 &&
       emailRegex.test(target.email.value) &&
       target.street.value.length > 3 &&
       recaptchaValue
@@ -82,18 +82,24 @@ export default function Form({ contactForm }: Props) {
           }),
         });
 
+        console.log(response, " reponse");
         if (!response.ok) {
           setSubmitting(false);
-          throw new Error(`response status: ${response.status}`);
+          console.log(response.status, "response status");
+          throw new Error("response status: ${response.status}");
         }
 
         if (response.ok) {
           setShowValidMessage(true);
           setSubmitting(false);
         }
+        setSubmitting(false);
       } catch (error) {
+        setSubmitting(false);
         console.error(error);
       }
+    } else {
+      setSubmitting(false);
     }
   }
 
@@ -175,7 +181,7 @@ export default function Form({ contactForm }: Props) {
           id="phone"
           name="phone"
           labels={phone}
-          invalid={!validFields.phone}
+          invalid={false}
         />
         <InputField
           id="email"
@@ -192,15 +198,15 @@ export default function Form({ contactForm }: Props) {
           type="text"
         />
         <div className="flex flex-col py-2">
-          <label
+          {/* <label
             className={`${
               !validFields.captcha ? "text-internationOrange" : "text-black"
             } font-bold text-[16px] uppercase`}
           >
             {captcha.label}
-          </label>
+          </label> */}
 
-          <div className="recaptcha-container">
+          {/* <div className="recaptcha-container">
             {recaptchaKey && (
               <ReCAPTCHADynamic
                 sitekey={recaptchaKey}
@@ -210,14 +216,14 @@ export default function Form({ contactForm }: Props) {
                 size="normal"
               />
             )}
-          </div>
-          <span
+          </div> */}
+          {/* <span
             className={`${
               !validFields.captcha && warning ? "block" : "hidden"
             } border-internationOrange border bg-snow text-internationOrange`}
           >
             {captcha.warning}
-          </span>
+          </span> */}
         </div>
         <button
           className="w-full bg-forestgreen my-2 py-[10px] px-[15px] flex justify-center rounded text-white font-semibold hover:bg-midnightblue transition-all mb-[1rem]"
