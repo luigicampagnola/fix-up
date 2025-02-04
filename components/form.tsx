@@ -198,15 +198,15 @@ export default function Form({ contactForm }: Props) {
           type="text"
         />
         <div className="flex flex-col py-2">
-          {/* <label
+          <label
             className={`${
               !validFields.captcha ? "text-internationOrange" : "text-black"
             } font-bold text-[16px] uppercase`}
           >
             {captcha.label}
-          </label> */}
+          </label>
 
-          {/* <div className="recaptcha-container">
+          <div className="recaptcha-container">
             {recaptchaKey && (
               <ReCAPTCHADynamic
                 sitekey={recaptchaKey}
@@ -216,14 +216,14 @@ export default function Form({ contactForm }: Props) {
                 size="normal"
               />
             )}
-          </div> */}
-          {/* <span
+          </div>
+          <span
             className={`${
               !validFields.captcha && warning ? "block" : "hidden"
             } border-internationOrange border bg-snow text-internationOrange`}
           >
             {captcha.warning}
-          </span> */}
+          </span>
         </div>
         <button
           className="w-full bg-forestgreen my-2 py-[10px] px-[15px] flex justify-center rounded text-white font-semibold hover:bg-midnightblue transition-all mb-[1rem]"
