@@ -27,7 +27,7 @@ User-agent: Bingbot
 Disallow: /test/
 
 User-agent: AhrefsBot
-Disallow: /
+Allow: /
 
 User-agent: YandexBot
 Disallow: /
