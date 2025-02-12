@@ -27,24 +27,29 @@ export default function RootLayout({
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="vY6zsAfYDYGdkfPvwyB2PQ"
+          async
+        ></script>
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "name": "Fix Up Roofing and Construction LLC",
-              "image": "https://fixuproofing.com/logo.png",
-              "telephone": "+1 786-235-2435",
-              "address": {
+              name: "Fix Up Roofing and Construction LLC",
+              image: "https://fixuproofing.com/logo.png",
+              telephone: "+1 786-235-2435",
+              address: {
                 "@type": "PostalAddress",
-                "streetAddress": "6917 NW 77th Ave",
-                "addressLocality": "Miami",
-                "addressRegion": "FL",
-                "postalCode": "33166",
-                "addressCountry": "US",
+                streetAddress: "6917 NW 77th Ave",
+                addressLocality: "Miami",
+                addressRegion: "FL",
+                postalCode: "33166",
+                addressCountry: "US",
               },
-              "url": "https://fixuproofing.com",
-              "openingHours": "Mo-Fr 09:00-19:00",
+              url: "https://fixuproofing.com",
+              openingHours: "Mo-Fr 09:00-19:00",
             }),
           }}
         />
