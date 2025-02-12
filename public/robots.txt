@@ -16,9 +16,6 @@ Disallow: /*?
 Sitemap: https://fixuproofing.com/sitemap.xml
 Sitemap: https://fix-up.vercel.app/sitemap.xml
 
-# Crawl-delay
-Crawl-delay: 10
-
 # Bot-specific rules
 User-agent: Googlebot
 Disallow: /temp/
