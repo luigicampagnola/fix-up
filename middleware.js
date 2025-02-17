@@ -1,13 +1,17 @@
-// middleware.js
 import { NextResponse } from "next/server";
 
+export const config = {
+  matcher: "/:path*",
+};
+
 export function middleware(req) {
-  const country = req.headers.get("x-vercel-ip-country");
-  const region = req.headers.get("x-vercel-ip-region");
+  const country =
+    req.geo?.country || req.headers.get("x-vercel-ip-country") || "US";
+  const region =
+    req.geo?.region || req.headers.get("x-vercel-ip-region") || "FL";
 
   console.log(`🌎 País detectado: ${country}, Región detectada: ${region}`);
 
-  // Permitir solo tráfico de EE.UU. y Florida
   if (country === "US" && region === "FL") {
     return NextResponse.next();
   }
@@ -17,8 +21,3 @@ export function middleware(req) {
     { status: 403 }
   );
 }
-
-// Aplicar middleware a todas las rutas
-export const config = {
-  matcher: "/:path*",
-};
