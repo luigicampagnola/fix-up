@@ -114,10 +114,9 @@ export default function Form({ contactForm }: Props) {
     warning,
     sponsors,
   } = contactForm;
-  const fieldsAreInvalid = Object.keys(validFields).some((key) => {
-    console.log(validFields[key as keyof typeof validFields]);
-    return validFields[key as keyof typeof validFields] === false;
-  });
+  const fieldsAreInvalid = Object.keys(validFields).some(
+    (key) => validFields[key as keyof typeof validFields] === false
+  );
 
   useEffect(() => {
     if (showValidMessage) setTimeout(() => setShowValidMessage(false), 3000);
