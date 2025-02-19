@@ -31,7 +31,7 @@ export default function Form({ contactForm }: Props) {
     phone: true,
     email: true,
     street: true,
-    captcha: false,
+    captcha: true,
   });
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
@@ -114,9 +114,10 @@ export default function Form({ contactForm }: Props) {
     warning,
     sponsors,
   } = contactForm;
-  const fieldsAreInvalid = Object.keys(validFields).some(
-    (key) => validFields[key as keyof typeof validFields] === false
-  );
+  const fieldsAreInvalid = Object.keys(validFields).some((key) => {
+    console.log(validFields[key as keyof typeof validFields]);
+    return validFields[key as keyof typeof validFields] === false;
+  });
 
   useEffect(() => {
     if (showValidMessage) setTimeout(() => setShowValidMessage(false), 3000);
