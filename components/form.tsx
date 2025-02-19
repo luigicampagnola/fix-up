@@ -31,7 +31,7 @@ export default function Form({ contactForm }: Props) {
     phone: true,
     email: true,
     street: true,
-    captcha: false,
+    captcha: true,
   });
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
