@@ -46,6 +46,7 @@ export default function Form({ contactForm }: Props) {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitting(true);
+    const form = event.target as HTMLFormElement;
     const target = event.target as typeof event.target & {
       fullname: { value: string };
       phone: { value: string };
@@ -88,12 +89,19 @@ export default function Form({ contactForm }: Props) {
         }
 
         if (response.ok) {
+          // Reinicia el formulario utilizando el método reset()
+          form.reset();
+          // Resetea el estado del reCAPTCHA
+          setRecaptchaValue(null);
           setShowValidMessage(true);
           setSubmitting(false);
         }
       } catch (error) {
         console.error(error);
+        setSubmitting(false);
       }
+    } else {
+      setSubmitting(false);
     }
   }
 
