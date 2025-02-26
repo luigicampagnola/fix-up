@@ -29,7 +29,7 @@ interface NavBarProps {
   };
 }
 
-export default function NavBar({ financing }: NavBarProps) {
+export default function NavBar({}: NavBarProps) {
   const linkStyle =
     "text-[16px] text-dimgray py-[18px] px-[16px] mx-1 font-semibold uppercase rounded transition-all duration-75 hover:text-white hover:bg-midnightblue";
   const [openMenu, setOpenMenu] = useState(false);
