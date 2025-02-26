@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['localhost'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -12,11 +11,27 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'amazing-fireworks-dd56623770.strapiapp.com'
+        hostname: 'cdn-ilbgjlh.nitrocdn.com',
+        pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'fixuproofing.com',
+        pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'amazing-fireworks-dd56623770.media.strapiapp.com',
+        pathname: '/**'
       },
       {
         protocol: 'http',
         hostname: 'localhost:1337'
+      },
+      {
+        protocol: 'https',
+        hostname: 'maps.googleapis.com',
+        pathname: '/**'
       }
     ],
   },

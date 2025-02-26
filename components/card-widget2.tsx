@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { ImageData, LinkData } from "./types";
-import configs from "./../environment.configs";
-import { useEffect, useRef, useState } from "react";
+import configs from "../environment.configs";
 
 type Option = {
   values: string;
 };
 
-export type CardWidgetProps = {
+export type CardWidget2Props = {
   name?: string;
   image?: ImageData;
   title?: string;
@@ -18,17 +18,15 @@ export type CardWidgetProps = {
   link?: LinkData;
 };
 
-export default function CardWidget({
+export default function CardWidget2({
   name,
   image,
   title,
   subtitle,
   options,
   link,
-}: CardWidgetProps) {
-  const cardRef = useRef(null);
+}: CardWidget2Props) {
   const [isVisible, setIsVisible] = useState(false);
-
   const STRAPI_URL =
     configs.BASE_URL || "https://amazing-fireworks-dd56623770.strapiapp.com";
 
@@ -42,62 +40,54 @@ export default function CardWidget({
   const DEFAULT_HEIGHT = 750;
 
   useEffect(() => {
-    const observedElement = cardRef.current;
-
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.unobserve(entry.target);
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
       },
       {
         threshold: 0.1,
-        rootMargin: "50px",
       }
     );
 
-    if (observedElement) {
-      observer.observe(observedElement);
-    }
+    const element = document.querySelector(`[data-id="${name}"]`);
+    if (element) observer.observe(element);
 
     return () => {
-      if (observedElement) {
-        observer.unobserve(observedElement);
-      }
+      if (element) observer.unobserve(element);
     };
-  }, []);
+  }, [name]);
 
   return (
     <div
-      ref={cardRef}
-      className={`box-widget lg:w-4/12 lg:basis-4/12 flex flex-col transition-all duration-1000 ease-out ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+      className={`box-widget lg:w-6/12 lg:basis-6/12 flex flex-col transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
       }`}
+      data-id={name}
     >
-      <div className="bg-white rounded-lg flex-1 flex flex-col mb-3 md:mb-5 mx-3">
-        <div>
+      <div className="bg-white rounded-lg flex-1 flex flex-col mb-[10px] md:mb-[20px] mx-[10px]">
+        <div className="image">
           {image && (
             <Image
               className="rounded-lg"
               src={imageUrl}
               alt={image.alt || "Roofing image"}
-              width={image?.src?.width ?? DEFAULT_WIDTH}
-              height={image?.src?.height ?? DEFAULT_HEIGHT}
+              width={DEFAULT_WIDTH}
+              height={DEFAULT_HEIGHT}
             />
           )}
         </div>
-        <div className="px-5 md:px-8 pb-8">
-          <h3 className="text-xl md:text-2xl pt-8 pb-5 text-midnightblue font-bold leading-tight">
+        <div className="px-[20px] md:px-[30px] pb-[30px]">
+          <h3 className="text-[20px] md:text-[23px] pt-[15px] pb-[15px] text-midnightblue font-bold leading-tight">
             {title} <span className="lg:block">{subtitle}</span>
           </h3>
-          <ul className="font-medium pb-5">
+          <ul className="font-medium">
             {options?.map((option, index) => (
               <li
                 key={`${name}-${index}`}
-                className="text-sm md:text-base text-black"
+                className="text-[15px] md:text-[14px] text-black"
               >
                 {option?.values}
               </li>
@@ -106,7 +96,7 @@ export default function CardWidget({
           {link && (
             <div className="flex">
               <a
-                className="font-semibold rounded-md text-base py-3 px-5 hover:bg-midnightblue text-white bg-forestgreen capitalize leading-none"
+                className="font-semibold rounded-md text-[15px] py-[12px] px-[20px] hover:bg-midnightblue text-white bg-forestgreen capitalize leading-none"
                 href={link.url}
               >
                 {link.label}

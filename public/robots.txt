@@ -1,0 +1,37 @@
+User-agent: *
+
+# Block sensitive directories
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /uploads/
+Disallow: /config/
+Disallow: /content-manager/
+Disallow: /graphql/
+
+# Disallow query parameters
+Disallow: /*?
+
+# Sitemaps
+Sitemap: https://fixuproofing.com/sitemap.xml
+Sitemap: https://fix-up.vercel.app/sitemap.xml
+
+# Bot-specific rules
+User-agent: Googlebot
+Disallow: /temp/
+
+User-agent: Bingbot
+Disallow: /test/
+
+User-agent: AhrefsBot
+Allow: /
+
+User-agent: YandexBot
+Disallow: /
+
+# Allow specific assets
+Allow: /uploads/images/
+
+# Block staging/testing environments
+Disallow: /staging/
+Disallow: /testing/

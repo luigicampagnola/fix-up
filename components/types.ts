@@ -1,35 +1,30 @@
-export interface BaseModule {
-  __component: string; // Identificador del componente
-  id: number; // ID común para todos los módulos
+// types.ts
+export interface ModuleData {
+  __component: string;
+  id: number;
+  title?: string;
+  phoneNumber?: PhoneNumber;
+  email?: Email;
+  address?: string;
+  facebook?: Facebook;
+  metaDescription?: string;
+  metaTitle?: string;
+  shareImage?: SlideImage;
 }
 
-// Tipo específico para el componente Hero
-export interface HeroModule extends BaseModule {
-  __component: "shared.hero";
-  title: string;
-}
-
-// Tipo específico para el componente TopBar
-export interface TopBarModule extends BaseModule {
-  __component: "shared.top-bar";
-  phoneNumber: PhoneNumber;
-  email: Email;
-  address: string;
-  facebook: Facebook;
-}
-
-// Tipo para todas las posibles estructuras de módulos
-export type ModuleData = HeroModule | TopBarModule;
-
-// Subtipos para datos específicos usados en los módulos
 export interface Email {
   label: string;
   emailHref: string;
   target: string;
 }
 
+export interface Address {
+  label: string;
+  href: string;
+}
+
 export interface Facebook {
-  label: string | null;
+  label: string;
   href: string;
   target: string;
 }
@@ -47,10 +42,12 @@ export interface PageData {
 export interface ScrollTo {
   label: string;
   cssSelector: string;
+  position: string;
 }
 
 export interface TextList {
-  values: string
+  values: string;
+  position: string;
 }
 
 export interface LinkData {
@@ -60,7 +57,18 @@ export interface LinkData {
 
 export interface ImageData {
   alt: string;
-  src: string;
+  src: {
+    url: string;
+    width?: number;
+    height?: number;
+  };
+}
+
+export interface BackgroundImage {
+  backgroundImage: {
+    url: string;
+    alt: string;
+  };
 }
 
 export interface Options {
@@ -83,19 +91,60 @@ export interface LinksContact {
   hashtag?: string;
   phoneNumber?: PhoneNumber;
   email?: Email;
-  address?: string;
+  address?: Address;
 }
 
 export interface Rates {
   label: string;
   subLabel: string;
-  googleLogo: {url: string};
+  googleLogo: { url: string };
   comments: Comment[];
 }
 
 export interface Comment {
-    name: string;
-    date: string;
-    comment: string;
-    rate: number;
+  name: string;
+  date: string;
+  comment: string;
+  rate: number;
+}
+
+export interface FieldData {
+  label?: string;
+  placeholder?: string;
+  required: boolean;
+  warning: string;
+  formatWarning?: string;
+}
+
+export interface ContactForm {
+  title: string;
+  warning: string;
+  name: FieldData;
+  phone: FieldData;
+  email: FieldData;
+  street: FieldData;
+  captcha: FieldData;
+  button: {
+    label: string;
+    url: string;
+  };
+  backgroundImage: BackgroundImage;
+}
+
+export interface MapData {
+  label?: string;
+  link?: string;
+  mapLocations?: { label: string }[];
+  zoom: number;
+  center: {
+    lat: number;
+    lng: number;
+  };
+}
+
+export interface SlideImage {
+  alternativeText: string;
+  url: string;
+  height: number;
+  width: number;
 }
