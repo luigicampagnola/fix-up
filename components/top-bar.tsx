@@ -1,6 +1,10 @@
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaFacebook} from 'react-icons/fa';
-import { Email, PhoneNumber, Facebook } from "../components/types";  // Importa los tipos de `types.ts`
-
+import {
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaFacebook,
+} from "react-icons/fa";
+import { Email, PhoneNumber, Facebook } from "../components/types"; // Importa los tipos de `types.ts`
 
 interface TopBarProps {
   phoneNumber?: PhoneNumber;
@@ -11,8 +15,12 @@ interface TopBarProps {
   googleHref?: string;
 }
 
-export const TopBar = ({ phoneNumber, email, address, facebook }: TopBarProps) => {
-
+export const TopBar = ({
+  phoneNumber,
+  email,
+  address,
+  facebook,
+}: TopBarProps) => {
   return (
     <div className="bg-midnightblue text-white text-sm py-2 px-4 flex justify-between items-center">
       {/* Contact Information */}
@@ -42,6 +50,3 @@ export const TopBar = ({ phoneNumber, email, address, facebook }: TopBarProps) =
 };
 
 export default TopBar;
-
-
-
