@@ -53,8 +53,20 @@ export default function RootLayout({
             }),
           }}
         />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-PD2XNTBPT"
+        ></script>
       </head>
       <body>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PD2XNTBPT"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <NavBar />
         {children}
       </body>
