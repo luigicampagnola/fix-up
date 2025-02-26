@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavBar from "@/components/nav-bar";
+// import NavBar from "@/components/nav-bar";
 import { Poppins } from "next/font/google";
 // import TopBar from "@/components/top-bar";
 
@@ -53,9 +53,21 @@ export default function RootLayout({
             }),
           }}
         />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-PD2XNTBPT"
+        ></script>
       </head>
       <body>
-        <NavBar />
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PD2XNTBPT"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+        {/* <NavBar /> */}
         {children}
       </body>
     </html>

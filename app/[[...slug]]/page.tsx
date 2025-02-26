@@ -13,33 +13,42 @@ interface PageProps {
   params: Promise<{ slug?: string[] }>;
 }
 
-export async function generateMetadata({params}: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
-  const slug = '/' + (resolvedParams?.slug?.join('/') || '');
+  const slug = "/" + (resolvedParams?.slug?.join("/") || "");
   const pageData: PageData | null = await getPage(slug);
 
-  if(pageData) {
-    const seoInformation = pageData.modules.find((module: ModuleData) => module.__component === 'shared.seo');
-  
-    const headTitle = seoInformation?.metaTitle || 'Best Roofing and Construction Services | Fix Up Roofing';
-    const headDescription = seoInformation?.metaDescription || "Choose Miami's top Best Roofing & Construction Company! Affordable, quick, and reliable solutions for your home or business.";
-    const headImage = seoInformation?.shareImage?.url || '/icon/fixup.svg';
+  if (pageData) {
+    const seoInformation = pageData.modules.find(
+      (module: ModuleData) => module.__component === "shared.seo"
+    );
+
+    const headTitle =
+      seoInformation?.metaTitle ||
+      "Best Roofing and Construction Services | Fix Up Roofing";
+    const headDescription =
+      seoInformation?.metaDescription ||
+      "Choose Miami's top Best Roofing & Construction Company! Affordable, quick, and reliable solutions for your home or business.";
+    const headImage = seoInformation?.shareImage?.url || "/icon/fixup.svg";
     // const headImageAlt = seoInformation?.shareImage?.alternativeText || 'fixup image'; //added only if is needed
-    
+
     return {
       title: headTitle,
       description: headDescription,
       openGraph: {
         images: headImage,
         title: headTitle,
-        description: headDescription
+        description: headDescription,
       },
-    }
+    };
   }
 
-  const headTitle = 'Best Roofing and Construction Services | Fix Up Roofing';
-    const headDescription = "Choose Miami's top Best Roofing & Construction Company! Affordable, quick, and reliable solutions for your home or business.";
-    const headImage = '/icon/fixup.svg';
+  const headTitle = "Best Roofing and Construction Services | Fix Up Roofing";
+  const headDescription =
+    "Choose Miami's top Best Roofing & Construction Company! Affordable, quick, and reliable solutions for your home or business.";
+  const headImage = "/icon/fixup.svg";
 
   return {
     title: headTitle,
@@ -47,15 +56,15 @@ export async function generateMetadata({params}: PageProps): Promise<Metadata> {
     openGraph: {
       images: headImage,
       title: headTitle,
-      description: headDescription
+      description: headDescription,
     },
-  }
+  };
 }
 
 export default async function DynamicPage({ params }: PageProps) {
   // Await the params object
   const resolvedParams = await params;
-  const slug = '/' + (resolvedParams?.slug?.join('/') || '');
+  const slug = "/" + (resolvedParams?.slug?.join("/") || "");
 
   // console.log(slug); // this console logs are commented for now used in dev mode
   const pageData: PageData | null = await getPage(slug);
@@ -66,10 +75,12 @@ export default async function DynamicPage({ params }: PageProps) {
 
   return (
     <div>
-      {pageData.modules.map((module: ModuleData, index: Key | null | undefined) => (
-        <DynamicModule key={index} moduleData={module} />
-      ))}
-      <LinksSection {...linkSection}/>
+      {pageData.modules.map(
+        (module: ModuleData, index: Key | null | undefined) => (
+          <DynamicModule key={index} moduleData={module} />
+        )
+      )}
+      <LinksSection {...linkSection} />
       <BottomBar {...bottomBarSection} />
     </div>
   );

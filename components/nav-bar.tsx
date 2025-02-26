@@ -15,7 +15,21 @@ import {
   FaYelp,
 } from "react-icons/fa";
 
-export default function NavBar() {
+interface NavBarProps {
+  locations: { id: number; label: string }[];
+  financing: { id: number; label: string; href: string; target: string | null };
+  projects: { id: number; label: string; href: string; target: string | null };
+  aboutUs: { id: number; label: string; href: string; target: string | null };
+  blog: { id: number; label: string; href: string; target: string | null };
+  freeEstimates: {
+    id: number;
+    label: string;
+    href: string;
+    target: string | null;
+  };
+}
+
+export default function NavBar({}: NavBarProps) {
   const linkStyle =
     "text-[16px] text-dimgray py-[18px] px-[16px] mx-1 font-semibold uppercase rounded transition-all duration-75 hover:text-white hover:bg-midnightblue";
   const [openMenu, setOpenMenu] = useState(false);

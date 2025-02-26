@@ -1,6 +1,5 @@
 export async function getPage(slug: string) {
   try {
-
     const res = await fetch(
       `https://amazing-fireworks-dd56623770.strapiapp.com/api/pages?filters[slug][$eq]=${slug}&populate=*`
       // `http://localhost:1337/api/pages?filters[slug][$eq]=${slug}&populate=*` // for dev

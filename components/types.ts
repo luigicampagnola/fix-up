@@ -34,6 +34,7 @@ export interface PhoneNumber {
   href: string;
 }
 
+// Tipo para toda la página
 export interface PageData {
   modules: ModuleData[];
 }
@@ -142,8 +143,8 @@ export interface MapData {
 }
 
 export interface SlideImage {
-    alternativeText: string;
-    url: string;
-    height: number;
-    width: number;
+  alternativeText: string;
+  url: string;
+  height: number;
+  width: number;
 }
