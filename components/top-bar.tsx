@@ -19,8 +19,6 @@ export const TopBar = ({
   address,
   facebook,
 }: TopBarProps) => {
-  console.log(phoneNumber, email, facebook, address, "Props for TopBar");
-
   return (
     <div className="bg-midnightblue text-white text-sm py-2 px-4 flex justify-between items-center">
       {/* Contact Information */}

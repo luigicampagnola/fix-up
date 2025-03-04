@@ -92,6 +92,12 @@ export default function LinksSection({ logo, links, contact, social }: Props) {
                   <FaGooglePlusG className="bg-transparent" />
                 </a>
               </div>
+              <a
+                href="tel:7862352435"
+                className="flex transition-all text-[20px] hover:text-[25px] text-white hover:text-forestgreen bg-forestgreen hover:bg-midnightblue p-[10px] rounded-full"
+              >
+                <FaPhone className="bg-transparent" />
+              </a>
             </div>
           )}
         </div>

@@ -93,7 +93,7 @@ export default function GetStartedSection({
           }`}
           data-id="title-section"
         >
-          <h1 className="font-bold text-center lg:text-left text-[39px] md:text-[60px] lg:text-[50px] leading-none uppercase pb-0 md:pb-[10px] md:pt-[30px] lg:pt-[50px] lg:pb-[35px]">
+          <h1 className="font-bold text-center lg:text-left text-[39px] md:text-[60px] lg:text-[50px] leading-none uppercase pb-0 md:pb-[10px] md:pt-[30px] lg:pt-[50px] lg:pb-[35px] text-white">
             {title}{" "}
             <span className="text-forestgreen md:block">{subtitle}</span>
           </h1>
