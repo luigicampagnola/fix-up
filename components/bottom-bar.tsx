@@ -1,4 +1,4 @@
-import Link from "next/link";
+// import Link from "next/link";
 import { LinkData } from "./types";
 
 interface Props {
@@ -20,14 +20,12 @@ export default function BottomBar({
             <p className="mb-2 md:mb-0">{copyright}</p>
           </div>
         )}
-        {privacypolicy && (
+
+        {privacypolicy && ( // needs to be a link
           <div className="w-full basis-full lg:basis-2/12 lg:w-2/12 py-2 md:py-3 text-center lg:text-start">
-            <Link
-              className="transition-all mb-2 md:mb-0 hover:text-forestgreen"
-              href={privacypolicy?.label}
-            >
+            <p className="transition-all mb-2 md:mb-0 hover:text-forestgreen">
               {privacypolicy?.label}
-            </Link>
+            </p>
           </div>
         )}
         {createdby && (
