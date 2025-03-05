@@ -56,7 +56,7 @@ export default function GoogleRate({ rates }: Props) {
       </div>
       <div className="relative w-full h-[200px] overflow-hidden">
         <div
-          className="absolute flex transition-transform duration-700 ease-in-out"
+          className="absolute flex transition-transform duration-700 ease-in-out w-full"
           style={{
             transform: `translateX(-${slide * 100}%)`,
           }}

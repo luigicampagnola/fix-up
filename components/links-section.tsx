@@ -23,18 +23,36 @@ export default function LinksSection({ logo, links, contact, social }: Props) {
   return (
     <section className="links-section py-[100px] bg-white w-full flex text-[14px] md:text-[15px] lg:text-[16px] font-normal text-black justify-center">
       <div className="flex flex-col items-center lg:flex-row basis-11/12 w-11/12 lg:basis-9/12 lg:w-9/12 justify-between lg:max-w-7xl">
-        <div className="contact-info flex flex-col items-center lg:items-start w-full basis-full lg:basis-4/12 lg:w-4/12">
+        <div className="contact-info flex flex-col items-center lg:items-start w-full basis-full lg:basis-[23%] lg:w-4/12">
           {logo && (
-            <div className="flex justify-center lg:justify-start mt-[20px] lg:mt-0 w-full pr-[10px]">
-              <Image
-                className="rounded-lg object-cover h-full"
-                src={logo.url}
-                alt={"fixup"}
-                width={200}
-                height={84}
-              />
+            <div className=" flex-col md:flex justify-center lg:justify-start mt-[20px] lg:mt-0 w-full pr-[10px]">
+              <div className="lg:flex">
+                <div className="flex justify-center">
+                  <Image
+                    className="rounded-lg object-cover h-full"
+                    src={logo.url}
+                    alt={"fixup"}
+                    width={200}
+                    height={84}
+                  />
+                </div>
+                <div className="flex justify-center lg:hidden">
+                  <a
+                    href="https://www.bbb.org/south-east-florida/quote/request-fix-up-roofing-and-construction-llc-92033455/#buttonclick"
+                    target="_blank"
+                    rel="nofollow"
+                  >
+                    <img
+                      src="https://seal-seflorida.bbb.org/request-a-quote/blue-badge-100-160-blue-bbb-92033455.png"
+                      style={{ border: 0 }}
+                      alt="Fix Up Roofing and Construction LLC BBB Business Review"
+                    />
+                  </a>
+                </div>
+              </div>
             </div>
           )}
+
           {contact && (
             <div className="flex flex-col items-center lg:items-start pt-[10px]">
               <p className="flex transition-all items-center py-[5px] space-x-2 hover:text-forestgreen">
@@ -101,6 +119,20 @@ export default function LinksSection({ logo, links, contact, social }: Props) {
             </div>
           )}
         </div>
+        <div className="hidden lg:flex mb-[10rem] mr-[2rem]">
+          <a
+            href="https://www.bbb.org/south-east-florida/quote/request-fix-up-roofing-and-construction-llc-92033455/#buttonclick"
+            target="_blank"
+            rel="nofollow"
+          >
+            <img
+              src="https://seal-seflorida.bbb.org/request-a-quote/blue-badge-100-160-blue-bbb-92033455.png"
+              style={{ border: 0 }}
+              alt="Fix Up Roofing and Construction LLC BBB Business Review"
+            />
+          </a>
+        </div>
+
         <div className="links flex justify-between w-full basis-full flex-wrap lg:basis-7/12 lg:w-7/12">
           {links &&
             links.map((link) => (
