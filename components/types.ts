@@ -8,6 +8,7 @@ export interface ModuleData {
   address?: string;
   facebook?: Facebook;
   metaDescription?: string;
+  canonicalUrl?: string;
   metaTitle?: string;
   shareImage?: SlideImage;
 }
@@ -142,8 +143,8 @@ export interface MapData {
 }
 
 export interface SlideImage {
-    alternativeText: string;
-    url: string;
-    height: number;
-    width: number;
+  alternativeText: string;
+  url: string;
+  height: number;
+  width: number;
 }
