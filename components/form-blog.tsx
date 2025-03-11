@@ -37,50 +37,52 @@ export default function Form({ contactForm }: Props) {
   const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()]);
   const [showValidMessage, setShowValidMessage] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    fullname: "",
+    phone: "",
+    email: "",
+    street: "",
+  });
+  const [formSubmitted, setFormSubmitted] = useState(false); // Estado para saber si el formulario ha sido enviado
+
   const recaptchaKey = process.env.NEXT_PUBLIC_RECAPTCHA_KEY;
+
   function handleRecaptchaChange(value: string | null) {
     setRecaptchaValue(value);
     setValidFields((prev) => ({ ...prev, captcha: !!value }));
   }
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitting(true);
-    const form = event.target as HTMLFormElement;
-    const target = event.target as typeof event.target & {
-      fullname: { value: string };
-      phone: { value: string };
-      email: { value: string };
-      street: { value: string };
-    };
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     setValidFields({
-      fullname: target.fullname.value.length > 0,
-      phone: target.phone.value.length === 12,
-      email: emailRegex.test(target.email.value),
-      street: target.street.value.length > 3,
+      fullname: formData.fullname.length > 0,
+      phone: formData.phone.length < 12,
+      email: emailRegex.test(formData.email),
+      street: formData.street.length > 3,
       captcha: !!recaptchaValue,
     });
 
     if (
-      target.fullname.value.length > 0 &&
-      target.phone.value.length === 12 &&
-      emailRegex.test(target.email.value) &&
-      target.street.value.length > 3 &&
+      formData.fullname.length > 0 &&
+      formData.phone.length === 12 &&
+      emailRegex.test(formData.email) &&
+      formData.street.length > 3 &&
       recaptchaValue
     ) {
       try {
         const response = await fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            fullname: target.fullname.value,
-            phone: target.phone.value,
-            email: target.email.value,
-            street: target.street.value,
-          }),
+          body: JSON.stringify(formData),
         });
 
         if (!response.ok) {
@@ -89,12 +91,19 @@ export default function Form({ contactForm }: Props) {
         }
 
         if (response.ok) {
-          // Reinicia el formulario utilizando el método reset()
-          form.reset();
+          // Limpiar el formulario (limpiar el estado de los valores)
+          setFormData({
+            fullname: "",
+            phone: "",
+            email: "",
+            street: "",
+          });
           // Resetea el estado del reCAPTCHA
           setRecaptchaValue(null);
           setShowValidMessage(true);
+          setFormSubmitted(true); // Actualiza el estado para indicar que el formulario fue enviado
           setSubmitting(false);
+          handleRecaptchaChange("false");
         }
       } catch (error) {
         console.error(error);
@@ -178,12 +187,16 @@ export default function Form({ contactForm }: Props) {
           labels={name}
           invalid={!validFields.fullname}
           type="text"
+          value={formData.fullname}
+          onChange={handleInputChange}
         />
         <InputPhoneField
           id="phone"
           name="phone"
           labels={phone}
           invalid={!validFields.phone}
+          value={formData.phone}
+          onChange={handleInputChange}
         />
         <InputField
           id="email"
@@ -191,6 +204,8 @@ export default function Form({ contactForm }: Props) {
           labels={email}
           invalid={!validFields.email}
           type="email"
+          value={formData.email}
+          onChange={handleInputChange}
         />
         <InputField
           id="street"
@@ -198,6 +213,8 @@ export default function Form({ contactForm }: Props) {
           labels={street}
           invalid={!validFields.street}
           type="text"
+          value={formData.street}
+          onChange={handleInputChange}
         />
         <div className="flex flex-col py-2">
           <label
@@ -230,8 +247,11 @@ export default function Form({ contactForm }: Props) {
         <button
           className="w-full bg-forestgreen my-2 py-[10px] px-[15px] flex justify-center rounded text-white font-semibold hover:bg-midnightblue transition-all mb-[1rem]"
           type="submit"
+          disabled={submitting || formSubmitted} // Deshabilita el botón después del envío exitoso
         >
-          {submitting && (
+          {formSubmitted ? (
+            "Thank you for your request!" // Cambia el texto cuando se haya enviado correctamente
+          ) : submitting ? (
             <svg
               className="animate-spin h-5 w-5 mr-3 fill-forestgreen ..."
               viewBox="0 0 24 24"
@@ -247,8 +267,9 @@ export default function Form({ contactForm }: Props) {
                 strokeLinecap="round"
               ></circle>
             </svg>
+          ) : (
+            button.label
           )}
-          {button.label}
         </button>
         {sponsorImages.length > 0 && (
           <div className="overflow-hidden" ref={emblaRef}>
