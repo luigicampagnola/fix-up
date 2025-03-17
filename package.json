@@ -12,6 +12,7 @@
     "@react-google-maps/api": "^2.20.5",
     "@types/nodemailer": "^6.4.17",
     "@types/react-google-recaptcha": "^2.1.9",
+    "@vercel/speed-insights": "^1.2.0",
     "clsx": "^2.1.1",
     "embla-carousel-autoplay": "^8.5.1",
     "embla-carousel-react": "^8.5.1",
