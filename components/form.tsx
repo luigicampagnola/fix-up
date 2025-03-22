@@ -49,7 +49,6 @@ export default function Form({ contactForm }: Props) {
 
   function handleRecaptchaChange(value: string | null) {
     setRecaptchaValue(value);
-    console.log(value, "value");
     setValidFields((prev) => ({ ...prev, captcha: !!value }));
   }
 
