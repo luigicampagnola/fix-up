@@ -2,19 +2,86 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 210 33% 98%; /* Slate-50 */
+    --foreground: 215 61% 12%; /* Slate-900 */
+
+    --card: 0 0% 100%; /* White cards */
+    --card-foreground: 235 60% 18%; /* Matches secondary */
+
+    --popover: 0 0% 100%; /* White popover */
+    --popover-foreground: 235 60% 18%; /* Matches secondary */
+
+    --primary: 107 38% 35%; /* Green */
+    --primary-foreground: 0 0% 100%; /* White */
+
+    --secondary: 235 60% 18%; /* Dark Blue */
+    --secondary-foreground: 0 0% 100%; /* White */
+
+    --muted: 107 38% 85%; /* Lighter primary */
+    --muted-foreground: 235 60% 18%; /* Dark blue */
+
+    --accent: 235 60% 25%; /* Lighter secondary */
+    --accent-foreground: 0 0% 100%; /* White */
+
+    --destructive: 0 84% 60%; /* Red */
+    --destructive-foreground: 0 0% 100%; /* White */
+
+    --border: 235 60% 80%; /* Lightened secondary */
+    --input: 235 60% 80%; /* Lightened secondary */
+    --ring: 107 38% 45%; /* Matches primary */
+
+    --chart-1: 107 38% 55%; /* Derived from primary */
+    --chart-2: 235 60% 28%; /* Derived from secondary */
+    --chart-3: 107 38% 35%; /* Darker primary */
+    --chart-4: 235 60% 38%; /* Lighter secondary */
+    --chart-5: 107 38% 65%; /* Lighter primary */
+
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 215 61% 12%; /* Slate-900 */
+    --foreground: 210 33% 98%; /* Slate-50 */
+
+    --card: 235 60% 12%; /* Slightly lighter than background */
+    --card-foreground: 0 0% 100%; /* White */
+
+    --popover: 235 60% 12%; /* Matches card */
+    --popover-foreground: 0 0% 100%; /* White */
+
+    --primary: 107 38% 45%; /* Same primary */
+    --primary-foreground: 0 0% 100%; /* White */
+
+    --secondary: 235 60% 18%; /* Same secondary */
+    --secondary-foreground: 0 0% 100%; /* White */
+
+    --muted: 235 60% 25%; /* Lighter secondary */
+    --muted-foreground: 107 38% 85%; /* Light primary */
+
+    --accent: 107 38% 55%; /* Lighter primary */
+    --accent-foreground: 0 0% 100%; /* White */
+
+    --destructive: 0 62% 30%; /* Darker red */
+    --destructive-foreground: 0 0% 100%; /* White */
+
+    --border: 235 60% 25%; /* Lighter secondary */
+    --input: 235 60% 25%; /* Matches border */
+    --ring: 107 38% 45%; /* Matches primary */
+
+    --chart-1: 107 38% 55%; /* Lighter primary */
+    --chart-2: 235 60% 28%; /* Lighter secondary */
+    --chart-3: 107 38% 35%; /* Darker primary */
+    --chart-4: 235 60% 38%; /* Lighter secondary */
+    --chart-5: 107 38% 65%; /* Lightest primary */
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

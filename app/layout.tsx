@@ -1,7 +1,6 @@
 import './globals.css';
-import NavBar from '@/components/nav-bar';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { poppins } from './fonts';
+import NavigationBar from '@/components/navigation-bar';
 
 export default function RootLayout({
   children,
@@ -11,11 +10,11 @@ export default function RootLayout({
   return (
     <html lang='en' className={poppins.className}>
       <body className='relative flex min-h-screen flex-col font-body antialiased'>
-        <NavBar />
+        <NavigationBar />
         <main className='relative flex flex-1 flex-col text-foreground dark:text-foreground'>
           {children}
         </main>
-        <SpeedInsights />
+        {/* <SpeedInsights /> */}
       </body>
     </html>
   );

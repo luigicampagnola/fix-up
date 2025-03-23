@@ -10,6 +10,11 @@ export type Image = {
     height?: number;
 }
 
+export type Link = {
+    label: string;
+    url: string;
+}
+
 /* 
     SEO types
 */
