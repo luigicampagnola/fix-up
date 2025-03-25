@@ -15,6 +15,7 @@ export type Link = {
     url: string;
 }
 
+
 /* 
     SEO types
 */
@@ -24,4 +25,23 @@ export type SEOMetaTags = {
     metaDescription: string;
     shareImage: Image;
     canonicalURL: string;
+}
+
+/* 
+    Navigation 
+*/
+
+export type GroupNavigation = {
+    title: string;
+    sub: Link[];
+};
+
+export type NavigationLink = {
+    group?: GroupNavigation[];
+    list?: Link[];
+} & Link;
+export interface MenuProps {
+    logo: Image;
+    links: NavigationLink[];
+    cta: Link;
 }

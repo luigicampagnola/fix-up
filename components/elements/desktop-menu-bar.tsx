@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { CustomImage } from '../shared/custom-image';
 import { CustomLink } from '../shared/custom-link';
-import { Image, Link as LinkT } from '@/utils/types';
+import { MenuProps } from '@/utils/types';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,84 +11,11 @@ import {
 } from '../ui/dropdown-menu';
 import { buttonVariants } from '../ui/button';
 
-type GroupNavigation = {
-  title: string;
-  sub: LinkT[];
-};
-type NavigationLink = {
-  group?: GroupNavigation[];
-  list?: LinkT[];
-} & LinkT;
-
-interface MenuProps {
-  logo: Image;
-  links: NavigationLink[];
-  cta: LinkT;
-}
-
-export default function DesktopMenuBar() {
-  const data: MenuProps = {
-    logo: {
-      url: '/icon/fixup.svg',
-      alternativeText: 'Fixup Roofing & Construction Logo',
-    },
-    links: [
-      { label: 'About', url: '/about-us' },
-      {
-        label: 'Locations',
-        url: '/locations',
-        group: [
-          {
-            title: 'Miami-Date County',
-            sub: [
-              { label: 'Miami', url: '#' },
-              { label: 'Miami Beach', url: '#' },
-              { label: 'Miami Gardens', url: '#' },
-              { label: 'Coral Gables', url: '#' },
-              { label: 'Hialeah', url: '#' },
-              { label: 'Kendall', url: '#' },
-              { label: 'Westchester', url: '#' },
-            ],
-          },
-          {
-            title: 'Broward County',
-            sub: [
-              { label: 'Fort Lauradel', url: '#' },
-              { label: 'Hollywood', url: '#' },
-              { label: 'Miramar', url: '#' },
-              { label: 'Pembroke Pines', url: '#' },
-              { label: 'Pompano Beach', url: '#' },
-            ],
-          },
-        ],
-      },
-      {
-        label: 'Services',
-        url: '/services',
-        list: [
-          { label: 'Air Conditioning', url: '/services/air-conditioning' },
-          { label: 'Commercial Roofing', url: '/services/commercial-roofing' },
-          {
-            label: 'Residential Roofing',
-            url: '/services/residential-roofing',
-          },
-          { label: 'Solar Panels', url: '/services/solar-panels' },
-          { label: 'Windows and Doors', url: '/services/windows-and-doors' },
-        ],
-      },
-      { label: 'Projects', url: '/projects' },
-      { label: 'Blog', url: '/blog' },
-      { label: 'Financing', url: '/financing' },
-    ],
-
-    cta: { label: 'free estimates', url: '/estimates' },
-  };
-
-  const { logo, links, cta } = data;
+export default function DesktopMenuBar({ logo, links, cta }: MenuProps) {
   return (
     <div className='hidden flex-1 relative container desktop:flex items-center justify-between'>
       {/* Logo */}
-      <Link href={'/'} className='relative h-14 w-36'>
+      <Link href={'/'} className='relative h-14 w-36 flex-shrink-0'>
         <CustomImage {...logo} priority className='h-full w-full' fill />
       </Link>
       {/* Navgiation Links */}
