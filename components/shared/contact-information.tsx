@@ -91,7 +91,7 @@ export const ContactInformationIcon = ({
       );
     case 'yelp':
       return (
-        <CustomLink {...constants} url={`mailto:${url}`} aria-label={label}>
+        <CustomLink {...constants} url={url} aria-label={label}>
           <FaYelp />
         </CustomLink>
       );

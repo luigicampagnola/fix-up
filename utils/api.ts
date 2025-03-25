@@ -1,4 +1,6 @@
+import 'server-only'
 import qs from 'qs';
+import { APIResponse } from './types';
 const API_URL = process.env.API_URL || 'http://localhost:1337';
 const production = process.env.NODE_ENV !== 'development';
 const isPreview = process.env.RUNTIME_ENV === 'preview' || false;
@@ -28,17 +30,6 @@ interface FetchAPIProps {
   isCollection?: boolean;
   options?: RequestInit;
   query?: QueryStringQuery;
-}
-interface APIResponse<T> {
-  data: T;
-  meta?: {
-    pagination?: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
 }
 
 export async function fetchAPI<T>({ path, options, query }: FetchAPIProps) {

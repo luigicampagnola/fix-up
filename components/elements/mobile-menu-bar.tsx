@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { use, useState } from 'react';
 import MobileMenuModal from '../ui/mobile-menu-modal';
 import { FaBars } from 'react-icons/fa6';
-import { MenuProps } from '@/utils/types';
+import { APIResponse, MenuProps } from '@/utils/types';
 import { CustomImage } from '../shared/custom-image';
 import { Button } from '../ui/button';
 import { CustomLink } from '../shared/custom-link';
@@ -21,12 +21,12 @@ export default function MobileMenuBar({
   menu,
   header,
 }: {
-  menu: Promise<MenuProps>;
-  header: Promise<HeaderProps>;
+  menu: Promise<APIResponse<MenuProps>>;
+  header: Promise<APIResponse<HeaderProps>>;
 }) {
   const [open, setOpen] = useState(false);
-  const menuData = use(menu);
-  const headerData = use(header);
+  const { data: menuData } = use(menu);
+  const { data: headerData } = use(header);
 
   const { logo, links, cta } = menuData;
   const { socials } = headerData;

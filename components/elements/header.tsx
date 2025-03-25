@@ -7,6 +7,7 @@ import {
   ContactInformationIconType,
   ContactInformationType,
 } from '../shared/contact-information';
+import { APIResponse } from '@/utils/types';
 
 export interface HeaderProps {
   contacts: Array<ContactInformationType>;
@@ -17,7 +18,7 @@ export default function Header({
   headerData,
 }: {
   children: React.ReactNode;
-  headerData: Promise<HeaderProps>;
+  headerData: Promise<APIResponse<HeaderProps>>;
 }) {
   const { scrollY } = useScroll();
   const [navHeight, setNavHeight] = useState<number>(112);
@@ -39,7 +40,9 @@ export default function Header({
     return () => unsubscribe();
   }, [scrollY]);
 
-  const { contacts, socials } = use(headerData);
+  const {
+    data: { contacts, socials },
+  } = use(headerData);
   return (
     <>
       {/* Display Desktop */}
