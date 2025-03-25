@@ -7,31 +7,17 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { buttonVariants } from '../ui/button';
-import clsx from 'clsx';
-import { FaEnvelope, FaFacebook, FaPhone } from 'react-icons/fa6';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 
-// const home = {
-//   logo: {
-//     url: '/icon/fixup.svg',
-//     alternativeText: 'Fix Up logo',
-//   },
-// };
-
-// type SubNavigation = {
-//   title: string;
-//   links:
-// };
 type GroupNavigation = {
   title: string;
   sub: LinkT[];
 };
 type NavigationLink = {
   group?: GroupNavigation[];
+  list?: LinkT[];
 } & LinkT;
 
 interface MenuProps {
@@ -53,67 +39,46 @@ export default function DesktopMenuBar() {
         url: '/locations',
         group: [
           {
-            title: 'Broward County',
+            title: 'Miami-Date County',
             sub: [
-              { label: 'Location 1', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
+              { label: 'Miami', url: '#' },
+              { label: 'Miami Beach', url: '#' },
+              { label: 'Miami Gardens', url: '#' },
+              { label: 'Coral Gables', url: '#' },
+              { label: 'Hialeah', url: '#' },
+              { label: 'Kendall', url: '#' },
+              { label: 'Westchester', url: '#' },
             ],
           },
           {
-            title: 'Miami-Date County',
+            title: 'Broward County',
             sub: [
-              { label: 'Location 1', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
+              { label: 'Fort Lauradel', url: '#' },
+              { label: 'Hollywood', url: '#' },
+              { label: 'Miramar', url: '#' },
+              { label: 'Pembroke Pines', url: '#' },
+              { label: 'Pompano Beach', url: '#' },
             ],
           },
         ],
       },
       {
-        label: 'Financing',
-        url: '/financing',
-        group: [
+        label: 'Services',
+        url: '/services',
+        list: [
+          { label: 'Air Conditioning', url: '/services/air-conditioning' },
+          { label: 'Commercial Roofing', url: '/services/commercial-roofing' },
           {
-            title: 'Broward County',
-            sub: [
-              { label: 'Location 1', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-            ],
+            label: 'Residential Roofing',
+            url: '/services/residential-roofing',
           },
-          {
-            title: 'Miami-Date County',
-            sub: [
-              { label: 'Location 1', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-              { label: 'Location 2', url: '#' },
-            ],
-          },
+          { label: 'Solar Panels', url: '/services/solar-panels' },
+          { label: 'Windows and Doors', url: '/services/windows-and-doors' },
         ],
       },
       { label: 'Projects', url: '/projects' },
       { label: 'Blog', url: '/blog' },
+      { label: 'Financing', url: '/financing' },
     ],
 
     cta: { label: 'free estimates', url: '/estimates' },
@@ -121,7 +86,7 @@ export default function DesktopMenuBar() {
 
   const { logo, links, cta } = data;
   return (
-    <div className='flex-1 relative container flex items-center justify-between'>
+    <div className='hidden flex-1 relative container desktop:flex items-center justify-between'>
       {/* Logo */}
       <Link href={'/'} className='relative h-14 w-36'>
         <CustomImage {...logo} priority className='h-full w-full' fill />
@@ -130,24 +95,22 @@ export default function DesktopMenuBar() {
       <div className='flex items-center justify-center gap-x-2'>
         {links &&
           links.length > 0 &&
-          links.slice(0, 6).map(({ label, url, group }, index) => {
-            return group && group.length > 0 ? (
+          links.slice(0, 6).map(({ label, url, group, list }, index) => {
+            return (group && group.length > 0) || (list && list.length > 0) ? (
               <DropdownMenu key={`navigation-menu-${index}`}>
                 <DropdownMenuTrigger
-                  className={clsx(
-                    buttonVariants({ variant: 'navigation-link' })
-                  )}
+                  className={buttonVariants({ variant: 'navigation-link' })}
                 >
                   {label}
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className='grid grid-cols-2 gap-8 p-8'>
+                <DropdownMenuContent className='grid grid-cols-2 gap-x-8 p-8'>
                   {group &&
                     group.map(({ title, sub }, index) => (
-                      <span
+                      <div
                         key={`group-item-${index}`}
-                        className='grid grid-cols-3 gap-x-4'
+                        className='grid auto-rows-[40px] '
                       >
-                        <DropdownMenuLabel className='col-span-3'>
+                        <DropdownMenuLabel className='col-span-1'>
                           {title}
                         </DropdownMenuLabel>
                         {sub &&
@@ -156,7 +119,16 @@ export default function DesktopMenuBar() {
                               <DropdownMenuItem>{label}</DropdownMenuItem>
                             </div>
                           ))}
-                      </span>
+                      </div>
+                    ))}
+                  {list &&
+                    list.map(({ label }, index) => (
+                      <div
+                        key={`group-item-${index}`}
+                        className='grid auto-rows-[40px] '
+                      >
+                        <DropdownMenuItem>{label}</DropdownMenuItem>
+                      </div>
                     ))}
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -173,7 +145,7 @@ export default function DesktopMenuBar() {
           })}
       </div>
       {/* Call to actions */}
-      <CustomLink className='uppercase' {...cta} />
+      <CustomLink className='uppercase' size='lg' {...cta} />
     </div>
   );
 }

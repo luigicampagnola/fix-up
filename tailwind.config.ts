@@ -8,10 +8,22 @@ export default {
 		"./app/**/*.{js,ts,jsx,tsx,mdx}",
 	],
 	theme: {
+		screens: {
+			mobile: '430px',
+			tablet: '768px',
+			desktop: '1280px',
+			desktopL: '1440px'
+		},
+		container: {
+			center: true,
+			padding: {
+				DEFAULT: '1rem',
+				mobile: '1rem',
+				tablet: '2rem',
+				desktop: '5rem'
+			}
+		},
 		extend: {
-			container: {
-				center: true
-			},
 			boxShadow: {
 				'custom-forestgreen': '-10px 10px 0px #539544',
 				'custom-forestgreen-right': '10px 10px 0px #539544'

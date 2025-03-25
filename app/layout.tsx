@@ -1,6 +1,16 @@
 import './globals.css';
 import { poppins } from './fonts';
 import NavigationBar from '@/components/navigation-bar';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Fix Up Roofing',
+    default: 'Best Roofing and Construction Services',
+  },
+  description:
+    "Choose Miami's top Best Roofing & Construction Company! A  ffordable, quick, and reliable solutions for your home or business.",
+};
 
 export default function RootLayout({
   children,

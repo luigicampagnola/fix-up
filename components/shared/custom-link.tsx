@@ -4,7 +4,7 @@ import { buttonVariants } from '../ui/button';
 import { VariantProps } from 'class-variance-authority';
 import clsx from 'clsx';
 
-interface LinkProps
+export interface LinkProps
   extends Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href' | 'hrefLang'>,
     VariantProps<typeof buttonVariants> {
   url: string;

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Best Roofing and Construction Services | Fix Up Roofing',
+  title: 'Best Roofing and Construction Services',
   description:
     "Choose Miami's top Best Roofing & Construction Company! A  ffordable, quick, and reliable solutions for your home or business.",
 };
