@@ -2,15 +2,55 @@ import './globals.css';
 import { poppins } from './fonts';
 import NavigationBar from '@/components/navigation-bar';
 import { Metadata } from 'next';
+import { fetchAPI } from '@/utils/api';
+import { SEOMetaTags } from '@/utils/types';
+import { getFullImagePath, imageOptimizer } from '@/lib/utils';
 
-export const metadata: Metadata = {
-  title: {
-    template: '%s | Fix Up Roofing',
-    default: 'Best Roofing and Construction Services',
-  },
-  description:
-    "Choose Miami's top Best Roofing & Construction Company! A  ffordable, quick, and reliable solutions for your home or business.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { data } = await fetchAPI<{ seo: SEOMetaTags }>({
+    path: '/api/global',
+    query: {
+      populate: {
+        seo: {
+          fields: ['metaTitle', 'metaDescription'],
+          populate: {
+            metaImage: {
+              fields: ['url', 'alternativeText', 'width', 'height'],
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const {
+    seo: { metaTitle, metaDescription, metaImage },
+  } = data;
+
+  const imageUrlPath = metaImage.url
+    ? getFullImagePath(metaImage.url)
+    : '/opengraph-image.jpg';
+
+  const image = imageOptimizer({
+    url: imageUrlPath,
+  });
+
+  return {
+    title: {
+      template: '%s | Fix Up Roofing',
+      default: metaTitle,
+    },
+    description: metaDescription,
+    openGraph: {
+      images: [
+        {
+          url: `/api/og?title=${encodeURIComponent(metaTitle)}
+          &imageUrl=${encodeURIComponent(image)}`,
+        },
+      ],
+    },
+  };
+}
 
 export default function RootLayout({
   children,

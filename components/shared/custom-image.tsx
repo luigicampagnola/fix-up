@@ -1,4 +1,4 @@
-import { cn, fullImagePath } from '@/lib/utils';
+import { cn, getFullImagePath } from '@/lib/utils';
 import Image from 'next/image';
 import { ImgHTMLAttributes } from 'react';
 
@@ -28,7 +28,7 @@ export const CustomImage = ({
     <Image
       id={documentId}
       className={cn('object-cover object-center', className)}
-      src={fullImagePath(url)}
+      src={getFullImagePath(url)}
       alt={alternativeText}
       width={fill ? undefined : width}
       height={fill ? undefined : height}

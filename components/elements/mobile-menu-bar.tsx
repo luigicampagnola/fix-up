@@ -73,7 +73,7 @@ export default function MobileMenuBar({
                         return (group && group.length > 0) ||
                           (list && list.length > 0) ? (
                           <Accordion
-                            className='text-white w-full py-2'
+                            className='text-white w-full pt-2'
                             key={`navigation-menu-${index}`}
                             type='single'
                             collapsible

@@ -9,9 +9,7 @@ export async function GET(request: NextRequest) {
   // const rawImageUrl = searchParams.get('imageUrl');
 
   const splitTitle = rawTitle?.split('|');
-  const imageUrl =
-    searchParams.get('imageUrl') ||
-    'https://www.fixuproofing.com/_next/image?url=https%3A%2F%2Famazing-fireworks-dd56623770.media.strapiapp.com%2Fo_48_c6deefdea5.jpg&w=1200&q=75';
+  const imageUrl = searchParams.get('imageUrl');
   try {
     return new ImageResponse(
       (

@@ -35,7 +35,7 @@ export interface APIResponse<T> {
 export type SEOMetaTags = {
   metaTitle: string;
   metaDescription: string;
-  shareImage: Image;
+  metaImage: Image;
   canonicalURL: string;
 }
 
