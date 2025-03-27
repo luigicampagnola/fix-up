@@ -1,10 +1,11 @@
 "use server"
 
+import { fetchAPI } from '@/utils/api'
 import { z } from "zod"
 
 const EstimateFormSchema = z.object({
   fullName: z.string().min(2, { message: "Full name must be at least 2 characters" }),
-  phoneNumber: z.string().regex(/^$$\d{3}$$\s?\d{3}-\d{4}$/, {
+  phoneNumber: z.string().regex(/^\(\d{3}\)\s\d{3}-\d{4}$/, {
     message: "Phone number must be in format (000) 000-0000",
   }),
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -54,16 +55,32 @@ export async function submitEstimateForm(prevState: FormResponse, formData: Form
       }
     }
     */
-    // For demo purposes, we'll simulate a delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    const { fullName, phoneNumber, email, street } = validationResult.data;
+    await fetchAPI({
+      path: '/path', options: {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          data: {
+            fullName,
+            phone: phoneNumber,
+            email,
+            address: street
+          }
+        })
+      }
+    })
 
     // Return success response
     return {
       success: true,
-      message: "Thank you! We'll contact you shortly with your free estimate.",
+      message: "Thank you! We'll contact you shortly with your free estimate. Have a great day!",
     }
   } catch (error) {
-    // Handle any errors that occur during processing
+    console.error('API_REQUEST_ERROR', error);
     return {
       success: false,
       message: "There was an error submitting your request. Please try again.",
