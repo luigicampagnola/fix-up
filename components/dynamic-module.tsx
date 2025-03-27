@@ -1,20 +1,26 @@
-import BlogSection from "./blog-section";
-import { CardWidgetProps } from "./card-widget";
-import FinancingProgramSection from "./financing-program-section";
-import GetFreeEstimateSection from "./get-free-estimate-section";
-import GetStartedSection from "./get-started-section";
-import InformationSection from "./information-section";
-import MapSection from "./map-section";
-import OptionSection from "./option-section";
-import OptionSection2 from "./option-section2";
-import OptionSection3 from "./option-section3";
-import ServicesSection from "./services-section";
-import SliderSection from "./slider-section";
-import TopSection from "./top-section";
-import Cta from "./cta";
-import { Options, Rates, ScrollTo, TextList } from "./types";
-import BlogSlugSection from "./blog-slug-section";
-import TopSection2 from "./top-section2";
+import dynamic from 'next/dynamic';
+import { CardWidgetProps } from './card-widget';
+import { Options, Rates, ScrollTo, TextList } from './types';
+
+const GetFreeEstimateSection = dynamic(
+  () => import('./get-free-estimate-section')
+);
+const BlogSection = dynamic(() => import('./blog-section'));
+const FinancingProgramSection = dynamic(
+  () => import('./financing-program-section')
+);
+const GetStartedSection = dynamic(() => import('./get-started-section'));
+const InformationSection = dynamic(() => import('./information-section'));
+const MapSection = dynamic(() => import('./map-section'));
+const OptionSection = dynamic(() => import('./option-section'));
+const OptionSection2 = dynamic(() => import('./option-section2'));
+const OptionSection3 = dynamic(() => import('./option-section3'));
+const ServicesSection = dynamic(() => import('./services-section'));
+const SliderSection = dynamic(() => import('./slider-section'));
+const TopSection = dynamic(() => import('./top-section'));
+const Cta = dynamic(() => import('./cta'));
+const BlogSlugSection = dynamic(() => import('./blog-slug-section'));
+const TopSection2 = dynamic(() => import('./top-section2'));
 
 interface ModuleData {
   __component: string;
@@ -37,21 +43,21 @@ interface ModuleData {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const moduleComponents: { [key: string]: React.ComponentType<any> } = {
-  "shared.top-section": TopSection,
-  "shared.top-section2": TopSection2,
-  "shared.services": ServicesSection,
-  "shared.financing-program-section": FinancingProgramSection,
-  "shared.options-section": OptionSection,
-  "shared.option-section2": OptionSection2,
-  "shared.information-section": InformationSection,
-  "shared.form-section": GetStartedSection,
-  "shared.form-section2": GetFreeEstimateSection,
-  "shared.options-section3": OptionSection3,
-  "shared.blog-section": BlogSection,
-  "shared.map-section": MapSection,
-  "shared.blog-slug-section": BlogSlugSection,
-  "shared.images-section": SliderSection,
-  "shared.cta": Cta,
+  'shared.top-section': TopSection,
+  'shared.top-section2': TopSection2,
+  'shared.services': ServicesSection,
+  'shared.financing-program-section': FinancingProgramSection,
+  'shared.options-section': OptionSection,
+  'shared.option-section2': OptionSection2,
+  'shared.information-section': InformationSection,
+  'shared.form-section': GetStartedSection,
+  'shared.form-section2': GetFreeEstimateSection,
+  'shared.options-section3': OptionSection3,
+  'shared.blog-section': BlogSection,
+  'shared.map-section': MapSection,
+  'shared.blog-slug-section': BlogSlugSection,
+  'shared.images-section': SliderSection,
+  'shared.cta': Cta,
 };
 
 interface DynamicModuleProps {
@@ -71,7 +77,7 @@ const DynamicModule = ({ moduleData }: DynamicModuleProps) => {
     ...moduleData,
     image: moduleData.image
       ? {
-          alt: moduleData.title || "Default Alt Text", // Texto alternativo
+          alt: moduleData.title || 'Default Alt Text', // Texto alternativo
           src: {
             url: moduleData.image.url,
           },

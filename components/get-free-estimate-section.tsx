@@ -25,7 +25,7 @@ export default function GetFreeEstimateSection({
   contactForm,
 }: Props) {
   const image = contactForm?.backgroundImage?.backgroundImage!;
-  console.log('image', image);
+
   return (
     <section className='flex flex-col items-center overflow-hidden relative min-h-[110vh] tablet:min-h-[100vh] desktop:min-h-[80vh] max-h-[68rem]'>
       <div className='absolute inset-0 z-0'>

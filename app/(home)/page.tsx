@@ -16,7 +16,7 @@ interface HomePageProps {
   modules: any[];
 }
 export default async function Home() {
-  const data = await fetchAPI<any>({
+  const data = await fetchAPI({
     path: '/api/pages',
     query: {
       filters: {
@@ -26,7 +26,8 @@ export default async function Home() {
       },
     },
   });
-  const modules = data[1].modules;
+  const dataParsed = data as any;
+  const modules = dataParsed[0].modules;
   // console.log('modules', modules);
   return (
     <>
