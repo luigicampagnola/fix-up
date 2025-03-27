@@ -20,13 +20,14 @@ export const CustomLink = ({
   documentId,
   variant,
   size,
+  rounded,
   ...props
 }: LinkProps) =>
   url ? (
     <Link
       href={url}
       id={documentId}
-      className={clsx(buttonVariants({ variant, size, className }))}
+      className={clsx(buttonVariants({ variant, size, rounded, className }))}
       prefetch={true}
       {...props}
     >

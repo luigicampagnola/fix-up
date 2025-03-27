@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground shadow hover:bg-primary/90',
+          'bg-primary text-primary-foreground shadow hover:bg-primary/90 ',
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
         outline:
@@ -21,6 +21,10 @@ const buttonVariants = cva(
         link: 'text-background underline-offset-4 hover:underline',
         'navigation-link':
           'text-background desktop:text-foreground underline-offset-4 hover:underline focus-visible:ring-0 text-3xl',
+      },
+      rounded: {
+        default: 'rounded-md',
+        full: 'rounded-full',
       },
       size: {
         default: 'h-9 px-4 py-2',
@@ -33,6 +37,7 @@ const buttonVariants = cva(
     defaultVariants: {
       variant: 'default',
       size: 'default',
+      rounded: 'default',
     },
   }
 );

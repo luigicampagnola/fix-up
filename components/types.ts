@@ -67,7 +67,7 @@ export interface ImageData {
 export interface BackgroundImage {
   backgroundImage: {
     url: string;
-    alt: string;
+    alternativeText: string;
   };
 }
 

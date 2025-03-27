@@ -63,6 +63,7 @@ export const ContactInformationIcon = ({
     className: 'inline-flex items-center space-x-1 rounded-full',
     target: '_blank',
     size: 'icon',
+    rounded: 'full',
   } as Omit<LinkProps, 'url'>;
 
   switch (type) {

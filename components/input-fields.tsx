@@ -1,12 +1,12 @@
-import { ChangeEvent } from "react";
-import { FieldData } from "./types";
+import { ChangeEvent } from 'react';
+import { FieldData } from './types';
 
 interface InputFieldProps {
   labels: FieldData;
   id: string;
   name: string;
   invalid: boolean;
-  type?: "text" | "email";
+  type?: 'text' | 'email';
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void; // Asegúrate de que se pase el onChange
 }
@@ -16,7 +16,7 @@ export function InputField({
   id,
   name,
   invalid,
-  type = "text",
+  type = 'text',
   value,
   onChange,
 }: InputFieldProps) {
@@ -26,15 +26,15 @@ export function InputField({
       <label
         htmlFor={id}
         className={`${
-          invalid ? "text-internationOrange" : "text-black"
+          invalid ? 'text-destructive' : 'text-foreground'
         } font-bold text-[16px]`}
       >
-        {label}{" "}
+        {label}{' '}
         <span
           className={
             required
-              ? "text-internationOrange font-medium text-[13px] italic"
-              : "hidden"
+              ? 'text-destructive font-medium text-[13px] italic'
+              : 'hidden'
           }
         >
           (Required)
@@ -48,20 +48,20 @@ export function InputField({
         value={value} // Aquí se asegura que el valor esté controlado
         onChange={onChange} // Se pasa el onChange aquí
         className={`${
-          invalid ? "border-internationOrange" : "border-black"
-        } p-[10px] border-solid border text-[15px] text-black`}
+          invalid ? 'border-destructive' : 'border-foreground/40'
+        } p-[10px] border-solid border text-[15px] text-foreground`}
       />
       <span
         className={`${
-          invalid && formatWarning ? "block" : "hidden"
-        } border-internationOrange border-solid border bg-snow text-internationOrange text-[15px] font-medium py-[13px] px-[24px] mt-[8px]`}
+          invalid && formatWarning ? 'block' : 'hidden'
+        } border-destructive border-solid border bg-snow text-destructive text-[15px] font-medium py-[13px] px-[24px] mt-[8px]`}
       >
         {formatWarning}
       </span>
       <span
         className={`${
-          invalid && warning ? "block" : "hidden"
-        } border-internationOrange border-solid border bg-snow text-internationOrange text-[15px] font-medium py-[13px] px-[24px] mt-[8px]`}
+          invalid && warning ? 'block' : 'hidden'
+        } border-destructive border-solid border bg-snow text-destructive text-[15px] font-medium py-[13px] px-[24px] mt-[8px]`}
       >
         {warning}
       </span>
@@ -83,7 +83,7 @@ export function InputPhoneField({
     event.preventDefault();
     const value = event.target.value;
     const regex = /^\d+$/;
-    event.target.value = regex.test(value) ? value : "";
+    event.target.value = regex.test(value) ? value : '';
   }
 
   return (
@@ -91,15 +91,15 @@ export function InputPhoneField({
       <label
         htmlFor={id}
         className={`${
-          invalid ? "text-internationOrange" : "text-black"
+          invalid ? 'text-destructive' : 'text-foreground'
         } font-bold text-[16px]`}
       >
-        {label}{" "}
+        {label}{' '}
         <span
           className={
             required
-              ? "text-internationOrange font-medium text-[13px] italic"
-              : "hidden"
+              ? 'text-destructive font-medium text-[13px] italic'
+              : 'hidden'
           }
         >
           (Required)
@@ -108,27 +108,27 @@ export function InputPhoneField({
       <input
         id={id}
         name={name}
-        type="tel"
+        type='tel'
         placeholder={placeholder}
         value={value} // Controla el valor aquí también
         onChange={onChange} // Y pasa el onChange aquí
         maxLength={12}
         onInput={checkNumber}
         className={`${
-          invalid ? "border-internationOrange" : "border-black"
-        } p-[10px] border-solid border text-[15px] text-black`}
+          invalid ? 'border-destructive' : 'border-foreground/40'
+        } p-[10px] border-solid border text-[15px] text-foreground`}
       />
       <span
         className={`${
-          invalid && formatWarning ? "block" : "hidden"
-        } border-internationOrange border-solid border bg-snow text-internationOrange text-[15px] font-medium py-[13px] px-[24px] mt-[8px]`}
+          invalid && formatWarning ? 'block' : 'hidden'
+        } border-destructive border-solid border bg-snow text-destructive text-[15px] font-medium py-[13px] px-[24px] mt-[8px]`}
       >
         {formatWarning}
       </span>
       <span
         className={`${
-          invalid && warning ? "block" : "hidden"
-        } border-internationOrange border-solid border bg-snow text-internationOrange text-[15px] font-medium py-[13px] px-[24px] mt-[8px]`}
+          invalid && warning ? 'block' : 'hidden'
+        } border-destructive border-solid border bg-snow text-destructive text-[15px] font-medium py-[13px] px-[24px] mt-[8px]`}
       >
         {warning}
       </span>

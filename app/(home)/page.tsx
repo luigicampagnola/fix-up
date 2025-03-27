@@ -1,3 +1,6 @@
+import DynamicModule from '@/components/dynamic-module';
+import { ModuleData } from '@/components/types';
+import { fetchAPI } from '@/utils/api';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -6,11 +9,32 @@ export const metadata: Metadata = {
     "Choose Miami's top Best Roofing & Construction Company! A  ffordable, quick, and reliable solutions for your home or business.",
 };
 
-export default function Home() {
+interface HomePageProps {
+  id: number;
+  documentID: string;
+  slug: string;
+  modules: any[];
+}
+export default async function Home() {
+  const data = await fetchAPI<any>({
+    path: '/api/pages',
+    query: {
+      filters: {
+        slug: {
+          $eq: '/',
+        },
+      },
+    },
+  });
+  const modules = data[1].modules;
+  // console.log('modules', modules);
   return (
     <>
-      <section className='w-full bg-blue-400 min-h-screen'></section>
-      <section className='w-full  min-h-screen'></section>
+      {modules
+        .slice(0, 1)
+        .map((module: ModuleData, index: string | null | undefined) => (
+          <DynamicModule key={index} moduleData={module} />
+        ))}
     </>
   );
 }
