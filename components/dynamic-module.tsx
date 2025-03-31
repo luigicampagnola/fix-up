@@ -73,20 +73,7 @@ const DynamicModule = ({ moduleData }: DynamicModuleProps) => {
     return null;
   }
 
-  // Transformar `image` para que sea compatible con `ImageData`
-  const transformedModuleData = {
-    ...moduleData,
-    image: moduleData.image
-      ? {
-          alt: moduleData.title || 'Default Alt Text', // Texto alternativo
-          src: {
-            url: moduleData.image.url,
-          },
-        }
-      : undefined,
-  };
-
-  return <ModuleComponent {...transformedModuleData} />;
+  return <ModuleComponent {...moduleData} />;
 };
 
 export default DynamicModule;

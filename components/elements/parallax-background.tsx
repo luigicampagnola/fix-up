@@ -18,13 +18,14 @@ export default function ParallaxBackground({ url }: Image) {
 
   return (
     <div ref={ref} className='absolute inset-0 z-0 w-full h-full'>
-      <motion.div className='absolute inset-0 h-[100%]' style={{ y }}>
+      <motion.div className='absolute inset-0 h-full' style={{ y }}>
         <CustomImage
           url={url}
           alternativeText='Roofing company hero background'
           fill
-          priority
-          sizes='100vw'
+          priority={true}
+          sizes='(max-width: 768px) 100vw, 1200px' // Adjust based on your design
+          quality={75}
           style={{
             objectFit: 'cover',
             objectPosition: 'center',

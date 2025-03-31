@@ -13,6 +13,7 @@ interface CustomImageProps
   documentId?: string;
   name?: string;
   priority?: boolean;
+  quality?: number;
 }
 export const CustomImage = ({
   className,
@@ -22,9 +23,10 @@ export const CustomImage = ({
   height,
   fill = false,
   documentId,
-  ...props
-}: CustomImageProps) =>
-  url ? (
+  priority,
+  quality,
+}: CustomImageProps) => {
+  return url ? (
     <Image
       id={documentId}
       className={cn('object-cover object-center', className)}
@@ -33,6 +35,8 @@ export const CustomImage = ({
       width={fill ? undefined : width}
       height={fill ? undefined : height}
       fill={fill}
-      {...props}
+      priority={priority}
+      quality={quality}
     />
   ) : null;
+};
