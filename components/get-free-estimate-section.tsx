@@ -1,10 +1,9 @@
 import { ContactForm, PhoneNumber } from './types';
 import ParallaxBackground from './elements/parallax-background';
 import EstimateForm from './forms/estimates';
-interface SponsorFile {
-  documentId: string;
-  url: string;
-}
+import { CustomImage } from './shared/custom-image';
+import { Image } from '@/utils/types';
+import clsx from 'clsx';
 interface Props {
   title?: string;
   subtitle?: string;
@@ -14,59 +13,91 @@ interface Props {
   address?: string;
   contactForm?: ContactForm & {
     sponsors?: {
-      files: SponsorFile[];
+      files: Image[];
     };
   };
 }
 
+function SponsorsSection({
+  sponsors,
+  align,
+}: {
+  sponsors: Image[];
+  align?: 'left' | 'center';
+}) {
+  return (
+    <div
+      className={clsx('relative py-8 flex flex-col gap-y-2', {
+        'items-center': !align || align === 'center',
+        'items-start': align === 'left',
+      })}
+    >
+      <h3 className='text-sm text-muted tablet:text-base'>
+        Our Trusted Sponsors
+      </h3>
+      <div
+        className={clsx(
+          'relative flex flex-wrap  gap-2 max-w-xl items-center w-full',
+          { container: !align || align === 'center' }
+        )}
+      >
+        {sponsors?.map(({ url, alternativeText, width, height }, index) => (
+          <div
+            key={`sponsor-images-${index}`}
+            className='relative flex items-center justify-center'
+          >
+            <div className='absolute inset-0 transition-all duration-300 brightness-50 opacity-40 hover:brightness-100 hover:opacity-0 bg-secondary' />
+            <CustomImage
+              className='h-12  w-auto object-contain tint-primary'
+              alternativeText={alternativeText}
+              url={url}
+              width={width}
+              height={height}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 export default function GetFreeEstimateSection({
   title,
   subtitle,
   contactForm,
 }: Props) {
   const image = contactForm?.backgroundImage?.backgroundImage!;
+  const sponsors = contactForm?.sponsors?.files;
 
   return (
-    <section className='flex flex-col items-center overflow-hidden relative min-h-[110vh] tablet:min-h-[100vh] desktop:min-h-[80vh] max-h-[68rem]'>
+    <section className='flex flex-col overflow-hidden items-center relative min-h-[110vh] tablet:min-h-[100vh] desktop:min-h-[85vh] max-h-[68rem]'>
       <div className='absolute inset-0 z-0'>
         <ParallaxBackground {...image} />
       </div>
       <div className='z-10 bg-secondary/80 inset-0 w-full flex flex-col absolute'>
-        <div className='py-12 flex-1 flex flex-col items-center container desktop:flex-row desktop:justify-between gap-y-8'>
-          <div className='flex'>
-            <h1 className=' font-bold text-center desktop:text-left text-4xl desktop:text-7xl capitilize text-background'>
+        <div className='pt-12 flex-1 flex flex-col items-center container desktop:flex-row  gap-y-8'>
+          <div className='flex flex-col h-full justify-evenly'>
+            <h1 className='font-bold text-center desktop:text-left text-4xl desktop:text-7xl capitilize text-background'>
               {title}
               <br />
               <span className='text-primary tablet:block'>{subtitle}</span>
             </h1>
+            {sponsors && (
+              <div className='hidden desktop:block'>
+                <SponsorsSection sponsors={sponsors} align='left' />
+              </div>
+            )}
           </div>
           {contactForm && (
-            <div className='w-full pb-8 max-w-md'>
+            <div className='w-full max-w-md'>
               <EstimateForm />
             </div>
           )}
         </div>
-        <div className='-mt-10 flex-shrink-0 rotate-180'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='h-32 w-full block'
-            viewBox='0 0 2600 131.1'
-            preserveAspectRatio='none'
-          >
-            <path
-              className='fill-white origin-center rotate-0'
-              d='M0 0L2600 0 2600 69.1 0 0z'
-            ></path>
-            <path
-              className='fill-white origin-center rotate-0 opacity-50'
-              d='M0 0L2600 0 2600 69.1 0 69.1z'
-            ></path>
-            <path
-              className='fill-white origin-center rotate-0 opacity-25'
-              d='M2600 0L0 0 0 130.1 2600 69.1z'
-            ></path>
-          </svg>
-        </div>
+        {sponsors && (
+          <div className='desktop:hidden'>
+            <SponsorsSection sponsors={sponsors} />
+          </div>
+        )}
       </div>
     </section>
   );

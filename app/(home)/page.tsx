@@ -28,11 +28,11 @@ export default async function Home() {
   });
   const dataParsed = data as any;
   const modules = dataParsed[0].modules;
-  // console.log('modules', modules);
+  console.log('modules', modules);
   return (
     <>
       {modules
-        .slice(0, 1)
+        .slice(0, 2)
         .map((module: ModuleData, index: string | null | undefined) => (
           <DynamicModule key={index} moduleData={module} />
         ))}

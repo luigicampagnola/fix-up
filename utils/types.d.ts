@@ -4,6 +4,7 @@
 
 export type Image = {
   id?: string;
+  documentId?: string;
   url: string;
   alternativeText: string;
   width?: number;
