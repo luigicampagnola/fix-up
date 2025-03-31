@@ -32,7 +32,7 @@ export default async function Home() {
   return (
     <>
       {modules
-        .slice(0, 2)
+        .slice(0, 1)
         .map((module: ModuleData, index: string | null | undefined) => (
           <DynamicModule key={index} moduleData={module} />
         ))}
