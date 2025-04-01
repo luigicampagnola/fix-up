@@ -6,9 +6,8 @@ import { CustomImage } from '../shared/custom-image';
 import { Image } from '@/utils/types';
 
 // This is a client component that handles just the parallax effect
-export default function ParallaxBackground({ url }: Image) {
+export default function ParallaxBackground({ url, alternativeText }: Image) {
   const ref = useRef<HTMLDivElement>(null);
-
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
@@ -21,10 +20,10 @@ export default function ParallaxBackground({ url }: Image) {
       <motion.div className='absolute inset-0 h-full' style={{ y }}>
         <CustomImage
           url={url}
-          alternativeText='Roofing company hero background'
+          alternativeText={alternativeText}
           fill
           priority={true}
-          sizes='(max-width: 768px) 100vw, 1200px' // Adjust based on your design
+          sizes='100vw'
           quality={75}
           style={{
             objectFit: 'cover',

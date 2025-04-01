@@ -33,8 +33,8 @@ function SponsorsSection({
         'items-start': align === 'left',
       })}
     >
-      <h3 className='text-sm text-foreground font-semibold tablet:text-base'>
-        Our Trusted Sponsors
+      <h3 className='text-sm text-foreground/80 font-semibold tablet:text-base capitalize'>
+        Trusted by leading companies
       </h3>
       <div
         className={clsx('relative flex  gap-2  items-center w-full', {

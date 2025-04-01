@@ -11,6 +11,7 @@ export interface LinkProps
   documentId?: string;
   label?: string;
   children?: React.ReactNode;
+  styled?: boolean;
 }
 export const CustomLink = ({
   className,
@@ -21,13 +22,18 @@ export const CustomLink = ({
   variant,
   size,
   rounded,
+  styled = false,
   ...props
 }: LinkProps) =>
   url ? (
     <Link
       href={url}
       id={documentId}
-      className={clsx(buttonVariants({ variant, size, rounded, className }))}
+      className={
+        styled
+          ? className
+          : clsx(buttonVariants({ variant, size, rounded, className }))
+      }
       prefetch={true}
       {...props}
     >
