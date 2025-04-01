@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import { fetchAPI } from '@/utils/api';
 import { SEOMetaTags } from '@/utils/types';
 import { getFullImagePath, imageOptimizer } from '@/lib/utils';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data } = await fetchAPI<{ seo: SEOMetaTags }>({
@@ -64,7 +65,7 @@ export default function RootLayout({
         <main className='relative flex flex-1 flex-col text-foreground dark:text-foreground'>
           {children}
         </main>
-        {/* <SpeedInsights /> */}
+        <SpeedInsights />
       </body>
     </html>
   );
