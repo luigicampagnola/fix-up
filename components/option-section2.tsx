@@ -1,10 +1,15 @@
-"use client";
-
-import Image from "next/image";
-import { ImageData, Options } from "./types";
-import configs from "./../environment.configs";
-import CheckWidget2 from "./check-widget2";
-import { useEffect, useRef, useState } from "react";
+import { ImageData, Options } from './types';
+import { CheckCircle2, Shield } from 'lucide-react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from './ui/card';
+import { cn } from '@/lib/utils';
+import { CustomLink } from './shared/custom-link';
+import { FadeSlideUp } from './shared/animations';
 
 type Props = {
   title?: string;
@@ -23,122 +28,66 @@ export default function OptionSection2({
   options,
   position,
 }: Props) {
-  const imageRef = useRef(null);
-  const contentRef = useRef(null);
-  const [isImageVisible, setIsImageVisible] = useState(false);
-  const [isContentVisible, setIsContentVisible] = useState(false);
-
-  const STRAPI_URL =
-    configs.BASE_URL || "https://amazing-fireworks-dd56623770.strapiapp.com";
-
-  const imageUrl = image?.src?.url
-    ? image.src.url.startsWith("http")
-      ? image.src.url
-      : `${STRAPI_URL}${image.src.url}`
-    : "/placeholder.png";
-
-  useEffect(() => {
-    // Guardamos las referencias al inicio del efecto
-    const observedImageElement = imageRef.current;
-    const observedContentElement = contentRef.current;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (entry.target === observedImageElement) {
-              setIsImageVisible(true);
-            }
-            if (entry.target === observedContentElement) {
-              setIsContentVisible(true);
-            }
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "50px",
-      }
-    );
-
-    if (observedImageElement) {
-      observer.observe(observedImageElement);
-    }
-    if (observedContentElement) {
-      observer.observe(observedContentElement);
-    }
-
-    return () => {
-      if (observedImageElement) {
-        observer.unobserve(observedImageElement);
-      }
-      if (observedContentElement) {
-        observer.unobserve(observedContentElement);
-      }
-    };
-  }, []);
-
   return (
-    <section className="option-section bg-white w-full flex text-sm md:text-base lg:text-base font-normal text-black justify-center ">
-      <div
-        className={`basis-11/12 w-11/12 lg:w-10/12 xl:basis-[80%] max-w-[1140px] py-24 flex items-center lg:max-w-7xl ${
-          position === "left"
-            ? "flex-col-reverse xl:flex-row-reverse"
-            : "flex-col lg:flex-row"
-        }`}
-      >
-        <div
-          ref={imageRef}
-          className={`shadow-custom-forestgreen rounded-lg mt-5 lg:mt-0 w-full h-full xl:max-w-[414px] pr-3 
-           transition-all duration-1000 ease-out
-           ${
-             position === "right"
-               ? `opacity-0 translate-x-24 ${
-                   isImageVisible ? "animate-slide-right" : ""
-                 }`
-               : `opacity-0 -translate-x-24 ${
-                   isImageVisible ? "animate-slide-left" : ""
-                 }`
-           }`}
-        >
-          {image && title && (
-            <Image
-              className="rounded-lg object-cover h-full"
-              src={imageUrl}
-              alt={image.alt || "Imagen"}
-              width={image.src.width || 1000}
-              height={image.src.height || 750}
-            />
-          )}
-        </div>
-        <div
-          ref={contentRef}
-          className={`information ${
-            position === "left" ? "xl:mr-4" : ""
-          } xl:max-w-[706px] lg:px-6 
-         transition-all duration-1000 ease-out
-         opacity-0 translate-y-6 ${isContentVisible ? "animate-fade-up" : ""}`}
-        >
-          <h1 className="text-3xl md:text-5xl font-bold uppercase leading-none text-midnightblue text-center lg:text-left px-0 md:px-12 lg:px-0 mt-12">
-            {title} <span className="text-forestgreen">{subtitle}</span>
-          </h1>
-          {description && (
-            <p
-              className="text-center lg:text-left px-3 lg:px-0 py-7"
-              dangerouslySetInnerHTML={{ __html: description }}
-            ></p>
-          )}
-          <div className="flex flex-wrap">
+    <section className='flex flex-col items-center relative bg-background'>
+      <div className='container py-20'>
+        <div className='max-w-2xl mx-auto'>
+          <div className='flex items-center justify-center gap-2 px-4 rounded-full bg-primary/5 text-primary w-fit mx-auto'>
+            <Shield className='h-4 w-4' />
+            <span className='text-sm font-semibold'>Trusted Service</span>
+          </div>
+
+          <div className='text-center mt-4 mb-8'>
+            <h2 className='text-4xl desktop:text-5xl font-bold tracking-tight text-foreground capitalize'>
+              {title}
+            </h2>
+            <h3 className='text-4xl font-bold text-primary capitalize'>
+              {subtitle}
+            </h3>
+          </div>
+
+          <div className='space-y-4'>
             {options &&
-              options.map((option) => (
-                <CheckWidget2
-                  key={option.label}
-                  label={option.label}
-                  description={option.description}
-                />
+              options.map(({ label, description }, index) => (
+                <FadeSlideUp
+                  key={`options-item-${index}`}
+                  className='group'
+                  index={index}
+                >
+                  <Card
+                    className={cn(
+                      'transition-all duration-300 border-primary/20 shadow-sm group-hover:shadow-md group-hover:border-primary/20'
+                    )}
+                  >
+                    <CardHeader className='pb-2'>
+                      <div className='flex items-center gap-3'>
+                        <div
+                          className={
+                            'flex items-center justify-center rounded-full p-1 text-primary/90 group-hover:text-primary transition-colors duration-300'
+                          }
+                        >
+                          <CheckCircle2 className='h-6 w-6' />
+                        </div>
+                        <CardTitle className='text-lg font-semibold'>
+                          {label}
+                        </CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className='text-foreground text-sm leading-relaxed'>
+                        {description}
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </FadeSlideUp>
               ))}
           </div>
+
+          <FadeSlideUp className='mt-10 text-center'>
+            <CustomLink url='/estimates' size='lg' className='uppercase'>
+              Schedule a consultation
+            </CustomLink>
+          </FadeSlideUp>
         </div>
       </div>
     </section>

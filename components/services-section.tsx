@@ -42,9 +42,8 @@ export default function ServicesSection({
   subtitle,
   cards,
 }: ServicesSectionProps) {
-  console.log('cards', cards);
   return (
-    <section className='flex flex-col overflow-hidden items-center relative bg-secondary'>
+    <section className='flex flex-col items-center relative bg-secondary'>
       <div className='container py-24'>
         <h3 className='capitalize font-bold text-center desktop:text-left text-4xl desktop:text-5xl capitilize text-background space-x-2'>
           {title}

@@ -71,7 +71,7 @@ export default function GetFreeEstimateSection({
 
   return (
     <>
-      <section className='flex flex-col overflow-hidden items-center relative min-h-[90vh] desktop:min-h-[75vh] max-h-[68rem]'>
+      <section className='flex flex-col overflow-hidden items-center relative min-h-[95vh] desktop:min-h-[85vh] max-h-[68rem]'>
         <div className='absolute inset-0 z-0'>
           <ParallaxBackground {...image} />
         </div>
