@@ -28,17 +28,12 @@ export default async function Home() {
   });
   const dataParsed = data as any;
   const modules = dataParsed[0].modules;
-  console.log(
-    'modules',
-    modules.map((x: any) => x.__component)
-  );
+
   return (
     <>
-      {modules
-        .slice(0, 7)
-        .map((module: ModuleData, index: string | null | undefined) => (
-          <DynamicModule key={index} moduleData={module} />
-        ))}
+      {modules.map((module: ModuleData, index: string | null | undefined) => (
+        <DynamicModule key={index} moduleData={module} />
+      ))}
     </>
   );
 }

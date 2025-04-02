@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useActionState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { FormResponse, submitEstimateForm } from '@/lib/actions';
-// import Recaptcha from './recaptcha';
+import Recaptcha from './recaptcha';
 
 const initialState: FormResponse = {
   success: false,
@@ -207,8 +207,9 @@ export default function EstimateForm() {
             </p>
           )}
         </div>
-
-        {/* <Recaptcha onVerify={handleRecaptchaVerify} /> */}
+        <Suspense>
+          <Recaptcha onVerify={handleRecaptchaVerify} />
+        </Suspense>
         {state.errors?.recaptchaToken && (
           <p className='text-destructive text-xs mt-1'>
             {state.errors.recaptchaToken[0]}
