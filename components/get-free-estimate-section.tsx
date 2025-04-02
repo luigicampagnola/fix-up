@@ -27,7 +27,6 @@ function SponsorsSection({
   sponsors: Image[];
   align?: 'left' | 'center';
 }) {
-  console.log('sponsors', sponsors);
   return (
     <Section
       name='sponsors-section'
