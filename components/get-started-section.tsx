@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { FaHouse } from 'react-icons/fa6';
+// import { FaHouse } from 'react-icons/fa6';
 // import Form from "./form";
 import { BackgroundImage, ContactForm, PhoneNumber } from './types';
-import { FaEnvelope, FaPhone } from 'react-icons/fa';
+// import { FaEnvelope, FaPhone } from 'react-icons/fa';
 
 interface SponsorFile {
   documentId: string;
@@ -109,7 +109,7 @@ export default function GetStartedSection({
                 href={`tel:${phone?.href}`}
                 className='flex transition-all items-center py-[5px] space-x-2 hover:text-forestgreen'
               >
-                <FaPhone className='text-forestgreen rotate-90' />
+                {/* <FaPhone className='text-forestgreen rotate-90' /> */}
                 <span>{phone.label}</span>
               </a>
             )}
@@ -118,13 +118,13 @@ export default function GetStartedSection({
                 href={`mailto:${email}`}
                 className='flex transition-all items-center py-[5px] space-x-2 hover:text-forestgreen'
               >
-                <FaEnvelope className='text-forestgreen' />
+                {/* <FaEnvelope className='text-forestgreen' /> */}
                 <span>{email}</span>
               </a>
             )}
             {address && (
               <p className='flex transition-all items-center py-[5px] space-x-2 hover:text-forestgreen'>
-                <FaHouse className='text-forestgreen' />
+                {/* <FaHouse className='text-forestgreen' /> */}
                 <span>{address}</span>
               </p>
             )}

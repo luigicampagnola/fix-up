@@ -1,5 +1,4 @@
 import { ImageData, Options } from './types';
-import { CheckCircle2, Shield } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
 import { cn } from '@/lib/utils';
 import { CustomLink } from './shared/custom-link';
 import { FadeSlideUp } from './shared/animations';
+import { IconCircleCheck, IconShieldCheck } from '@tabler/icons-react';
 
 type Props = {
   title?: string;
@@ -31,9 +31,9 @@ export default function OptionSection2({
   return (
     <section className='flex flex-col items-center relative bg-background'>
       <div className='container py-20'>
-        <div className='max-w-2xl mx-auto'>
+        <div className='max-w-4xl mx-auto'>
           <div className='flex items-center justify-center gap-2 px-4 rounded-full bg-primary/5 text-primary w-fit mx-auto'>
-            <Shield className='h-4 w-4' />
+            <IconShieldCheck className='h-4 w-4' />
             <span className='text-sm font-semibold'>Trusted Service</span>
           </div>
 
@@ -66,7 +66,7 @@ export default function OptionSection2({
                             'flex items-center justify-center rounded-full p-1 text-primary/90 group-hover:text-primary transition-colors duration-300'
                           }
                         >
-                          <CheckCircle2 className='h-6 w-6' />
+                          <IconCircleCheck className='h-6 w-6' />
                         </div>
                         <CardTitle className='text-lg font-semibold'>
                           {label}

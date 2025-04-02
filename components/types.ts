@@ -132,6 +132,7 @@ export interface ContactForm {
 }
 
 export interface MapData {
+  id?: number;
   label?: string;
   link?: string;
   mapLocations?: { label: string }[];

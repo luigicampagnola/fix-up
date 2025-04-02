@@ -46,6 +46,7 @@ export default function Header({
   return (
     <>
       {/* Display Desktop */}
+
       <AnimatePresence>
         <motion.nav
           className={
@@ -77,10 +78,9 @@ export default function Header({
             }}
             initial='visible'
             animate={displayTop ? 'visible' : 'hidden'}
-            className='bg-midnightblue'
+            className='bg-secondary'
           >
-            <div className=' flex justify-center items-center text-white text-sm gap-x-4 divide-x-2 py-0.5'>
-              {/* Contact Information */}
+            <div className=' flex justify-center items-center text-background text-sm gap-x-4 divide-x-2 py-0.5'>
               <div className='inline-flex items-center gap-x-2 '>
                 {contacts &&
                   contacts.map((contact, index) => (

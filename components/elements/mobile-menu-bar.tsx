@@ -3,7 +3,6 @@ import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { use, useState } from 'react';
 import MobileMenuModal from '../ui/mobile-menu-modal';
-import { FaBars } from 'react-icons/fa6';
 import { APIResponse, MenuProps } from '@/utils/types';
 import { CustomImage } from '../shared/custom-image';
 import { Button } from '../ui/button';
@@ -16,6 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../ui/accordion';
+import { IconMenu2 } from '@tabler/icons-react';
 
 export default function MobileMenuBar({
   menu,
@@ -53,7 +53,7 @@ export default function MobileMenuBar({
           variant='secondary'
           size='icon'
         >
-          <FaBars className='text-background w-6 h-5 flex-shrink-0' />
+          <IconMenu2 className='text-background w-6 h-5 flex-shrink-0' />
         </Button>
       </div>
       <AnimatePresence>

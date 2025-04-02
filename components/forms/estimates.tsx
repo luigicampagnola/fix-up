@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { FormResponse, submitEstimateForm } from '@/lib/actions';
-import Recaptcha from './recaptcha';
+// import Recaptcha from './recaptcha';
 
 const initialState: FormResponse = {
   success: false,
@@ -208,7 +208,7 @@ export default function EstimateForm() {
           )}
         </div>
 
-        <Recaptcha onVerify={handleRecaptchaVerify} />
+        {/* <Recaptcha onVerify={handleRecaptchaVerify} /> */}
         {state.errors?.recaptchaToken && (
           <p className='text-destructive text-xs mt-1'>
             {state.errors.recaptchaToken[0]}

@@ -16,7 +16,14 @@ export default function DesktopMenuBar({ logo, links, cta }: MenuProps) {
     <div className='hidden flex-1 relative container desktop:flex items-center justify-between'>
       {/* Logo */}
       <Link href={'/'} className='relative h-14 w-36 flex-shrink-0'>
-        <CustomImage {...logo} priority className='h-full w-full' fill />
+        <CustomImage
+          url='/fixup.svg'
+          alternativeText='Fix Up brand logo'
+          priority
+          className='h-full w-full'
+          fill
+          localImage
+        />
       </Link>
       {/* Navgiation Links */}
       <div className='flex items-center justify-center gap-x-2'>

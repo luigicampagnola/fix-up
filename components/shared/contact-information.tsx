@@ -1,6 +1,11 @@
-import { FaEnvelope, FaFacebook, FaPhone, FaYelp } from 'react-icons/fa6';
 import { CustomLink, LinkProps } from './custom-link';
-import { FaMapMarkerAlt } from 'react-icons/fa';
+import {
+  IconPhoneCall,
+  IconMail,
+  IconMapPin,
+  IconBrandFacebook,
+  IconMedicalCross,
+} from '@tabler/icons-react';
 
 export type ContactInformationType = {
   type: 'phone' | 'email' | 'address';
@@ -23,21 +28,21 @@ export const ContactInformation = ({
     case 'phone':
       return (
         <CustomLink url={`tel:${url}`} {...constants}>
-          <FaPhone />
+          <IconPhoneCall />
           <span>{label}</span>
         </CustomLink>
       );
     case 'email':
       return (
         <CustomLink {...constants} url={`mailto:${url}`}>
-          <FaEnvelope />
+          <IconMail />
           <span>{label}</span>
         </CustomLink>
       );
     case 'address':
       return (
         <CustomLink url={url} {...constants}>
-          <FaMapMarkerAlt />
+          <IconMapPin />
           <span>{label}</span>
         </CustomLink>
       );
@@ -75,25 +80,25 @@ export const ContactInformationIcon = ({
           url={`tel:${url}`}
           aria-label={label}
         >
-          <FaPhone />
+          <IconPhoneCall />
         </CustomLink>
       );
     case 'email':
       return (
         <CustomLink {...constants} url={`mailto:${url}`} aria-label={label}>
-          <FaEnvelope />
+          <IconMail />
         </CustomLink>
       );
     case 'facebook':
       return (
         <CustomLink {...constants} url={url} aria-label={label}>
-          <FaFacebook />
+          <IconBrandFacebook />
         </CustomLink>
       );
     case 'yelp':
       return (
         <CustomLink {...constants} url={url} aria-label={label}>
-          <FaYelp />
+          <IconMedicalCross />
         </CustomLink>
       );
   }

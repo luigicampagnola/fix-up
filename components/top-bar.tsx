@@ -1,10 +1,10 @@
-import {
-  FaPhone,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaFacebook,
-} from "react-icons/fa";
-import { Email, PhoneNumber, Facebook } from "../components/types"; // Importa los tipos de `types.ts`
+// import {
+//   FaPhone,
+//   FaEnvelope,
+//   FaMapMarkerAlt,
+//   FaFacebook,
+// } from "react-icons/fa";
+import { Email, PhoneNumber, Facebook } from '../components/types'; // Importa los tipos de `types.ts`
 
 interface TopBarProps {
   phoneNumber?: PhoneNumber;
@@ -22,26 +22,26 @@ export const TopBar = ({
   facebook,
 }: TopBarProps) => {
   return (
-    <div className="bg-midnightblue text-white text-sm py-2 px-4 flex justify-between items-center">
+    <div className='bg-midnightblue text-white text-sm py-2 px-4 flex justify-between items-center'>
       {/* Contact Information */}
-      <div className="flex items-center space-x-4">
-        <div className="flex items-center space-x-1">
-          <FaPhone />
+      <div className='flex items-center space-x-4'>
+        <div className='flex items-center space-x-1'>
+          {/* <FaPhone /> */}
           <span>{phoneNumber?.label}</span>
         </div>
-        <div className="flex items-center space-x-1">
-          <FaEnvelope />
+        <div className='flex items-center space-x-1'>
+          {/* <FaEnvelope /> */}
           <span>{email?.label}</span>
         </div>
-        <div className="flex items-center space-x-1">
-          <FaMapMarkerAlt />
+        <div className='flex items-center space-x-1'>
+          {/* <FaMapMarkerAlt /> */}
           <span>{address}</span>
         </div>
       </div>
 
-      <div className="flex items-center space-x-3">
-        <a href="https://facebook.com" aria-label="Facebook">
-          <FaFacebook />
+      <div className='flex items-center space-x-3'>
+        <a href='https://facebook.com' aria-label='Facebook'>
+          {/* <FaFacebook /> */}
         </a>
         <span>{facebook?.label}</span>
       </div>

@@ -20,7 +20,7 @@ export default function InformationSection({
 }: Props) {
   return (
     <>
-      <section className='w-full bg-muted py-16 desktop:py-28'>
+      <section className='w-full bg-muted py-16 desktop:py-24'>
         <div className=' flex flex-col-reverse relative container gap-y-8 items-center desktop:flex-row desktop:gap-x-20'>
           {rates && (
             <div className='w-full max-w-xl'>

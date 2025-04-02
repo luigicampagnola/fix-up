@@ -1,10 +1,9 @@
 'use client';
-
-import Image from 'next/image';
 import { Rates } from './types';
 import { useState, useEffect } from 'react';
-import { FaAngleLeft, FaAngleRight, FaStar } from 'react-icons/fa';
 import { Button } from './ui/button';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
+import { CustomImage } from './shared/custom-image';
 
 type Props = {
   rates: Rates;
@@ -12,7 +11,7 @@ type Props = {
 
 export default function GoogleRate({ rates }: Props) {
   const [slide, setSlide] = useState(0);
-  const { comments, googleLogo, label, subLabel } = rates;
+  const { comments, label, subLabel } = rates;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,12 +38,13 @@ export default function GoogleRate({ rates }: Props) {
           <h4 className='text-2xl font-bold'>Our Client Reviews</h4>
         </div>
         <div className='flex flex-col justify-end items-end'>
-          <Image
-            className='w-24 h-7'
-            src={googleLogo.url}
-            alt='google-logo'
+          <CustomImage
+            className='w-24 h-auto'
+            url='/google-logo.svg'
+            alternativeText='Google Logo'
             width={90}
             height={30}
+            localImage
           />
           <p className='text-xs text-right tracking-tighter'>{`(${subLabel})`}</p>
         </div>
@@ -80,7 +80,7 @@ export default function GoogleRate({ rates }: Props) {
           rounded='full'
           onClick={prevSlide}
         >
-          <FaAngleLeft className='text-muted-foborder-muted-foreground' />
+          <IconChevronLeft className='text-muted-foborder-muted-foreground' />
         </Button>
         <Button
           aria-label='next slide'
@@ -89,7 +89,7 @@ export default function GoogleRate({ rates }: Props) {
           rounded='full'
           onClick={nextSlide}
         >
-          <FaAngleRight className='text-muted-foborder-muted-foreground' />
+          <IconChevronRight className='text-muted-foborder-muted-foreground' />
         </Button>
       </div>
     </div>

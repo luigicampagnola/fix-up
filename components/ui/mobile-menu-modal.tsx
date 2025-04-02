@@ -3,10 +3,10 @@ import { useLockBodyScroll } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
-import { FaPlus } from 'react-icons/fa6';
 import { CustomImage } from '../shared/custom-image';
 import { Button } from './button';
 import { Image } from '@/utils/types';
+import { IconX } from '@tabler/icons-react';
 
 export default function MobileMenuModal({
   setOpen,
@@ -42,7 +42,7 @@ export default function MobileMenuModal({
             variant='secondary'
             size='icon'
           >
-            <FaPlus className='text-background w-10 h-10 flex-shrink-0 rotate-45' />
+            <IconX className='text-background w-10 h-10 flex-shrink-0' />
           </Button>
         </div>
       </div>
