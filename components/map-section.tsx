@@ -4,6 +4,7 @@ import { PropsWithChildren, Suspense } from 'react';
 import { cn } from '@/lib/utils';
 import { IconMapPin } from '@tabler/icons-react';
 import Iframe from './shared/iframe';
+import Section from './shared/section';
 
 export interface MapSectionProps {
   title?: string;
@@ -23,7 +24,10 @@ export default function MapSection({
     : [];
 
   return (
-    <section className='w-full bg-muted py-16 desktop:py-24 relative'>
+    <Section
+      name='map-section'
+      className='w-full bg-muted py-16 desktop:py-24 relative'
+    >
       <div className='container'>
         {/* Header Section */}
         <div className='flex flex-col items-center  gap-y-4'>
@@ -72,7 +76,7 @@ export default function MapSection({
           </Suspense>
         )}
       </div>
-    </section>
+    </Section>
   );
 }
 const TabContentWrapper = ({

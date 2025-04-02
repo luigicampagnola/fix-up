@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { CustomLink } from './shared/custom-link';
 import { FadeSlideUp } from './shared/animations';
 import { IconCircleCheck, IconShieldCheck } from '@tabler/icons-react';
+import Section from './shared/section';
 
 type Props = {
   title?: string;
@@ -29,7 +30,10 @@ export default function OptionSection2({
   position,
 }: Props) {
   return (
-    <section className='flex flex-col items-center relative bg-background'>
+    <Section
+      name='option-section'
+      className='flex flex-col items-center relative bg-background'
+    >
       <div className='container py-20'>
         <div className='max-w-4xl mx-auto'>
           <div className='flex items-center justify-center gap-2 px-4 rounded-full bg-primary/5 text-primary w-fit mx-auto'>
@@ -90,6 +94,6 @@ export default function OptionSection2({
           </FadeSlideUp>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

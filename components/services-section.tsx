@@ -2,6 +2,7 @@ import { Image, Link } from '@/utils/types';
 import { BentoGrid, BentoGridItem } from './ui/bento-grid';
 import { CustomImage } from './shared/custom-image';
 import clsx from 'clsx';
+import Section from './shared/section';
 
 /*
   FIX:
@@ -43,7 +44,10 @@ export default function ServicesSection({
   cards,
 }: ServicesSectionProps) {
   return (
-    <section className='flex flex-col items-center relative bg-secondary'>
+    <Section
+      name='services-section'
+      className='flex flex-col items-center relative bg-secondary'
+    >
       <div className='container py-24'>
         <h3 className='capitalize font-bold text-center desktop:text-left text-4xl desktop:text-5xl capitilize text-background space-x-2'>
           {title}
@@ -96,6 +100,6 @@ export default function ServicesSection({
           </BentoGrid>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

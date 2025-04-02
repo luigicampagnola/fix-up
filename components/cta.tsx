@@ -1,4 +1,5 @@
 import { CustomLink } from './shared/custom-link';
+import Section from './shared/section';
 import { BackgroundImage } from './types';
 
 type Props = {
@@ -14,7 +15,10 @@ type Props = {
 
 export default function Cta({ title, subtitle, description, button }: Props) {
   return (
-    <section className='flex flex-col items-center relative bg-secondary'>
+    <Section
+      name='cta'
+      className='flex flex-col items-center relative bg-secondary'
+    >
       <div className='container py-20'>
         <div className='flex flex-col items-center gap-4'>
           <h1 className='text-4xl desktop:text-4xl font-bold tracking-tight text-background capitalize text-center'>
@@ -30,6 +34,6 @@ export default function Cta({ title, subtitle, description, button }: Props) {
           </CustomLink>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

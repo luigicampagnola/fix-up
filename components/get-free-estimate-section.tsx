@@ -5,6 +5,7 @@ import { CustomImage } from './shared/custom-image';
 import { Image } from '@/utils/types';
 import clsx from 'clsx';
 import { Marquee } from './magicui/marquee';
+import Section from './shared/section';
 interface Props {
   title?: string;
   subtitle?: string;
@@ -26,8 +27,10 @@ function SponsorsSection({
   sponsors: Image[];
   align?: 'left' | 'center';
 }) {
+  console.log('sponsors', sponsors);
   return (
-    <div
+    <Section
+      name='sponsors-section'
       className={clsx('relative py-6 flex flex-col gap-y-1', {
         'items-center': !align || align === 'center',
         'items-start': align === 'left',
@@ -58,7 +61,7 @@ function SponsorsSection({
           ))}
         </Marquee>
       </div>
-    </div>
+    </Section>
   );
 }
 export default function GetFreeEstimateSection({
@@ -71,7 +74,10 @@ export default function GetFreeEstimateSection({
 
   return (
     <>
-      <section className='flex flex-col overflow-hidden items-center relative min-h-[95vh] desktop:min-h-[85vh] max-h-[68rem]'>
+      <Section
+        name='get-free-estimates'
+        className='flex flex-col overflow-hidden items-center relative min-h-[95vh] desktop:min-h-[85vh] max-h-[68rem]'
+      >
         <div className='absolute inset-0 z-0'>
           <ParallaxBackground {...image} />
         </div>
@@ -91,7 +97,7 @@ export default function GetFreeEstimateSection({
             )}
           </div>
         </div>
-      </section>
+      </Section>
 
       {sponsors && <SponsorsSection sponsors={sponsors} />}
     </>

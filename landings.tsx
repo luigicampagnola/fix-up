@@ -1,5 +1,5 @@
 import { getPage } from '@/utils/api';
-import DynamicModule from '@/components/dynamic-module';
+import DynamicModule from '@/components/shared/dynamic-module';
 import { notFound } from 'next/navigation';
 import { ModuleData } from '@/components/types';
 import { Key } from 'react';
@@ -101,7 +101,7 @@ export default async function DynamicPage({ params }: PageProps) {
       <div>
         {pageData.modules.map(
           (module: ModuleData, index: Key | null | undefined) => (
-            <DynamicModule key={index} moduleData={module} />
+            <DynamicModule key={index} data={module} />
           )
         )}
         <LinksSection {...linkSection} />

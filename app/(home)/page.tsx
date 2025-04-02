@@ -1,5 +1,4 @@
-import DynamicModule from '@/components/dynamic-module';
-import { ModuleData } from '@/components/types';
+import DynamicModule from '@/components/shared/dynamic-module';
 import { fetchAPI } from '@/utils/api';
 import { Metadata } from 'next';
 
@@ -29,10 +28,14 @@ export default async function Home() {
   const dataParsed = data as any;
   const modules = dataParsed[0].modules;
 
+  // console.log(
+  //   'modules',
+  //   modules.map((x: any) => x.__component)
+  // );
   return (
     <>
-      {modules.map((module: ModuleData, index: string | null | undefined) => (
-        <DynamicModule key={index} moduleData={module} />
+      {modules.map((module: any, index: number) => (
+        <DynamicModule key={index} data={module} />
       ))}
     </>
   );
