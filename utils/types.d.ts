@@ -58,3 +58,16 @@ export interface MenuProps {
   links: NavigationLink[];
   cta: Link;
 }
+
+/*
+  Collection Types
+*/
+type Option = {
+  values: string;
+};
+export type Services = {
+  name: string;
+  slug: string;
+  cover: Image;
+  options: Option[];
+};

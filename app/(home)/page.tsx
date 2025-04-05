@@ -1,42 +1,108 @@
-import DynamicModule from '@/components/shared/dynamic-module';
-import { fetchAPI } from '@/utils/api';
+import Cta, { CtaSectionProps } from '@/components/sections/cta';
+import Hero from '@/components/sections/hero';
+import { HeroSectionProps } from '@/components/sections/hero';
+import Highlight, { HighlightsProps } from '@/components/sections/highlights';
+import Information, {
+  InformationSectionProps,
+} from '@/components/sections/information';
+import Maps, { MapsSectionProps } from '@/components/sections/maps';
+import Services, { ServicesSectionProps } from '@/components/sections/services';
+import Sponsors, { SponsorSectionProps } from '@/components/sections/sponsors';
+import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
+import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
+
 import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Best Roofing and Construction Services',
-  description:
-    "Choose Miami's top Best Roofing & Construction Company! A  ffordable, quick, and reliable solutions for your home or business.",
-};
-
+export async function generateMetadata(): Promise<Metadata | undefined> {
+  const data = await fetchSEOMetadata({
+    path: '/api/home',
+  });
+  if (data) {
+    const { metaTitle, metaDescription } = data;
+    return { title: metaTitle, description: metaDescription } as Metadata;
+  }
+}
 interface HomePageProps {
   id: number;
   documentID: string;
-  slug: string;
-  modules: any[];
+  title: string;
+  hero: HeroSectionProps;
+  sponsors: SponsorSectionProps;
+  information: InformationSectionProps;
+  services: ServicesSectionProps;
+  highlights: HighlightsProps;
+  maps: MapsSectionProps;
+  cta: CtaSectionProps;
 }
 export default async function Home() {
-  const data = await fetchAPI({
-    path: '/api/pages',
+  const { data } = await fetchAPI<HomePageProps>({
+    path: '/api/home',
     query: {
-      filters: {
-        slug: {
-          $eq: '/',
+      populate: {
+        hero: {
+          fields: ['title', 'subTitle'],
+          populate: { background: ImageQueryFragment },
+        },
+        sponsors: {
+          fields: ['title'],
+          populate: { images: ImageQueryFragment },
+        },
+        information: {
+          fields: ['title', 'subTitle', 'description', 'displayReviews'],
+        },
+        services: {
+          fields: ['title', 'subTitle'],
+          populate: {
+            cards: {
+              fields: ['name', 'slug'],
+            },
+          },
+        },
+        highlights: {
+          fields: ['title', 'subTitle', 'label'],
+          populate: {
+            items: {
+              fields: ['title', 'description'],
+            },
+            cta: {
+              fields: ['label', 'url'],
+            },
+          },
+        },
+        maps: {
+          fields: ['title', 'subTitle', 'description'],
+          populate: {
+            locations: {
+              fields: ['name', 'slug', 'mapUrl'],
+              populate: {
+                areas: {
+                  fields: ['name'],
+                },
+              },
+            },
+          },
+        },
+        cta: {
+          fields: ['title', 'subtitle', 'description'],
+          populate: {
+            button: LinkQueryFragment,
+          },
         },
       },
     },
   });
-  const dataParsed = data as any;
-  const modules = dataParsed[0].modules;
 
-  // console.log(
-  //   'modules',
-  //   modules.map((x: any) => x.__component)
-  // );
+  const { hero, sponsors, information, services, highlights, maps, cta } = data;
+
   return (
     <>
-      {modules.map((module: any, index: number) => (
-        <DynamicModule key={index} data={module} />
-      ))}
+      <Hero {...hero} />
+      <Sponsors {...sponsors} />
+      <Information {...information} />
+      <Services {...services} />
+      <Highlight {...highlights} />
+      <Maps {...maps} />
+      <Cta {...cta} />
     </>
   );
 }
