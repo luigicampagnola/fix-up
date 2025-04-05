@@ -26,3 +26,13 @@ export function imageOptimizer({
   return `${BASE_URL}/_next/image?url=${encodeURIComponent(url)}&w=${width || 1200
     }&q=${quality || 75}`;
 };
+
+export const formatDate = ({ date, options }: { date: Date | string, options?: Intl.DateTimeFormatOptions }) => {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+
+  if (isNaN(dateObj.getTime())) {
+    throw new Error('Invalid date');
+  }
+
+  return dateObj.toLocaleDateString('en-US', options || { year: 'numeric', month: 'long', day: 'numeric' });
+};

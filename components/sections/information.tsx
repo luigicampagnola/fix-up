@@ -1,7 +1,7 @@
-import { Rates } from '../types';
-import GoogleRate from '../google-rate';
 import Section from '../shared/section';
 import RichText, { RichTextProps } from '../shared/rich-text';
+import GoogleReviews from '../shared/google-reviews';
+import { Suspense } from 'react';
 
 export interface InformationSectionProps {
   title: string;
@@ -23,9 +23,11 @@ export default function Information({
     >
       <div className=' flex flex-col-reverse relative container gap-y-8 items-center desktop:flex-row desktop:gap-x-20'>
         {displayReviews && (
-          <div className='w-full max-w-xl'>
-            {/* <GoogleRate rates={rates} /> */}
-          </div>
+          <Suspense fallback={<div>Loading reviews...</div>}>
+            <div className='w-full max-w-xl'>
+              <GoogleReviews />
+            </div>
+          </Suspense>
         )}
         <div className='space-y-3'>
           <h3 className='text-3xl tablet:text-5xl font-bold capitalize text-secondary'>

@@ -28,6 +28,13 @@ export interface APIResponse<T> {
   };
 }
 
+export type Review = {
+  name: string;
+  content: string;
+  date?: Date;
+  rate: number;
+};
+
 
 /* 
     SEO types
