@@ -58,7 +58,7 @@ export const BentoGridItem = ({
           aria-label={link.label}
           url={link.url}
           className='z-10 absolute inset-0'
-          styled={true}
+          styled={false}
         />
       )}
     </div>

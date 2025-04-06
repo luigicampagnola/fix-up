@@ -22,7 +22,7 @@ export const CustomLink = ({
   variant,
   size,
   rounded,
-  styled = false,
+  styled = true,
   ...props
 }: LinkProps) =>
   url ? (
@@ -30,7 +30,7 @@ export const CustomLink = ({
       href={url}
       id={documentId}
       className={
-        styled
+        !styled
           ? className
           : clsx(buttonVariants({ variant, size, rounded, className }))
       }

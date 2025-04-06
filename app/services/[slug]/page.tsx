@@ -12,45 +12,59 @@ import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
 
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
-export async function generateMetadata(): Promise<Metadata | undefined> {
-  const data = await fetchSEOMetadata({
-    path: '/api/home',
-  });
-  if (data) {
-    const { metaTitle, metaDescription } = data;
-    return { title: metaTitle, description: metaDescription } as Metadata;
-  }
-}
-interface HomePageProps {
+// export async function generateMetadata(): Promise<Metadata | undefined> {
+//   const data = await fetchSEOMetadata({
+//     path: '/api/home',
+//   });
+//   if (data) {
+//     const { metaTitle, metaDescription } = data;
+//     return { title: metaTitle, description: metaDescription } as Metadata;
+//   }
+// }
+interface ServicesPageProps {
   id: number;
   documentID: string;
   title: string;
   hero: HeroSectionProps;
   sponsors: SponsorSectionProps;
   information: InformationSectionProps;
-  services: ServicesSectionProps;
+  options: ServicesSectionProps;
   highlights: HighlightsProps;
   maps: MapsSectionProps;
   cta: CtaSectionProps;
 }
-export default async function Page() {
-  const { data } = await fetchAPI<HomePageProps>({
-    path: '/api/home',
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const { data } = await fetchAPI<ServicesPageProps[]>({
+    // log: { info: 'data', style: 'stringify' },
+    path: '/api/services',
     query: {
+      filters: {
+        slug: {
+          $eq: slug,
+        },
+      },
       populate: {
         hero: {
-          fields: ['title', 'subTitle'],
-          populate: { background: ImageQueryFragment },
-        },
-        sponsors: {
-          fields: ['title'],
-          populate: { images: ImageQueryFragment },
+          fields: ['title', 'subTitle', 'description', 'displayForm'],
+          populate: {
+            background: ImageQueryFragment,
+            cta: LinkQueryFragment,
+            highlights: {
+              fields: ['title'],
+            },
+          },
         },
         information: {
           fields: ['title', 'subTitle', 'description', 'displayReviews'],
         },
-        services: {
+        options: {
           fields: ['title', 'subTitle'],
           populate: {
             cards: {
@@ -72,40 +86,26 @@ export default async function Page() {
             },
           },
         },
-        maps: {
-          fields: ['title', 'subTitle', 'description'],
-          populate: {
-            locations: {
-              fields: ['name', 'slug', 'mapUrl'],
-              populate: {
-                areas: {
-                  fields: ['name'],
-                },
-              },
-            },
-          },
-        },
-        cta: {
-          fields: ['title', 'subtitle', 'description'],
-          populate: {
-            button: LinkQueryFragment,
-          },
-        },
       },
     },
   });
 
-  const { hero, sponsors, information, services, highlights, maps, cta } = data;
+  if (!data || data.length === 0) {
+    notFound();
+  }
+
+  const { hero, sponsors, information, options, highlights, maps, cta } =
+    data[0];
 
   return (
     <>
       <Hero {...hero} />
-      <Sponsors {...sponsors} />
+      {/* <Sponsors {...sponsors} />
       <Information {...information} />
-      <Services {...services} />
+      <Services {...options} />
       <Highlight {...highlights} />
       <Maps {...maps} />
-      <Cta {...cta} />
+      <Cta {...cta} /> */}
     </>
   );
 }

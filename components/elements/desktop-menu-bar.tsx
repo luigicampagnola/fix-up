@@ -48,20 +48,28 @@ export default function DesktopMenuBar({ logo, links, cta }: MenuProps) {
                           {title}
                         </DropdownMenuLabel>
                         {sub &&
-                          sub.map(({ label }, index) => (
+                          sub.map(({ label, url }, index) => (
                             <div key={`group-link-${index}`}>
-                              <DropdownMenuItem>{label}</DropdownMenuItem>
+                              <DropdownMenuItem>
+                                <CustomLink url={url} styled={false}>
+                                  {label}
+                                </CustomLink>
+                              </DropdownMenuItem>
                             </div>
                           ))}
                       </div>
                     ))}
                   {list &&
-                    list.map(({ label }, index) => (
+                    list.map(({ label, url }, index) => (
                       <div
                         key={`group-item-${index}`}
                         className='grid auto-rows-[40px] '
                       >
-                        <DropdownMenuItem>{label}</DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <CustomLink url={url} styled={false}>
+                            {label}
+                          </CustomLink>
+                        </DropdownMenuItem>
                       </div>
                     ))}
                 </DropdownMenuContent>
