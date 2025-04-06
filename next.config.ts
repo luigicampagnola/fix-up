@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'http',
-        hostname: 'localhost:1337'
+        hostname: 'localhost'
       },
       {
         protocol: 'https',

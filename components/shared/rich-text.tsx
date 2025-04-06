@@ -6,13 +6,21 @@ import {
 import { CustomLink } from './custom-link';
 
 export interface RichTextProps extends BlocksContent {}
-export default function RichText({ content }: { content: RichTextProps }) {
+export default function RichText({
+  content,
+  className,
+}: {
+  content: RichTextProps;
+  className?: string;
+}) {
   return (
     <BlocksRenderer
       content={content}
       blocks={{
         paragraph: ({ children }) => (
-          <p className='text-foreground desktop:prose-lg'>{children}</p>
+          <p className={className || 'text-foreground desktop:prose-lg'}>
+            {children}
+          </p>
         ),
         // ...or point to a design system
         // heading: ({ children, level }) => {
@@ -35,7 +43,7 @@ export default function RichText({ content }: { content: RichTextProps }) {
         // },
 
         link: ({ children, url }) => (
-          <CustomLink url={url} variant='link'>
+          <CustomLink url={url} variant='link' className={className}>
             {children}
           </CustomLink>
         ),

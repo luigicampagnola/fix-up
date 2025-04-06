@@ -76,5 +76,5 @@ export type Services = {
   name: string;
   slug: string;
   cover: Image;
-  options: Option[];
+  description: RichTextProps;
 };

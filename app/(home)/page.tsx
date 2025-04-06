@@ -54,7 +54,10 @@ export default async function Home() {
           fields: ['title', 'subTitle'],
           populate: {
             cards: {
-              fields: ['name', 'slug'],
+              fields: ['name', 'slug', 'description', 'slug'],
+              populate: {
+                cover: ImageQueryFragment,
+              },
             },
           },
         },

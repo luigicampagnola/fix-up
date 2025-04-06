@@ -3,6 +3,7 @@ import { BentoGrid, BentoGridItem } from '../ui/bento-grid';
 import { CustomImage } from '../shared/custom-image';
 import clsx from 'clsx';
 import Section from '../shared/section';
+import RichText from '../shared/rich-text';
 
 export interface ServicesSectionProps {
   title?: string;
@@ -29,20 +30,17 @@ export default function Services({
         <div className='mt-12'>
           <BentoGrid>
             {cards &&
-              cards.map(({ name, options, cover, slug }, i) => (
+              cards.map(({ name, cover, slug, description }, i) => (
                 <BentoGridItem
                   key={i}
                   title={name}
                   description={
-                    options && options?.length > 0 ? (
+                    description ? (
                       <div className='inline-flex flex-col gap-2 items-start'>
-                        <p className='line-clamp-3'>
-                          {options
-                            ?.slice(0, 3)
-                            .map((option) => option.values)
-                            .join('')
-                            .replace(/-/g, '')}
-                        </p>
+                        <RichText
+                          className='text-xs line-clamp-3'
+                          content={description}
+                        />
                         <span className='group-hover/bento:underline-offset-2 group-hover/bento:underline font-semibold capitalize'>
                           learn more
                         </span>
@@ -59,7 +57,7 @@ export default function Services({
                         />
                       </div>
                     ) : (
-                      <div className='flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100'></div>
+                      <div className='flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-background dark:from-foreground dark:to-foreground/90 to-background/20'></div>
                     )
                   }
                   className={clsx({
