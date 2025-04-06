@@ -1,5 +1,3 @@
-import { Button } from '../ui/button';
-import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { CustomImage } from '../shared/custom-image';
 import { fetchAPI } from '@/utils/api';
 import { Review } from '@/utils/types';
@@ -26,10 +24,16 @@ export default async function GoogleReviews() {
       },
     },
   });
-  const {
-    reviews: { title, total, comments },
-  } = data;
+  const { reviews } = data;
 
+  if (!reviews)
+    return (
+      <div className='bg-destructive/40 text-center p-4'>
+        Error while getting the reviews data...
+      </div>
+    );
+
+  const { comments, title, total } = reviews;
   const commentReviews =
     comments && comments.length > 0 ? comments.slice(0, 6) : [];
 

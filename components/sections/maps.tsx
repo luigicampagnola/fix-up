@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { IconMapPin } from '@tabler/icons-react';
 import Iframe from '../shared/iframe';
 import Section from '../shared/section';
+import { GOOGLE_MAPS_URL } from '@/utils/constants';
 
 type LocationArea = {
   name: string;
@@ -51,7 +52,7 @@ export default function Maps({
             {description}
           </p>
         </div>
-        {tabs && (
+        {tabs && tabs.length > 0 && (
           <Suspense fallback={<div>Loading Location tabs...</div>}>
             <Tabs
               defaultValue={tabs[0]?.id}
@@ -108,7 +109,7 @@ const MapLocationItem = ({
   <TabContentWrapper className='bg-foreground/10'>
     <Iframe
       title={`${name} Map`}
-      src={mapUrl}
+      src={`${GOOGLE_MAPS_URL}${mapUrl}`}
       width='100%'
       height='100%'
       style={{ border: 0 }}

@@ -5,3 +5,5 @@ export const ImageQueryFragment = {
 export const LinkQueryFragment = {
     fields: ['label', 'url']
 }
+
+export const GOOGLE_MAPS_URL = 'https://www.google.com/maps';
