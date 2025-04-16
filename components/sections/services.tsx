@@ -4,12 +4,15 @@ import { CustomImage } from '../shared/custom-image';
 import clsx from 'clsx';
 import Section from '../shared/section';
 import RichText from '../shared/rich-text';
+import { FadeSlideUp } from '../shared/animations';
+import { CustomLink } from '../shared/custom-link';
 
 export interface ServicesSectionProps {
   title?: string;
   subTitle?: string;
   cards?: TServices[];
   disableLinking: boolean;
+  cta?: Link;
 }
 
 export default function Services({
@@ -17,13 +20,14 @@ export default function Services({
   subTitle,
   cards,
   disableLinking = false,
+  cta,
 }: ServicesSectionProps) {
   return (
     <Section
       name='services-section'
       className='flex flex-col items-center relative bg-secondary'
     >
-      <div className='container py-24'>
+      <div className='container py-20'>
         <h3 className='capitalize font-bold text-center desktop:text-left text-4xl desktop:text-5xl capitilize text-background space-x-2'>
           {title}
           <span className='text-primary pl-2'>{subTitle}</span>
@@ -78,6 +82,11 @@ export default function Services({
               ))}
           </BentoGrid>
         </div>
+        {cta && (
+          <FadeSlideUp className='mt-10 text-center'>
+            <CustomLink size='lg' className='uppercase' {...cta} />
+          </FadeSlideUp>
+        )}
       </div>
     </Section>
   );

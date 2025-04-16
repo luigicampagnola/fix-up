@@ -85,7 +85,7 @@ export default async function Page() {
               fields: ['name', 'slug', 'mapUrl'],
               populate: {
                 areas: {
-                  fields: ['name'],
+                  fields: ['name', 'slug'],
                 },
               },
             },

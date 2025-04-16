@@ -5,9 +5,11 @@ import { IconMapPin } from '@tabler/icons-react';
 import Iframe from '../shared/iframe';
 import Section from '../shared/section';
 import { GOOGLE_MAPS_URL } from '@/utils/constants';
+import { CustomLink } from '../shared/custom-link';
 
 type LocationArea = {
   name: string;
+  slug: string;
 };
 type Location = {
   id?: string;
@@ -71,14 +73,18 @@ export default function Maps({
                   ))}
               </TabsList>
               {locations &&
-                locations.map(({ id, name, mapUrl, areas }) => (
+                locations.map(({ id, name, slug, mapUrl, areas }) => (
                   <TabsContent
                     key={`tab-content-${id}`}
                     value={`tab-${id}`}
                     className='grid desktop:grid-cols-2 gap-x-8 w-full'
                   >
                     <MapLocationItem name={name} mapUrl={mapUrl} />
-                    <ContentLocationItem name={name} areas={areas} />
+                    <ContentLocationItem
+                      name={name}
+                      slug={slug}
+                      areas={areas}
+                    />
                   </TabsContent>
                 ))}
             </Tabs>
@@ -130,7 +136,8 @@ const MapLocationItem = ({
 const ContentLocationItem = ({
   name,
   areas,
-}: Omit<Location, 'slug' | 'mapUrl'>) => (
+  slug,
+}: Omit<Location, 'mapUrl'>) => (
   <TabContentWrapper>
     <div className='bg-background rounded-md shadow-lg overflow-hidden border border-foreground/20'>
       <div className='bg-secondary border-b border-foreground/20'>
@@ -146,8 +153,12 @@ const ContentLocationItem = ({
         <h4 className='sr-only'>Service Locations in {name}</h4>
         <ul className='grid tablet:grid-cols-2 gap-3 p-4' aria-label={name}>
           {areas &&
-            areas.map(({ name }, index) => (
-              <LocationItem key={`location-item-${index}`} name={name} />
+            areas.map(({ ...props }, index) => (
+              <LocationItem
+                key={`location-item-${index}`}
+                {...props}
+                parentLocation={slug}
+              />
             ))}
         </ul>
       </div>
@@ -155,16 +166,24 @@ const ContentLocationItem = ({
   </TabContentWrapper>
 );
 
-function LocationItem({ name }: { name: string }) {
+function LocationItem({
+  name,
+  slug,
+  parentLocation,
+}: LocationArea & { parentLocation: string }) {
   return (
     <li>
-      <div className='flex items-center gap-2 p-2 rounded-md hover:bg-foreground/10 transition-colors'>
+      <CustomLink
+        styled={false}
+        url={`/locations/${parentLocation}/${slug}`}
+        className='flex items-center gap-2 p-2 rounded-md hover:bg-foreground/10 transition-colors'
+      >
         <IconMapPin
           className='h-4 w-4 text-secondary flex-shrink-0'
           aria-hidden='true'
         />
         <span className='text-foreground text-sm fforeground/20m'>{name}</span>
-      </div>
+      </CustomLink>
     </li>
   );
 }
