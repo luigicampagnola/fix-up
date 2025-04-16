@@ -2,6 +2,7 @@ import Section from '../shared/section';
 import RichText, { RichTextProps } from '../shared/rich-text';
 import GoogleReviews from '../shared/google-reviews';
 import { Suspense } from 'react';
+import clsx from 'clsx';
 
 export interface InformationSectionProps {
   title: string;
@@ -29,7 +30,11 @@ export default function Information({
             </div>
           </Suspense>
         )}
-        <div className='space-y-3'>
+        <div
+          className={clsx('space-y-3', {
+            'max-w-4xl mx-auto text-center': displayReviews === false,
+          })}
+        >
           <h3 className='text-3xl tablet:text-5xl font-bold capitalize text-secondary'>
             {title} <span className='text-primary'>{subTitle}</span>
           </h3>
