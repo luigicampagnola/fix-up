@@ -88,7 +88,7 @@ export default async function Page({
     <>
       <Hero {...hero} />
       <Information {...information} />
-      <Services {...services} disableLinking={true} />
+      <Services {...services} />
     </>
   );
 }
