@@ -11,38 +11,42 @@ export type ContactInformationType = {
   type: 'phone' | 'email' | 'address';
   label: string;
   url: string;
+  styled?: boolean;
 };
 
 export const ContactInformation = ({
   type,
   label,
   url,
+  styled = true,
 }: ContactInformationType) => {
   const constants = {
-    className: 'inline-flex items-center space-x-1 hover:text-primary',
+    className:
+      'inline-flex items-center gap-x-2 hover:text-primary hover:underline text-sm',
     target: '_blank',
     variant: 'link',
+    styled: styled,
   } as Omit<LinkProps, 'url'>;
 
   switch (type) {
     case 'phone':
       return (
         <CustomLink url={`tel:${url}`} {...constants}>
-          <IconPhoneCall />
+          <IconPhoneCall className='size-4' />
           <span>{label}</span>
         </CustomLink>
       );
     case 'email':
       return (
         <CustomLink {...constants} url={`mailto:${url}`}>
-          <IconMail />
+          <IconMail className='size-4' />
           <span>{label}</span>
         </CustomLink>
       );
     case 'address':
       return (
         <CustomLink url={url} {...constants}>
-          <IconMapPin />
+          <IconMapPin className='size-4' />
           <span>{label}</span>
         </CustomLink>
       );

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { CustomImage } from '../shared/custom-image';
 import { CustomLink } from '../shared/custom-link';
 import { MenuProps } from '@/utils/types';
@@ -14,16 +13,20 @@ export default function DesktopMenuBar({ logo, links, cta }: MenuProps) {
   return (
     <div className='hidden flex-1 relative container desktop:flex items-center justify-between'>
       {/* Logo */}
-      <Link href={'/'} className='relative h-14 w-36 flex-shrink-0'>
+      <CustomLink
+        styled={false}
+        url={'/'}
+        className='inline-flex relative h-14 w-36 flex-shrink-0'
+      >
         <CustomImage
           url='/fixup.svg'
           alternativeText='Fix Up brand logo'
           priority
           className='h-full w-full'
           fill
-          localImage
+          localImage={true}
         />
-      </Link>
+      </CustomLink>
       {/* Navgiation Links */}
       <div className='flex items-center justify-center gap-x-2'>
         {links &&

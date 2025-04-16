@@ -9,12 +9,12 @@ export type Image = {
   alternativeText: string;
   width?: number;
   height?: number;
-}
+};
 
 export type Link = {
   label: string;
   url: string;
-}
+};
 
 export interface APIResponse<T> {
   data: T;
@@ -35,7 +35,6 @@ export type Review = {
   rate: number;
 };
 
-
 /* 
     SEO types
 */
@@ -45,7 +44,7 @@ export type SEOMetaTags = {
   metaDescription: string;
   metaImage: Image;
   canonicalURL: string;
-}
+};
 
 /* 
     Navigation 
@@ -64,6 +63,12 @@ export interface MenuProps {
   logo: Image;
   links: NavigationLink[];
   cta: Link;
+}
+
+export interface FooterProps {
+  groups: GroupNavigation[];
+  license?: string;
+  copyRight?: string;
 }
 
 /*

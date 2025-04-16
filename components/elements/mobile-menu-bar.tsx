@@ -1,6 +1,5 @@
 'use client';
 import { AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
 import { use, useState } from 'react';
 import MobileMenuModal from '../ui/mobile-menu-modal';
 import { APIResponse, MenuProps } from '@/utils/types';
@@ -43,9 +42,20 @@ export default function MobileMenuBar({
         'flex-1 flex flex-row items-center justify-between desktop:hidden container'
       }
     >
-      <Link href={'/'} className='relative h-14 w-36 flex-shrink-0 my-1.5'>
-        <CustomImage {...logo} priority className='h-full w-full' fill />
-      </Link>
+      <CustomLink
+        styled={false}
+        url={'/'}
+        className='my-2 inline-flex relative h-14 w-36 flex-shrink-0'
+      >
+        <CustomImage
+          url='/fixup.svg'
+          alternativeText='Fix Up brand logo'
+          priority
+          className='h-full w-full'
+          fill
+          localImage={true}
+        />
+      </CustomLink>
       <div className='z-50 flex w-full justify-end'>
         <Button
           aria-label='Open Menu'

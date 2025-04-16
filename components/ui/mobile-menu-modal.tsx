@@ -1,12 +1,12 @@
 'use client';
 import { useLockBodyScroll } from '@uidotdev/usehooks';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
 import { CustomImage } from '../shared/custom-image';
 import { Button } from './button';
 import { Image } from '@/utils/types';
 import { IconX } from '@tabler/icons-react';
+import { CustomLink } from '../shared/custom-link';
 
 export default function MobileMenuModal({
   setOpen,
@@ -33,9 +33,20 @@ export default function MobileMenuModal({
     >
       <div className='z-50 bg-background'>
         <div className=' flex items-center justify-between container'>
-          <Link href={'/'} className='relative h-14 w-36 flex-shrink-0 my-1.5'>
-            <CustomImage {...logo} priority className='h-full w-full' fill />
-          </Link>
+          <CustomLink
+            styled={false}
+            url={'/'}
+            className='my-2 inline-flex relative h-14 w-36 flex-shrink-0'
+          >
+            <CustomImage
+              url='/fixup.svg'
+              alternativeText='Fix Up brand logo'
+              priority
+              className='h-full w-full'
+              fill
+              localImage={true}
+            />
+          </CustomLink>
           <Button
             aria-label='Close Menu'
             onClick={() => setOpen(false)}
