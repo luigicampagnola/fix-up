@@ -70,7 +70,7 @@ export default function Highlights({
 
           <div
             className={clsx({
-              'grid grid-cols-2 gap-4': gridDisplay,
+              'grid tablet:grid-cols-2 gap-4': gridDisplay,
               'space-y-4': gridDisplay === false || !gridDisplay,
             })}
           >
