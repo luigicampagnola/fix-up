@@ -28,7 +28,7 @@ interface ServicesPageProps {
   title: string;
   hero: HeroSectionProps;
   information: InformationSectionProps;
-  steps: HighlightsProps;
+  faqs: HighlightsProps;
   cta: CtaSectionProps;
 }
 export default async function Page({
@@ -38,7 +38,7 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const { data } = await fetchAPI<ServicesPageProps>({
-    path: '/api/financing',
+    path: '/api/about',
     query: {
       filters: {
         slug: {
@@ -59,7 +59,7 @@ export default async function Page({
         information: {
           fields: ['title', 'subTitle', 'description', 'displayReviews'],
         },
-        steps: {
+        faqs: {
           fields: ['title', 'subTitle', 'label', 'description'],
           populate: {
             items: {
@@ -84,13 +84,14 @@ export default async function Page({
     notFound();
   }
 
-  const { hero, information, steps, cta } = data;
+  const { hero, information, faqs, cta } = data;
 
   return (
     <>
       <Hero {...hero} />
+
+      <Highlight {...faqs} gridDisplay={true} />
       <Information {...information} />
-      <Highlight {...steps} />
       <Cta {...cta} />
     </>
   );
