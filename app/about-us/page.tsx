@@ -6,7 +6,6 @@ import Information, {
   InformationSectionProps,
 } from '@/components/sections/information';
 
-import { ServicesSectionProps } from '@/components/sections/services';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
 

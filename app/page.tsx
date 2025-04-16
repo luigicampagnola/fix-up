@@ -40,8 +40,14 @@ export default async function Page() {
     query: {
       populate: {
         hero: {
-          fields: ['title', 'subTitle'],
-          populate: { background: ImageQueryFragment },
+          fields: ['title', 'subTitle', 'description', 'displayForm'],
+          populate: {
+            background: ImageQueryFragment,
+            cta: LinkQueryFragment,
+            highlights: {
+              fields: ['title'],
+            },
+          },
         },
         sponsors: {
           fields: ['title'],
