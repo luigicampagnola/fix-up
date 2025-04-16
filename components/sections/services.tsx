@@ -9,12 +9,14 @@ export interface ServicesSectionProps {
   title?: string;
   subTitle?: string;
   cards?: TServices[];
+  disableLinking: boolean;
 }
 
 export default function Services({
   title,
   subTitle,
   cards,
+  disableLinking = false,
 }: ServicesSectionProps) {
   return (
     <Section
@@ -35,14 +37,15 @@ export default function Services({
                   key={i}
                   title={name}
                   description={
-                    description ? (
+                    description && !disableLinking ? (
                       <div className='inline-flex flex-col gap-2 items-start'>
                         <RichText
                           className='text-xs line-clamp-3'
                           content={description}
                         />
+
                         <span className='group-hover/bento:underline-offset-2 group-hover/bento:underline font-semibold capitalize'>
-                          learn more
+                          see more
                         </span>
                       </div>
                     ) : null
@@ -61,9 +64,16 @@ export default function Services({
                     )
                   }
                   className={clsx({
-                    ' desktop:col-span-1 desktop:row-span-2': i === 0,
+                    // only first row is bigger
+                    ' desktop:col-span-1 desktop:row-span-2':
+                      i === 0 && cards.length <= 5,
+                    'desktop:col-span-1': cards.length > 5,
                   })}
-                  link={{ url: `/services/${slug}`, label: 'learn more' }}
+                  link={
+                    disableLinking
+                      ? undefined
+                      : { url: `/services/${slug}`, label: 'learn more' }
+                  }
                 />
               ))}
           </BentoGrid>

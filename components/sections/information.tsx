@@ -21,10 +21,10 @@ export default function Information({
       name='information-section'
       className='w-full bg-muted py-16 desktop:py-24'
     >
-      <div className=' flex flex-col-reverse relative container gap-y-8 items-center desktop:flex-row desktop:gap-x-20'>
+      <div className='flex flex-col-reverse relative container gap-y-8 items-center desktop:flex-row desktop:gap-x-20'>
         {displayReviews && (
           <Suspense fallback={<div>Loading reviews...</div>}>
-            <div className='w-full max-w-xl'>
+            <div className='flex-shrink-0 w-full max-w-md'>
               <GoogleReviews />
             </div>
           </Suspense>

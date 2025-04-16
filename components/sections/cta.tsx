@@ -36,11 +36,13 @@ export default function Cta({
             {description}
           </p>
         </div>
-        <div className='text-center mt-8'>
-          <CustomLink url='/estimates' size='lg' className='capitalize'>
-            {button?.label}
-          </CustomLink>
-        </div>
+        {button && (
+          <div className='text-center mt-8'>
+            <CustomLink url='/estimates' size='lg' className='capitalize'>
+              {button?.label}
+            </CustomLink>
+          </div>
+        )}
       </div>
     </Section>
   );

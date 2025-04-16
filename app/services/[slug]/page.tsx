@@ -28,11 +28,9 @@ interface ServicesPageProps {
   documentID: string;
   title: string;
   hero: HeroSectionProps;
-  sponsors: SponsorSectionProps;
   information: InformationSectionProps;
   options: ServicesSectionProps;
-  highlights: HighlightsProps;
-  maps: MapsSectionProps;
+  highlights: HighlightsProps[];
   cta: CtaSectionProps;
 }
 export default async function Page({
@@ -42,7 +40,6 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const { data } = await fetchAPI<ServicesPageProps[]>({
-    // log: { info: 'data', style: 'stringify' },
     path: '/api/services',
     query: {
       filters: {
@@ -76,7 +73,7 @@ export default async function Page({
           },
         },
         highlights: {
-          fields: ['title', 'subTitle', 'label'],
+          fields: ['title', 'subTitle', 'label', 'description'],
           populate: {
             items: {
               fields: ['title', 'description'],
@@ -84,6 +81,12 @@ export default async function Page({
             cta: {
               fields: ['label', 'url'],
             },
+          },
+        },
+        cta: {
+          fields: ['title', 'subtitle', 'description'],
+          populate: {
+            button: LinkQueryFragment,
           },
         },
       },
@@ -94,18 +97,17 @@ export default async function Page({
     notFound();
   }
 
-  const { hero, sponsors, information, options, highlights, maps, cta } =
-    data[0];
-
+  const { hero, information, options, highlights, cta } = data[0];
+  const mainHighlights = highlights[0];
+  const extraHighlights = highlights.length > 1 ? highlights[1] : null;
   return (
     <>
       <Hero {...hero} />
-      {/* <Sponsors {...sponsors} />
+      <Highlight {...mainHighlights} gridDisplay={true} />
       <Information {...information} />
-      <Services {...options} />
-      <Highlight {...highlights} />
-      <Maps {...maps} />
-      <Cta {...cta} /> */}
+      <Services {...options} disableLinking={true} />
+      {extraHighlights && <Highlight {...extraHighlights} />}
+      <Cta {...cta} />
     </>
   );
 }
