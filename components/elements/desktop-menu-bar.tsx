@@ -5,7 +5,6 @@ import { MenuProps } from '@/utils/types';
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
@@ -50,11 +49,13 @@ export default function DesktopMenuBar({ logo, links, cta }: MenuProps) {
                         {sub &&
                           sub.map(({ label, url }, index) => (
                             <div key={`group-link-${index}`}>
-                              <DropdownMenuItem>
-                                <CustomLink url={url} styled={false}>
-                                  {label}
-                                </CustomLink>
-                              </DropdownMenuItem>
+                              <CustomLink
+                                className='inline-flex w-full text-sm hover:bg-muted p-2 rounded-md'
+                                url={url}
+                                styled={false}
+                              >
+                                {label}
+                              </CustomLink>
                             </div>
                           ))}
                       </div>
@@ -65,11 +66,13 @@ export default function DesktopMenuBar({ logo, links, cta }: MenuProps) {
                         key={`group-item-${index}`}
                         className='grid auto-rows-[40px] '
                       >
-                        <DropdownMenuItem>
-                          <CustomLink url={url} styled={false}>
-                            {label}
-                          </CustomLink>
-                        </DropdownMenuItem>
+                        <CustomLink
+                          className='text-sm hover:bg-muted p-2 rounded-md'
+                          url={url}
+                          styled={false}
+                        >
+                          {label}
+                        </CustomLink>
                       </div>
                     ))}
                 </DropdownMenuContent>
