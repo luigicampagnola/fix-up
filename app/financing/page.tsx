@@ -31,20 +31,10 @@ interface ServicesPageProps {
   steps: HighlightsProps;
   cta: CtaSectionProps;
 }
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+export default async function Page() {
   const { data } = await fetchAPI<ServicesPageProps>({
     path: '/api/financing',
     query: {
-      filters: {
-        slug: {
-          $eq: slug,
-        },
-      },
       populate: {
         hero: {
           fields: ['title', 'subTitle', 'description', 'displayForm'],

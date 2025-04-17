@@ -4,6 +4,7 @@ import { Image, Link } from '@/utils/types';
 import Section from '../shared/section';
 import { CustomLink } from '../shared/custom-link';
 import { IconCircleCheck } from '@tabler/icons-react';
+import clsx from 'clsx';
 
 type THighlight = {
   title: string;
@@ -12,10 +13,10 @@ export interface HeroSectionProps {
   title: string;
   subTitle?: string;
   description: string;
-  background: Image;
+  background?: Image;
   displayForm: boolean;
   cta?: Link;
-  highlights: THighlight[];
+  highlights?: THighlight[];
 }
 export default function Hero({
   title,
@@ -31,19 +32,27 @@ export default function Hero({
       name='get-free-estimates'
       className='flex flex-col overflow-hidden items-center relative min-h-[90vh] desktop:min-h-[85vh] max-h-[68rem]'
     >
-      <div className='absolute inset-0 z-0'>
-        <ParallaxBackground {...background} />
-      </div>
-      <div className='z-10 bg-secondary/80 inset-0 w-full flex flex-col absolute justify-center'>
-        <div className='flex flex-col items-center container desktop:flex-row  gap-y-8'>
-          <div className='flex flex-col h-full justify-center gap-4 w-full'>
-            <h1 className='font-bold  desktop:text-left text-5xl tablet:text-7xl capitilize text-background'>
+      {background && (
+        <div className='absolute inset-0 z-0'>
+          <ParallaxBackground {...background} />
+        </div>
+      )}
+
+      <div
+        className={clsx(
+          'z-10 inset-0 w-full flex flex-col absolute justify-center',
+          { 'bg-secondary': !background, 'bg-secondary/80': background }
+        )}
+      >
+        <div className='flex flex-col items-center container desktop:flex-row gap-14'>
+          <div className='flex flex-col h-full justify-center gap-4'>
+            <h1 className='font-bold  desktop:text-left text-5xl tablet:text-6xl capitilize text-background'>
               {title}
               <br />
               <span className='text-primary tablet:block'>{subTitle}</span>
             </h1>
             {description && (
-              <p className='text-background/90 text-base tablet:text-xl max-w-6xl'>
+              <p className='text-background/90 text-base tablet:text-lg max-w-6xl'>
                 {description}
               </p>
             )}

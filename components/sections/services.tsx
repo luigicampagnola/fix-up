@@ -70,8 +70,8 @@ export default function Services({
                   className={clsx({
                     // only first row is bigger
                     ' desktop:col-span-1 desktop:row-span-2':
-                      i === 0 && cards.length <= 5,
-                    'desktop:col-span-1': cards.length > 5,
+                      i === 0 && cards.length === 5,
+                    'desktop:col-span-1': cards.length !== 5,
                   })}
                   link={
                     disableLinking
