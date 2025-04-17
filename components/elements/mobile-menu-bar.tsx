@@ -101,7 +101,7 @@ export default function MobileMenuBar({
                                     {title}
 
                                     {sub &&
-                                      sub.map(({ label }, index) => (
+                                      sub.map(({ label, url }, index) => (
                                         <div
                                           key={`group-link-${index}`}
                                           className='bg-slate-800 p-2 mt-2'
@@ -120,7 +120,7 @@ export default function MobileMenuBar({
                                   </AccordionContent>
                                 ))}
                               {list &&
-                                list.map(({ label }, index) => (
+                                list.map(({ label, url }, index) => (
                                   <AccordionContent
                                     className='mt-2 p-2 bg-slate-600'
                                     key={`list-link-${index}`}
