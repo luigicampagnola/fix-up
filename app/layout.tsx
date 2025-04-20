@@ -7,6 +7,7 @@ import { SEOMetaTags } from '@/utils/types';
 import { getFullImagePath, imageOptimizer } from '@/lib/utils';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Footer from '@/components/footer';
+import { getLocale } from 'next-intl/server';
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data } = await fetchAPI<{ seo: SEOMetaTags }>({
@@ -54,13 +55,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
-    <html lang='en' className={poppins.className}>
+    <html lang={locale} className={poppins.className}>
       <body className='relative flex min-h-screen flex-col font-body antialiased'>
         <NavigationBar />
         <main className='relative flex flex-1 flex-col text-foreground dark:text-foreground'>

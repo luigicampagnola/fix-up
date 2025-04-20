@@ -8,10 +8,12 @@ import Information, {
 import Maps, { MapsSectionProps } from '@/components/sections/maps';
 import Services, { ServicesSectionProps } from '@/components/sections/services';
 import Sponsors, { SponsorSectionProps } from '@/components/sections/sponsors';
+import { Locale } from '@/i18n/config';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
 
 import { Metadata } from 'next';
+import { getLocale } from 'next-intl/server';
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
   const data = await fetchSEOMetadata({
@@ -35,9 +37,11 @@ interface HomePageProps {
   cta: CtaSectionProps;
 }
 export default async function Page() {
+  const locale = (await getLocale()) as Locale;
   const { data } = await fetchAPI<HomePageProps>({
     path: '/api/home',
     query: {
+      locale: locale,
       populate: {
         hero: {
           fields: ['title', 'subTitle', 'description', 'displayForm'],
@@ -105,13 +109,13 @@ export default async function Page() {
 
   return (
     <>
-      <Hero {...hero} />
-      <Sponsors {...sponsors} />
-      <Information {...information} />
-      <Services {...services} />
-      <Highlight {...highlights} />
-      <Maps {...maps} />
-      <Cta {...cta} />
+      {hero && <Hero {...hero} />}
+      {sponsors && <Sponsors {...sponsors} />}
+      {information && <Information {...information} />}
+      {services && <Services {...services} />}
+      {highlights && <Highlight {...highlights} />}
+      {maps && <Maps {...maps} />}
+      {cta && <Cta {...cta} />}
     </>
   );
 }
