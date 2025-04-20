@@ -5,11 +5,13 @@ import Highlight, { HighlightsProps } from '@/components/sections/highlights';
 import Information, {
   InformationSectionProps,
 } from '@/components/sections/information';
+import { Locale } from '@/i18n/config';
 
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
 
 import { Metadata } from 'next';
+import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 // export async function generateMetadata(): Promise<Metadata | undefined> {
@@ -31,12 +33,14 @@ interface ServicesPageProps {
   cta: CtaSectionProps;
 }
 export default async function Page() {
+  const locale = (await getLocale()) as Locale;
   const { data } = await fetchAPI<ServicesPageProps>({
     path: '/api/about',
     query: {
+      locale: locale,
       populate: {
         hero: {
-          fields: ['title', 'subTitle', 'description', 'displayForm'],
+          fields: ['title', 'subTitle', 'description'],
           populate: {
             background: ImageQueryFragment,
             cta: LinkQueryFragment,
@@ -77,11 +81,11 @@ export default async function Page() {
 
   return (
     <>
-      <Hero {...hero} />
+      {hero && <Hero {...hero} />}
 
-      <Highlight {...faqs} gridDisplay={true} />
-      <Information {...information} />
-      <Cta {...cta} />
+      {faqs && <Highlight {...faqs} gridDisplay={true} />}
+      {information && <Information {...information} />}
+      {cta && <Cta {...cta} />}
     </>
   );
 }

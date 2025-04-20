@@ -7,10 +7,12 @@ import Information, {
 } from '@/components/sections/information';
 
 import { ServicesSectionProps } from '@/components/sections/services';
+import { Locale } from '@/i18n/config';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
 
 import { Metadata } from 'next';
+import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 // export async function generateMetadata(): Promise<Metadata | undefined> {
@@ -32,12 +34,14 @@ interface ServicesPageProps {
   cta: CtaSectionProps;
 }
 export default async function Page() {
+  const locale = (await getLocale()) as Locale;
   const { data } = await fetchAPI<ServicesPageProps>({
     path: '/api/financing',
     query: {
+      locale: locale,
       populate: {
         hero: {
-          fields: ['title', 'subTitle', 'description', 'displayForm'],
+          fields: ['title', 'subTitle', 'description'],
           populate: {
             background: ImageQueryFragment,
             cta: LinkQueryFragment,
@@ -78,10 +82,10 @@ export default async function Page() {
 
   return (
     <>
-      <Hero {...hero} />
-      <Information {...information} />
-      <Highlight {...steps} />
-      <Cta {...cta} />
+      {hero && <Hero {...hero} />}
+      {information && <Information {...information} />}
+      {steps && <Highlight {...steps} />}
+      {cta && <Cta {...cta} />}
     </>
   );
 }

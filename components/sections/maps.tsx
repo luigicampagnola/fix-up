@@ -66,7 +66,7 @@ export default function Maps({
                     <TabsTrigger
                       key={`tab-trigger-${index}`}
                       value={id}
-                      className='capitalize text-foreground/60'
+                      className='text-foreground/60'
                     >
                       {name}
                     </TabsTrigger>

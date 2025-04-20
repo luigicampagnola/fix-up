@@ -8,8 +8,9 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { buttonVariants } from '../ui/button';
+import LocaleSwitcher from '../shared/locale-switcher';
 
-export default function DesktopMenuBar({ logo, links, cta }: MenuProps) {
+export default function DesktopMenuBar({ links, cta }: MenuProps) {
   return (
     <div className='hidden flex-1 relative container desktop:flex items-center justify-between'>
       {/* Logo */}
@@ -93,7 +94,10 @@ export default function DesktopMenuBar({ logo, links, cta }: MenuProps) {
           })}
       </div>
       {/* Call to actions */}
-      <CustomLink className='uppercase' size='lg' {...cta} />
+      <div className='space-x-2'>
+        <LocaleSwitcher />
+        <CustomLink className='uppercase' size='lg' {...cta} />
+      </div>
     </div>
   );
 }

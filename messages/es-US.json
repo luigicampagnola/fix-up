@@ -1,0 +1,23 @@
+{
+  "LocaleSwitcher": {
+    "label": "Seleccionar Idioma",
+    "items": [
+      {
+        "value": "en",
+        "label": "Ingles",
+        "flag": "🇺🇸"
+      },
+      {
+        "value": "es-US",
+        "label": "Español",
+        "flag": "🇪🇸"
+      }
+    ]
+  },
+  "SeeMore": {
+    "label": "ver más"
+  },
+  "Reviews": {
+    "label": "opiniones publicadas en"
+  }
+}

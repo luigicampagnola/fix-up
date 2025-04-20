@@ -44,7 +44,7 @@ export default async function Page() {
       locale: locale,
       populate: {
         hero: {
-          fields: ['title', 'subTitle', 'description', 'displayForm'],
+          fields: ['title', 'subTitle', 'description'],
           populate: {
             background: ImageQueryFragment,
             cta: LinkQueryFragment,

@@ -8,10 +8,12 @@ import Information, {
 import Maps, { MapsSectionProps } from '@/components/sections/maps';
 import Services, { ServicesSectionProps } from '@/components/sections/services';
 import Sponsors, { SponsorSectionProps } from '@/components/sections/sponsors';
+import { Locale } from '@/i18n/config';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
 
 import { Metadata } from 'next';
+import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 // export async function generateMetadata(): Promise<Metadata | undefined> {
@@ -39,9 +41,11 @@ export default async function Page({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const locale = (await getLocale()) as Locale;
   const { data } = await fetchAPI<ServicesPageProps[]>({
     path: '/api/services',
     query: {
+      locale: locale,
       filters: {
         slug: {
           $eq: slug,
@@ -49,7 +53,7 @@ export default async function Page({
       },
       populate: {
         hero: {
-          fields: ['title', 'subTitle', 'description', 'displayForm'],
+          fields: ['title', 'subTitle', 'description'],
           populate: {
             background: ImageQueryFragment,
             cta: LinkQueryFragment,
@@ -102,12 +106,12 @@ export default async function Page({
   const extraHighlights = highlights.length > 1 ? highlights[1] : null;
   return (
     <>
-      <Hero {...hero} />
-      <Highlight {...mainHighlights} gridDisplay={true} />
-      <Information {...information} />
-      <Services {...options} disableLinking={true} />
+      {hero && <Hero {...hero} />}
+      {mainHighlights && <Highlight {...mainHighlights} gridDisplay={true} />}
+      {information && <Information {...information} />}
+      {options && <Services {...options} disableLinking={true} />}
       {extraHighlights && <Highlight {...extraHighlights} />}
-      <Cta {...cta} />
+      {cta && <Cta {...cta} />}
     </>
   );
 }

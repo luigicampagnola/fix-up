@@ -1,4 +1,4 @@
-import { Image, Link, Services as TServices } from '@/utils/types';
+import { Link, Services as TServices } from '@/utils/types';
 import { BentoGrid, BentoGridItem } from '../ui/bento-grid';
 import { CustomImage } from '../shared/custom-image';
 import clsx from 'clsx';
@@ -6,6 +6,7 @@ import Section from '../shared/section';
 import RichText from '../shared/rich-text';
 import { FadeSlideUp } from '../shared/animations';
 import { CustomLink } from '../shared/custom-link';
+import { useTranslations } from 'next-intl';
 
 export interface ServicesSectionProps {
   title?: string;
@@ -22,6 +23,8 @@ export default function Services({
   disableLinking = false,
   cta,
 }: ServicesSectionProps) {
+  const tSeeMore = useTranslations('SeeMore');
+
   return (
     <Section
       name='services-section'
@@ -49,7 +52,7 @@ export default function Services({
                         />
 
                         <span className='group-hover/bento:underline-offset-2 group-hover/bento:underline font-semibold capitalize'>
-                          see more
+                          {tSeeMore('label')}
                         </span>
                       </div>
                     ) : null

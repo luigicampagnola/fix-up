@@ -8,11 +8,15 @@ import {
 } from './shared/contact-information';
 import { FooterProps } from '@/utils/types';
 import { CustomLink } from './shared/custom-link';
+import { getLocale } from 'next-intl/server';
+import { Locale } from '@/i18n/config';
 
 export default async function Footer() {
+  const locale = (await getLocale()) as Locale;
   const footerResponse = await fetchAPI<FooterProps>({
     path: '/api/footer',
     query: {
+      locale: locale,
       fields: ['license', 'copyRight'],
       populate: {
         groups: {
@@ -29,6 +33,7 @@ export default async function Footer() {
   const headerResponse = await fetchAPI<HeaderProps>({
     path: '/api/global',
     query: {
+      locale: locale,
       populate: {
         contacts: {
           fields: ['type', 'label', 'url'],

@@ -71,6 +71,12 @@ export interface FooterProps {
   copyRight?: string;
 }
 
+export type LocaleOption = {
+  value: Locale;
+  label: string;
+  flag: string;
+};
+
 /*
   Collection Types
 */
