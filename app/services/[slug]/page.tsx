@@ -5,15 +5,17 @@ import Highlight, { HighlightsProps } from '@/components/sections/highlights';
 import Information, {
   InformationSectionProps,
 } from '@/components/sections/information';
-import Maps, { MapsSectionProps } from '@/components/sections/maps';
+import Maps from '@/components/sections/maps';
 import Services, { ServicesSectionProps } from '@/components/sections/services';
 import Sponsors, { SponsorSectionProps } from '@/components/sections/sponsors';
+import { RichTextProps } from '@/components/shared/rich-text';
 import { Locale } from '@/i18n/config';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
+import { Image } from '@/utils/types';
 
 import { Metadata } from 'next';
-import { getLocale } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 // export async function generateMetadata(): Promise<Metadata | undefined> {
@@ -28,7 +30,9 @@ import { notFound } from 'next/navigation';
 interface ServicesPageProps {
   id: number;
   documentID: string;
-  title: string;
+  name: string;
+  cover: Image;
+  description: RichTextProps;
   hero: HeroSectionProps;
   information: InformationSectionProps;
   options: ServicesSectionProps;
@@ -51,7 +55,9 @@ export default async function Page({
           $eq: slug,
         },
       },
+      fields: ['name', 'description'],
       populate: {
+        cover: ImageQueryFragment,
         hero: {
           fields: ['title', 'subTitle', 'description'],
           populate: {
@@ -101,12 +107,34 @@ export default async function Page({
     notFound();
   }
 
-  const { hero, information, options, highlights, cta } = data[0];
+  const {
+    hero,
+    information,
+    options,
+    highlights,
+    cta,
+    name,
+    description,
+    cover,
+  } = data[0];
   const mainHighlights = highlights[0];
   const extraHighlights = highlights.length > 1 ? highlights[1] : null;
+
+  const tContactUs = await getTranslations('ContactUs');
   return (
     <>
-      {hero && <Hero {...hero} />}
+      {/* Generic Page for smaller sub services with only one hero for SEO */}
+      {hero ? (
+        <Hero {...hero} />
+      ) : (
+        <Hero
+          title={name}
+          description={description}
+          background={cover}
+          cta={{ label: tContactUs('label'), url: '/estimates' }}
+        />
+      )}
+      {/* Rest of the components */}
       {mainHighlights && <Highlight {...mainHighlights} gridDisplay={true} />}
       {information && <Information {...information} />}
       {options && <Services {...options} disableLinking={true} />}

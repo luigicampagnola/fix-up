@@ -8,6 +8,7 @@ import { getFullImagePath, imageOptimizer } from '@/lib/utils';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import Footer from '@/components/footer';
 import { getLocale } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
 
 export async function generateMetadata(): Promise<Metadata> {
   const { data } = await fetchAPI<{ seo: SEOMetaTags }>({
@@ -63,14 +64,17 @@ export default async function RootLayout({
   const locale = await getLocale();
   return (
     <html lang={locale} className={poppins.className}>
-      <body className='relative flex min-h-screen flex-col font-body antialiased'>
-        <NavigationBar />
-        <main className='relative flex flex-1 flex-col text-foreground dark:text-foreground'>
-          {children}
-        </main>
-        <Footer />
-        <SpeedInsights />
-      </body>
+      <NextIntlClientProvider>
+        <body className='relative flex min-h-screen flex-col font-body antialiased'>
+          <NavigationBar />
+          <main className='relative flex flex-1 flex-col text-foreground dark:text-foreground'>
+            {children}
+          </main>
+          <Footer />
+
+          <SpeedInsights />
+        </body>
+      </NextIntlClientProvider>
     </html>
   );
 }
