@@ -62,7 +62,7 @@ export default function Hero({
               <br />
               <span className='text-primary tablet:block'>{subTitle}</span>
             </h1>
-            {typeof description !== 'string' && description !== null ? (
+            {typeof description !== 'string' && description !== undefined ? (
               <RichText
                 className='text-background/90 text-base tablet:text-lg max-w-6xl'
                 content={description}

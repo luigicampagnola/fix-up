@@ -11,7 +11,7 @@ type LocationArea = {
   name: string;
   slug: string;
 };
-type Location = {
+export type Location = {
   id?: string;
   name: string;
   slug: string;
@@ -66,7 +66,7 @@ export default function Maps({
                     <TabsTrigger
                       key={`tab-trigger-${index}`}
                       value={id}
-                      className='text-foreground/60'
+                      className='capitalize text-foreground/60'
                     >
                       {name}
                     </TabsTrigger>
