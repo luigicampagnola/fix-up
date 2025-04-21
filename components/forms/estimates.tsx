@@ -10,6 +10,23 @@ import { Card } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { FormResponse, submitEstimateForm } from '@/lib/actions';
 import Recaptcha from './recaptcha';
+import { useTranslations } from 'next-intl';
+
+interface FormField {
+  label: string;
+  placeholder: string;
+}
+
+interface TEstimateForm {
+  title: string;
+  submit: string;
+  fields: {
+    name: FormField;
+    phoneNumber: FormField;
+    email: FormField;
+    street: FormField;
+  };
+}
 
 const initialState: FormResponse = {
   success: false,
@@ -84,11 +101,14 @@ export default function EstimateForm() {
     }
   }, [state.success]);
 
+  const tEstimateForm = useTranslations('EstimateForm');
+  const tFields = tEstimateForm.raw('fields') as TEstimateForm['fields'];
+
   return (
     <Card className='w-full max-w-md p-6 bg-background rounded-lg shadow-lg'>
       <div className='flex items-center gap-2 mb-6'>
         <h2 className='text-2xl font-bold text-foreground'>
-          Get Free Estimate
+          {tEstimateForm('title')}
         </h2>
       </div>
 
@@ -110,12 +130,12 @@ export default function EstimateForm() {
             htmlFor='fullName'
             className='block text-sm font-medium text-gray-700'
           >
-            Full Name
+            {tFields.name.label}
           </label>
           <Input
             id='fullName'
             name='fullName'
-            placeholder='Your Full Name'
+            placeholder={tFields.name.placeholder}
             value={formData.fullName}
             onChange={handleChange}
             className={`border ${
@@ -135,12 +155,12 @@ export default function EstimateForm() {
             htmlFor='phoneNumber'
             className='block text-sm font-medium text-gray-700'
           >
-            Phone Number
+            {tFields.phoneNumber.label}
           </label>
           <Input
             id='phoneNumber'
             name='phoneNumber'
-            placeholder='(000) 000-0000'
+            placeholder={tFields.phoneNumber.placeholder}
             value={formData.phoneNumber}
             onChange={handleChange}
             className={`border ${
@@ -162,13 +182,13 @@ export default function EstimateForm() {
             htmlFor='email'
             className='block text-sm font-medium text-gray-700'
           >
-            Email
+            {tFields.email.label}
           </label>
           <Input
             id='email'
             name='email'
             type='email'
-            placeholder='your@email.com'
+            placeholder={tFields.email.placeholder}
             value={formData.email}
             onChange={handleChange}
             className={`border ${
@@ -188,12 +208,12 @@ export default function EstimateForm() {
             htmlFor='street'
             className='block text-sm font-medium text-gray-700'
           >
-            Street Address
+            {tFields.street.label}
           </label>
           <Input
             id='street'
             name='street'
-            placeholder='Street'
+            placeholder={tFields.street.placeholder}
             value={formData.street}
             onChange={handleChange}
             className={`border ${
@@ -221,7 +241,7 @@ export default function EstimateForm() {
           className='w-full'
           disabled={!isFormValid || isPending}
         >
-          {isPending ? 'Submitting...' : 'Contact Fix Up Roofing'}
+          {isPending ? 'Submitting...' : tEstimateForm('submit')}
         </Button>
       </form>
     </Card>

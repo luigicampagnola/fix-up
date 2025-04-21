@@ -22,5 +22,27 @@
   },
   "ContactUs": {
     "label": "Contact Us Today"
+  },
+  "EstimateForm": {
+    "title": "Get your Estimate",
+    "fields": {
+      "name": {
+        "label": "Full Name",
+        "placeholder": "Your Full Name"
+      },
+      "phoneNumber": {
+        "label": "Phone Number",
+        "placeholder": "(000) 000-0000"
+      },
+      "email": {
+        "label": "email",
+        "placeholder": "your@email.com"
+      },
+      "street": {
+        "label": "Street Address",
+        "placeholder": "Street"
+      }
+    },
+    "submit": "Contact Fix Up Roofing"
   }
 }

@@ -1,10 +1,12 @@
 import Hero from '@/components/sections/hero';
 import { HeroSectionProps } from '@/components/sections/hero';
+import { Locale } from '@/i18n/config';
 
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
 
 import { Metadata } from 'next';
+import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 // export async function generateMetadata(): Promise<Metadata | undefined> {
@@ -23,14 +25,27 @@ interface EstimatePageProps {
   hero: HeroSectionProps;
 }
 export default async function Page() {
-  return (
-    <>
-      <Hero
-        title='Get Your Free Roofing Estimate'
-        subTitle='Today!'
-        description='With over 16 years of climbing ladders and hammering shingles, we’ve seen it all. From small homes to big office buildings, we’ve got the tools, the talent, and the superior materials to keep your roof top-of-the-line.'
-        displayForm={true}
-      />
-    </>
-  );
+  const locale = (await getLocale()) as Locale;
+  const estimateResponse = await fetchAPI<EstimatePageProps>({
+    path: '/api/global',
+    query: {
+      locale: locale,
+      populate: {
+        hero: {
+          fields: ['title', 'subTitle', 'description'],
+          populate: {
+            background: ImageQueryFragment,
+            cta: LinkQueryFragment,
+            highlights: {
+              fields: ['title'],
+            },
+          },
+        },
+      },
+    },
+  });
+  const {
+    data: { hero },
+  } = estimateResponse;
+  return <>{hero && <Hero {...hero} displayForm={true} size='big' />}</>;
 }

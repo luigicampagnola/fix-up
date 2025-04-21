@@ -18,6 +18,7 @@ export interface HeroSectionProps {
   displayForm?: boolean;
   cta?: Link;
   highlights?: THighlight[];
+  size?: 'default' | 'big';
 }
 export default function Hero({
   title,
@@ -27,11 +28,20 @@ export default function Hero({
   cta,
   highlights,
   displayForm = false,
+  size = 'default',
 }: HeroSectionProps) {
   return (
     <Section
       name='get-free-estimates'
-      className='flex flex-col overflow-hidden items-center relative min-h-[90vh] desktop:min-h-[85vh] max-h-[68rem]'
+      className={clsx(
+        'flex flex-col overflow-hidden items-center relative min-h-[90vh] desktop:min-h-[85vh] max-h-[68rem]',
+        {
+          'min-h-[85vh] desktop:min-h-[85vh] max-h-[68rem]':
+            !size || size === 'default',
+          'min-h-[150vh] tablet:min-h-[130vh] desktop:min-h-[95vh] max-h-[68rem]':
+            size === 'big',
+        }
+      )}
     >
       {background && (
         <div className='absolute inset-0 z-0'>
@@ -52,7 +62,7 @@ export default function Hero({
               <br />
               <span className='text-primary tablet:block'>{subTitle}</span>
             </h1>
-            {typeof description !== 'string' ? (
+            {typeof description !== 'string' && description !== null ? (
               <RichText
                 className='text-background/90 text-base tablet:text-lg max-w-6xl'
                 content={description}
