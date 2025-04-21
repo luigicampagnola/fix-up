@@ -114,7 +114,7 @@ export default function Highlights({
 
           {cta && (
             <FadeSlideUp className='mt-10 text-center'>
-              <CustomLink size='lg' className='uppercase' {...cta} />
+              <CustomLink size='lg' className='capitalize' {...cta} />
             </FadeSlideUp>
           )}
         </div>

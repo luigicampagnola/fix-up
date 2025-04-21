@@ -4,7 +4,6 @@ import { Review } from '@/utils/types';
 import { ReviewSlider } from '../elements/reviews-slider';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Locale } from '@/i18n/config';
-import { useTranslations } from 'next-intl';
 
 interface GoogleReviewsProps {
   title: string;

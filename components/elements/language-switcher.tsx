@@ -41,7 +41,11 @@ export default function LocaleSwitcherDropdown({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline' size='sm' className='h-9 min-w-20 gap-1 px-3'>
+        <Button
+          variant='outline'
+          size='sm'
+          className='h-9 min-w-20 gap-1 px-3 text-sm'
+        >
           <span className='mr-1'>{selectedLocale?.flag}</span>
           {selectedLocale?.label.slice(0, 2)}
         </Button>

@@ -5,6 +5,7 @@ import Section from '../shared/section';
 import { CustomLink } from '../shared/custom-link';
 import { IconCircleCheck } from '@tabler/icons-react';
 import clsx from 'clsx';
+import RichText, { RichTextProps } from '../shared/rich-text';
 
 type THighlight = {
   title: string;
@@ -12,9 +13,9 @@ type THighlight = {
 export interface HeroSectionProps {
   title: string;
   subTitle?: string;
-  description: string;
+  description: string | RichTextProps;
   background?: Image;
-  displayForm: boolean;
+  displayForm?: boolean;
   cta?: Link;
   highlights?: THighlight[];
 }
@@ -51,7 +52,12 @@ export default function Hero({
               <br />
               <span className='text-primary tablet:block'>{subTitle}</span>
             </h1>
-            {description && (
+            {typeof description !== 'string' ? (
+              <RichText
+                className='text-background/90 text-base tablet:text-lg max-w-6xl'
+                content={description}
+              />
+            ) : (
               <p className='text-background/90 text-base tablet:text-lg max-w-6xl'>
                 {description}
               </p>

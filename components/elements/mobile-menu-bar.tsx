@@ -15,6 +15,7 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 import { IconMenu2 } from '@tabler/icons-react';
+import LocaleSwitcher from '../shared/locale-switcher';
 
 export default function MobileMenuBar({
   menu,
@@ -56,7 +57,8 @@ export default function MobileMenuBar({
           localImage={true}
         />
       </CustomLink>
-      <div className='z-50 flex w-full justify-end'>
+      <div className='z-50 flex w-full gap-x-2 justify-end'>
+        <LocaleSwitcher />
         <Button
           aria-label='Open Menu'
           onClick={() => setOpen(!open)}
