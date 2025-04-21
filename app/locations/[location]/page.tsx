@@ -5,13 +5,18 @@ import { HighlightsProps } from '@/components/sections/highlights';
 import Information, {
   InformationSectionProps,
 } from '@/components/sections/information';
+import Maps, { Location, MapsSectionProps } from '@/components/sections/maps';
 import Services, { ServicesSectionProps } from '@/components/sections/services';
+import { Locale } from '@/i18n/config';
 
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
+import { subtle } from 'crypto';
 
 import { Metadata } from 'next';
+import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { title } from 'process';
 
 // export async function generateMetadata(): Promise<Metadata | undefined> {
 //   const data = await fetchSEOMetadata({
@@ -22,11 +27,10 @@ import { notFound } from 'next/navigation';
 //     return { title: metaTitle, description: metaDescription } as Metadata;
 //   }
 // }
-interface LocationAreaProps {
-  id: number;
+interface LocationsProps extends Location {
   documentID: string;
-  title: string;
   hero: HeroSectionProps;
+  map: Omit<MapsSectionProps, 'locations'>;
   information: InformationSectionProps;
   services: ServicesSectionProps;
   highlights: HighlightsProps;
@@ -35,19 +39,25 @@ interface LocationAreaProps {
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ location: string }>;
 }) {
-  const { slug } = await params;
+  const { location } = await params;
+  const locale = (await getLocale()) as Locale;
 
-  const { data } = await fetchAPI<LocationAreaProps[]>({
-    path: '/api/areas',
+  const { data } = await fetchAPI<LocationsProps[]>({
+    path: '/api/locations',
     query: {
+      locale: locale,
       filters: {
         slug: {
-          $eq: slug,
+          $eq: location,
         },
       },
+      fields: ['name', 'slug', 'mapUrl'],
       populate: {
+        areas: {
+          fields: ['name', 'slug'],
+        },
         hero: {
           fields: ['title', 'subTitle', 'description'],
           populate: {
@@ -57,6 +67,9 @@ export default async function Page({
               fields: ['title'],
             },
           },
+        },
+        map: {
+          fields: ['title', 'subTitle', 'description'],
         },
         information: {
           fields: ['title', 'subTitle', 'description', 'displayReviews'],
@@ -83,10 +96,16 @@ export default async function Page({
     notFound();
   }
 
-  const { hero, information, services } = data[0];
+  const { hero, information, services, map, areas, name, slug, mapUrl } =
+    data[0];
+
+  const locations: Location[] = [
+    { name: name, slug: slug, mapUrl: mapUrl, areas: areas },
+  ];
   return (
     <>
       {hero && <Hero {...hero} />}
+      {map && <Maps {...map} locations={locations} />}
       {information && <Information {...information} />}
       {services && <Services {...services} />}
     </>

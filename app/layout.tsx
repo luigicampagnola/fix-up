@@ -10,51 +10,51 @@ import Footer from '@/components/footer';
 import { getLocale } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 
-export async function generateMetadata(): Promise<Metadata> {
-  const { data } = await fetchAPI<{ seo: SEOMetaTags }>({
-    path: '/api/global',
-    query: {
-      populate: {
-        seo: {
-          fields: ['metaTitle', 'metaDescription'],
-          populate: {
-            metaImage: {
-              fields: ['url', 'alternativeText', 'width', 'height'],
-            },
-          },
-        },
-      },
-    },
-  });
+// export async function generateMetadata(): Promise<Metadata> {
+//   const { data } = await fetchAPI<{ seo: SEOMetaTags }>({
+//     path: '/api/global',
+//     query: {
+//       populate: {
+//         seo: {
+//           fields: ['metaTitle', 'metaDescription'],
+//           populate: {
+//             metaImage: {
+//               fields: ['url', 'alternativeText', 'width', 'height'],
+//             },
+//           },
+//         },
+//       },
+//     },
+//   });
 
-  const {
-    seo: { metaTitle, metaDescription, metaImage },
-  } = data;
+//   const {
+//     seo: { metaTitle, metaDescription, metaImage },
+//   } = data;
 
-  const imageUrlPath = metaImage.url
-    ? getFullImagePath(metaImage.url)
-    : '/opengraph-image.jpg';
+//   const imageUrlPath = metaImage.url
+//     ? getFullImagePath(metaImage.url)
+//     : '/opengraph-image.jpg';
 
-  const image = imageOptimizer({
-    url: imageUrlPath,
-  });
+//   const image = imageOptimizer({
+//     url: imageUrlPath,
+//   });
 
-  return {
-    title: {
-      template: '%s | Fix Up Roofing',
-      default: metaTitle,
-    },
-    description: metaDescription,
-    openGraph: {
-      images: [
-        {
-          url: `/api/og?title=${encodeURIComponent(metaTitle)}
-          &imageUrl=${encodeURIComponent(image)}`,
-        },
-      ],
-    },
-  };
-}
+//   return {
+//     title: {
+//       template: '%s | Fix Up Roofing',
+//       default: metaTitle,
+//     },
+//     description: metaDescription,
+//     openGraph: {
+//       images: [
+//         {
+//           url: `/api/og?title=${encodeURIComponent(metaTitle)}
+//           &imageUrl=${encodeURIComponent(image)}`,
+//         },
+//       ],
+//     },
+//   };
+// }
 
 export default async function RootLayout({
   children,
