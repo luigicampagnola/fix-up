@@ -73,7 +73,7 @@ export default async function Page({
       )}
       {content && (
         <div className='my-20 flex flex-col container justify-center items-center'>
-          <RichText content={content} />
+          <RichText content={content} className='tablet:prose-lg' />
         </div>
       )}
       <Cta

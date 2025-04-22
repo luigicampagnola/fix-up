@@ -19,7 +19,7 @@ export default function RichText({
   return (
     <div
       className={cn(
-        'prose prose-neutral dark:prose-invert tablet:prose-lg max-w-3xl mx-auto',
+        'prose prose-neutral dark:prose-invert max-w-3xl mx-auto',
         className
       )}
     >
