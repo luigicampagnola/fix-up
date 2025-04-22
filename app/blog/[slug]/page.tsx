@@ -4,7 +4,7 @@ import RichText, { RichTextProps } from '@/components/shared/rich-text';
 import { formatDate } from '@/lib/utils';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment } from '@/utils/constants';
-import { Image } from '@/utils/types';
+import { Article, Image } from '@/utils/types';
 
 import { Metadata } from 'next';
 
@@ -20,15 +20,9 @@ import { notFound } from 'next/navigation';
 //     return { title: metaTitle, description: metaDescription } as Metadata;
 //   }
 // }
-interface BlogsDetailsPage {
+interface BlogsDetailsPage extends Article {
   id: number;
   documentID: string;
-  title: string;
-  slug: string;
-  description: RichTextProps;
-  content: RichTextProps;
-  cover: Image;
-  publishedAt: Date;
 }
 export default async function Page({
   params,

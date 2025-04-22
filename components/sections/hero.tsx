@@ -44,7 +44,7 @@ export default function Hero({
             !size || size === 'normal',
           'min-h-[150dvh] tablet:min-h-[130dvh] desktop:min-h-[95dvh] max-h-[68rem]':
             size === 'large',
-          'min-h-[45dvh] desktop:min-h-[45dvh]': size === 'small',
+          'min-h-[50dvh] desktop:min-h-[50dvh]': size === 'small',
         }
       )}
     >

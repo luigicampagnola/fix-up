@@ -19,7 +19,7 @@ export type Link = {
 export interface APIResponse<T> {
   data: T;
   meta?: {
-    pagination?: {
+    pagination: {
       page: number;
       pageSize: number;
       pageCount: number;
@@ -88,4 +88,19 @@ export type Services = {
   slug: string;
   cover: Image;
   description: RichTextProps;
+};
+
+export type ArticleCategory = {
+  name: string;
+  slug: string;
+};
+
+export type Article = {
+  title: string;
+  slug: string;
+  description: string;
+  cover: Image;
+  publishedAt: Date;
+  category: ArticleCategory;
+  content: RichTextProps;
 };
