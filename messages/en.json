@@ -44,5 +44,11 @@
       }
     },
     "submit": "Contact Fix Up Roofing"
+  },
+  "GenericCTA": {
+    "title": "Ready for a",
+    "subtitle": "Roofing Revolution?",
+    "description": "The sky’s the limit when you team up with Fix Up Roofing and Construction! Stop waiting and start doing—your dream roofing project is just a click away. So what are you waiting for?",
+    "button": "make an appointment"
   }
 }

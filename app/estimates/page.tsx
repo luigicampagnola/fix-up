@@ -47,5 +47,5 @@ export default async function Page() {
   const {
     data: { hero },
   } = estimateResponse;
-  return <>{hero && <Hero {...hero} displayForm={true} size='big' />}</>;
+  return <>{hero && <Hero {...hero} displayForm={true} size='large' />}</>;
 }

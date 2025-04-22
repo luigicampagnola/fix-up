@@ -24,7 +24,7 @@ import { notFound } from 'next/navigation';
 //     return { title: metaTitle, description: metaDescription } as Metadata;
 //   }
 // }
-interface ServicesPageProps {
+interface FinancingPageProps {
   id: number;
   documentID: string;
   title: string;
@@ -35,7 +35,7 @@ interface ServicesPageProps {
 }
 export default async function Page() {
   const locale = (await getLocale()) as Locale;
-  const { data } = await fetchAPI<ServicesPageProps>({
+  const { data } = await fetchAPI<FinancingPageProps>({
     path: '/api/financing',
     query: {
       locale: locale,

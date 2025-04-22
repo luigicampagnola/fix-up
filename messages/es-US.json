@@ -44,5 +44,11 @@
       }
     },
     "submit": "Contactar Fix Up Roofing"
+  },
+  "GenericCTA": {
+    "title": "¿Listo para mejorar",
+    "subtitle": "tu techo?",
+    "description": "¡El cielo es el límite cuando eliges Fix Up Roofing and Construction! No esperes más y comienza tu proyecto de techado que tanto sueñas, está a sólo un clic de distancia. ¿Qué estás esperando?",
+    "button": "haz tu cita"
   }
 }

@@ -4,54 +4,81 @@ import {
   type BlocksContent,
 } from '@strapi/blocks-react-renderer';
 import { CustomLink } from './custom-link';
+import { cn } from '@/lib/utils';
+import Image from 'next/image';
+import { CustomImage } from './custom-image';
 
 export interface RichTextProps extends BlocksContent {}
 export default function RichText({
   content,
-  className,
+  className = '',
 }: {
   content: RichTextProps;
   className?: string;
 }) {
   return (
-    <BlocksRenderer
-      content={content}
-      blocks={{
-        paragraph: ({ children }) => (
-          <p className={className || 'text-foreground desktop:prose-lg'}>
-            {children}
-          </p>
-        ),
-        // ...or point to a design system
-        // heading: ({ children, level }) => {
-        //   switch (level) {
-        // case 1:
-        //   return <Typography variant='h1'>{children}</Typography>;
-        // case 2:
-        //   return <Typography variant='h2'>{children}</Typography>;
-        // case 3:
-        //   return <Typography variant='h3'>{children}</Typography>;
-        // case 4:
-        //   return <Typography variant='h4'>{children}</Typography>;
-        // case 5:
-        //   return <Typography variant='h5'>{children}</Typography>;
-        // case 6:
-        //   return <Typography variant='h6'>{children}</Typography>;
-        // default:
-        //   return <Typography variant='h1'>{children}</Typography>;
-        //   }
-        // },
-
-        link: ({ children, url }) => (
-          <CustomLink url={url} variant='link' className={className}>
-            {children}
-          </CustomLink>
-        ),
-      }}
-      modifiers={{
-        bold: ({ children }) => <strong>{children}</strong>,
-        italic: ({ children }) => <span className='italic'>{children}</span>,
-      }}
-    />
+    <div
+      className={cn(
+        'prose prose-neutral dark:prose-invert tablet:prose-lg max-w-3xl mx-auto',
+        className
+      )}
+    >
+      <BlocksRenderer
+        content={content}
+        blocks={{
+          paragraph: ({ children }) => <p>{children}</p>,
+          heading: ({ children, level }) => {
+            const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+            return <Tag>{children}</Tag>;
+          },
+          link: ({ children, url }) => (
+            <CustomLink
+              url={url}
+              variant='link'
+              className='text-primary hover:underline no-underline'
+            >
+              {children}
+            </CustomLink>
+          ),
+          list: ({ children, format }) => (
+            <>
+              {format === 'ordered' ? <ol>{children}</ol> : <ul>{children}</ul>}
+            </>
+          ),
+          'list-item': ({ children }) => <li>{children}</li>,
+          quote: ({ children }) => <blockquote>{children}</blockquote>,
+          code: ({ children }) => (
+            <pre>
+              <code>{children}</code>
+            </pre>
+          ),
+          image: ({ image }) => (
+            <figure>
+              <div className='relative w-full'>
+                <CustomImage
+                  url={image.url}
+                  alternativeText={image.alternativeText || ''}
+                  width={image.width || 800}
+                  height={image.height || 600}
+                  sizes='(max-width: 768px) 100vw, 768px'
+                  className='rounded-md object-cover'
+                  priority={false}
+                />
+              </div>
+              {image.caption && (
+                <figcaption className='text-center'>{image.caption}</figcaption>
+              )}
+            </figure>
+          ),
+        }}
+        modifiers={{
+          bold: ({ children }) => <strong>{children}</strong>,
+          italic: ({ children }) => <em>{children}</em>,
+          underline: ({ children }) => <u>{children}</u>,
+          strikethrough: ({ children }) => <del>{children}</del>,
+          code: ({ children }) => <code>{children}</code>,
+        }}
+      />
+    </div>
   );
 }
