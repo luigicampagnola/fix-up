@@ -112,7 +112,7 @@ export function InputPhoneField({
         placeholder={placeholder}
         value={value} // Controla el valor aquí también
         onChange={onChange} // Y pasa el onChange aquí
-        maxLength={12}
+        maxLength={10}
         onInput={checkNumber}
         className={`${
           invalid ? "border-internationOrange" : "border-black"
