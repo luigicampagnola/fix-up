@@ -15,14 +15,10 @@ import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
 import { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
 
-export async function generateMetadata(): Promise<Metadata | undefined> {
-  const data = await fetchSEOMetadata({
-    path: '/api/home',
-  });
-  if (data) {
-    const { metaTitle, metaDescription } = data;
-    return { title: metaTitle, description: metaDescription } as Metadata;
-  }
+export async function generateMetadata() {
+  const data = await fetchSEOMetadata({ path: '/api/home' });
+
+  return data;
 }
 interface HomePageProps {
   id: number;

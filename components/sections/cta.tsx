@@ -29,9 +29,9 @@ export default function Cta({
     >
       <div className='container py-20'>
         <div className='flex flex-col items-center gap-4'>
-          <h1 className='text-4xl desktop:text-4xl font-bold tracking-tight text-background capitalize text-center'>
+          <h2 className='text-4xl desktop:text-4xl font-bold tracking-tight text-background capitalize text-center'>
             {title} <span className='text-primary'>{subtitle}</span>
-          </h1>
+          </h2>
           <p className='max-w-4xl text-background text-center text-lg'>
             {description}
           </p>

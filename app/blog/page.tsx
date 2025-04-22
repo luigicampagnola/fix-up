@@ -2,7 +2,7 @@ import ArticlesGrid from '@/components/sections/articles-grid';
 import Section from '@/components/shared/section';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment } from '@/utils/constants';
-import { Article, Image } from '@/utils/types';
+import { Article } from '@/utils/types';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 import { Metadata } from 'next';

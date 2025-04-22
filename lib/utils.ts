@@ -1,3 +1,4 @@
+import { Locale } from '@/i18n/config';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -12,6 +13,11 @@ export function getFullImagePath(url: string): string {
   return /^https?:\/\//i.test(url)
     ? url
     : `${API_URL.replace(/\/$/, '')}/${url.replace(/^\//, '')}`;
+}
+export function getFullImagelocalPath(url: string): string {
+  return /^https?:\/\//i.test(url)
+    ? url
+    : `${BASE_URL.replace(/\/$/, '')}/${url.replace(/^\//, '')}`;
 }
 
 export function imageOptimizer({
@@ -45,4 +51,15 @@ export const formatDate = ({
     'en-US',
     options || { year: 'numeric', month: 'long', day: 'numeric' }
   );
+};
+
+export const parseLocale = (locale?: Locale) => {
+  switch (locale) {
+    case 'en-us':
+      return 'en';
+    case 'es-us':
+      return 'es-US';
+    default:
+      return 'en';
+  }
 };

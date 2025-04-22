@@ -59,12 +59,12 @@ export default function Highlights({
             </div>
           )}
           <div className='text-center my-8'>
-            <h2 className='text-4xl desktop:text-5xl font-bold tracking-tight text-foreground capitalize'>
+            <h2 className='inline-flex flex-col text-4xl desktop:text-5xl font-bold tracking-tight text-foreground capitalize'>
               {title}
+              <span className='text-4xl font-bold text-primary capitalize'>
+                {subTitle}
+              </span>
             </h2>
-            <h3 className='text-4xl font-bold text-primary capitalize'>
-              {subTitle}
-            </h3>
             {description && <p className='my-4'>{description}</p>}
           </div>
 
