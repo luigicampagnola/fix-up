@@ -96,10 +96,11 @@ export default function ArticlesGrid({
           )
         )}
       </div>
-
-      <div className='flex justify-center mt-12'>
-        <Pagination current={page} pages={totalPages} />
-      </div>
+      {totalPages > 1 && (
+        <div className='flex justify-center mt-12'>
+          <Pagination current={page} pages={totalPages} />
+        </div>
+      )}
     </div>
   );
 }

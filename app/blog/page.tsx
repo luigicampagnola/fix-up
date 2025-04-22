@@ -26,12 +26,13 @@ export default async function Page({
 }) {
   const { page } = await searchParams;
   const targetPage = page === undefined ? 1 : parseInt(page);
+  const limit = 9;
   const { data, meta } = await fetchAPI<Article[]>({
     path: '/api/articles',
     query: {
       pagination: {
         page: targetPage,
-        pageSize: 3,
+        pageSize: limit,
       },
       fields: ['title', 'slug', 'description', 'content', 'publishedAt'],
       populate: {
@@ -63,7 +64,7 @@ export default async function Page({
         <ArticlesGrid
           articles={data}
           page={targetPage}
-          limit={3}
+          limit={limit}
           total={total}
         />
       </NuqsAdapter>
