@@ -4,7 +4,7 @@ import RichText from '@/components/shared/rich-text';
 import { formatDate } from '@/lib/utils';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment } from '@/utils/constants';
-import { Article } from '@/utils/types';
+import { Article, SEOMetaTags } from '@/utils/types';
 
 import { Metadata } from 'next';
 
@@ -17,10 +17,34 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const { data } = await fetchAPI<BlogsDetailsPage[]>({
+    path: '/api/articles',
+    query: {
+      filters: {
+        slug: {
+          $eq: slug,
+        },
+      },
+      fields: ['title', 'slug', 'description'],
+      populate: {
+        cover: ImageQueryFragment,
+      },
+    },
+  });
+  const metaTags: Pick<
+    SEOMetaTags,
+    'metaTitle' | 'metaDescription' | 'metaImage'
+  > = {
+    metaTitle: data[0]?.title,
+    metaDescription: data[0]?.description,
+    metaImage: data[0]?.cover,
+  };
+
   return await fetchSEOMetadata({
     path: '/api/articles',
     basePath: `/blog/${slug}`,
     slug: slug,
+    data: metaTags,
   });
 }
 

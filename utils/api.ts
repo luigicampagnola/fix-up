@@ -149,10 +149,12 @@ export async function fetchSEOMetadata({
   path,
   basePath,
   slug,
+  data,
 }: {
   path: string;
   basePath: string;
   slug?: string;
+  data?: Pick<SEOMetaTags, 'metaTitle' | 'metaDescription' | 'metaImage'>;
 }): Promise<Metadata> {
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations('GenericSEO');
@@ -204,6 +206,50 @@ export async function fetchSEOMetadata({
     },
   };
 
+  // Case 1: Use provided data
+  if (data) {
+    const { metaTitle, metaDescription, metaImage } = data;
+    const imageUrl = metaImage.url
+      ? metaImage.url.startsWith('http')
+        ? metaImage.url
+        : `${BASE_URL}${metaImage.url}`
+      : `${BASE_URL}/opengraph-image.png`;
+
+    return {
+      ...defaults,
+      title: metaTitle,
+      description: metaDescription,
+      openGraph: {
+        ...defaults.openGraph,
+        title: metaTitle,
+        description: metaDescription,
+        url: canonicalURL,
+        images: [
+          {
+            url: imageUrl,
+            width: metaImage.width || 1200,
+            height: metaImage.height || 630,
+            alt: metaImage.alternativeText || t('siteName'),
+          },
+        ],
+      },
+      twitter: {
+        ...defaults.twitter,
+        title: metaTitle,
+        description: metaDescription,
+        images: [
+          {
+            url: imageUrl,
+            width: metaImage.width || 1200,
+            height: metaImage.height || 630,
+            alt: metaImage.alternativeText || t('siteName'),
+          },
+        ],
+      },
+    };
+  }
+
+  // Case 2: No data, fetch from API
   const filters = slug
     ? {
         filters: {
@@ -217,35 +263,41 @@ export async function fetchSEOMetadata({
   interface SEOResponse {
     seo: SEOMetaTags;
   }
-  const { data } = await fetchAPI<SEOResponse>({
-    path,
-    query: {
-      locale: locale,
-      ...filters,
-      populate: {
-        seo: {
-          fields: ['metaTitle', 'metaDescription', 'keywords'],
-          populate: {
-            metaImage: {
-              fields: ['url', 'alternativeText', 'width', 'height'],
-            },
-            metaSocial: {
-              fields: ['socialNetwork', 'title', 'description'],
-              populate: {
-                image: {
-                  fields: ['url', 'alternativeText', 'width', 'height'],
+
+  let seo: SEOMetaTags | null = null;
+  try {
+    const { data: apiData } = await fetchAPI<SEOResponse>({
+      path,
+      query: {
+        locale: locale,
+        ...filters,
+        populate: {
+          seo: {
+            fields: ['metaTitle', 'metaDescription', 'keywords'],
+            populate: {
+              metaImage: {
+                fields: ['url', 'alternativeText', 'width', 'height'],
+              },
+              metaSocial: {
+                fields: ['socialNetwork', 'title', 'description'],
+                populate: {
+                  image: {
+                    fields: ['url', 'alternativeText', 'width', 'height'],
+                  },
                 },
               },
             },
           },
         },
       },
-    },
-  });
-  // this is on porpuse since the data is returned as an Array when a filter is passed
-  const parsedDataArray = data as unknown as SEOResponse[];
-  const { seo } = parsedDataArray.length > 0 ? parsedDataArray[0] : data;
+    });
+    const parsedDataArray = apiData as unknown as SEOResponse[];
+    seo = parsedDataArray.length > 0 ? parsedDataArray[0].seo : apiData.seo;
+  } catch (error) {
+    console.error(`SEO_DATA_FETCH_ERROR ${path}:`, error);
+  }
 
+  // Case 3: No data and no valid API response
   if (!seo || !seo.metaTitle) {
     return {
       ...defaults,
@@ -276,8 +328,8 @@ export async function fetchSEOMetadata({
     };
   }
 
+  // Case 2: Use fetched SEO data
   const { metaTitle, metaDescription, metaImage, metaSocial, keywords } = seo;
-
   const defaultImageUrl = `${BASE_URL}/opengraph-image.png`;
   const imageUrl = metaImage?.url
     ? metaImage.url.startsWith('http')
