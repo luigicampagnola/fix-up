@@ -18,15 +18,19 @@ import { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-// export async function generateMetadata(): Promise<Metadata | undefined> {
-//   const data = await fetchSEOMetadata({
-//     path: '/api/home',
-//   });
-//   if (data) {
-//     const { metaTitle, metaDescription } = data;
-//     return { title: metaTitle, description: metaDescription } as Metadata;
-//   }
-// }
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  return await fetchSEOMetadata({
+    path: '/api/services',
+    basePath: `/services/${slug}`,
+    slug: slug,
+  });
+}
+
 interface ServicesPageProps {
   id: number;
   documentID: string;

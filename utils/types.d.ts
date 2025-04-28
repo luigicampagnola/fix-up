@@ -38,12 +38,19 @@ export type Review = {
 /* 
     SEO types
 */
-
+export type MetaSocial = {
+  socialNetwork: 'Facebook' | 'X';
+  title: string;
+  description: string;
+  image: Image;
+};
 export type SEOMetaTags = {
   metaTitle: string;
   metaDescription: string;
   metaImage: Image;
   canonicalURL: string;
+  keywords?: string;
+  metaSocial: MetaSocial[];
 };
 
 /* 

@@ -11,15 +11,19 @@ import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-// export async function generateMetadata(): Promise<Metadata | undefined> {
-//   const data = await fetchSEOMetadata({
-//     path: '/api/home',
-//   });
-//   if (data) {
-//     const { metaTitle, metaDescription } = data;
-//     return { title: metaTitle, description: metaDescription } as Metadata;
-//   }
-// }
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  return await fetchSEOMetadata({
+    path: '/api/articles',
+    basePath: `/blog/${slug}`,
+    slug: slug,
+  });
+}
+
 interface BlogsDetailsPage extends Article {
   id: number;
   documentID: string;

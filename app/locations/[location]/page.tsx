@@ -16,17 +16,20 @@ import { subtle } from 'crypto';
 import { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { title } from 'process';
 
-// export async function generateMetadata(): Promise<Metadata | undefined> {
-//   const data = await fetchSEOMetadata({
-//     path: '/api/home',
-//   });
-//   if (data) {
-//     const { metaTitle, metaDescription } = data;
-//     return { title: metaTitle, description: metaDescription } as Metadata;
-//   }
-// }
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ location: string }>;
+}): Promise<Metadata> {
+  const { location } = await params;
+  return await fetchSEOMetadata({
+    path: '/api/locations',
+    basePath: `/locations/${location}`,
+    slug: location,
+  });
+}
+
 interface LocationsProps extends Location {
   documentID: string;
   hero: HeroSectionProps;
@@ -36,6 +39,7 @@ interface LocationsProps extends Location {
   highlights: HighlightsProps;
   cta: CtaSectionProps;
 }
+
 export default async function Page({
   params,
 }: {

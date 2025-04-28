@@ -5,7 +5,7 @@ import { QueryStringQuery } from './qs';
 import { parseLocale } from '@/lib/utils';
 import { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { i18n } from '@/i18n/config';
+import { i18n, Locale } from '@/i18n/config';
 const API_URL = process.env.API_URL || 'http://localhost:1337';
 const production = process.env.NODE_ENV !== 'development';
 const isPreview = process.env.RUNTIME_ENV === 'preview' || false;
@@ -143,29 +143,17 @@ export async function fetchSEOSchema() {
 
 export async function fetchSEOMetadata({
   path,
+  basePath,
+  slug,
 }: {
   path: string;
+  basePath: string;
+  slug?: string;
 }): Promise<Metadata> {
-  const locale = await getLocale();
+  const locale = (await getLocale()) as Locale;
   const t = await getTranslations('GenericSEO');
-  const BASE_URL =
-    process.env.NEXT_PUBLIC_BASE_URL || 'https://fixuproofing.com';
-
-  const { data } = await fetchAPI<{ seo: SEOMetaTags }>({
-    path,
-    query: {
-      populate: {
-        seo: {
-          fields: ['metaTitle', 'metaDescription'],
-          populate: {
-            metaImage: {
-              fields: ['url', 'alternativeText', 'width', 'height'],
-            },
-          },
-        },
-      },
-    },
-  });
+  const canonicalPath = basePath === '' ? '/' : basePath;
+  const canonicalURL = `${BASE_URL}${basePath}?locale=${locale}`;
 
   const tOg = t.raw('og') as { title: string; description: string };
   const tAddress = t.raw('address') as {
@@ -180,11 +168,11 @@ export async function fetchSEOMetadata({
   const defaults: Metadata = {
     metadataBase: new URL(BASE_URL),
     alternates: {
-      canonical: `/?locale=${locale}`,
+      canonical: canonicalURL,
       languages: {
-        'en-us': `/?locale=en-us`,
-        'es-us': `/?locale=es-us`,
-        'x-default': `/?locale=${i18n.defaultLocale}`,
+        'en-us': `${canonicalPath}?locale=en-us`,
+        'es-us': `${canonicalPath}?locale=es-us`,
+        'x-default': `${canonicalPath}?locale=${i18n.defaultLocale}`,
       },
     },
     keywords: t('keywords').split(','),
@@ -194,7 +182,7 @@ export async function fetchSEOMetadata({
       title: tOg.title,
       description: tOg.description,
       type: 'website',
-      url: `/?locale=${locale}`,
+      url: canonicalURL,
       locale: locale === 'es-us' ? 'es_US' : 'en_US',
       siteName: t('siteName'),
     },
@@ -212,12 +200,52 @@ export async function fetchSEOMetadata({
     },
   };
 
-  const { seo } = data;
+  const filters = slug
+    ? {
+        filters: {
+          slug: {
+            $eq: slug,
+          },
+        },
+      }
+    : undefined;
+
+  interface SEOResponse {
+    seo: SEOMetaTags;
+  }
+  const { data } = await fetchAPI<SEOResponse>({
+    path,
+    query: {
+      locale: locale,
+      ...filters,
+      populate: {
+        seo: {
+          fields: ['metaTitle', 'metaDescription', 'keywords'],
+          populate: {
+            metaImage: {
+              fields: ['url', 'alternativeText', 'width', 'height'],
+            },
+            metaSocial: {
+              fields: ['socialNetwork', 'title', 'description'],
+              populate: {
+                image: {
+                  fields: ['url', 'alternativeText', 'width', 'height'],
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+  // this is on porpuse since the data is returned as an Array when a filter is passed
+  const parsedDataArray = data as unknown as SEOResponse[];
+  const { seo } = parsedDataArray.length > 0 ? parsedDataArray[0] : data;
+
   if (!seo || !seo.metaTitle) {
-    const title = t('title');
     return {
       ...defaults,
-      title,
+      title: t('title'),
       description: t('description'),
       openGraph: {
         ...defaults.openGraph,
@@ -244,41 +272,66 @@ export async function fetchSEOMetadata({
     };
   }
 
-  const { metaTitle, metaDescription, metaImage } = seo;
+  const { metaTitle, metaDescription, metaImage, metaSocial, keywords } = seo;
+
+  const defaultImageUrl = `${BASE_URL}/opengraph-image.png`;
   const imageUrl = metaImage?.url
     ? metaImage.url.startsWith('http')
       ? metaImage.url
       : `${BASE_URL}${metaImage.url}`
-    : `${BASE_URL}/opengraph-image.png`;
+    : defaultImageUrl;
+
+  const facebookMeta = metaSocial?.find(
+    (social) => social.socialNetwork === 'Facebook'
+  );
+  const xMeta = metaSocial?.find((social) => social.socialNetwork === 'X');
+
+  const facebookImageUrl = facebookMeta?.image?.url
+    ? facebookMeta.image.url.startsWith('http')
+      ? facebookMeta.image.url
+      : `${BASE_URL}${facebookMeta.image.url}`
+    : imageUrl;
+  const xImageUrl = xMeta?.image?.url
+    ? xMeta.image.url.startsWith('http')
+      ? xMeta.image.url
+      : `${BASE_URL}${xMeta.image.url}`
+    : imageUrl;
 
   return {
     ...defaults,
     title: metaTitle,
     description: metaDescription,
+    keywords: keywords ? keywords.split(',') : defaults.keywords,
     openGraph: {
       ...defaults.openGraph,
-      title: metaTitle,
-      description: metaDescription,
-      url: `/?locale=${locale}`,
+      title: facebookMeta?.title || metaTitle,
+      description: facebookMeta?.description || metaDescription,
+      url: canonicalURL,
       images: [
         {
-          url: imageUrl,
-          width: metaImage?.width || 1200,
-          height: metaImage?.height || 630,
-          alt: metaImage?.alternativeText || t('siteName'),
+          url: facebookImageUrl,
+          width: facebookMeta?.image?.width || metaImage?.width || 1200,
+          height: facebookMeta?.image?.height || metaImage?.height || 630,
+          alt:
+            facebookMeta?.image?.alternativeText ||
+            metaImage?.alternativeText ||
+            t('siteName'),
         },
       ],
     },
     twitter: {
       ...defaults.twitter,
-      title: metaTitle,
-      description: metaDescription,
+      title: xMeta?.title || metaTitle,
+      description: xMeta?.description || metaDescription,
       images: [
         {
-          url: imageUrl,
-          width: metaImage?.width || 1200,
-          height: metaImage?.height || 630,
-          alt: metaImage?.alternativeText || t('siteName'),
+          url: xImageUrl,
+          width: xMeta?.image?.width || metaImage?.width || 1200,
+          height: xMeta?.image?.height || metaImage?.height || 630,
+          alt:
+            xMeta?.image?.alternativeText ||
+            metaImage?.alternativeText ||
+            t('siteName'),
         },
       ],
     },

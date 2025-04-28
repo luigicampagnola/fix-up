@@ -20,41 +20,9 @@ export default function ArticlesGrid({
   total,
   articles,
 }: ArticlesGridProps) {
-  // const [activeCategory, setActiveCategory] = useState('All');
-
-  // const allCategories = [
-  //   { name: 'All', slug: '*' },
-  //   ...Array.from(new Set(articles.map((article) => article.category))),
-  // ];
-
-  // const filteredArticles =
-  //   activeCategory === 'All'
-  //     ? articles
-  //     : articles.filter((article) => article?.category.name === activeCategory);
-
-  // const indexOfLastArticle = currentPage * limit;
-  // const indexOfFirstArticle = indexOfLastArticle - limit;
-  // const currentArticles = filteredArticles.slice(
-  //   indexOfFirstArticle,
-  //   indexOfLastArticle
-  // );
   const totalPages = Math.ceil(total / limit);
   return (
     <div className='container mx-auto py-12'>
-      {/* Category Filter */}
-      {/* <div className='mb-8 flex flex-wrap gap-2 justify-center'>
-        {allCategories.map(({ name, slug }) => (
-          <Button
-            key={name}
-            variant={activeCategory === name ? 'default' : 'outline'}
-            onClick={() => setActiveCategory(name)}
-            className='rounded-full'
-          >
-            {name}
-          </Button>
-        ))}
-      </div> */}
-
       <div className='grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-8'>
         {articles.map(
           (

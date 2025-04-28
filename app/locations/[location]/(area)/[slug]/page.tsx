@@ -13,15 +13,38 @@ import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-// export async function generateMetadata(): Promise<Metadata | undefined> {
-//   const data = await fetchSEOMetadata({
-//     path: '/api/home',
-//   });
-//   if (data) {
-//     const { metaTitle, metaDescription } = data;
-//     return { title: metaTitle, description: metaDescription } as Metadata;
-//   }
-// }
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug: identifier } = await params;
+
+  const { data } = await fetchAPI<{ slug: string }[]>({
+    path: '/api/areas',
+    query: {
+      filters: {
+        slug: {
+          $eq: identifier,
+        },
+      },
+      populate: {
+        location: {
+          fields: ['slug'],
+        },
+      },
+    },
+  });
+  const { slug } = data[0];
+  const response = await fetchSEOMetadata({
+    path: '/api/areas',
+    basePath: `/locations/${slug}/${identifier}`,
+    slug: identifier,
+  });
+  console.log('response', response);
+  return response;
+}
+
 interface LocationAreaProps {
   id: number;
   documentID: string;

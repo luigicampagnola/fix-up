@@ -5,8 +5,6 @@ import Highlight, { HighlightsProps } from '@/components/sections/highlights';
 import Information, {
   InformationSectionProps,
 } from '@/components/sections/information';
-
-import { ServicesSectionProps } from '@/components/sections/services';
 import { Locale } from '@/i18n/config';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
@@ -15,15 +13,12 @@ import { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-// export async function generateMetadata(): Promise<Metadata | undefined> {
-//   const data = await fetchSEOMetadata({
-//     path: '/api/home',
-//   });
-//   if (data) {
-//     const { metaTitle, metaDescription } = data;
-//     return { title: metaTitle, description: metaDescription } as Metadata;
-//   }
-// }
+export async function generateMetadata(): Promise<Metadata> {
+  return await fetchSEOMetadata({
+    path: '/api/financing',
+    basePath: '/financing',
+  });
+}
 interface FinancingPageProps {
   id: number;
   documentID: string;

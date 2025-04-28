@@ -23,9 +23,9 @@ export default function Sponsors({
         'items-start': align === 'left',
       })}
     >
-      <h3 className='text-sm text-foreground/80 font-semibold tablet:text-base capitalize'>
+      <h2 className='text-sm text-foreground/80 font-semibold tablet:text-base capitalize'>
         {title}
-      </h3>
+      </h2>
       <div
         className={clsx('relative flex  gap-2  items-center w-full', {
           container: !align || align === 'center',

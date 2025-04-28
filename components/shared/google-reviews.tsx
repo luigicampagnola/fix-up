@@ -45,7 +45,7 @@ export default async function GoogleReviews() {
 
   return (
     <section className='px-4 py-12 bg-background rounded-md shadow-md flex flex-col items-center'>
-      <h4 className='text-3xl font-bold text-center capitalize'>{title}</h4>
+      <h3 className='text-3xl font-bold text-center capitalize'>{title}</h3>
       <ReviewSlider reviews={commentReviews} />
       <div className='mt-4 inline-flex gap-2 items-center justify-center'>
         <p className='text-xs text-right tracking-tighter'>{`${total} ${tReviews(

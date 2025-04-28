@@ -15,11 +15,6 @@ import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
 import { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
 
-export async function generateMetadata() {
-  const data = await fetchSEOMetadata({ path: '/api/home' });
-
-  return data;
-}
 interface HomePageProps {
   id: number;
   documentID: string;
@@ -32,6 +27,12 @@ interface HomePageProps {
   maps: MapsSectionProps;
   cta: CtaSectionProps;
 }
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await fetchSEOMetadata({ path: '/api/home', basePath: '' });
+  return data;
+}
+
 export default async function Page() {
   const locale = (await getLocale()) as Locale;
   const { data } = await fetchAPI<HomePageProps>({
