@@ -13,7 +13,7 @@ type THighlight = {
 export interface HeroSectionProps {
   title: string;
   subTitle?: string;
-  description?: string | RichTextProps;
+  description?: string | RichTextProps['content'];
   background?: Image;
   displayForm?: boolean;
   cta?: Link;

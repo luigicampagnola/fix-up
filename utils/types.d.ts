@@ -94,7 +94,7 @@ export type Services = {
   name: string;
   slug: string;
   cover: Image;
-  description: RichTextProps;
+  description: RichTextProps['content'];
 };
 
 export type ArticleCategory = {
@@ -109,5 +109,5 @@ export type Article = {
   cover: Image;
   publishedAt: Date;
   category: ArticleCategory;
-  content: RichTextProps;
+  content: RichTextProps['content'];
 };

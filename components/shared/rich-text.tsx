@@ -7,13 +7,11 @@ import { CustomLink } from './custom-link';
 import { cn } from '@/lib/utils';
 import { CustomImage } from './custom-image';
 
-export default function RichText({
-  content,
-  className = '',
-}: {
+export interface RichTextProps {
   content: BlocksContent;
   className?: string;
-}) {
+}
+export default function RichText({ content, className = '' }: RichTextProps) {
   return (
     <div
       className={cn(

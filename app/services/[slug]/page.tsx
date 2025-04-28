@@ -34,7 +34,7 @@ interface ServicesPageProps {
   documentID: string;
   name: string;
   cover: Image;
-  description: RichTextProps;
+  description: RichTextProps['content'];
   hero: HeroSectionProps;
   information: InformationSectionProps;
   options: ServicesSectionProps;

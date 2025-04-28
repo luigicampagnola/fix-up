@@ -7,7 +7,7 @@ import clsx from 'clsx';
 export interface InformationSectionProps {
   title: string;
   subTitle?: string;
-  description?: RichTextProps;
+  description?: RichTextProps['content'];
   displayReviews: boolean;
 }
 
