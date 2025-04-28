@@ -7,6 +7,8 @@ interface InputFieldProps {
   name: string;
   invalid: boolean;
   type?: "text" | "email";
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void; // Asegúrate de que se pase el onChange
 }
 
 export function InputField({
@@ -15,6 +17,8 @@ export function InputField({
   name,
   invalid,
   type = "text",
+  value,
+  onChange,
 }: InputFieldProps) {
   const { required, warning, formatWarning, label, placeholder } = labels;
   return (
@@ -38,9 +42,11 @@ export function InputField({
       </label>
       <input
         id={id}
-        name="name"
+        name={name}
         type={type}
         placeholder={placeholder}
+        value={value} // Aquí se asegura que el valor esté controlado
+        onChange={onChange} // Se pasa el onChange aquí
         className={`${
           invalid ? "border-internationOrange" : "border-black"
         } p-[10px] border-solid border text-[15px] text-black`}
@@ -68,15 +74,15 @@ export function InputPhoneField({
   id,
   name,
   invalid,
+  value,
+  onChange,
 }: InputFieldProps) {
   const { required, warning, formatWarning, label, placeholder } = labels;
 
   function checkNumber(event: ChangeEvent<HTMLInputElement>) {
-    // improve this
     event.preventDefault();
     const value = event.target.value;
     const regex = /^\d+$/;
-
     event.target.value = regex.test(value) ? value : "";
   }
 
@@ -101,14 +107,16 @@ export function InputPhoneField({
       </label>
       <input
         id={id}
-        name="name"
+        name={name}
         type="tel"
         placeholder={placeholder}
-        // pattern="[0-9]{3} [0-9]{3} [0-9]{4}\d" improve this
-        maxLength={12}
-        onChange={(e) => checkNumber(e)}
-        className={`${invalid ? "border-internationOrange" : "border-black"}
-              p-[10px] border-solid border text-[15px] text-black`}
+        value={value} // Controla el valor aquí también
+        onChange={onChange} // Y pasa el onChange aquí
+        maxLength={10}
+        onInput={checkNumber}
+        className={`${
+          invalid ? "border-internationOrange" : "border-black"
+        } p-[10px] border-solid border text-[15px] text-black`}
       />
       <span
         className={`${

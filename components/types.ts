@@ -8,6 +8,7 @@ export interface ModuleData {
   address?: string;
   facebook?: Facebook;
   metaDescription?: string;
+  canonicalUrl?: string;
   metaTitle?: string;
   shareImage?: SlideImage;
 }

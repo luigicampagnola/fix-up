@@ -176,7 +176,7 @@ export const linkSection = {
         { url: "/financing", label: "Financing" },
         { url: "/projects", label: "Projects" },
         { url: "/blog", label: "Blog" },
-        { url: "/free-estimate", label: "Free Estimate" },
+        { url: "/estimates", label: "Free Estimate" },
       ],
     },
     {
