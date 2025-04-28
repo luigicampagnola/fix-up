@@ -1,10 +1,10 @@
-import Cta, { CtaSectionProps } from '@/components/sections/cta';
+import Cta from '@/components/sections/cta';
 import Hero from '@/components/sections/hero';
-import RichText, { RichTextProps } from '@/components/shared/rich-text';
+import RichText from '@/components/shared/rich-text';
 import { formatDate } from '@/lib/utils';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment } from '@/utils/constants';
-import { Article, Image } from '@/utils/types';
+import { Article } from '@/utils/types';
 
 import { Metadata } from 'next';
 

@@ -1,4 +1,4 @@
-import Cta, { CtaSectionProps } from '@/components/sections/cta';
+import { CtaSectionProps } from '@/components/sections/cta';
 import Hero from '@/components/sections/hero';
 import { HeroSectionProps } from '@/components/sections/hero';
 import { HighlightsProps } from '@/components/sections/highlights';
@@ -11,7 +11,6 @@ import { Locale } from '@/i18n/config';
 
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
-import { subtle } from 'crypto';
 
 import { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';

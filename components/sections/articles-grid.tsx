@@ -1,5 +1,4 @@
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { IconCalendar } from '@tabler/icons-react';
 import { Article } from '@/utils/types';
 import { CustomImage } from '../shared/custom-image';

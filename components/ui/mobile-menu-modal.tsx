@@ -11,7 +11,6 @@ import { CustomLink } from '../shared/custom-link';
 export default function MobileMenuModal({
   setOpen,
   children,
-  logo,
 }: {
   children: React.ReactNode;
   setOpen: Dispatch<SetStateAction<boolean>>;

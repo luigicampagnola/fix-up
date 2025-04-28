@@ -5,9 +5,7 @@ import Highlight, { HighlightsProps } from '@/components/sections/highlights';
 import Information, {
   InformationSectionProps,
 } from '@/components/sections/information';
-import Maps from '@/components/sections/maps';
 import Services, { ServicesSectionProps } from '@/components/sections/services';
-import Sponsors, { SponsorSectionProps } from '@/components/sections/sponsors';
 import { RichTextProps } from '@/components/shared/rich-text';
 import { Locale } from '@/i18n/config';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';

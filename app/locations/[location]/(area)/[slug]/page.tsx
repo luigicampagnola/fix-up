@@ -1,4 +1,4 @@
-import Cta, { CtaSectionProps } from '@/components/sections/cta';
+import { CtaSectionProps } from '@/components/sections/cta';
 import Hero from '@/components/sections/hero';
 import { HeroSectionProps } from '@/components/sections/hero';
 import { HighlightsProps } from '@/components/sections/highlights';

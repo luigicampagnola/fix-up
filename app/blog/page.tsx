@@ -1,12 +1,9 @@
 import ArticlesGrid from '@/components/sections/articles-grid';
 import Section from '@/components/shared/section';
-import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
+import { fetchAPI } from '@/utils/api';
 import { ImageQueryFragment } from '@/utils/constants';
 import { Article } from '@/utils/types';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
-
-import { Metadata } from 'next';
-
 import { notFound } from 'next/navigation';
 
 // export async function generateMetadata(): Promise<Metadata | undefined> {

@@ -7,7 +7,7 @@ interface PaginationProps {
   current: number;
 }
 export default function Pagination({ pages, current }: PaginationProps) {
-  const [pagiation, setPagination] = useQueryState('page');
+  const [, setPagination] = useQueryState('page');
   return (
     <nav className='inline-flex'>
       {Array.from({ length: pages }).map((_, index) => {

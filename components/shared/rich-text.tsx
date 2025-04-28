@@ -5,15 +5,13 @@ import {
 } from '@strapi/blocks-react-renderer';
 import { CustomLink } from './custom-link';
 import { cn } from '@/lib/utils';
-import Image from 'next/image';
 import { CustomImage } from './custom-image';
 
-export interface RichTextProps extends BlocksContent {}
 export default function RichText({
   content,
   className = '',
 }: {
-  content: RichTextProps;
+  content: BlocksContent;
   className?: string;
 }) {
   return (

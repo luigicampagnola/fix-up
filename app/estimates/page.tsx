@@ -2,12 +2,10 @@ import Hero from '@/components/sections/hero';
 import { HeroSectionProps } from '@/components/sections/hero';
 import { Locale } from '@/i18n/config';
 
-import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
+import { fetchAPI } from '@/utils/api';
 import { ImageQueryFragment, LinkQueryFragment } from '@/utils/constants';
 
-import { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 
 // export async function generateMetadata(): Promise<Metadata | undefined> {
 //   const data = await fetchSEOMetadata({

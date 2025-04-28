@@ -6,7 +6,6 @@ export default async function Schema() {
     <Script
       id='schema-jsonld'
       type='application/ld+json'
-      strategy='beforeInteractive'
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(schema, null, 2),
       }}
