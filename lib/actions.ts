@@ -1,48 +1,57 @@
-"use server"
+'use server';
 
-import { fetchAPI } from '@/utils/api'
-import { z } from "zod"
+import { fetchAPI } from '@/utils/api';
+import { z } from 'zod';
 
 const EstimateFormSchema = z.object({
-  fullName: z.string().min(2, { message: "Full name must be at least 2 characters" }),
+  fullName: z
+    .string()
+    .min(2, { message: 'Full name must be at least 2 characters' }),
   phoneNumber: z.string().regex(/^\(\d{3}\)\s\d{3}-\d{4}$/, {
-    message: "Phone number must be in format (000) 000-0000",
+    message: 'Phone number must be in format (000) 000-0000',
   }),
-  email: z.string().email({ message: "Please enter a valid email address" }),
-  street: z.string().min(3, { message: "Street address must be at least 3 characters" }),
-  recaptchaToken: z.string().min(1, { message: "reCAPTCHA verification is required" }),
-})
+  email: z.string().email({ message: 'Please enter a valid email address' }),
+  street: z
+    .string()
+    .min(3, { message: 'Street address must be at least 3 characters' }),
+  recaptchaToken: z
+    .string()
+    .min(1, { message: 'reCAPTCHA verification is required' }),
+});
 
-export type EstimateFormData = z.infer<typeof EstimateFormSchema>
+export type EstimateFormData = z.infer<typeof EstimateFormSchema>;
 
 export type FormResponse = {
-  success: boolean
+  success: boolean;
   errors?: {
-    fullName?: string[]
-    phoneNumber?: string[]
-    email?: string[]
-    street?: string[]
-    recaptchaToken?: string[]
-  }
-  message?: string
-}
+    fullName?: string[];
+    phoneNumber?: string[];
+    email?: string[];
+    street?: string[];
+    recaptchaToken?: string[];
+  };
+  message?: string;
+};
 
-export async function submitEstimateForm(prevState: FormResponse, formData: FormData): Promise<FormResponse> {
+export async function submitEstimateForm(
+  prevState: FormResponse,
+  formData: FormData
+): Promise<FormResponse> {
   const data = {
-    fullName: formData.get("fullName") as string,
-    phoneNumber: formData.get("phoneNumber") as string,
-    email: formData.get("email") as string,
-    street: formData.get("street") as string,
-    recaptchaToken: formData.get("recaptchaToken") as string,
-  }
+    fullName: formData.get('fullName') as string,
+    phoneNumber: formData.get('phoneNumber') as string,
+    email: formData.get('email') as string,
+    street: formData.get('street') as string,
+    recaptchaToken: formData.get('recaptchaToken') as string,
+  };
 
-  const validationResult = EstimateFormSchema.safeParse(data)
+  const validationResult = EstimateFormSchema.safeParse(data);
 
   if (!validationResult.success) {
     return {
       success: false,
       errors: validationResult.error.flatten().fieldErrors,
-    }
+    };
   }
 
   try {
@@ -58,33 +67,35 @@ export async function submitEstimateForm(prevState: FormResponse, formData: Form
 
     const { fullName, phoneNumber, email, street } = validationResult.data;
     await fetchAPI({
-      path: '/path', options: {
+      path: '/api/contacts',
+      options: {
         method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           data: {
             fullName,
             phone: phoneNumber,
             email,
-            address: street
-          }
-        })
-      }
-    })
+            address: street,
+          },
+        }),
+      },
+    });
 
     // Return success response
     return {
       success: true,
-      message: "Thank you! We'll contact you shortly with your free estimate. Have a great day!",
-    }
+      message:
+        "Thank you! We'll contact you shortly with your free estimate. Have a great day!",
+    };
   } catch (error) {
     console.error('API_REQUEST_ERROR', error);
     return {
       success: false,
-      message: "There was an error submitting your request. Please try again.",
-    }
+      message: 'There was an error submitting your request. Please try again.',
+    };
   }
 }
 

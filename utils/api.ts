@@ -20,6 +20,7 @@ interface FetchAPIProps {
     info: 'data' | 'errors' | 'verbose' | 'none';
     style?: 'default' | 'stringify';
   };
+  disableLocale?: boolean;
 }
 
 export async function fetchAPI<T>({
@@ -27,10 +28,13 @@ export async function fetchAPI<T>({
   options,
   query,
   log = { info: 'none' },
+  disableLocale = false,
 }: FetchAPIProps) {
-  const parsedLocale = parseLocale(query?.locale);
+  const parsedLocale = disableLocale
+    ? {}
+    : { locale: parseLocale(query?.locale) };
   const parsedQuery = qs.stringify(
-    { ...query, locale: parsedLocale },
+    { ...query, ...parsedLocale },
     { encodeValuesOnly: true }
   );
   const url = new URL(
