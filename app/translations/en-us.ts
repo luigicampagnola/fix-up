@@ -44,6 +44,11 @@ const enTranslations = {
       },
     },
     submit: 'Contact Fix Up Roofing',
+    thankYou: {
+      title: 'Thank you!',
+      description:
+        "We'll contact you shortly with your free estimate. Have a great day!",
+    },
   },
   GenericCTA: {
     title: 'Ready for a',

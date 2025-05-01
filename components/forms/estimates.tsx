@@ -26,6 +26,10 @@ interface TEstimateForm {
     email: FormField;
     street: FormField;
   };
+  thankYou: {
+    title: string;
+    description: string;
+  };
 }
 
 const initialState: FormResponse = {
@@ -103,21 +107,22 @@ export default function EstimateForm() {
 
   const tEstimateForm = useTranslations('EstimateForm');
   const tFields = tEstimateForm.raw('fields') as TEstimateForm['fields'];
+  const tThankYou = tEstimateForm.raw('thankYou') as TEstimateForm['thankYou'];
 
-  return (
+  return state.success ? (
+    <Card className='w-full max-w-md px-6 py-16 bg-background rounded-lg shadow-lg space-y-4'>
+      <h2 className='text-2xl font-bold text-foreground '>{tThankYou.title}</h2>
+      <Alert className='bg-green-50 border-green-200 text-primary'>
+        <AlertDescription>{tThankYou.description}</AlertDescription>
+      </Alert>
+    </Card>
+  ) : (
     <Card className='w-full max-w-md p-6 bg-background rounded-lg shadow-lg'>
       <div className='flex items-center gap-2 mb-6'>
         <h2 className='text-2xl font-bold text-foreground'>
           {tEstimateForm('title')}
         </h2>
       </div>
-
-      {state.success && (
-        <Alert className='mb-4 bg-green-50 border-green-200 text-primary'>
-          <AlertDescription>{state.message}</AlertDescription>
-        </Alert>
-      )}
-
       {state.message && !state.success && (
         <Alert className='mb-4 bg-red-50 border-red-200 text-destructive'>
           <AlertDescription>{state.message}</AlertDescription>
