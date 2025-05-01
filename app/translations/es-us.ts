@@ -44,6 +44,11 @@ const esTranslations = {
       },
     },
     submit: 'Contactar Fix Up Roofing',
+    thankYou: {
+      title: 'Muchas Gracias!',
+      description:
+        'En breve nos pondremos en contacto contigo para facilitarte un estimado gratuito. Que tengas un buen día!',
+    },
   },
   GenericCTA: {
     title: '¿Listo para mejorar',
