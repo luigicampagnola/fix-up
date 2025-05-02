@@ -1,4 +1,5 @@
 import { getFullImagelocalPath, imageOptimizer } from '@/lib/utils';
+import { OPEN_GRAPH_IMAGE_PATH } from '@/utils/constants';
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 
@@ -11,7 +12,7 @@ export async function GET(request: NextRequest) {
   const splitTitle = rawTitle?.split('|');
   const imageUrl =
     searchParams.get('imageUrl') ||
-    getFullImagelocalPath('/opengraph-image.png');
+    getFullImagelocalPath(OPEN_GRAPH_IMAGE_PATH);
 
   const image = imageOptimizer({
     url: imageUrl,
