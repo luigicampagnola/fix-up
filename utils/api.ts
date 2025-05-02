@@ -6,6 +6,7 @@ import { parseLocale } from '@/lib/utils';
 import { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { i18n, Locale } from '@/i18n/config';
+import { OPEN_GRAPH_IMAGE_PATH } from './constants';
 const API_URL = process.env.API_URL || 'http://localhost:1337';
 const production = process.env.NODE_ENV !== 'development';
 const isPreview = process.env.RUNTIME_ENV === 'preview' || false;
@@ -143,7 +144,7 @@ export async function fetchSEOSchema() {
       ],
       ...defaults,
       openingHours: t('openingHours'),
-      image: `${BASE_URL}/opengraph-image.png`,
+      image: `${BASE_URL}${OPEN_GRAPH_IMAGE_PATH}`,
       description: `${t('description')} Licensed as ${t('license')}.`,
       parentOrganization: {
         '@id': `${BASE_URL}/#organization`,
@@ -234,7 +235,7 @@ export async function fetchSEOMetadata({
       ? metaImage.url.startsWith('http')
         ? metaImage.url
         : `${BASE_URL}${metaImage.url}`
-      : `${BASE_URL}/opengraph-image.png`;
+      : `${BASE_URL}${OPEN_GRAPH_IMAGE_PATH}`;
 
     return {
       ...defaults,
@@ -328,7 +329,7 @@ export async function fetchSEOMetadata({
         ...defaults.openGraph,
         images: [
           {
-            url: `${BASE_URL}/opengraph-image.png`,
+            url: `${BASE_URL}${OPEN_GRAPH_IMAGE_PATH}`,
             width: 1200,
             height: 630,
             alt: t('siteName'),
@@ -339,7 +340,7 @@ export async function fetchSEOMetadata({
         ...defaults.twitter,
         images: [
           {
-            url: `${BASE_URL}/opengraph-image.png`,
+            url: `${BASE_URL}${OPEN_GRAPH_IMAGE_PATH}`,
             width: 1200,
             height: 630,
             alt: t('siteName'),
@@ -351,7 +352,7 @@ export async function fetchSEOMetadata({
 
   // Case 2: Use fetched SEO data
   const { metaTitle, metaDescription, metaImage, metaSocial, keywords } = seo;
-  const defaultImageUrl = `${BASE_URL}/opengraph-image.png`;
+  const defaultImageUrl = `${BASE_URL}${OPEN_GRAPH_IMAGE_PATH}`;
   const imageUrl = metaImage?.url
     ? metaImage.url.startsWith('http')
       ? metaImage.url
