@@ -99,18 +99,22 @@ export async function fetchSEOSchema() {
     google: string;
   };
 
-  const sameAs = [tSocials.facebook, tSocials.yelp, tSocials.google];
+  const defaults = {
+    name: t('businessName'),
+    identifier: t('license'),
+    url: BASE_URL,
+    logo: `${BASE_URL}/fixup.svg`,
+    email: t('email'),
+    telephone: t('telephone'),
+    sameAs: [tSocials.facebook, tSocials.yelp, tSocials.google],
+  };
 
   return [
     {
       '@context': 'https://schema.org',
       '@type': 'Organization',
       '@id': `${BASE_URL}/#organization`,
-      name: t('businessName'),
-      identifier: t('license'),
-      url: BASE_URL,
-      logo: `${BASE_URL}/fixup.svg`,
-      sameAs,
+      ...defaults,
     },
     {
       '@context': 'https://schema.org',
@@ -129,15 +133,18 @@ export async function fetchSEOSchema() {
         latitude: tGeo.latitude,
         longitude: tGeo.longitude,
       },
-      name: t('businessName'),
-      email: t('email'),
-      identifier: t('license'),
-      telephone: t('telephone'),
-      url: BASE_URL,
+      openingHoursSpecification: [
+        {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+          opens: '09:00',
+          closes: '19:00',
+        },
+      ],
+      ...defaults,
       openingHours: t('openingHours'),
       image: `${BASE_URL}/opengraph-image.png`,
       description: `${t('description')} Licensed as ${t('license')}.`,
-      sameAs,
       parentOrganization: {
         '@id': `${BASE_URL}/#organization`,
       },
@@ -161,7 +168,11 @@ export async function fetchSEOMetadata({
   const canonicalPath = basePath === '' ? '/' : basePath;
   const canonicalURL = `${BASE_URL}${basePath}?locale=${locale}`;
 
-  const tOg = t.raw('og') as { title: string; description: string };
+  const tOg = t.raw('og') as {
+    title: string;
+    description: string;
+    updated_time: string;
+  };
   const tAddress = t.raw('address') as {
     streetAddress: string;
     city: string;
@@ -183,7 +194,13 @@ export async function fetchSEOMetadata({
     },
     keywords: t('keywords').split(','),
     authors: [{ name: t('author'), url: BASE_URL }],
-    robots: { index: true, follow: true },
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
     openGraph: {
       title: tOg.title,
       description: tOg.description,
@@ -202,7 +219,11 @@ export async function fetchSEOMetadata({
       'geo.placename': tAddress.city,
       'geo.position': `${tGeo.latitude};${tGeo.longitude}`,
       ICBM: `${tGeo.latitude};${tGeo.longitude}`,
+      license: t('license'),
       'og:locale:alternate': locale === 'es-us' ? 'en_US' : 'es_US',
+      'business:contact_data:telephone': t('telephone'),
+      'business:contact_data:email': t('email'),
+      'business:contact_data:country': tAddress.country,
     },
   };
 
