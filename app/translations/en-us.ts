@@ -58,22 +58,22 @@ const enTranslations = {
     button: 'make an appointment',
   },
   GenericSEO: {
-    title: 'Fix Up Roofing - Best Roofing Services in Miami, FL',
+    title: 'Roofing Services Miami | Fix Up Roofing',
     description:
-      'Experts in roofing, solar, A/C, windows, and construction services in Miami-Dade & Broward. Financing and free estimates available. Call (786) 235-2435 now!',
+      'Expert roofing services in Miami & South Florida. Free estimates for weather-proof solutions. Call Fix Up Roofing at (786) 235-2435!',
     keywords:
-      'fix roofing Miami, roofing services Miami, roof construction South Florida, Miami roofing company, free roof estimates Miami',
+      'roofing services Miami, free roofing estimate Miami, roofing contractors South Florida, roof repair Miami, roofing company Miami-Dade, Miami roofing services, South Florida roofing, fix up roofing',
     businessName: 'Fix Up Roofing & Construction',
     siteName: 'Fix Up Roofing & Construction',
     author: 'Fix Up Roofing & Construction LLC',
     license: 'CGC1531787',
     email: 'cs@fixuproofing.com',
-    telephone: '7862352435',
+    telephone: '+17862352435',
     openingHours: 'Mo-Fr 09:00-19:00',
     og: {
-      title: 'Fix Up Roofing - Best Roofing Services in Miami',
+      title: 'Roofing Services Miami | Fix Up Roofing',
       description:
-        'Experts in roofing, solar, A/C, windows, and construction services in Miami-Dade & Broward. Financing and free estimates available. Call (786) 235-2435 now!',
+        'Expert roofing services in Miami & South Florida. Free estimates for weather-proof solutions. Call (786) 235-2435!',
     },
     address: {
       streetAddress: '6917 NW 77th Ave',

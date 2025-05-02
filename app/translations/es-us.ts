@@ -58,24 +58,22 @@ const esTranslations = {
     button: 'haz tu cita',
   },
   GenericSEO: {
-    title:
-      'Fix Up Roofing & Construction - Mejores Servicios de Techado en Miami, Sur de Florida',
+    title: 'Servicios de Tejados en Miami | Fix Up Roofing',
     description:
-      'Empresa de techado mejor calificada en Miami ofreciendo reparación experta de tejados, construcción y estimaciones gratuitas para hogares del sur de Florida.',
+      'Servicios expertos de tejados en Miami y el sur de Florida. ¡Estimaciones gratis para soluciones a prueba de clima! Llama a Fix Up Roofing al (786) 235-2435.',
     keywords:
-      'reparar techos Miami, servicios de techado Miami, construcción de techos Sur de Florida, empresa de techado Miami, estimaciones gratuitas de techos Miami',
+      'servicios de tejados Miami, estimación gratis de tejados Miami, contratistas de tejados sur de Florida, reparación de tejados Miami, empresa de tejados Miami-Dade, servicios de tejados Miami, tejados sur de Florida, fix up roofing',
     businessName: 'Fix Up Roofing & Construction',
     siteName: 'Fix Up Roofing & Construction',
-    author: 'Fix Up Roofing & Construction',
+    author: 'Fix Up Roofing & Construction LLC',
     license: 'CGC1531787',
     email: 'cs@fixuproofing.com',
-    telephone: '7862352435',
+    telephone: '+17862352435',
     openingHours: 'Mo-Fr 09:00-19:00',
     og: {
-      title:
-        'Fix Up Roofing & Construction - Mejores Servicios de Techado en Miami',
+      title: 'Servicios de Tejados en Miami | Fix Up Roofing',
       description:
-        'Servicios expertos de techado y construcción en Miami. Obtenga una estimación gratuita para sus necesidades de reparación de techos en el sur de Florida.',
+        'Servicios expertos de tejados en Miami y el sur de Florida. ¡Estimaciones gratis para soluciones a prueba de clima! Llama al (786) 235-2435.',
     },
     address: {
       streetAddress: '6917 NW 77th Ave',
