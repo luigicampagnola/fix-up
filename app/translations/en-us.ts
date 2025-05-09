@@ -42,6 +42,10 @@ const enTranslations = {
         label: 'Street Address',
         placeholder: 'Street',
       },
+      customAreaCode: {
+        label: 'Valid phone number?',
+        placeholder: 'Check if your area code is valid but not recognized.',
+      },
     },
     submit: 'Contact Fix Up Roofing',
     thankYou: {

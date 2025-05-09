@@ -42,6 +42,10 @@ const esTranslations = {
         label: 'Direccion',
         placeholder: 'Dirección extacta',
       },
+      customAreaCode: {
+        label: '¿Es válido el número de teléfono?',
+        placeholder: 'Compruebe si su codigo de area es válido.',
+      },
     },
     submit: 'Contactar Fix Up Roofing',
     thankYou: {

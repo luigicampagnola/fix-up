@@ -11,6 +11,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { FormResponse, submitEstimateForm } from '@/lib/actions';
 import Recaptcha from './recaptcha';
 import { useTranslations } from 'next-intl';
+import { VALID_US_AREA_CODES } from '@/utils/constants';
 
 interface FormField {
   label: string;
@@ -25,6 +26,7 @@ interface TEstimateForm {
     phoneNumber: FormField;
     email: FormField;
     street: FormField;
+    customAreaCode: FormField;
   };
   thankYou: {
     title: string;
@@ -43,24 +45,26 @@ export default function EstimateForm() {
     initialState
   );
 
-  const [formData, setFormData] = useState({
+  const [formState, setFormState] = useState({
     fullName: '',
     phoneNumber: '',
     email: '',
     street: '',
     contactInfo: '',
+    isCustomAreaCode: false,
   });
 
   const [recaptchaToken, setRecaptchaToken] = useState<string>('');
   const [formLoadTime, setFormLoadTime] = useState<string>(
     Date.now().toString()
   );
+  const [showCustomAreaCode, setShowCustomAreaCode] = useState(false);
 
   const isFormValid: boolean =
-    formData.fullName.length > 0 &&
-    formData.phoneNumber.length > 0 &&
-    formData.email.length > 0 &&
-    formData.street.length > 0 &&
+    formState.fullName.length > 0 &&
+    formState.phoneNumber.length > 0 &&
+    formState.email.length > 0 &&
+    formState.street.length > 0 &&
     recaptchaToken.length > 0;
 
   const formatPhoneNumber = (value: string): string => {
@@ -80,10 +84,22 @@ export default function EstimateForm() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     if (name === 'phoneNumber') {
-      setFormData((prev) => ({ ...prev, [name]: formatPhoneNumber(value) }));
+      const formattedValue = formatPhoneNumber(value);
+      setFormState((prev) => ({ ...prev, [name]: formattedValue }));
+      const areaCodeMatch = formattedValue.match(/^\((\d{3})\)/);
+      if (areaCodeMatch) {
+        const areaCode = areaCodeMatch[1];
+        setShowCustomAreaCode(!VALID_US_AREA_CODES.includes(areaCode));
+      } else {
+        setShowCustomAreaCode(false);
+      }
     } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
+      setFormState((prev) => ({ ...prev, [name]: value }));
     }
+  };
+
+  const handleCustomAreaCodeSelection = (value: boolean): void => {
+    setFormState((prev) => ({ ...prev, isCustomAreaCode: value }));
   };
 
   const handleRecaptchaVerify = (token: string | null): void => {
@@ -93,20 +109,24 @@ export default function EstimateForm() {
   const handleSubmit = async (formData: FormData): Promise<void> => {
     formData.append('recaptchaToken', recaptchaToken);
     formData.append('formLoadTime', formLoadTime);
+    const isCustomAreaCodeValue = formState.isCustomAreaCode ? 'true' : 'false';
+    formData.append('isCustomAreaCode', isCustomAreaCodeValue);
     await formAction(formData);
   };
 
   useEffect(() => {
     if (state.success) {
-      setFormData({
+      setFormState({
         fullName: '',
         phoneNumber: '',
         email: '',
         street: '',
         contactInfo: '',
+        isCustomAreaCode: false,
       });
       setRecaptchaToken('');
       setFormLoadTime(Date.now().toString());
+      setShowCustomAreaCode(false);
     }
   }, [state.success]);
 
@@ -146,7 +166,7 @@ export default function EstimateForm() {
             id='fullName'
             name='fullName'
             placeholder={tFields.name.placeholder}
-            value={formData.fullName}
+            value={formState.fullName}
             onChange={handleChange}
             className={`border ${
               state.errors?.fullName ? 'border-destructive' : 'border-gray-300'
@@ -171,7 +191,7 @@ export default function EstimateForm() {
             id='phoneNumber'
             name='phoneNumber'
             placeholder={tFields.phoneNumber.placeholder}
-            value={formData.phoneNumber}
+            value={formState.phoneNumber}
             onChange={handleChange}
             className={`border ${
               state.errors?.phoneNumber
@@ -184,6 +204,36 @@ export default function EstimateForm() {
             <p className='text-destructive text-xs mt-1'>
               {state.errors.phoneNumber[0]}
             </p>
+          )}
+          {showCustomAreaCode && (
+            <div className='space-y-2'>
+              <div className='w-full inline-flex items-center gap-x-2 text-sm font-medium text-gray-700'>
+                <span>{tFields.customAreaCode.label}</span>
+                <span
+                  onClick={() => handleCustomAreaCodeSelection(true)}
+                  className={`cursor-pointer px-2 py-1 rounded border border-gray-300 text-sm ${
+                    formState.isCustomAreaCode
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-background hover:bg-muted'
+                  }`}
+                >
+                  Yes
+                </span>
+                <span
+                  onClick={() => handleCustomAreaCodeSelection(false)}
+                  className={`cursor-pointer px-2 py-1 rounded border border-gray-300 text-sm ${
+                    !formState.isCustomAreaCode
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-background hover:bg-muted'
+                  }`}
+                >
+                  No
+                </span>
+              </div>
+              <p className='text-gray-500 text-xs'>
+                {tFields.customAreaCode.placeholder}
+              </p>
+            </div>
           )}
         </div>
 
@@ -199,7 +249,7 @@ export default function EstimateForm() {
             name='email'
             type='email'
             placeholder={tFields.email.placeholder}
-            value={formData.email}
+            value={formState.email}
             onChange={handleChange}
             className={`border ${
               state.errors?.email ? 'border-destructive' : 'border-gray-300'
@@ -224,7 +274,7 @@ export default function EstimateForm() {
             id='street'
             name='street'
             placeholder={tFields.street.placeholder}
-            value={formData.street}
+            value={formState.street}
             onChange={handleChange}
             className={`border ${
               state.errors?.street ? 'border-destructive' : 'border-gray-300'
@@ -240,7 +290,7 @@ export default function EstimateForm() {
         <Input
           type='text'
           name='contactInfo'
-          value={formData.contactInfo}
+          value={formState.contactInfo}
           onChange={handleChange}
           style={{ display: 'none' }}
           tabIndex={-1}
