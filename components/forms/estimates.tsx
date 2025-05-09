@@ -48,20 +48,23 @@ export default function EstimateForm() {
     phoneNumber: '',
     email: '',
     street: '',
+    contactInfo: '',
   });
 
-  const [recaptchaToken, setRecaptchaToken] = useState('');
+  const [recaptchaToken, setRecaptchaToken] = useState<string>('');
+  const [formLoadTime, setFormLoadTime] = useState<string>(
+    Date.now().toString()
+  );
 
-  const isFormValid =
+  const isFormValid: boolean =
     formData.fullName.length > 0 &&
     formData.phoneNumber.length > 0 &&
     formData.email.length > 0 &&
     formData.street.length > 0 &&
     recaptchaToken.length > 0;
 
-  const formatPhoneNumber = (value: string) => {
+  const formatPhoneNumber = (value: string): string => {
     const numbers = value.replace(/\D/g, '');
-
     if (numbers.length <= 3) {
       return numbers.length ? `(${numbers}` : '';
     } else if (numbers.length <= 6) {
@@ -74,9 +77,8 @@ export default function EstimateForm() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
-
     if (name === 'phoneNumber') {
       setFormData((prev) => ({ ...prev, [name]: formatPhoneNumber(value) }));
     } else {
@@ -84,13 +86,14 @@ export default function EstimateForm() {
     }
   };
 
-  const handleRecaptchaVerify = (token: string | null) => {
+  const handleRecaptchaVerify = (token: string | null): void => {
     if (token) setRecaptchaToken(token);
   };
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = async (formData: FormData): Promise<void> => {
     formData.append('recaptchaToken', recaptchaToken);
-    return formAction(formData);
+    formData.append('formLoadTime', formLoadTime);
+    await formAction(formData);
   };
 
   useEffect(() => {
@@ -100,8 +103,10 @@ export default function EstimateForm() {
         phoneNumber: '',
         email: '',
         street: '',
+        contactInfo: '',
       });
       setRecaptchaToken('');
+      setFormLoadTime(Date.now().toString());
     }
   }, [state.success]);
 
@@ -111,7 +116,7 @@ export default function EstimateForm() {
 
   return state.success ? (
     <Card className='w-full max-w-md px-6 py-16 bg-background rounded-lg shadow-lg space-y-4'>
-      <h2 className='text-2xl font-bold text-foreground '>{tThankYou.title}</h2>
+      <h2 className='text-2xl font-bold text-foreground'>{tThankYou.title}</h2>
       <Alert className='bg-green-50 border-green-200 text-primary'>
         <AlertDescription>{tThankYou.description}</AlertDescription>
       </Alert>
@@ -232,6 +237,16 @@ export default function EstimateForm() {
             </p>
           )}
         </div>
+        <Input
+          type='text'
+          name='contactInfo'
+          value={formData.contactInfo}
+          onChange={handleChange}
+          style={{ display: 'none' }}
+          tabIndex={-1}
+          autoComplete='off'
+        />
+        <Input type='hidden' name='formLoadTime' value={formLoadTime} />
         <Suspense>
           <Recaptcha onVerify={handleRecaptchaVerify} />
         </Suspense>
