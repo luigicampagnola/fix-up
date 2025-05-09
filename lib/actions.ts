@@ -139,8 +139,6 @@ export async function submitEstimateForm(
     contactInfo: (formData.get('contactInfo') as string) || '',
     formLoadTime: formData.get('formLoadTime') as string,
   };
-
-  // Validate form data
   const validationResult = EstimateFormSchema.safeParse(data);
 
   if (!validationResult.success) {
@@ -151,7 +149,6 @@ export async function submitEstimateForm(
   }
 
   try {
-    // Verify reCAPTCHA token
     const recaptchaVerified = await verifyRecaptchaToken(data.recaptchaToken);
     if (!recaptchaVerified) {
       return {
@@ -164,14 +161,13 @@ export async function submitEstimateForm(
 
     const { fullName, phoneNumber, email, street } = validationResult.data;
 
-    // Submit to Strapi with API token
     await fetchAPI({
       path: '/api/contacts',
       options: {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+          Authorization: `Bearer ${process.env.API_TOKEN}`,
         },
         body: JSON.stringify({
           data: {
