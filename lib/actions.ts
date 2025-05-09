@@ -1,87 +1,81 @@
 'use server';
 
 import { fetchAPI } from '@/utils/api';
+import {
+  DISPOSABLE_EMAIL_DOMAINS,
+  INVALID_US_AREA_CODES,
+  VALID_US_AREA_CODES,
+} from '@/utils/constants';
 import { z } from 'zod';
 
-// list of disposable domain fields (partial, expand as needed)
-const disposableEmailDomains: string[] = [
-  'hedotu.com',
-  'mailinator.com',
-  'tempmail.com',
-  '10minutemail.com',
-];
-const disposablePhoneNumbers: string[] = [
-  '000',
-  '111',
-  '222',
-  '333',
-  '444',
-  '555',
-  '666',
-  '777',
-  '888',
-  '999',
-];
-
-const EstimateFormSchema = z.object({
-  fullName: z
-    .string()
-    .min(2, { message: 'Full name must be at least 2 characters' })
-    .regex(/^[A-Za-z\s'-]+$/, {
-      message:
-        'Full name can only contain letters, spaces, hyphens, or apostrophes',
-    })
-    .refine((val) => !val.toLowerCase().includes('test'), {
-      message: 'Full name cannot contain "test"',
-    }),
-  phoneNumber: z
-    .string()
-    .regex(/^\(\d{3}\)\s\d{3}-\d{4}$/, {
+const EstimateFormSchema = z
+  .object({
+    fullName: z
+      .string()
+      .min(2, { message: 'Full name must be at least 2 characters' })
+      .regex(/^[A-Za-z\s'-]+$/, {
+        message:
+          'Full name can only contain letters, spaces, hyphens, or apostrophes',
+      })
+      .refine((val) => !val.toLowerCase().includes('test'), {
+        message: 'Full name cannot contain "test"',
+      }),
+    phoneNumber: z.string().regex(/^\(\d{3}\)\s\d{3}-\d{4}$/, {
       message: 'Phone number must be in format (000) 000-0000',
-    })
-    .refine(
+    }),
+    isCustomAreaCode: z.boolean().optional().default(false),
+    email: z
+      .string()
+      .email({ message: 'Please enter a valid email address' })
+      .refine(
+        (val) =>
+          !DISPOSABLE_EMAIL_DOMAINS.some((domain) =>
+            val.endsWith(`@${domain}`)
+          ),
+        { message: 'Disposable email addresses are not allowed' }
+      )
+      .refine((val) => !/test(?:ing)?\b/i.test(val.toLowerCase()), {
+        message: 'Email cannot contain "test" or "testing"',
+      }),
+    street: z
+      .string()
+      .min(10, { message: 'Street address must be at least 10 characters' })
+      .regex(
+        /^\d+\s+[A-Za-z\s'-]+(?:St|Ave|Rd|Blvd|Ln|Dr|Ct|Cir|Way)(?:\s+(?:Apt|Suite|Unit)\s*[\w\d]+)?$/i,
+        {
+          message:
+            'Street address must be in format "123 Main St" or "123 Main St Apt 5"',
+        }
+      ),
+    recaptchaToken: z
+      .string()
+      .min(1, { message: 'reCAPTCHA verification is required' }),
+    contactInfo: z.string().max(0, { message: 'Bot detected' }),
+    formLoadTime: z.string().refine(
       (val) => {
-        const areaCode = val.slice(1, 4);
-        return (
-          !disposablePhoneNumbers.includes(areaCode) && !val.match(/(\d)\1{9}/)
-        );
+        const loadTime = parseInt(val, 10);
+        const currentTime = Date.now();
+        return currentTime - loadTime >= 3000;
       },
-      { message: 'Invalid US phone number' }
+      { message: 'Form submitted too quickly' }
     ),
-  email: z
-    .string()
-    .email({ message: 'Please enter a valid email address' })
-    .refine(
-      (val) =>
-        !disposableEmailDomains.some((domain) => val.endsWith(`@${domain}`)),
-      { message: 'Disposable email addresses are not allowed' }
-    )
-    .refine((val) => !val.toLowerCase().includes('test'), {
-      message: 'Email cannot contain "test"',
-    }),
-  street: z
-    .string()
-    .min(5, { message: 'Street address must be at least 5 characters' })
-    .regex(/\d+.*(St|Ave|Rd|Blvd|Ln|Dr|Ct|Cir|Way)/i, {
-      message:
-        'Street address must include a number and street type (e.g., St, Ave)',
-    })
-    .refine((val) => !val.toLowerCase().includes('test'), {
-      message: 'Address cannot contain "test"',
-    }),
-  recaptchaToken: z
-    .string()
-    .min(1, { message: 'reCAPTCHA verification is required' }),
-  contactInfo: z.string().max(0, { message: 'Bot detected' }), // Honeypot field, must be empty
-  formLoadTime: z.string().refine(
-    (val) => {
-      const loadTime = parseInt(val, 10);
-      const currentTime = Date.now();
-      return currentTime - loadTime >= 3000; // At least 3 seconds
-    },
-    { message: 'Form submitted too quickly' }
-  ),
-});
+  })
+  .superRefine((data, ctx) => {
+    const { phoneNumber, isCustomAreaCode } = data;
+    const areaCode = phoneNumber.slice(1, 4);
+    const isValidAreaCode =
+      VALID_US_AREA_CODES.includes(areaCode) || isCustomAreaCode;
+    const isInvalidAreaCode = INVALID_US_AREA_CODES.includes(areaCode);
+    const isRepetitive = phoneNumber.match(/(\d)\1{9}/);
+
+    if (!isValidAreaCode || isInvalidAreaCode || isRepetitive) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Invalid US phone number',
+        path: ['phoneNumber'],
+      });
+    }
+  });
 
 export type EstimateFormData = z.infer<typeof EstimateFormSchema>;
 
@@ -90,6 +84,7 @@ export type FormResponse = {
   errors?: {
     fullName?: string[];
     phoneNumber?: string[];
+    isCustomAreaCode?: string[];
     email?: string[];
     street?: string[];
     recaptchaToken?: string[];
@@ -102,28 +97,48 @@ export type FormResponse = {
 async function verifyRecaptchaToken(token: string): Promise<boolean> {
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
   if (!secretKey) {
+    console.error('reCAPTCHA secret key is not configured');
     throw new Error('reCAPTCHA secret key is not configured');
   }
 
-  const response = await fetch(
-    'https://www.google.com/recaptcha/api/siteverify',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: `secret=${encodeURIComponent(
-        secretKey
-      )}&response=${encodeURIComponent(token)}`,
-    }
-  );
+  try {
+    const response = await fetch(
+      'https://www.google.com/recaptcha/api/siteverify',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `secret=${encodeURIComponent(
+          secretKey
+        )}&response=${encodeURIComponent(token)}`,
+      }
+    );
 
-  const data: { success: boolean; 'error-codes'?: string[] } =
-    await response.json();
-  if (!data.success) {
-    console.error('reCAPTCHA verification failed:', data['error-codes']);
+    if (!response.ok) {
+      console.error(
+        `reCAPTCHA API request failed with status: ${response.status}`
+      );
+      return false;
+    }
+
+    const data: {
+      success: boolean;
+      'error-codes'?: string[];
+      hostname?: string;
+    } = await response.json();
+    if (!data.success) {
+      console.error('reCAPTCHA verification failed:', {
+        errorCodes: data['error-codes'],
+        hostname: data.hostname,
+        tokenSnippet: token.slice(0, 20) + '...',
+      });
+    }
+    return data.success;
+  } catch (error) {
+    console.error('reCAPTCHA verification error:', error);
+    return false;
   }
-  return data.success;
 }
 
 export async function submitEstimateForm(
@@ -133,15 +148,22 @@ export async function submitEstimateForm(
   const data = {
     fullName: formData.get('fullName') as string,
     phoneNumber: formData.get('phoneNumber') as string,
+    isCustomAreaCode: formData.get('isCustomAreaCode') === 'true',
     email: formData.get('email') as string,
     street: formData.get('street') as string,
     recaptchaToken: formData.get('recaptchaToken') as string,
     contactInfo: (formData.get('contactInfo') as string) || '',
     formLoadTime: formData.get('formLoadTime') as string,
   };
+
+  // Validate form data
   const validationResult = EstimateFormSchema.safeParse(data);
 
   if (!validationResult.success) {
+    console.error('Validation failed:', {
+      data,
+      errors: validationResult.error.flatten().fieldErrors,
+    });
     return {
       success: false,
       errors: validationResult.error.flatten().fieldErrors,
