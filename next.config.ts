@@ -62,7 +62,6 @@ const nextConfig: NextConfig = {
           permanent,
         })
       );
-      console.log('redirects', redirectsArray);
       return redirectsArray;
     } catch (error) {
       console.log('ERROR_CREATE_REDIRECTS', error);

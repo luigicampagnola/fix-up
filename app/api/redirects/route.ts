@@ -16,8 +16,8 @@ export async function GET() {
     },
   });
   if (!data) {
-    return [];
+    return Response.json({ data: [] });
   }
   const { redirects } = data;
-  return Response.json({ ...redirects });
+  return Response.json({ data: redirects });
 }

@@ -41,7 +41,6 @@ export async function generateMetadata({
     basePath: `/locations/${slug}/${identifier}`,
     slug: identifier,
   });
-  console.log('response', response);
   return response;
 }
 
