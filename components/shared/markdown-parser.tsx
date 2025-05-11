@@ -2,7 +2,6 @@ import React from 'react';
 import { MDXRemote } from 'next-mdx-remote-client/rsc';
 import { CustomImage } from './custom-image';
 import { cn } from '@/lib/utils';
-import { CustomLink } from './custom-link';
 
 interface MarkdownParserProps {
   content: string;
