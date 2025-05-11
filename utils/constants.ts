@@ -55,3 +55,6 @@ export const DISPOSABLE_EMAIL_DOMAINS: string[] = [
   'getnada.com',
   'dispostable.com',
 ];
+
+export const REDIRECTS_STATIC_QUERY =
+  'populate[redirects][fields][0]=source&populate[redirects][fields][1]=destination&populate[redirects][fields][2]=permanent&pagination[pageSize]=100&pagination[page]=1';

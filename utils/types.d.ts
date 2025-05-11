@@ -52,6 +52,11 @@ export type SEOMetaTags = {
   keywords?: string;
   metaSocial: MetaSocial[];
 };
+export type GlobalSeoRedirectsReponse = {
+  data: {
+    redirects: Redirect[];
+  };
+};
 
 /* 
     Navigation 

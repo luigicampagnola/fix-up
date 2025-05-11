@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next';
-
 import createNextIntlPlugin from 'next-intl/plugin';
+import { Redirect } from 'next/dist/lib/load-custom-routes';
+import { REDIRECTS_STATIC_QUERY } from './utils/constants';
+import { GlobalSeoRedirectsReponse } from './utils/types';
 
 const nextConfig: NextConfig = {
   images: {
@@ -36,6 +38,35 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+  },
+
+  async redirects(): Promise<Redirect[]> {
+    try {
+      const API_URL = process.env.API_URL || 'http://localhost:1337';
+      const response = await fetch(
+        `${API_URL}/api/global?${REDIRECTS_STATIC_QUERY}`
+      );
+      const responseObject =
+        ((await response.json()) as GlobalSeoRedirectsReponse) || undefined;
+      if (!responseObject || !responseObject?.data) {
+        return [];
+      }
+
+      const {
+        data: { redirects },
+      } = responseObject;
+      const redirectsArray = redirects.flatMap(
+        ({ source, destination, permanent }) => ({
+          source,
+          destination,
+          permanent,
+        })
+      );
+      return redirectsArray;
+    } catch (error) {
+      console.log('ERROR_CREATE_REDIRECTS', error);
+      return [];
+    }
   },
 };
 
