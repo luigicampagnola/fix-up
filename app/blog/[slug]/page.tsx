@@ -1,6 +1,6 @@
 import Cta from '@/components/sections/cta';
 import Hero from '@/components/sections/hero';
-import RichText from '@/components/shared/rich-text';
+import MarkdownParser from '@/components/shared/markdown-parser';
 import { formatDate } from '@/lib/utils';
 import { fetchAPI, fetchSEOMetadata } from '@/utils/api';
 import { ImageQueryFragment } from '@/utils/constants';
@@ -66,7 +66,7 @@ export default async function Page({
           $eq: slug,
         },
       },
-      fields: ['title', 'slug', 'description', 'content', 'publishedAt'],
+      fields: ['title', 'slug', 'description', 'publishedAt', 'body'],
       populate: {
         cover: ImageQueryFragment,
       },
@@ -77,7 +77,7 @@ export default async function Page({
     notFound();
   }
 
-  const { content, title, cover, publishedAt } = data[0];
+  const { body, title, cover, publishedAt } = data[0];
   const dateFormated = formatDate({ date: publishedAt });
   const tGenericCTA = await getTranslations('GenericCTA');
 
@@ -93,9 +93,9 @@ export default async function Page({
           width='small'
         />
       )}
-      {content && (
+      {body && (
         <div className='my-20 flex flex-col container justify-center items-center'>
-          <RichText content={content} className='tablet:prose-lg' />
+          <MarkdownParser content={body} className='tablet:prose-lg' />
         </div>
       )}
       <Cta

@@ -110,4 +110,5 @@ export type Article = {
   publishedAt: Date;
   category: ArticleCategory;
   content: RichTextProps['content'];
+  body: string;
 };
