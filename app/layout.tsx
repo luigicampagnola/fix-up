@@ -10,6 +10,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import Schema from '@/components/scripts/schema';
 import { GoogleTagManager } from '@next/third-parties/google';
 import AhrefsAnalytics from '@/components/scripts/ahrefs';
+import { Analytics } from '@vercel/analytics/next';
 
 export async function generateMetadata(): Promise<Metadata> {
   return await fetchSEOMetadata({ path: '/api/global', basePath: '' });
@@ -36,6 +37,7 @@ export default async function RootLayout({
           </main>
           <Footer />
           <SpeedInsights />
+          <Analytics />
         </body>
       </NextIntlClientProvider>
     </html>
