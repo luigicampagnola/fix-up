@@ -77,7 +77,7 @@ const nextConfig: NextConfig = {
           has: [
             {
               type: 'host',
-              value: 'quote\\..*',
+              value: 'quote.fixuproofing.com',
             },
           ],
           destination: '/estimates/:path*',
