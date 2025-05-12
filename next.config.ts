@@ -1,6 +1,6 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
-import { Redirect } from 'next/dist/lib/load-custom-routes';
+import { Redirect, Rewrite } from 'next/dist/lib/load-custom-routes';
 import { REDIRECTS_STATIC_QUERY } from './utils/constants';
 import { GlobalSeoRedirectsReponse } from './utils/types';
 
@@ -67,6 +67,23 @@ const nextConfig: NextConfig = {
       console.log('ERROR_CREATE_REDIRECTS', error);
       return [];
     }
+  },
+
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/:path*',
+          has: [
+            {
+              type: 'host',
+              value: 'quote\\..*',
+            },
+          ],
+          destination: '/estimates/:path*',
+        },
+      ],
+    };
   },
 };
 
