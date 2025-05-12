@@ -16,7 +16,7 @@ export default function robots(): MetadataRoute.Robots {
           '/graphql',
           '/staging',
           '/testing',
-          'stagingoct',
+          '/stagingoct',
         ],
       },
       {
