@@ -1,5 +1,6 @@
 import { CustomLink } from '../shared/custom-link';
 import Section from '../shared/section';
+import { cn } from '@/lib/utils';
 
 /*
   Improvement: 
@@ -7,6 +8,7 @@ import Section from '../shared/section';
   2. standarize the parameter subtitle to camelcase subTitle
 */
 export interface CtaSectionProps {
+  className?: string;
   title?: string;
   subtitle?: string;
   description?: string;
@@ -21,6 +23,7 @@ export default function Cta({
   subtitle,
   description,
   button,
+  className,
 }: CtaSectionProps) {
   return (
     <Section
@@ -38,7 +41,10 @@ export default function Cta({
         </div>
         {button && (
           <div className='text-center mt-8'>
-            <CustomLink url='/estimates' size='lg' className='capitalize'>
+            <CustomLink
+              url='/estimates'
+              className={cn('capitalize', className)}
+            >
               {button?.label}
             </CustomLink>
           </div>

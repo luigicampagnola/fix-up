@@ -82,6 +82,9 @@ export default async function Page({
                 cover: ImageQueryFragment,
               },
             },
+            cta: {
+              fields: ['label', 'url'],
+            },
           },
         },
         highlights: {
@@ -141,7 +144,7 @@ export default async function Page({
       {information && <Information {...information} />}
       {options && <Services {...options} disableLinking={true} />}
       {extraHighlights && <Highlight {...extraHighlights} />}
-      {cta && <Cta {...cta} />}
+      {cta && <Cta className='text-sm tablet:text-base' {...cta} />}
     </>
   );
 }

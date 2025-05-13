@@ -87,7 +87,7 @@ export default function Services({
         </div>
         {cta && (
           <FadeSlideUp className='mt-10 text-center'>
-            <CustomLink size='lg' className='uppercase' {...cta} />
+            <CustomLink className='text-sm tablet:text-base' {...cta} />
           </FadeSlideUp>
         )}
       </div>
