@@ -32,13 +32,22 @@ export default function RichText({ content, className = '' }: RichTextProps) {
               url={url}
               variant='link'
               className='text-primary hover:underline no-underline'
+              styled={false}
             >
               {children}
             </CustomLink>
           ),
           list: ({ children, format }) => (
             <>
-              {format === 'ordered' ? <ol>{children}</ol> : <ul>{children}</ul>}
+              {format === 'ordered' ? (
+                <ol className='list-decimal marker:text-foreground/5'>
+                  {children}
+                </ol>
+              ) : (
+                <ul className='list-disc marker:text-foreground/50'>
+                  {children}
+                </ul>
+              )}
             </>
           ),
           'list-item': ({ children }) => <li>{children}</li>,
