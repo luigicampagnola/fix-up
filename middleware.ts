@@ -8,7 +8,7 @@ export function middleware(req: any) {
   const country =
     req?.geo?.country || req.headers.get('x-vercel-ip-country') || 'US';
 
-  if (country !== 'US' && country !== 'SE') {
+  if (country !== 'US' && country !== 'SE' && country !== 'HN') {
     return new NextResponse("🚫 You don't have access to this site.", {
       status: 403,
     });

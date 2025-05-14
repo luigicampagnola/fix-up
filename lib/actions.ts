@@ -39,14 +39,8 @@ const EstimateFormSchema = z
       }),
     street: z
       .string()
-      .min(10, { message: 'Street address must be at least 10 characters' })
-      .regex(
-        /^\d+\s+[A-Za-z\s'-]+(?:St|Ave|Rd|Blvd|Ln|Dr|Ct|Cir|Way)(?:\s+(?:Apt|Suite|Unit)\s*[\w\d]+)?$/i,
-        {
-          message:
-            'Street address must be in format "123 Main St" or "123 Main St Apt 5"',
-        }
-      ),
+      .min(5, { message: 'Address must be at least 5 characters' })
+      .max(100, { message: 'Address cannot exceed 100 characters' }),
     recaptchaToken: z
       .string()
       .min(1, { message: 'reCAPTCHA verification is required' }),
