@@ -1,14 +1,21 @@
-import UTMGenerator from '@/components/forms/url-generator';
+import { UTMGeneratorWrapper } from '@/components/elements/utm-wrapper';
 import Section from '@/components/shared/section';
 
-export default function Page() {
+export default async function Page() {
+  const BASE_URL = 'http://localhost:3000';
+  const response = await fetch(`${BASE_URL}/api/public-urls`);
+  const { data } = await response.json();
+  const sources = ['qr', 'facebook', 'instagram', 'yelp', 'google'];
+  const defaultUrl = '/estimates?locale=en-us';
+
   return (
-    <Section name='utm-generator' className='py-20 bg-secondary px-4'>
-      <div className='max-w-2xl mx-auto'>
-        <UTMGenerator
-          baseUrl='https://www.fixuproofing.com'
-          sources={['qr', 'facebook', 'instagram', 'yelp', 'google']}
-          defaultUrl='/estimates'
+    <Section name='url-generator' className=' py-10 bg-secondary'>
+      <div className='container max-w-2xl  px-4 mx-auto'>
+        <UTMGeneratorWrapper
+          baseUrl={BASE_URL}
+          sources={sources}
+          defaultUrl={defaultUrl}
+          urlPaths={data}
         />
       </div>
     </Section>
