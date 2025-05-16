@@ -2,7 +2,8 @@ import { UTMGeneratorWrapper } from '@/components/elements/utm-wrapper';
 import Section from '@/components/shared/section';
 
 export default async function Page() {
-  const BASE_URL = 'http://localhost:3000';
+  const BASE_URL =
+    process.env.NEXT_PUBLIC_BASE_URL || 'https://fixuproofing.com';
   const response = await fetch(`${BASE_URL}/api/public-urls`);
   const { data } = await response.json();
   const sources = ['qr', 'facebook', 'instagram', 'yelp', 'google'];
