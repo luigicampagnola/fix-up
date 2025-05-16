@@ -7,6 +7,7 @@ import {
   VALID_US_AREA_CODES,
 } from '@/utils/constants';
 import { z } from 'zod';
+import { cookies } from 'next/headers';
 
 const EstimateFormSchema = z
   .object({
@@ -196,6 +197,7 @@ export async function submitEstimateForm(
         }),
       },
     });
+    await setFormSubmittedCookie();
 
     return {
       success: true,
@@ -209,4 +211,29 @@ export async function submitEstimateForm(
       message: 'There was an error submitting your request. Please try again.',
     };
   }
+}
+
+export async function getModalCookies() {
+  const cookieStore = await cookies();
+  const formSubmitted = cookieStore.get('FORM_SUBMITTED')?.value;
+  const modalDisabled = cookieStore.get('MODAL_DISABLED')?.value;
+  return { formSubmitted: !!formSubmitted, modalDisabled: !!modalDisabled };
+}
+
+export async function setModalDisabledCookie() {
+  const cookieStore = await cookies();
+  cookieStore.set('MODAL_DISABLED', 'true', {
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+    path: '/',
+    httpOnly: true,
+  });
+}
+
+export async function setFormSubmittedCookie() {
+  const cookieStore = await cookies();
+  cookieStore.set('FORM_SUBMITTED', 'true', {
+    expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year
+    path: '/',
+    httpOnly: true,
+  });
 }
