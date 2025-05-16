@@ -117,3 +117,19 @@ export type Article = {
   content: RichTextProps['content'];
   body: string;
 };
+
+export type Location = {
+  name: string;
+  slug: string;
+  areas: Area[];
+};
+export type Area = {
+  name: string;
+  slug: string;
+  updatedAt: string;
+};
+
+export type UrlPath = {
+  path: string;
+  label: string;
+};

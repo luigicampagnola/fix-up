@@ -8,12 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { UTMGenerator } from '../forms/utm-generator';
-
-type UrlPath = {
-  id: string;
-  path: string;
-  label: string;
-};
+import { UrlPath } from '@/utils/types';
 
 export function UTMGeneratorWrapper({
   baseUrl,
