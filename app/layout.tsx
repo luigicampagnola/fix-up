@@ -11,6 +11,7 @@ import Schema from '@/components/scripts/schema';
 import { GoogleTagManager } from '@next/third-parties/google';
 import AhrefsAnalytics from '@/components/scripts/ahrefs';
 import { Analytics } from '@vercel/analytics/next';
+import EstimateModal from '@/components/shared/estimate-modal';
 
 export async function generateMetadata(): Promise<Metadata> {
   return await fetchSEOMetadata({ path: '/api/global', basePath: '' });
@@ -35,6 +36,7 @@ export default async function RootLayout({
           <main className='relative flex flex-1 flex-col text-foreground dark:text-foreground'>
             {children}
           </main>
+          <EstimateModal />
           <Footer />
           <SpeedInsights />
           <Analytics />
