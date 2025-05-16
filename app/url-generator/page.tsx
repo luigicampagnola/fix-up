@@ -1,11 +1,13 @@
 import { UTMGeneratorWrapper } from '@/components/elements/utm-wrapper';
 import Section from '@/components/shared/section';
+import { getPublicURLPaths } from '@/utils/api';
 
 export default async function Page() {
   const BASE_URL =
     process.env.NEXT_PUBLIC_BASE_URL || 'https://fixuproofing.com';
-  const response = await fetch(`${BASE_URL}/api/public-urls`);
-  const { data } = await response.json();
+
+  const data = await getPublicURLPaths();
+
   const sources = ['qr', 'facebook', 'instagram', 'yelp', 'google'];
   const defaultUrl = '/estimates?locale=en-us';
 
