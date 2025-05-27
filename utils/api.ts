@@ -165,8 +165,8 @@ export async function fetchSEOMetadata({
 }): Promise<Metadata> {
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations('GenericSEO');
-  const canonicalPath = basePath === '' ? '/' : basePath;
-  const canonicalURL = `${BASE_URL}${basePath}?locale=${locale}`;
+  const urlPath = basePath === '' ? '/' : basePath;
+  const canonicalURL = `${BASE_URL}${basePath}`;
 
   const tOg = t.raw('og') as {
     title: string;
@@ -187,9 +187,9 @@ export async function fetchSEOMetadata({
     alternates: {
       canonical: canonicalURL,
       languages: {
-        'en-us': `${canonicalPath}?locale=en-us`,
-        'es-us': `${canonicalPath}?locale=es-us`,
-        'x-default': `${canonicalPath}?locale=${i18n.defaultLocale}`,
+        'en-us': `${urlPath}?locale=en-us`,
+        'es-us': `${urlPath}?locale=es-us`,
+        'x-default': `${urlPath}?locale=${i18n.defaultLocale}`,
       },
     },
     keywords: t('keywords').split(','),
