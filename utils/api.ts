@@ -39,14 +39,13 @@ export async function fetchAPI<T>({
     { encodeValuesOnly: true }
   );
   const url = new URL(
-    `${path}${parsedQuery && '?' + parsedQuery}${
-      isPreview ? '&preview=true' : ''
+    `${path}${parsedQuery && '?' + parsedQuery}${isPreview ? '&preview=true' : ''
     }`,
     API_URL
   );
   const response = await fetch(url, {
     ...options,
-    cache: isPreview ? 'no-store' : options?.cache,
+    next: { revalidate: 3600 }
   });
 
   if (!response.ok) {
@@ -274,12 +273,12 @@ export async function fetchSEOMetadata({
   // Case 2: No data, fetch from API
   const filters = slug
     ? {
-        filters: {
-          slug: {
-            $eq: slug,
-          },
+      filters: {
+        slug: {
+          $eq: slug,
         },
-      }
+      },
+    }
     : undefined;
 
   interface SEOResponse {
