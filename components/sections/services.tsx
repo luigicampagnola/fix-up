@@ -31,12 +31,12 @@ export default function Services({
       className='flex flex-col items-center relative bg-secondary'
     >
       <div className='container py-20'>
-        <h3 className='capitalize font-bold text-center desktop:text-left text-4xl desktop:text-5xl capitilize text-background space-x-2'>
-          {title}
-          <span className='text-primary pl-2'>{subTitle}</span>
-        </h3>
+        <div className='flex flex-col gap-8'>
+          <h3 className='capitalize font-bold text-center desktop:text-left text-4xl desktop:text-5xl text-background space-x-2 break-all'>
+            {title}
+            <span className='text-primary'>{subTitle}</span>
+          </h3>
 
-        <div className='mt-12'>
           <BentoGrid>
             {cards &&
               cards.map(({ name, cover, slug, description }, i) => (

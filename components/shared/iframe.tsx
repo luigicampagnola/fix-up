@@ -20,7 +20,7 @@ export default function Iframe({
       allowFullScreen
       loading='lazy'
       referrerPolicy='no-referrer-when-downgrade'
-      className='absolute inset-0 rounded-md'
+      className='aspect-[3/2] desktop:aspect-[4/3]'
     />
   ) : null;
 }

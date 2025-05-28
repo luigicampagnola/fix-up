@@ -100,7 +100,7 @@ const TabContentWrapper = ({
 }: { className?: string } & PropsWithChildren) => (
   <div
     className={cn(
-      'col-span-1 mt-8 relative aspect-[4/3] rounded-md',
+      'col-span-1 mt-8 relative rounded-md',
       className
     )}
   >
@@ -116,13 +116,6 @@ const MapLocationItem = ({
     <Iframe
       title={`${name} Map`}
       src={`${GOOGLE_MAPS_URL}${mapUrl}`}
-      width='100%'
-      height='100%'
-      style={{ border: 0 }}
-      allowFullScreen
-      loading='lazy'
-      referrerPolicy='no-referrer-when-downgrade'
-      className='absolute inset-0 rounded-md'
     />
     <div className='absolute bottom-0 left-0 w-full p-4'>
       <div className='bg-background rounded-lg p-3 inline-flex items-center gap-2 shadow-md'>
