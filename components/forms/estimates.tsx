@@ -11,7 +11,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { FormResponse, submitEstimateForm } from '@/lib/actions';
 import Recaptcha from './recaptcha';
 import { useTranslations } from 'next-intl';
-import { VALID_US_AREA_CODES } from '@/utils/constants';
+import { IS_NOT_PRODUCTION_ENV, VALID_US_AREA_CODES } from '@/utils/constants';
 
 interface FormField {
   label: string;
@@ -66,7 +66,7 @@ export default function EstimateForm() {
     formState.phoneNumber.length > 0 &&
     formState.email.length > 0 &&
     formState.street.length > 0 &&
-    (process.env.NODE_ENV !== 'production' || recaptchaToken.length > 0);
+    (recaptchaToken.length > 0 || IS_NOT_PRODUCTION_ENV);
 
   const formatPhoneNumber = (value: string): string => {
     const numbers = value.replace(/\D/g, '');
@@ -109,7 +109,7 @@ export default function EstimateForm() {
 
   const handleSubmit = async (formData: FormData): Promise<void> => {
     // Append mock reCAPTCHA token in non-production environments
-    if (process.env.NODE_ENV !== 'production') {
+    if (IS_NOT_PRODUCTION_ENV) {
       formData.append('recaptchaToken', 'mock-token');
     } else {
       formData.append('recaptchaToken', recaptchaToken);
@@ -289,10 +289,10 @@ export default function EstimateForm() {
         />
         <Input type='hidden' name='formLoadTime' value={formLoadTime} />
         <Suspense>
-          {process.env.NODE_ENV === 'production' ? (
-            <Recaptcha onVerify={handleRecaptchaVerify} />
-          ) : (
+          {IS_NOT_PRODUCTION_ENV ? (
             <Input type='hidden' name='recaptchaToken' value='mock-token' />
+          ) : (
+            <Recaptcha onVerify={handleRecaptchaVerify} />
           )}
         </Suspense>
         {state.errors?.recaptchaToken && (
