@@ -3,20 +3,25 @@
 import { getModalCookies, setModalDisabledCookie } from '@/lib/actions';
 import { useState, useEffect, useRef } from 'react';
 import EstimateForm from '../forms/estimates';
+import { usePathname } from 'next/navigation';
 
 export default function EstimateModal() {
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const pathName = usePathname()
 
   // Check cookies and show modal after 10 seconds
   useEffect(() => {
     async function checkCookies() {
       const { formSubmitted, modalDisabled } = await getModalCookies();
       if (!formSubmitted && !modalDisabled) {
-        const timer = setTimeout(() => {
-          setIsOpen(true);
-        }, 10000);
-        return () => clearTimeout(timer);
+        if (pathName !== '/estimates') {
+          const timer = setTimeout(() => {
+            setIsOpen(true);
+          }, 10000);
+          return () => clearTimeout(timer);
+        }
+
       }
     }
     checkCookies();

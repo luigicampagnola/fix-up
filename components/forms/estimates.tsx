@@ -60,12 +60,13 @@ export default function EstimateForm() {
   );
   const [showCustomAreaCode, setShowCustomAreaCode] = useState(false);
 
+  // Bypass reCAPTCHA validation in non-production environments
   const isFormValid: boolean =
     formState.fullName.length > 0 &&
     formState.phoneNumber.length > 0 &&
     formState.email.length > 0 &&
     formState.street.length > 0 &&
-    recaptchaToken.length > 0;
+    (process.env.NODE_ENV !== 'production' || recaptchaToken.length > 0);
 
   const formatPhoneNumber = (value: string): string => {
     const numbers = value.replace(/\D/g, '');
@@ -107,7 +108,12 @@ export default function EstimateForm() {
   };
 
   const handleSubmit = async (formData: FormData): Promise<void> => {
-    formData.append('recaptchaToken', recaptchaToken);
+    // Append mock reCAPTCHA token in non-production environments
+    if (process.env.NODE_ENV !== 'production') {
+      formData.append('recaptchaToken', 'mock-token');
+    } else {
+      formData.append('recaptchaToken', recaptchaToken);
+    }
     formData.append('formLoadTime', formLoadTime);
     const isCustomAreaCodeValue = formState.isCustomAreaCode ? 'true' : 'false';
     formData.append('isCustomAreaCode', isCustomAreaCodeValue);
@@ -135,10 +141,10 @@ export default function EstimateForm() {
   const tThankYou = tEstimateForm.raw('thankYou') as TEstimateForm['thankYou'];
 
   return state.success ? (
-    <Card className='w-full max-w-md px-6 py-16 bg-background rounded-lg shadow-lg space-y-4'>
-      <h2 className='text-2xl font-bold text-foreground'>{tThankYou.title}</h2>
-      <Alert className='bg-green-50 border-green-200 text-primary'>
-        <AlertDescription>{tThankYou.description}</AlertDescription>
+    <Card id="thank-you-card" className='w-full max-w-md px-6 py-16 bg-background rounded-lg shadow-lg space-y-4'>
+      <h2 id="thank-you-title" className='text-2xl font-bold text-foreground'>{tThankYou.title}</h2>
+      <Alert id="thank-you-alert" className='bg-green-50 border-green-200 text-primary'>
+        <AlertDescription id="thank-you-description">{tThankYou.description}</AlertDescription>
       </Alert>
     </Card>
   ) : (
@@ -149,7 +155,7 @@ export default function EstimateForm() {
         </h2>
       </div>
       {state.message && !state.success && (
-        <Alert className='mb-4 bg-red-50 border-red-200 text-destructive'>
+        <Alert id="general-error" className='mb-4 bg-red-50 border-red-200 text-destructive'>
           <AlertDescription>{state.message}</AlertDescription>
         </Alert>
       )}
@@ -168,13 +174,11 @@ export default function EstimateForm() {
             placeholder={tFields.name.placeholder}
             value={formState.fullName}
             onChange={handleChange}
-            className={`border ${
-              state.errors?.fullName ? 'border-destructive' : 'border-gray-300'
-            } rounded p-3 w-full`}
+            className={`border ${state.errors?.fullName ? 'border-destructive' : 'border-gray-300'} rounded p-3 w-full`}
             required
           />
           {state.errors?.fullName && (
-            <p className='text-destructive text-xs mt-1'>
+            <p id="error-fullName" className='text-destructive text-xs mt-1'>
               {state.errors.fullName[0]}
             </p>
           )}
@@ -193,15 +197,11 @@ export default function EstimateForm() {
             placeholder={tFields.phoneNumber.placeholder}
             value={formState.phoneNumber}
             onChange={handleChange}
-            className={`border ${
-              state.errors?.phoneNumber
-                ? 'border-destructive'
-                : 'border-gray-300'
-            } rounded p-3 w-full`}
+            className={`border ${state.errors?.phoneNumber ? 'border-destructive' : 'border-gray-300'} rounded p-3 w-full`}
             required
           />
           {state.errors?.phoneNumber && (
-            <p className='text-destructive text-xs mt-1'>
+            <p id="error-phoneNumber" className='text-destructive text-xs mt-1'>
               {state.errors.phoneNumber[0]}
             </p>
           )}
@@ -210,22 +210,16 @@ export default function EstimateForm() {
               <div className='w-full inline-flex items-center gap-x-2 text-sm font-medium text-gray-700'>
                 <span>{tFields.customAreaCode.label}</span>
                 <span
+                  id="custom-area-code-yes"
                   onClick={() => handleCustomAreaCodeSelection(true)}
-                  className={`cursor-pointer px-2 py-1 rounded border border-gray-300 text-sm ${
-                    formState.isCustomAreaCode
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-background hover:bg-muted'
-                  }`}
+                  className={`cursor-pointer px-2 py-1 rounded border border-gray-300 text-sm ${formState.isCustomAreaCode ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-muted'}`}
                 >
                   Yes
                 </span>
                 <span
+                  id="custom-area-code-no"
                   onClick={() => handleCustomAreaCodeSelection(false)}
-                  className={`cursor-pointer px-2 py-1 rounded border border-gray-300 text-sm ${
-                    !formState.isCustomAreaCode
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-background hover:bg-muted'
-                  }`}
+                  className={`cursor-pointer px-2 py-1 rounded border border-gray-300 text-sm ${!formState.isCustomAreaCode ? 'bg-primary text-primary-foreground' : 'bg-background hover:bg-muted'}`}
                 >
                   No
                 </span>
@@ -251,13 +245,11 @@ export default function EstimateForm() {
             placeholder={tFields.email.placeholder}
             value={formState.email}
             onChange={handleChange}
-            className={`border ${
-              state.errors?.email ? 'border-destructive' : 'border-gray-300'
-            } rounded p-3 w-full`}
+            className={`border ${state.errors?.email ? 'border-destructive' : 'border-gray-300'} rounded p-3 w-full`}
             required
           />
           {state.errors?.email && (
-            <p className='text-destructive text-xs mt-1'>
+            <p id="error-email" className='text-destructive text-xs mt-1'>
               {state.errors.email[0]}
             </p>
           )}
@@ -276,13 +268,12 @@ export default function EstimateForm() {
             placeholder={tFields.street.placeholder}
             value={formState.street}
             onChange={handleChange}
-            className={`border ${
-              state.errors?.street ? 'border-destructive' : 'border-gray-300'
-            } rounded p-3 w-full`}
+            className={`border ${state.errors?.street ? 'border-destructive' : 'border-gray-300'} rounded p-3 w-full`}
+
             required
           />
           {state.errors?.street && (
-            <p className='text-destructive text-xs mt-1'>
+            <p id="error-street" className='text-destructive text-xs mt-1'>
               {state.errors.street[0]}
             </p>
           )}
@@ -298,10 +289,14 @@ export default function EstimateForm() {
         />
         <Input type='hidden' name='formLoadTime' value={formLoadTime} />
         <Suspense>
-          <Recaptcha onVerify={handleRecaptchaVerify} />
+          {process.env.NODE_ENV === 'production' ? (
+            <Recaptcha onVerify={handleRecaptchaVerify} />
+          ) : (
+            <Input type='hidden' name='recaptchaToken' value='mock-token' />
+          )}
         </Suspense>
         {state.errors?.recaptchaToken && (
-          <p className='text-destructive text-xs mt-1'>
+          <p id="error-recaptcha" className='text-destructive text-xs mt-1'>
             {state.errors.recaptchaToken[0]}
           </p>
         )}

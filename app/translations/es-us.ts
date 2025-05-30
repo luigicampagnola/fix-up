@@ -39,8 +39,8 @@ const esTranslations = {
         placeholder: 'your@email.com',
       },
       street: {
-        label: 'Direccion',
-        placeholder: 'Dirección extacta',
+        label: 'Direccion exacta',
+        placeholder: '6917 NW 77th Ave, Miami, 33166',
       },
       customAreaCode: {
         label: '¿Es válido el número de teléfono?',

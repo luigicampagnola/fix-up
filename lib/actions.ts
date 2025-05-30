@@ -2,8 +2,12 @@
 
 import { fetchAPI } from '@/utils/api';
 import {
+  ADDRESS_REGEX,
   DISPOSABLE_EMAIL_DOMAINS,
   INVALID_US_AREA_CODES,
+  IS_NOT_PRODUCTION_ENV,
+  SOUTH_FLORIDA_CITIES,
+  SOUTH_FLORIDA_ZIP_RANGES,
   VALID_US_AREA_CODES,
 } from '@/utils/constants';
 import { z } from 'zod';
@@ -40,8 +44,33 @@ const EstimateFormSchema = z
       }),
     street: z
       .string()
-      .min(5, { message: 'Address must be at least 5 characters' })
-      .max(100, { message: 'Address cannot exceed 100 characters' }),
+      .transform((val) => val.trim())
+      .pipe(
+        z
+          .string()
+          .max(90, { message: 'Address cannot exceed 90 characters' })
+          .regex(ADDRESS_REGEX, {
+            message: 'Address requires street, city (Broward/Miami-Dade), and ZIP code (e.g., 6917 NW 77th Ave Miami 33166)',
+          })
+          .refine(
+            (val) => {
+              const lowerVal = val.toLowerCase();
+              const zipMatch = lowerVal.match(/\b\d{5}\b/);
+              if (!zipMatch) return false;
+              const zipNum = parseInt(zipMatch[0], 10);
+              const isSouthFloridaZip = SOUTH_FLORIDA_ZIP_RANGES.some(
+                (range) => zipNum >= range.min && zipNum <= range.max
+              );
+              const isSouthFloridaCity = SOUTH_FLORIDA_CITIES.some((city) =>
+                lowerVal.includes(city)
+              );
+              return isSouthFloridaZip && isSouthFloridaCity;
+            },
+            {
+              message: 'Address requires street, city (Broward/Miami-Dade), and valid ZIP code (e.g., 6917 NW 77th Ave, Miami, 33166)',
+            }
+          )
+      ),
     recaptchaToken: z
       .string()
       .min(1, { message: 'reCAPTCHA verification is required' }),
@@ -72,6 +101,7 @@ const EstimateFormSchema = z
     }
   });
 
+
 export type EstimateFormData = z.infer<typeof EstimateFormSchema>;
 
 export type FormResponse = {
@@ -90,6 +120,10 @@ export type FormResponse = {
 };
 
 async function verifyRecaptchaToken(token: string): Promise<boolean> {
+  if (IS_NOT_PRODUCTION_ENV) {
+    return true;
+  }
+
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;
   if (!secretKey) {
     console.error('reCAPTCHA secret key is not configured');
@@ -192,7 +226,7 @@ export async function submitEstimateForm(
             phone: phoneNumber,
             email,
             address: street,
-            internalTest: process.env.NODE_ENV !== 'production',
+            internalTest: IS_NOT_PRODUCTION_ENV,
           },
         }),
       },

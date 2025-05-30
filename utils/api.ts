@@ -6,9 +6,8 @@ import { parseLocale } from '@/lib/utils';
 import { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { i18n, Locale } from '@/i18n/config';
-import { OPEN_GRAPH_IMAGE_PATH } from './constants';
+import { IS_NOT_PRODUCTION_ENV, OPEN_GRAPH_IMAGE_PATH } from './constants';
 const API_URL = process.env.API_URL || 'http://localhost:1337';
-const production = process.env.NODE_ENV !== 'development';
 const isPreview = process.env.RUNTIME_ENV === 'preview' || false;
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://fixuproofing.com';
 
@@ -50,7 +49,7 @@ export async function fetchAPI<T>({
 
   if (!response.ok) {
     const contentType = response.headers.get('Content-Type');
-    const requestUrl = !production ? ` Request url: ${url}` : '';
+    const requestUrl = IS_NOT_PRODUCTION_ENV ? ` Request url: ${url}` : '';
     let errorMessage = `Request failed with status ${response.status} ${requestUrl}`;
 
     if (contentType && contentType.includes('application/json')) {
