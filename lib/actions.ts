@@ -50,24 +50,33 @@ const EstimateFormSchema = z
           .string()
           .max(90, { message: 'Address cannot exceed 90 characters' })
           .regex(ADDRESS_REGEX, {
-            message: 'Address requires street, city (Broward/Miami-Dade), and ZIP code (e.g., 6917 NW 77th Ave Miami 33166)',
+            message: 'Address requires street, city (Broward/Miami-Dade), ZIP code (e.g., 6917 NW 77th Ave Miami 33166)',
           })
           .refine(
             (val) => {
               const lowerVal = val.toLowerCase();
-              const zipMatch = lowerVal.match(/\b\d{5}\b/);
-              if (!zipMatch) return false;
-              const zipNum = parseInt(zipMatch[0], 10);
+              // Match all 5-digit numbers and take the second one if it exists, otherwise the first
+              const zipMatches = lowerVal.match(/\b\d{5}\b/g);
+              if (!zipMatches || zipMatches.length === 0) return false;
+              const zipNum = parseInt(zipMatches[zipMatches.length > 1 ? 1 : 0], 10);
               const isSouthFloridaZip = SOUTH_FLORIDA_ZIP_RANGES.some(
                 (range) => zipNum >= range.min && zipNum <= range.max
               );
-              const isSouthFloridaCity = SOUTH_FLORIDA_CITIES.some((city) =>
-                lowerVal.includes(city)
-              );
-              return isSouthFloridaZip && isSouthFloridaCity;
+              return isSouthFloridaZip;
             },
             {
-              message: 'Address requires street, city (Broward/Miami-Dade), and valid ZIP code (e.g., 6917 NW 77th Ave, Miami, 33166)',
+              message: 'Address requires a valid ZIP code in South Florida (e.g., 6917 NW 77th Ave Miami 33166)',
+            }
+          )
+          .refine(
+            (val) => {
+              const lowerVal = val.toLowerCase();
+              return SOUTH_FLORIDA_CITIES.some((city) =>
+                lowerVal.includes(city)
+              );
+            },
+            {
+              message: 'Unfortunately, we do not currently serve that city. Please call us at (786) 235-2435 for more information.',
             }
           )
       ),

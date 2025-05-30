@@ -62,17 +62,18 @@ export const REDIRECTS_STATIC_QUERY =
 export const IS_NOT_PRODUCTION_ENV = process.env.NODE_ENV !== 'production';
 
 /*
-Regex Explanations
-  \d+\s+: Street number
-  [A-Za-z0-9\s,.-]+: Street name (flexible)
-  (?:,\s*|\s+): Separator
-  [A-Za-z\s]+: City name
-  (?:,\s*|\s+): Separator
-  ([A-Z]{2})(?:\s+)?: State (e.g., FL) + optional space
-  \d{5}: ZIP
-  (?:,\s+[A-Za-z\s]+)?: Optional country (like , United States)
- */
-export const ADDRESS_REGEX: RegExp = /^\d+\s+[A-Za-z0-9\s,.#-]+(?:,\s*|\s+)[A-Za-z\s]+(?:,\s*|\s+)\d{5}$/
+  Regex Explanations
+  ^[1-9]\d{0,5}\s+: Street number (1-6 digits, no leading zero)
+  [A-Za-z0-9\s,.#-]+: Street name (letters, numbers, spaces, commas, periods, #, hyphens)
+  (?:,\s*|\s+): Separator (comma with optional spaces or spaces)
+  [A-Za-z\s]+: City name (letters and spaces)
+  (?:,\s*|\s+): Separator (comma with optional spaces or spaces)
+  \d{5}: ZIP code (5 digits)
+  (?:(?:,\s*|\s+)(?:FL|Florida))?: Optional state (FL or Florida)
+  (?:(?:,\s*|\s+)(?:USA|United States))?: Optional country (USA or United States)
+  $/i: End of string, case-insensitive
+*/
+export const ADDRESS_REGEX: RegExp = /^[1-9]\d{0,5}\s+[A-Za-z0-9\s,.#-]+(?:,\s*|\s+)[A-Za-z\s]+(?:,\s*|\s+)\d{5}(?:(?:,\s*|\s+)(?:FL|Florida))?(?:(?:,\s*|\s+)(?:USA|United States))?$/i
 
 export const SOUTH_FLORIDA_CITIES = [
   'miami',
@@ -101,6 +102,9 @@ export const SOUTH_FLORIDA_CITIES = [
   'miami gardens',
   'aventura',
   'doral',
+  'kendall',
+  'westchester'
+
 ].map((city) => city.toLowerCase());
 
 export const SOUTH_FLORIDA_ZIP_RANGES = [
