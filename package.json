@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clean": "git clean -xdf node_modules pnpm-lock.yaml"
+    "clean": "git clean -xdf node_modules pnpm-lock.yaml",
+    "test": "cypress open"
+
   },
   "dependencies": {
     "@next/third-parties": "^15.3.1",
@@ -55,6 +57,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-google-recaptcha": "^2.1.9",
+    "cypress": "^14.4.0",
     "eslint": "^9.25.1",
     "eslint-config-next": "15.0.3",
     "postcss": "^8",

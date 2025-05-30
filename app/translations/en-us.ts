@@ -35,12 +35,12 @@ const enTranslations = {
         placeholder: '(000) 000-0000',
       },
       email: {
-        label: 'email',
+        label: 'Email',
         placeholder: 'your@email.com',
       },
       street: {
-        label: 'Street Address',
-        placeholder: 'Street',
+        label: 'Address',
+        placeholder: '6917 NW 77th Ave, Miami, 33166',
       },
       customAreaCode: {
         label: 'Valid phone number?',
