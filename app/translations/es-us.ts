@@ -40,7 +40,7 @@ const esTranslations = {
       },
       street: {
         label: 'Direccion exacta',
-        placeholder: '6917 NW 77th Ave, Miami, 33166',
+        placeholder: '1234 SW 12th St, Miami, 33155',
       },
       customAreaCode: {
         label: '¿Es válido el número de teléfono?',
