@@ -33,8 +33,10 @@ function extractHostname(referer: string | null): string | null {
 
 async function logUserActivity(request: NextRequest) {
   try {
-    const sessionId = request.cookies.get('_vercel_session');
-    const userAgentData = userAgent(request)
+    const sessionId = request.cookies.get('_vercel_session')?.value || 'unknown'; // Safely access cookie
+    const uaHeader = request.headers.get('user-agent');
+    const userAgentData = uaHeader ? userAgent(request) : {}; // Fallback to empty object if no user-agent
+    console.log('User-Agent Header:', uaHeader); // Debug log
     const referer = request.headers.get('referer');
     const refererHost = extractHostname(referer);
     const ip = request.headers.get('x-forwarded-for') || 'unknown';
