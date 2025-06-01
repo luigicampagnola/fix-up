@@ -1,14 +1,14 @@
 import { NextResponse, userAgent } from 'next/server';
 import type { NextRequest } from 'next/server';
-// import { Redis } from '@upstash/redis';
+import { Redis } from '@upstash/redis';
 import { Locale, i18n } from './i18n/config';
 import { v4 as uuidv4 } from 'uuid';
 
 const locales = i18n.locales as Locale[];
-// const redis = new Redis({
-//   url: process.env.TRACKING_DB_URL || '',
-//   token: process.env.TRACKING_DB_TOKEN || '',
-// });
+const redis = new Redis({
+  url: process.env.TRACKING_DB_URL || '',
+  token: process.env.TRACKING_DB_TOKEN || '',
+});
 
 async function logUserActivity(request: NextRequest, sessionId: string) {
   try {
@@ -16,6 +16,33 @@ async function logUserActivity(request: NextRequest, sessionId: string) {
     const userAgentData = uaHeader ? userAgent(request) : {};
     const referer = request.headers.get('referer');
     const ip = request.headers.get('x-forwarded-for') || 'unknown';
+
+    // Parse referer to extract domain and categorize traffic source
+    let trafficSource = 'direct';
+    let refererDomain = null;
+    if (referer) {
+      try {
+        const parsedReferer = new URL(referer);
+        refererDomain = parsedReferer.hostname || 'unknown';
+        if (refererDomain.includes('google.com')) {
+          trafficSource = 'organic_search';
+        } else if (refererDomain.includes('facebook.com') || refererDomain.includes('twitter.com') || refererDomain.includes('linkedin.com')) {
+          trafficSource = 'social';
+        }
+      } catch (error) {
+        console.warn('Invalid referer URL:', referer, error);
+      }
+    }
+
+    // Parse UTM parameters from the request URL
+    const url = new URL(request.url);
+    const utmParams = {
+      utm_source: url.searchParams.get('utm_source') || null,
+      utm_medium: url.searchParams.get('utm_medium') || null,
+      utm_campaign: url.searchParams.get('utm_campaign') || null,
+      utm_term: url.searchParams.get('utm_term') || null,
+      utm_content: url.searchParams.get('utm_content') || null,
+    };
 
     const userInfo = {
       ip,
@@ -25,6 +52,9 @@ async function logUserActivity(request: NextRequest, sessionId: string) {
       method: request.method,
       timestamp: new Date().toISOString(),
       referer: referer || null,
+      refererDomain,
+      trafficSource,
+      utmParams,
       geo: {
         country: request.headers.get('x-vercel-ip-country') || 'unknown',
         region: request.headers.get('x-vercel-ip-region') || 'unknown',
@@ -41,16 +71,27 @@ async function logUserActivity(request: NextRequest, sessionId: string) {
       requestId: request.headers.get('x-vercel-id') || 'unknown',
       deploymentUrl: request.headers.get('x-vercel-deployment-url') || 'unknown',
       xRequestedWith: request.headers.get('x-requested-with') || null,
-      sessionId
+      sessionId,
     };
 
-    const key = `user_activity:${Date.now()}`;
-    console.log('User-Activity-Key', key);
+    // Create keys for storage and counting
+    const counterKey = `uac:${ip}:${sessionId}:${trafficSource}`;
+    const storageKey = `ua:${Date.now()}:${sessionId}`;
+
+    // Increment counters for traffic source and geographic data
+    await redis.incr(counterKey); // Count unique user+source combinations
+    await redis.expire(counterKey, 7 * 24 * 60 * 60);
+    await redis.incr(`tsc:${trafficSource}`); // Count by traffic source
+    await redis.expire(`tsc:${trafficSource}`, 7 * 24 * 60 * 60);
+
+    console.log('User-Activity-Key', storageKey);
+    console.log('User-Activity-Counter-Key', counterKey);
+    console.log('Traffic-Source', trafficSource);
+    console.log('Referer-Domain', refererDomain);
+    console.log('UTM-Params', JSON.stringify(utmParams));
     console.log('User-Session-Id', sessionId);
     console.log('User-Agent Header:', uaHeader);
     console.log('User-Info:', JSON.stringify(userInfo));
-    // await redis.set(key, JSON.stringify(userInfo));
-    // await redis.expire(key, 7 * 24 * 60 * 60); // Expire after 7 days
   } catch (error) {
     console.error('Error logging user activity to Upstash Redis:', error);
   }
