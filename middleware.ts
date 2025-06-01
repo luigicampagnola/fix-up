@@ -2,6 +2,7 @@ import { NextResponse, userAgent } from 'next/server';
 import type { NextRequest } from 'next/server';
 // import { Redis } from '@upstash/redis';
 import { Locale, i18n } from './i18n/config';
+import { v4 as uuidv4 } from 'uuid';
 
 const locales = i18n.locales as Locale[];
 // const redis = new Redis({
@@ -9,39 +10,12 @@ const locales = i18n.locales as Locale[];
 //   token: process.env.TRACKING_DB_TOKEN || '',
 // });
 
-// Helper to parse cookies from header
-// function parseCookies(cookieHeader: string | null): Record<string, string> {
-//   const cookies: Record<string, string> = {};
-//   if (!cookieHeader) return cookies;
-//   cookieHeader.split(';').forEach((cookie) => {
-//     const [name, value] = cookie.trim().split('=');
-//     if (name && value) cookies[name] = value;
-//   });
-//   return cookies;
-// }
-
-// function extractHostname(referer: string | null): string | null {
-//   if (!referer) return null;
-//   try {
-//     const match = referer.match(/^(?:https?:\/\/)?([^\/:?#]+)/i);
-//     return match ? match[1] : null;
-//   } catch (e) {
-//     console.error('Error extracting hostname from referer:', e);
-//     return null;
-//   }
-// }
-
-
-async function logUserActivity(request: NextRequest) {
+async function logUserActivity(request: NextRequest, sessionId: string) {
   try {
-    const allCookies = request.cookies.getAll(); // Safely access cookie
     const uaHeader = request.headers.get('user-agent');
-    const userAgentData = uaHeader ? userAgent(request) : {}; // Fallback to empty object if no user-agent
-    console.log('User-Agent Header:', uaHeader); // Debug log
+    const userAgentData = uaHeader ? userAgent(request) : {};
     const referer = request.headers.get('referer');
-    // const refererHost = extractHostname(referer);
     const ip = request.headers.get('x-forwarded-for') || 'unknown';
-    // const cookies = parseCookies(request.headers.get('cookie'));
 
     const userInfo = {
       ip,
@@ -50,16 +24,7 @@ async function logUserActivity(request: NextRequest) {
       path: request.nextUrl.pathname,
       method: request.method,
       timestamp: new Date().toISOString(),
-      // query: (() => {
-      //   try {
-      //     return Object.fromEntries(request.nextUrl.searchParams);
-      //   } catch (e) {
-      //     console.error('Failed to parse search params:', e);
-      //     return {};
-      //   }
-      // })(),
       referer: referer || null,
-      // refererHost,
       geo: {
         country: request.headers.get('x-vercel-ip-country') || 'unknown',
         region: request.headers.get('x-vercel-ip-region') || 'unknown',
@@ -76,11 +41,13 @@ async function logUserActivity(request: NextRequest) {
       requestId: request.headers.get('x-vercel-id') || 'unknown',
       deploymentUrl: request.headers.get('x-vercel-deployment-url') || 'unknown',
       xRequestedWith: request.headers.get('x-requested-with') || null,
-      ...allCookies
+      sessionId
     };
 
     const key = `user_activity:${Date.now()}`;
-    console.log('key: ', key, 'data: ', JSON.stringify(userInfo));
+    console.log('User-Activity-Key', key);
+    console.log('User-Agent Header:', uaHeader);
+    console.log('User-Info:', JSON.stringify(userInfo));
     // await redis.set(key, JSON.stringify(userInfo));
     // await redis.expire(key, 7 * 24 * 60 * 60); // Expire after 7 days
   } catch (error) {
@@ -97,20 +64,27 @@ export async function middleware(request: NextRequest) {
       status: 403,
     });
   }
+  const response = NextResponse.next();
 
-  await logUserActivity(request);
+  const sessionId = request.cookies.get('SESSION_ID')?.value
+  if (!sessionId) {
+    const sessionId = uuidv4();
+    await logUserActivity(request, sessionId);
+    response.cookies.set('SESSION_ID', sessionId, { path: '/' });
+  } else {
+    await logUserActivity(request, sessionId);
+  }
 
   // Step 4: Get or set session ID
   const { searchParams } = new URL(request.url);
   const locale = searchParams.get('locale') as Locale | null;
 
   if (locale && locales.includes(locale)) {
-    const response = NextResponse.next();
     response.cookies.set('NEXT_LOCALE', locale, { path: '/' });
     return response;
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
