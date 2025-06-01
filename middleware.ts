@@ -75,7 +75,7 @@ async function logUserActivity(request: NextRequest, sessionId: string) {
     };
 
     // Create keys for storage and counting
-    const counterKey = `uac:${ip}:${sessionId}:${trafficSource}`;
+    const counterKey = `uac:${ip}:${sessionId}`;
     const storageKey = `ua:${Date.now()}:${sessionId}`;
 
     // Increment counters for traffic source and geographic data
