@@ -35,13 +35,13 @@ async function logUserActivity(request: NextRequest, sessionId: string) {
     }
 
     // Parse UTM parameters from the request URL
-    const url = new URL(request.url);
+    const { searchParams } = new URL(request.url);
     const utmParams = {
-      utm_source: url.searchParams.get('utm_source') || null,
-      utm_medium: url.searchParams.get('utm_medium') || null,
-      utm_campaign: url.searchParams.get('utm_campaign') || null,
-      utm_term: url.searchParams.get('utm_term') || null,
-      utm_content: url.searchParams.get('utm_content') || null,
+      utm_source: searchParams.get('utm_source') || null,
+      utm_medium: searchParams.get('utm_medium') || null,
+      utm_campaign: searchParams.get('utm_campaign') || null,
+      utm_term: searchParams.get('utm_term') || null,
+      utm_content: searchParams.get('utm_content') || null,
     };
 
     const userInfo = {
