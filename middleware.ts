@@ -34,7 +34,7 @@ const locales = i18n.locales as Locale[];
 
 async function logUserActivity(request: NextRequest) {
   try {
-    const sessionId = request.cookies.get('_vercel_session')?.value || 'unknown'; // Safely access cookie
+    const allCookies = request.cookies.getAll(); // Safely access cookie
     const uaHeader = request.headers.get('user-agent');
     const userAgentData = uaHeader ? userAgent(request) : {}; // Fallback to empty object if no user-agent
     console.log('User-Agent Header:', uaHeader); // Debug log
@@ -76,7 +76,7 @@ async function logUserActivity(request: NextRequest) {
       requestId: request.headers.get('x-vercel-id') || 'unknown',
       deploymentUrl: request.headers.get('x-vercel-deployment-url') || 'unknown',
       xRequestedWith: request.headers.get('x-requested-with') || null,
-      sessionId,
+      ...allCookies
     };
 
     const key = `user_activity:${Date.now()}`;
