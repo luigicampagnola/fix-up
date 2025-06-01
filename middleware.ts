@@ -1,9 +1,9 @@
-import { NextResponse, userAgent } from 'next/server';
+import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 // import { Redis } from '@upstash/redis';
-import { Locale } from './i18n/config';
+import { Locale, i18n } from './i18n/config';
 
-const locales = (await import('./i18n/config')).i18n.locales as Locale[];
+const locales = i18n.locales as Locale[];
 // const redis = new Redis({
 //   url: process.env.TRACKING_DB_URL || '',
 //   token: process.env.TRACKING_DB_TOKEN || '',
@@ -105,29 +105,19 @@ export async function middleware(request: NextRequest) {
   //   return new NextResponse('Too Many Requests', { status: 429 });
   // }
 
-  // Step 3: Handle ?locale= query parameter
-  let locale: Locale | null = null;
-  try {
-    locale = request.nextUrl.searchParams.get('locale') as Locale | null;
-  } catch (e) {
-    console.error('Failed to parse locale from search params:', e);
-  }
-
-  // Step 4: Get or set session ID
-  const response = NextResponse.next();
-
-  // Step 5: Set locale cookie if valid
-  if (locale && locales.includes(locale)) {
-    response.headers.append(
-      'Set-Cookie',
-      `NEXT_LOCALE=${locale}; Path=/`
-    );
-  }
-
-  // Step 6: Log user activity
   // await logUserActivity(request);
 
-  return response;
+  // Step 4: Get or set session ID
+  const { searchParams } = new URL(request.url);
+  const locale = searchParams.get('locale') as Locale | null;
+
+  if (locale && locales.includes(locale)) {
+    const response = NextResponse.next();
+    response.cookies.set('NEXT_LOCALE', locale, { path: '/' });
+    return response;
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
