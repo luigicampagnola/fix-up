@@ -1,7 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, userAgent } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { Redis } from '@upstash/redis';
-import { parse } from 'useragent';
 import { Locale } from './i18n/config';
 
 const locales = (await import('./i18n/config')).i18n.locales as Locale[];
@@ -34,23 +33,17 @@ function extractHostname(referer: string | null): string | null {
 
 async function logUserActivity(request: NextRequest, sessionId: string) {
   try {
+
+    const userAgentData = userAgent(request)
     const referer = request.headers.get('referer');
     const refererHost = extractHostname(referer);
-
-    const userAgent = request.headers.get('user-agent') || 'unknown';
-    const parsedUA = parse(userAgent);
     const ip = request.headers.get('x-forwarded-for') || 'unknown';
     const cookies = parseCookies(request.headers.get('cookie'));
 
     const userInfo = {
       ip,
       forwardedFor: request.headers.get('x-vercel-forwarded-for') || 'unknown',
-      userAgent,
-      device: {
-        family: parsedUA.family,
-        os: parsedUA.os.family,
-        device: parsedUA.device.family,
-      },
+      ...userAgentData,
       path: request.nextUrl.pathname,
       method: request.method,
       timestamp: new Date().toISOString(),
