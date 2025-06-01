@@ -1,13 +1,13 @@
 import { NextResponse, userAgent } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { Redis } from '@upstash/redis';
+// import { Redis } from '@upstash/redis';
 import { Locale } from './i18n/config';
 
 const locales = (await import('./i18n/config')).i18n.locales as Locale[];
-const redis = new Redis({
-  url: process.env.TRACKING_DB_URL || '',
-  token: process.env.TRACKING_DB_TOKEN || '',
-});
+// const redis = new Redis({
+//   url: process.env.TRACKING_DB_URL || '',
+//   token: process.env.TRACKING_DB_TOKEN || '',
+// });
 
 // Helper to parse cookies from header
 function parseCookies(cookieHeader: string | null): Record<string, string> {
@@ -80,8 +80,9 @@ async function logUserActivity(request: NextRequest) {
     };
 
     const key = `user_activity:${Date.now()}`;
-    await redis.set(key, JSON.stringify(userInfo));
-    await redis.expire(key, 7 * 24 * 60 * 60); // Expire after 7 days
+    console.log('key: ', key, 'data: ', JSON.stringify(userInfo));
+    // await redis.set(key, JSON.stringify(userInfo));
+    // await redis.expire(key, 7 * 24 * 60 * 60); // Expire after 7 days
   } catch (error) {
     console.error('Error logging user activity to Upstash Redis:', error);
   }
