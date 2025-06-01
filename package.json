@@ -9,7 +9,6 @@
     "lint": "next lint",
     "clean": "git clean -xdf node_modules pnpm-lock.yaml",
     "test": "cypress open"
-
   },
   "dependencies": {
     "@next/third-parties": "^15.3.1",
@@ -24,7 +23,9 @@
     "@strapi/blocks-react-renderer": "^1.0.2",
     "@tabler/icons-react": "^3.31.0",
     "@types/nodemailer": "^6.4.17",
+    "@types/useragent": "^2.3.4",
     "@uidotdev/usehooks": "^2.4.1",
+    "@upstash/redis": "^1.34.9",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "class-variance-authority": "^0.7.1",
@@ -48,6 +49,7 @@
     "server-only": "^0.0.1",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
