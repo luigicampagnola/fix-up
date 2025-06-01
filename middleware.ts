@@ -31,6 +31,7 @@ const locales = (await import('./i18n/config')).i18n.locales as Locale[];
 //   }
 // }
 
+/*
 async function logUserActivity(request: NextRequest) {
   try {
     const sessionId = request.cookies.get('_vercel_session')?.value || 'unknown'; // Safely access cookie
@@ -49,14 +50,14 @@ async function logUserActivity(request: NextRequest) {
       path: request.nextUrl.pathname,
       method: request.method,
       timestamp: new Date().toISOString(),
-      query: (() => {
-        try {
-          return Object.fromEntries(request.nextUrl.searchParams);
-        } catch (e) {
-          console.error('Failed to parse search params:', e);
-          return {};
-        }
-      })(),
+      // query: (() => {
+      //   try {
+      //     return Object.fromEntries(request.nextUrl.searchParams);
+      //   } catch (e) {
+      //     console.error('Failed to parse search params:', e);
+      //     return {};
+      //   }
+      // })(),
       referer: referer || null,
       // refererHost,
       geo: {
@@ -86,6 +87,7 @@ async function logUserActivity(request: NextRequest) {
     console.error('Error logging user activity to Upstash Redis:', error);
   }
 }
+  */
 
 export async function middleware(request: NextRequest) {
   // Step 1: Country-based access control
@@ -123,7 +125,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Step 6: Log user activity
-  await logUserActivity(request);
+  // await logUserActivity(request);
 
   return response;
 }
