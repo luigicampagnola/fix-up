@@ -46,6 +46,7 @@ async function logUserActivity(request: NextRequest, sessionId: string) {
 
     const key = `user_activity:${Date.now()}`;
     console.log('User-Activity-Key', key);
+    console.log('User-Session-Id', sessionId);
     console.log('User-Agent Header:', uaHeader);
     console.log('User-Info:', JSON.stringify(userInfo));
     // await redis.set(key, JSON.stringify(userInfo));
