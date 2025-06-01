@@ -31,9 +31,9 @@ function extractHostname(referer: string | null): string | null {
   }
 }
 
-async function logUserActivity(request: NextRequest, sessionId: string) {
+async function logUserActivity(request: NextRequest) {
   try {
-
+    const sessionId = request.cookies.get('_vercel_session');
     const userAgentData = userAgent(request)
     const referer = request.headers.get('referer');
     const refererHost = extractHostname(referer);
@@ -110,16 +110,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Step 4: Get or set session ID
-  const cookies = parseCookies(request.headers.get('cookie'));
-  let sessionId = cookies.sessionId;
   const response = NextResponse.next();
-  if (!sessionId) {
-    sessionId = crypto.randomUUID();
-    response.headers.set(
-      'Set-Cookie',
-      `sessionId=${sessionId}; HttpOnly; Path=/; Max-Age=${24 * 60 * 60}`
-    );
-  }
 
   // Step 5: Set locale cookie if valid
   if (locale && locales.includes(locale)) {
@@ -130,7 +121,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Step 6: Log user activity
-  await logUserActivity(request, sessionId);
+  await logUserActivity(request);
 
   return response;
 }
