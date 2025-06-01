@@ -10,26 +10,26 @@ const locales = (await import('./i18n/config')).i18n.locales as Locale[];
 // });
 
 // Helper to parse cookies from header
-function parseCookies(cookieHeader: string | null): Record<string, string> {
-  const cookies: Record<string, string> = {};
-  if (!cookieHeader) return cookies;
-  cookieHeader.split(';').forEach((cookie) => {
-    const [name, value] = cookie.trim().split('=');
-    if (name && value) cookies[name] = value;
-  });
-  return cookies;
-}
+// function parseCookies(cookieHeader: string | null): Record<string, string> {
+//   const cookies: Record<string, string> = {};
+//   if (!cookieHeader) return cookies;
+//   cookieHeader.split(';').forEach((cookie) => {
+//     const [name, value] = cookie.trim().split('=');
+//     if (name && value) cookies[name] = value;
+//   });
+//   return cookies;
+// }
 
-function extractHostname(referer: string | null): string | null {
-  if (!referer) return null;
-  try {
-    const match = referer.match(/^(?:https?:\/\/)?([^\/:?#]+)/i);
-    return match ? match[1] : null;
-  } catch (e) {
-    console.error('Error extracting hostname from referer:', e);
-    return null;
-  }
-}
+// function extractHostname(referer: string | null): string | null {
+//   if (!referer) return null;
+//   try {
+//     const match = referer.match(/^(?:https?:\/\/)?([^\/:?#]+)/i);
+//     return match ? match[1] : null;
+//   } catch (e) {
+//     console.error('Error extracting hostname from referer:', e);
+//     return null;
+//   }
+// }
 
 async function logUserActivity(request: NextRequest) {
   try {
@@ -38,9 +38,9 @@ async function logUserActivity(request: NextRequest) {
     const userAgentData = uaHeader ? userAgent(request) : {}; // Fallback to empty object if no user-agent
     console.log('User-Agent Header:', uaHeader); // Debug log
     const referer = request.headers.get('referer');
-    const refererHost = extractHostname(referer);
+    // const refererHost = extractHostname(referer);
     const ip = request.headers.get('x-forwarded-for') || 'unknown';
-    const cookies = parseCookies(request.headers.get('cookie'));
+    // const cookies = parseCookies(request.headers.get('cookie'));
 
     const userInfo = {
       ip,
@@ -58,7 +58,7 @@ async function logUserActivity(request: NextRequest) {
         }
       })(),
       referer: referer || null,
-      refererHost,
+      // refererHost,
       geo: {
         country: request.headers.get('x-vercel-ip-country') || 'unknown',
         region: request.headers.get('x-vercel-ip-region') || 'unknown',
@@ -75,7 +75,6 @@ async function logUserActivity(request: NextRequest) {
       requestId: request.headers.get('x-vercel-id') || 'unknown',
       deploymentUrl: request.headers.get('x-vercel-deployment-url') || 'unknown',
       xRequestedWith: request.headers.get('x-requested-with') || null,
-      cookies,
       sessionId,
     };
 
