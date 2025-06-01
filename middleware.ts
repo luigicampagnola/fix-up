@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, userAgent } from 'next/server';
 import type { NextRequest } from 'next/server';
 // import { Redis } from '@upstash/redis';
 import { Locale, i18n } from './i18n/config';
@@ -31,7 +31,7 @@ const locales = i18n.locales as Locale[];
 //   }
 // }
 
-/*
+
 async function logUserActivity(request: NextRequest) {
   try {
     const sessionId = request.cookies.get('_vercel_session')?.value || 'unknown'; // Safely access cookie
@@ -87,7 +87,7 @@ async function logUserActivity(request: NextRequest) {
     console.error('Error logging user activity to Upstash Redis:', error);
   }
 }
-  */
+
 
 export async function middleware(request: NextRequest) {
   // Step 1: Country-based access control
@@ -98,14 +98,7 @@ export async function middleware(request: NextRequest) {
     });
   }
 
-  // Step 2: Check rate limiting
-  // const ip = request.headers.get('x-forwarded-for') || 'unknown';
-  // const isRateLimited = await checkRateLimit(ip);
-  // if (isRateLimited) {
-  //   return new NextResponse('Too Many Requests', { status: 429 });
-  // }
-
-  // await logUserActivity(request);
+  await logUserActivity(request);
 
   // Step 4: Get or set session ID
   const { searchParams } = new URL(request.url);
