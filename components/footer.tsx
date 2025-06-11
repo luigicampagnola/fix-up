@@ -117,7 +117,7 @@ export default async function Footer() {
         </div>
       </div>
       {/* Bottom Bar */}
-      <div className="bg-secondary py-2 flex flex-col justify-between px-4 text-white tablet:flex-row tablet:items-center">
+      <div className="bg-secondary py-4 flex flex-col justify-between px-4 text-white tablet:flex-row tablet:items-center">
         <div className="mb-2 text-sm tablet:mb-0 text-background text-center w-full">
           Copyright © {new Date().getFullYear()} {copyRight}
         </div>
