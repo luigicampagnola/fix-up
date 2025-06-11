@@ -107,7 +107,9 @@ describe('Estimate Form Validation', () => {
     cy.get('#fullName').type('Sarah Lee');
     cy.get('#phoneNumber').type('(954) 555-4321');
     cy.get('#email').type('sarah.lee@gmail.com');
-    cy.get('#street').type('11399 S Dixie Hwy, Miami, 33156, FL, United States');
+    cy.get('#street').type(
+      '11399 S Dixie Hwy, Miami, 33156, FL, United States'
+    );
     cy.get('input[name="contactInfo"]').should('have.value', '');
     cy.wait(3000);
     cy.get('button[type="submit"]').click();
@@ -161,7 +163,10 @@ describe('Estimate Form Validation', () => {
     cy.get('input[name="contactInfo"]').should('have.value', '');
     cy.wait(3000);
     cy.get('button[type="submit"]').click();
-    cy.get('#error-phoneNumber').should('contain', 'Phone number must be in format (000) 000-0000');
+    cy.get('#error-phoneNumber').should(
+      'contain',
+      'Phone number must be in format (000) 000-0000'
+    );
     cy.get('#thank-you-description').should('not.exist');
   });
 
@@ -173,7 +178,10 @@ describe('Estimate Form Validation', () => {
     cy.get('input[name="contactInfo"]').should('have.value', '');
     cy.wait(3000);
     cy.get('button[type="submit"]').click();
-    cy.get('#error-street').should('contain', 'Unfortunately, we do not currently serve that city. Please call us at (786) 235-2435 for more information.');
+    cy.get('#error-street').should(
+      'contain',
+      'Unfortunately, we do not currently serve that city. Please call us at (786) 235-2435 for more information.'
+    );
     cy.get('#thank-you-description').should('not.exist');
   });
 
@@ -185,7 +193,10 @@ describe('Estimate Form Validation', () => {
     cy.get('input[name="contactInfo"]').should('have.value', '');
     cy.wait(3000);
     cy.get('button[type="submit"]').click();
-    cy.get('#error-street').should('contain', 'Address requires a valid ZIP code in South Florida');
+    cy.get('#error-street').should(
+      'contain',
+      'Address requires a valid ZIP code in South Florida'
+    );
     cy.get('#thank-you-description').should('not.exist');
   });
 
@@ -193,11 +204,16 @@ describe('Estimate Form Validation', () => {
     cy.get('#fullName').type('Alice Brown');
     cy.get('#phoneNumber').type('(954) 456-7890');
     cy.get('#email').type('alice.brown@gmail.com');
-    cy.get('#street').type('1234567890 1234567890 NW 1234567890 Street Suite 23456, Miami, FL 33166-7890, United States');
+    cy.get('#street').type(
+      '1234567890 1234567890 NW 1234567890 Street Suite 23456, Miami, FL 33166-7890, United States'
+    );
     cy.get('input[name="contactInfo"]').should('have.value', '');
     cy.wait(3000);
     cy.get('button[type="submit"]').click();
-    cy.get('#error-street').should('contain', 'Address cannot exceed 90 characters');
+    cy.get('#error-street').should(
+      'contain',
+      'Address cannot exceed 90 characters'
+    );
     cy.get('#thank-you-description').should('not.exist');
   });
 
@@ -209,7 +225,10 @@ describe('Estimate Form Validation', () => {
     cy.get('input[name="contactInfo"]').should('have.value', '');
     cy.wait(3000);
     cy.get('button[type="submit"]').click();
-    cy.get('#error-street').should('contain', 'Unfortunately, we do not currently serve that city. Please call us at (786) 235-2435 for more information.');
+    cy.get('#error-street').should(
+      'contain',
+      'Unfortunately, we do not currently serve that city. Please call us at (786) 235-2435 for more information.'
+    );
     cy.get('#thank-you-description').should('not.exist');
   });
 
@@ -221,7 +240,10 @@ describe('Estimate Form Validation', () => {
     cy.get('input[name="contactInfo"]').should('have.value', '');
     cy.wait(3000);
     cy.get('button[type="submit"]').click();
-    cy.get('#error-street').should('contain', 'Address requires street, city (Broward/Miami-Dade), ZIP code');
+    cy.get('#error-street').should(
+      'contain',
+      'Address requires street, city (Broward/Miami-Dade), ZIP code'
+    );
     cy.get('#thank-you-description').should('not.exist');
   });
 
@@ -233,7 +255,10 @@ describe('Estimate Form Validation', () => {
     cy.get('input[name="contactInfo"]').should('have.value', '');
     cy.wait(3000);
     cy.get('button[type="submit"]').click();
-    cy.get('#error-street').should('contain', 'Address requires street, city (Broward/Miami-Dade), ZIP code');
+    cy.get('#error-street').should(
+      'contain',
+      'Address requires street, city (Broward/Miami-Dade), ZIP code'
+    );
     cy.get('#thank-you-description').should('not.exist');
   });
 
@@ -245,7 +270,10 @@ describe('Estimate Form Validation', () => {
     cy.get('input[name="contactInfo"]').should('have.value', '');
     cy.wait(3000);
     cy.get('button[type="submit"]').click();
-    cy.get('#error-street').should('contain', 'Address requires street, city (Broward/Miami-Dade), ZIP code');
+    cy.get('#error-street').should(
+      'contain',
+      'Address requires street, city (Broward/Miami-Dade), ZIP code'
+    );
     cy.get('#thank-you-description').should('not.exist');
   });
 
@@ -257,7 +285,10 @@ describe('Estimate Form Validation', () => {
     cy.get('input[name="contactInfo"]').should('have.value', '');
     cy.wait(3000);
     cy.get('button[type="submit"]').click();
-    cy.get('#error-street').should('contain', 'Unfortunately, we do not currently serve that city. Please call us at (786) 235-2435 for more information.');
+    cy.get('#error-street').should(
+      'contain',
+      'Unfortunately, we do not currently serve that city. Please call us at (786) 235-2435 for more information.'
+    );
     cy.get('#thank-you-description').should('not.exist');
   });
 
@@ -269,7 +300,10 @@ describe('Estimate Form Validation', () => {
     cy.get('input[name="contactInfo"]').should('have.value', '');
     cy.wait(3000);
     cy.get('button[type="submit"]').click();
-    cy.get('#error-street').should('contain', 'Address requires street, city (Broward/Miami-Dade), ZIP code');
+    cy.get('#error-street').should(
+      'contain',
+      'Address requires street, city (Broward/Miami-Dade), ZIP code'
+    );
     cy.get('#thank-you-description').should('not.exist');
   });
 });

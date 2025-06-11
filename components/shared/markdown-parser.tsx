@@ -20,7 +20,7 @@ const MarkdownParser: React.FC<MarkdownParserProps> = ({
         alternativeText={alt || 'Image'}
         width={800}
         height={600}
-        className='rounded-lg shadow-md'
+        className="rounded-lg shadow-md"
       />
     ),
   };

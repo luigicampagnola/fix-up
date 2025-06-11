@@ -144,7 +144,7 @@ export default async function Page({
       {information && <Information {...information} />}
       {options && <Services {...options} disableLinking={true} />}
       {extraHighlights && <Highlight {...extraHighlights} />}
-      {cta && <Cta className='text-sm tablet:text-base' {...cta} />}
+      {cta && <Cta className="text-sm tablet:text-base" {...cta} />}
     </>
   );
 }

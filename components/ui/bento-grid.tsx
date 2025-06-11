@@ -44,12 +44,12 @@ export const BentoGridItem = ({
       )}
     >
       {header}
-      <div className='transition duration-200 group-hover/bento:translate-x-2'>
+      <div className="transition duration-200 group-hover/bento:translate-x-2">
         {icon}
-        <div className='mt-2 mb-2 font-sans font-bold text-foreground dark:text-neutral-200'>
+        <div className="mt-2 mb-2 font-sans font-bold text-foreground dark:text-neutral-200">
           {title}
         </div>
-        <div className='font-sans text-xs font-normal text-foreground dark:text-neutral-300'>
+        <div className="font-sans text-xs font-normal text-foreground dark:text-neutral-300">
           {description}
         </div>
       </div>
@@ -57,7 +57,7 @@ export const BentoGridItem = ({
         <CustomLink
           aria-label={link.label}
           url={link.url}
-          className='z-10 absolute inset-0'
+          className="z-10 absolute inset-0"
           styled={false}
         />
       )}

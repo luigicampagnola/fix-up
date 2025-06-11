@@ -29,11 +29,11 @@ export default async function RootLayout({
         <Schema />
       </head>
       <NextIntlClientProvider>
-        <body className='relative flex min-h-screen flex-col font-body antialiased'>
-          <GoogleTagManager gtmId='GTM-PD2XNBPT' />
-          <AhrefsAnalytics ahrefsId='vY6zsAfYDYGdkfPvwyB2PQ' />
+        <body className="relative flex min-h-screen flex-col font-body antialiased">
+          <GoogleTagManager gtmId="GTM-PD2XNBPT" />
+          <AhrefsAnalytics ahrefsId="vY6zsAfYDYGdkfPvwyB2PQ" />
           <NavigationBar />
-          <main className='relative flex flex-1 flex-col text-foreground dark:text-foreground'>
+          <main className="relative flex flex-1 flex-col text-foreground dark:text-foreground">
             {children}
           </main>
           <EstimateModal />

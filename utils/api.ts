@@ -38,13 +38,14 @@ export async function fetchAPI<T>({
     { encodeValuesOnly: true }
   );
   const url = new URL(
-    `${path}${parsedQuery && '?' + parsedQuery}${isPreview ? '&preview=true' : ''
+    `${path}${parsedQuery && '?' + parsedQuery}${
+      isPreview ? '&preview=true' : ''
     }`,
     API_URL
   );
   const response = await fetch(url, {
     ...options,
-    next: { revalidate: 3600 }
+    next: { revalidate: 3600 },
   });
 
   if (!response.ok) {
@@ -272,12 +273,12 @@ export async function fetchSEOMetadata({
   // Case 2: No data, fetch from API
   const filters = slug
     ? {
-      filters: {
-        slug: {
-          $eq: slug,
+        filters: {
+          slug: {
+            $eq: slug,
+          },
         },
-      },
-    }
+      }
     : undefined;
 
   interface SEOResponse {
@@ -358,9 +359,9 @@ export async function fetchSEOMetadata({
     : defaultImageUrl;
 
   const facebookMeta = metaSocial?.find(
-    (social) => social.socialNetwork === 'Facebook'
+    social => social.socialNetwork === 'Facebook'
   );
-  const xMeta = metaSocial?.find((social) => social.socialNetwork === 'X');
+  const xMeta = metaSocial?.find(social => social.socialNetwork === 'X');
 
   const facebookImageUrl = facebookMeta?.image?.url
     ? facebookMeta.image.url.startsWith('http')
@@ -475,7 +476,7 @@ export async function getPublicURLPaths() {
 
   // Generate sitemap entries for static pages
   const staticUrls = staticPages.flatMap(({ label, path }) =>
-    locales.map((locale) => ({
+    locales.map(locale => ({
       label: `${label} [${locale}]`,
       path: `${path}?locale=${locale}`,
     }))
@@ -483,7 +484,7 @@ export async function getPublicURLPaths() {
 
   // Generate sitemap entries for services
   const serviceUrls = services.flatMap(({ name, slug }) =>
-    locales.map((locale) => ({
+    locales.map(locale => ({
       label: `${name} [${locale}]`,
       path: `/services/${slug}?locale=${locale}`,
     }))
@@ -492,7 +493,7 @@ export async function getPublicURLPaths() {
   // Generate sitemap entries for locations with nested areas
   const locationUrls = locations.flatMap(({ slug: locationSlug, areas }) =>
     (areas || []).flatMap(({ name, slug: areaSlug }) =>
-      locales.map((locale) => ({
+      locales.map(locale => ({
         label: `${name} [${locale}]`,
         path: `/locations/${locationSlug}/${areaSlug}?locale=${locale}`,
       }))
@@ -501,7 +502,7 @@ export async function getPublicURLPaths() {
 
   // Generate sitemap entries for articles
   const articleUrls = articles.flatMap(({ title, slug }) =>
-    locales.map((locale) => ({
+    locales.map(locale => ({
       label: `${title} [${locale}]`,
       path: `/blog/${slug}?locale=${locale}`,
     }))

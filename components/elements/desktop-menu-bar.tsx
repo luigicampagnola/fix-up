@@ -12,24 +12,24 @@ import LocaleSwitcher from '../shared/locale-switcher';
 
 export default function DesktopMenuBar({ links, cta }: MenuProps) {
   return (
-    <div className='hidden flex-1 relative container desktop:flex items-center justify-between'>
+    <div className="hidden flex-1 relative container desktop:flex items-center justify-between">
       {/* Logo */}
       <CustomLink
         styled={false}
         url={'/'}
-        className='inline-flex relative h-14 w-36 flex-shrink-0'
+        className="inline-flex relative h-14 w-36 flex-shrink-0"
       >
         <CustomImage
-          url='/fixup.svg'
-          alternativeText='Fix Up brand logo'
+          url="/fixup.svg"
+          alternativeText="Fix Up brand logo"
           priority
-          className='h-full w-full'
+          className="h-full w-full"
           fill
           localImage={true}
         />
       </CustomLink>
       {/* Navgiation Links */}
-      <div className='flex items-center justify-center gap-x-2'>
+      <div className="flex items-center justify-center gap-x-2">
         {links &&
           links.length > 0 &&
           links.slice(0, 6).map(({ label, url, group, list }, index) => {
@@ -40,21 +40,21 @@ export default function DesktopMenuBar({ links, cta }: MenuProps) {
                 >
                   {label}
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className='grid grid-cols-2 gap-x-8 p-8'>
+                <DropdownMenuContent className="grid grid-cols-2 gap-x-8 p-8">
                   {group &&
                     group.map(({ title, sub }, index) => (
                       <div
                         key={`group-item-${index}`}
-                        className='grid auto-rows-[40px] '
+                        className="grid auto-rows-[40px] "
                       >
-                        <DropdownMenuLabel className='col-span-1'>
+                        <DropdownMenuLabel className="col-span-1">
                           {title}
                         </DropdownMenuLabel>
                         {sub &&
                           sub.map(({ label, url }, index) => (
                             <div key={`group-link-${index}`}>
                               <CustomLink
-                                className='inline-flex w-full text-sm hover:bg-muted p-2 rounded-md'
+                                className="inline-flex w-full text-sm hover:bg-muted p-2 rounded-md"
                                 url={url}
                                 styled={false}
                               >
@@ -68,10 +68,10 @@ export default function DesktopMenuBar({ links, cta }: MenuProps) {
                     list.map(({ label, url }, index) => (
                       <div
                         key={`group-item-${index}`}
-                        className='grid auto-rows-[40px] '
+                        className="grid auto-rows-[40px] "
                       >
                         <CustomLink
-                          className='text-sm hover:bg-muted p-2 rounded-md'
+                          className="text-sm hover:bg-muted p-2 rounded-md"
                           url={url}
                           styled={false}
                         >
@@ -85,8 +85,8 @@ export default function DesktopMenuBar({ links, cta }: MenuProps) {
               <CustomLink
                 key={`navigation-link-${index}`}
                 url={url}
-                variant='navigation-link'
-                className='capitalize'
+                variant="navigation-link"
+                className="capitalize"
               >
                 {label}
               </CustomLink>
@@ -94,9 +94,9 @@ export default function DesktopMenuBar({ links, cta }: MenuProps) {
           })}
       </div>
       {/* Call to actions */}
-      <div className='space-x-2'>
+      <div className="space-x-2">
         <LocaleSwitcher />
-        <CustomLink className='uppercase' size='lg' {...cta} />
+        <CustomLink className="uppercase" size="lg" {...cta} />
       </div>
     </div>
   );

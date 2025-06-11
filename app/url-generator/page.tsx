@@ -12,8 +12,8 @@ export default async function Page() {
   const defaultUrl = '/estimates?locale=en-us';
 
   return (
-    <Section name='url-generator' className=' py-10 bg-secondary'>
-      <div className='container max-w-2xl  px-4 mx-auto'>
+    <Section name="url-generator" className=" py-10 bg-secondary">
+      <div className="container max-w-2xl  px-4 mx-auto">
         <UTMGeneratorWrapper
           baseUrl={BASE_URL}
           sources={sources}

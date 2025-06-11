@@ -36,7 +36,7 @@ export default function Hero({
 }: HeroSectionProps) {
   return (
     <Section
-      name='get-free-estimates'
+      name="get-free-estimates"
       className={clsx(
         'flex flex-col overflow-hidden items-center relative min-h-[90dvh] desktop:min-h-[85dvh] max-h-[68rem]',
         {
@@ -49,7 +49,7 @@ export default function Hero({
       )}
     >
       {background && (
-        <div className='absolute inset-0 z-0'>
+        <div className="absolute inset-0 z-0">
           <ParallaxBackground {...background} />
         </div>
       )}
@@ -75,20 +75,20 @@ export default function Hero({
               'max-w-3xl': width === 'small',
             })}
           >
-            <h1 className='font-bold  desktop:text-left text-5xl tablet:text-6xl capitilize text-background'>
+            <h1 className="font-bold  desktop:text-left text-5xl tablet:text-6xl capitilize text-background">
               {title}
               <br />
-              <span className='text-primary tablet:block'>{subTitle}</span>
+              <span className="text-primary tablet:block">{subTitle}</span>
             </h1>
             {typeof description !== 'string' &&
             description !== undefined &&
             description !== null ? (
               <RichText
-                className='text-background/90 text-base tablet:text-lg'
+                className="text-background/90 text-base tablet:text-lg"
                 content={description}
               />
             ) : (
-              <p className='text-background/90 text-base tablet:text-lg'>
+              <p className="text-background/90 text-base tablet:text-lg">
                 {description}
               </p>
             )}
@@ -96,11 +96,11 @@ export default function Hero({
               <HighlightList highlights={highlights} />
             )}
             {cta && (
-              <CustomLink className='mt-4 self-start' size='xl' {...cta} />
+              <CustomLink className="mt-4 self-start" size="xl" {...cta} />
             )}
           </div>
           {displayForm && (
-            <div className='w-full max-w-md'>
+            <div className="w-full max-w-md">
               <EstimateForm />
             </div>
           )}
@@ -112,7 +112,7 @@ export default function Hero({
 
 const HighlightList = ({ highlights }: { highlights: THighlight[] }) => {
   return (
-    <ul className='flex flex-col desktop:flex-row desktop:gap-x-8 '>
+    <ul className="flex flex-col desktop:flex-row desktop:gap-x-8 ">
       {highlights.map((item, index) => (
         <Highlight key={`highlight-item-${index}`} {...item} />
       ))}
@@ -121,8 +121,8 @@ const HighlightList = ({ highlights }: { highlights: THighlight[] }) => {
 };
 
 const Highlight = ({ title }: THighlight) => (
-  <li className='inline-flex items-center desktop:justify-center gap-2'>
-    <IconCircleCheck className='size-6 text-primary' />
-    <span className='text-background font-semibold'>{title}</span>
+  <li className="inline-flex items-center desktop:justify-center gap-2">
+    <IconCircleCheck className="size-6 text-primary" />
+    <span className="text-background font-semibold">{title}</span>
   </li>
 );

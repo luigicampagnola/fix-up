@@ -16,20 +16,20 @@ export default function ParallaxBackground({ url, alternativeText }: Image) {
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '95%']);
 
   return (
-    <div ref={ref} className='absolute inset-0 z-0 w-full h-full'>
-      <motion.div className='absolute inset-0 h-full' style={{ y }}>
+    <div ref={ref} className="absolute inset-0 z-0 w-full h-full">
+      <motion.div className="absolute inset-0 h-full" style={{ y }}>
         <CustomImage
           url={url}
           alternativeText={alternativeText}
           fill
           priority={true}
-          sizes='100vw'
+          sizes="100vw"
           quality={75}
           style={{
             objectFit: 'cover',
             objectPosition: 'center',
           }}
-          className='brightness-50'
+          className="brightness-50"
         />
       </motion.div>
     </div>

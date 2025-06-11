@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 const ReCAPTCHA = dynamic(() => import('react-google-recaptcha'), {
   ssr: false,
-  loading: () => <div className='p-3 text-gray-500'>Loading ReCAPTCHA...</div>, // Optional fallback
+  loading: () => <div className="p-3 text-gray-500">Loading ReCAPTCHA...</div>, // Optional fallback
 });
 
 const recaptchaKey = process.env.NEXT_PUBLIC_RECAPTCHA_KEY!;
@@ -21,13 +21,13 @@ export default function Recaptcha({ onVerify }: RecaptchaProps) {
   }, []);
 
   return (
-    <div className='border border-gray-200 rounded p-3 bg-gray-50'>
+    <div className="border border-gray-200 rounded p-3 bg-gray-50">
       {display && (
         <ReCAPTCHA
           sitekey={recaptchaKey}
-          hl='es'
-          theme='light'
-          size='normal'
+          hl="es"
+          theme="light"
+          size="normal"
           onChange={onVerify}
         />
       )}

@@ -52,16 +52,16 @@ export default function Pagination({ pages, current }: PaginationProps) {
   const pageNumbers = getPageNumbers();
 
   return (
-    <nav className='flex items-center justify-center space-x-1'>
+    <nav className="flex items-center justify-center space-x-1">
       <Button
-        variant='outline'
-        size='sm'
-        className='h-8 w-8 p-0'
+        variant="outline"
+        size="sm"
+        className="h-8 w-8 p-0"
         onClick={() => handlePageChange(Math.max(1, current - 1))}
         disabled={current === 1}
-        aria-label='Go to previous page'
+        aria-label="Go to previous page"
       >
-        <IconChevronLeft className='h-4 w-4' />
+        <IconChevronLeft className="h-4 w-4" />
       </Button>
 
       {pageNumbers.map((page, index) => {
@@ -69,12 +69,12 @@ export default function Pagination({ pages, current }: PaginationProps) {
           return (
             <Button
               key={`${page}-${index}`}
-              variant='ghost'
-              size='sm'
-              className='h-8 w-8 p-0 cursor-default'
+              variant="ghost"
+              size="sm"
+              className="h-8 w-8 p-0 cursor-default"
               disabled
             >
-              <IconPlus className='h-4 w-4' />
+              <IconPlus className="h-4 w-4" />
             </Button>
           );
         }
@@ -84,8 +84,8 @@ export default function Pagination({ pages, current }: PaginationProps) {
           <Button
             key={index}
             variant={current === pageNumber ? 'default' : 'outline'}
-            size='sm'
-            className='h-8 w-8 p-0'
+            size="sm"
+            className="h-8 w-8 p-0"
             onClick={() => handlePageChange(pageNumber)}
           >
             {pageNumber}
@@ -94,14 +94,14 @@ export default function Pagination({ pages, current }: PaginationProps) {
       })}
 
       <Button
-        variant='outline'
-        size='sm'
-        className='h-8 w-8 p-0'
+        variant="outline"
+        size="sm"
+        className="h-8 w-8 p-0"
         onClick={() => handlePageChange(Math.min(pages, current + 1))}
         disabled={current === pages}
-        aria-label='Go to next page'
+        aria-label="Go to next page"
       >
-        <IconChevronRight className='h-4 w-4' />
+        <IconChevronRight className="h-4 w-4" />
       </Button>
     </nav>
   );

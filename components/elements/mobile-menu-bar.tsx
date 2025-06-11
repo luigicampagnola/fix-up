@@ -46,37 +46,37 @@ export default function MobileMenuBar({
       <CustomLink
         styled={false}
         url={'/'}
-        className='my-2 inline-flex relative h-14 w-36 flex-shrink-0'
+        className="my-2 inline-flex relative h-14 w-36 flex-shrink-0"
       >
         <CustomImage
-          url='/fixup.svg'
-          alternativeText='Fix Up brand logo'
+          url="/fixup.svg"
+          alternativeText="Fix Up brand logo"
           priority
-          className='h-full w-full'
+          className="h-full w-full"
           fill
           localImage={true}
         />
       </CustomLink>
-      <div className='z-50 flex w-full gap-x-2 justify-end'>
+      <div className="z-50 flex w-full gap-x-2 justify-end">
         <LocaleSwitcher />
         <Button
-          aria-label='Open Menu'
+          aria-label="Open Menu"
           onClick={() => setOpen(!open)}
-          variant='secondary'
-          size='icon'
+          variant="secondary"
+          size="icon"
         >
-          <IconMenu2 className='text-background w-6 h-5 flex-shrink-0' />
+          <IconMenu2 className="text-background w-6 h-5 flex-shrink-0" />
         </Button>
       </div>
       <AnimatePresence>
         {open && (
           <MobileMenuModal setOpen={setOpen} logo={logo}>
-            <div className='flex flex-col h-full relative overflow-y-auto'>
+            <div className="flex flex-col h-full relative overflow-y-auto">
               <div
-                className='flex-1 flex w-full flex-col gap-y-8 container'
+                className="flex-1 flex w-full flex-col gap-y-8 container"
                 onClick={handleClick}
               >
-                <div className='pt-8 flex flex-col items-start justify-center gap-2 divide-y divide-background/50'>
+                <div className="pt-8 flex flex-col items-start justify-center gap-2 divide-y divide-background/50">
                   {links &&
                     links.length > 0 &&
                     links
@@ -85,20 +85,20 @@ export default function MobileMenuBar({
                         return (group && group.length > 0) ||
                           (list && list.length > 0) ? (
                           <Accordion
-                            className='text-white w-full pt-2'
+                            className="text-white w-full pt-2"
                             key={`navigation-menu-${index}`}
-                            type='single'
+                            type="single"
                             collapsible
                           >
-                            <AccordionItem value='item-1' className='gap-y-1'>
-                              <AccordionTrigger className='text-lg'>
+                            <AccordionItem value="item-1" className="gap-y-1">
+                              <AccordionTrigger className="text-lg">
                                 {label}
                               </AccordionTrigger>
                               {group &&
                                 group.map(({ title, sub }, index) => (
                                   <AccordionContent
                                     key={`group-link-${index}`}
-                                    className='mt-2 p-2 bg-slate-600'
+                                    className="mt-2 p-2 bg-slate-600"
                                   >
                                     {title}
 
@@ -106,14 +106,14 @@ export default function MobileMenuBar({
                                       sub.map(({ label, url }, index) => (
                                         <div
                                           key={`group-link-${index}`}
-                                          className='bg-slate-800 p-2 mt-2'
+                                          className="bg-slate-800 p-2 mt-2"
                                         >
                                           <CustomLink
                                             key={`navigation-link-${index}`}
                                             url={url}
-                                            className='capitalize text-sm'
+                                            className="capitalize text-sm"
                                             variant={'navigation-link'}
-                                            size='none'
+                                            size="none"
                                           >
                                             {label}
                                           </CustomLink>
@@ -124,15 +124,15 @@ export default function MobileMenuBar({
                               {list &&
                                 list.map(({ label, url }, index) => (
                                   <AccordionContent
-                                    className='mt-2 p-2 bg-slate-600'
+                                    className="mt-2 p-2 bg-slate-600"
                                     key={`list-link-${index}`}
                                   >
                                     <CustomLink
                                       key={`navigation-link-${index}`}
                                       url={url}
-                                      className='capitalize text-sm'
+                                      className="capitalize text-sm"
                                       variant={'navigation-link'}
-                                      size='none'
+                                      size="none"
                                     >
                                       {label}
                                     </CustomLink>
@@ -143,13 +143,13 @@ export default function MobileMenuBar({
                         ) : (
                           <div
                             key={`navigation-menu-${index}`}
-                            className='w-full pt-2'
+                            className="w-full pt-2"
                           >
                             <CustomLink
                               url={url}
-                              className='capitalize'
+                              className="capitalize"
                               variant={'navigation-link'}
-                              size='none'
+                              size="none"
                             >
                               {label}
                             </CustomLink>
@@ -158,10 +158,10 @@ export default function MobileMenuBar({
                       })}
                 </div>
 
-                <CustomLink className='uppercase' size='lg' {...cta} />
+                <CustomLink className="uppercase" size="lg" {...cta} />
               </div>
 
-              <div className='inline-flex items-center justify-center py-8 gap-x-2'>
+              <div className="inline-flex items-center justify-center py-8 gap-x-2">
                 {socials &&
                   socials.map((contact, index) => (
                     <ContactInformationIcon

@@ -1,7 +1,7 @@
 import { HeaderProps } from './components/elements/header';
 import { MenuProps } from './utils/types';
 
-export const menuData: Promise<MenuProps> = new Promise((resolve) => {
+export const menuData: Promise<MenuProps> = new Promise(resolve => {
   resolve({
     logo: {
       url: '/icon/fixup.svg',
@@ -62,7 +62,7 @@ export const menuData: Promise<MenuProps> = new Promise((resolve) => {
   });
 });
 
-export const headerData: Promise<HeaderProps> = new Promise((resolve) => {
+export const headerData: Promise<HeaderProps> = new Promise(resolve => {
   resolve({
     contacts: [
       {
@@ -95,5 +95,5 @@ export const headerData: Promise<HeaderProps> = new Promise((resolve) => {
         url: 'https://www.yelp.com/biz/fix-up-roofing-and-construction-miami-2',
       },
     ],
-  })
-})
+  });
+});

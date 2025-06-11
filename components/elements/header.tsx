@@ -76,12 +76,12 @@ export default function Header({
                 },
               },
             }}
-            initial='visible'
+            initial="visible"
             animate={displayTop ? 'visible' : 'hidden'}
-            className='bg-secondary'
+            className="bg-secondary"
           >
-            <div className=' flex justify-center items-center text-background text-sm gap-x-4 divide-x-2 py-0.5'>
-              <div className='inline-flex items-center gap-x-2 '>
+            <div className=" flex justify-center items-center text-background text-sm gap-x-4 divide-x-2 py-0.5">
+              <div className="inline-flex items-center gap-x-2 ">
                 {contacts &&
                   contacts.map((contact, index) => (
                     <ContactInformation
@@ -91,7 +91,7 @@ export default function Header({
                   ))}
               </div>
 
-              <div className='inline-flex items-center pl-4 gap-x-2'>
+              <div className="inline-flex items-center pl-4 gap-x-2">
                 {socials &&
                   socials.map((contact, index) => (
                     <ContactInformationIcon
@@ -106,7 +106,7 @@ export default function Header({
         </motion.nav>
       </AnimatePresence>
       {/* Display Mobile */}
-      <div className='desktop:hidden sticky inset-x-0 top-0 z-50 flex-col w-full bg-background border-b border-foreground/20'>
+      <div className="desktop:hidden sticky inset-x-0 top-0 z-50 flex-col w-full bg-background border-b border-foreground/20">
         {children}
       </div>
     </>

@@ -53,7 +53,7 @@ export default async function Page() {
   } = estimateResponse;
   return (
     <Section
-      name='get-free-estimates'
+      name="get-free-estimates"
       className={'flex flex-col items-center relative w-full h-full'}
     >
       <div
@@ -69,30 +69,30 @@ export default async function Page() {
               'flex flex-col h-full justify-center gap-4 max-w-6xl'
             )}
           >
-            <h1 className='font-bold  desktop:text-left text-5xl tablet:text-6xl capitilize text-background'>
+            <h1 className="font-bold  desktop:text-left text-5xl tablet:text-6xl capitilize text-background">
               {title}
               <br />
-              <span className='text-primary tablet:block'>{subTitle}</span>
+              <span className="text-primary tablet:block">{subTitle}</span>
             </h1>
             {typeof description !== 'string' &&
             description !== undefined &&
             description !== null ? (
               <RichText
-                className='text-background/90 text-base tablet:text-lg'
+                className="text-background/90 text-base tablet:text-lg"
                 content={description}
               />
             ) : (
-              <p className='text-background/90 text-base tablet:text-lg'>
+              <p className="text-background/90 text-base tablet:text-lg">
                 {description}
               </p>
             )}
 
             {cta && (
-              <CustomLink className='mt-4 self-start' size='xl' {...cta} />
+              <CustomLink className="mt-4 self-start" size="xl" {...cta} />
             )}
           </div>
 
-          <div className='w-full max-w-md'>
+          <div className="w-full max-w-md">
             <EstimateForm />
           </div>
         </div>

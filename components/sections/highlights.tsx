@@ -40,32 +40,32 @@ export default function Highlights({
 }: HighlightsProps) {
   return (
     <Section
-      name='option-section'
+      name="option-section"
       className={clsx('flex flex-col items-center relative', {
         'bg-background': !background || background === 'default',
         'bg-muted': background === 'gray',
       })}
     >
-      <div className='container py-24'>
+      <div className="container py-24">
         <div
           className={clsx('max-w-4xl mx-auto', {
             'w-full max-w-full': gridDisplay == true,
           })}
         >
           {label && (
-            <div className='py-2 flex items-center justify-center gap-2 px-4 rounded-full bg-primary/5 text-primary w-fit mx-auto'>
-              <IconShieldCheck className='h-4 w-4' />
-              <span className='text-sm font-semibold capitalize'>{label}</span>
+            <div className="py-2 flex items-center justify-center gap-2 px-4 rounded-full bg-primary/5 text-primary w-fit mx-auto">
+              <IconShieldCheck className="h-4 w-4" />
+              <span className="text-sm font-semibold capitalize">{label}</span>
             </div>
           )}
-          <div className='text-center my-8'>
-            <h2 className='inline-flex flex-col text-4xl desktop:text-5xl font-bold tracking-tight text-foreground capitalize'>
+          <div className="text-center my-8">
+            <h2 className="inline-flex flex-col text-4xl desktop:text-5xl font-bold tracking-tight text-foreground capitalize">
               {title}
-              <span className='text-4xl font-bold text-primary capitalize'>
+              <span className="text-4xl font-bold text-primary capitalize">
                 {subTitle}
               </span>
             </h2>
-            {description && <p className='my-4'>{description}</p>}
+            {description && <p className="my-4">{description}</p>}
           </div>
 
           <div
@@ -78,7 +78,7 @@ export default function Highlights({
               items.map(({ title, description }, index) => (
                 <FadeSlideUp
                   key={`options-item-${index}`}
-                  className='group'
+                  className="group"
                   index={index}
                 >
                   <Card
@@ -87,22 +87,22 @@ export default function Highlights({
                     )}
                   >
                     <CardHeader className={clsx({ 'pb-2': description })}>
-                      <div className='flex items-center gap-3'>
+                      <div className="flex items-center gap-3">
                         <div
                           className={
                             'flex items-center justify-center rounded-full p-1 text-primary/90 group-hover:text-primary transition-colors duration-300'
                           }
                         >
-                          <IconCircleCheck className='h-6 w-6' />
+                          <IconCircleCheck className="h-6 w-6" />
                         </div>
-                        <CardTitle className='text-lg font-semibold'>
+                        <CardTitle className="text-lg font-semibold">
                           {title}
                         </CardTitle>
                       </div>
                     </CardHeader>
                     {description && (
                       <CardContent>
-                        <CardDescription className='text-foreground text-sm leading-relaxed'>
+                        <CardDescription className="text-foreground text-sm leading-relaxed">
                           {description}
                         </CardDescription>
                       </CardContent>
@@ -113,8 +113,8 @@ export default function Highlights({
           </div>
 
           {cta && (
-            <FadeSlideUp className='mt-10 text-center'>
-              <CustomLink className='text-sm tablet:text-base' {...cta} />
+            <FadeSlideUp className="mt-10 text-center">
+              <CustomLink className="text-sm tablet:text-base" {...cta} />
             </FadeSlideUp>
           )}
         </div>
