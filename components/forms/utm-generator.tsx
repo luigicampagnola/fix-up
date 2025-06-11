@@ -32,7 +32,7 @@ export function UTMGenerator({
   // Filter paths based on input
   useEffect(() => {
     const filtered = urlPaths?.filter(
-      (urlPath) =>
+      urlPath =>
         urlPath.path.toLowerCase().includes(inputValue.toLowerCase()) ||
         urlPath.label.toLowerCase().includes(inputValue.toLowerCase())
     );
@@ -106,87 +106,87 @@ export function UTMGenerator({
   };
 
   return (
-    <div className='space-y-6'>
-      <div className='space-y-4'>
-        <Label htmlFor='path'>Search URL Path</Label>
-        <div className='relative'>
+    <div className="space-y-6">
+      <div className="space-y-4">
+        <Label htmlFor="path">Search URL Path</Label>
+        <div className="relative">
           <Input
             ref={inputRef}
-            id='path'
-            placeholder='Search or enter a path...'
+            id="path"
+            placeholder="Search or enter a path..."
             value={inputValue}
             onChange={handleInputChange}
             onFocus={() => setShowSuggestions(true)}
-            className='w-full'
+            className="w-full"
           />
 
           {showSuggestions && filteredPaths.length > 0 && (
             <div
               ref={suggestionsRef}
-              className='absolute z-10 w-full mt-1 bg-white rounded-md shadow-lg border border-slate-200 max-h-60 overflow-auto'
+              className="absolute z-10 w-full mt-1 bg-white rounded-md shadow-lg border border-slate-200 max-h-60 overflow-auto"
             >
-              <div className='py-1 text-sm'>
-                <div className='px-2 py-1.5 text-xs font-medium text-slate-500'>
+              <div className="py-1 text-sm">
+                <div className="px-2 py-1.5 text-xs font-medium text-slate-500">
                   Available Paths
                 </div>
                 {filteredPaths.map((urlPath, index) => (
                   <div
                     key={`filtered-item-${index}`}
-                    className='px-2 py-1.5 hover:bg-slate-100 cursor-pointer'
+                    className="px-2 py-1.5 hover:bg-slate-100 cursor-pointer"
                     onClick={() => handleSelectPath(urlPath.path)}
                   >
-                    <div className='font-medium'>{urlPath.label}</div>
-                    <div className='text-xs text-slate-500'>{urlPath.path}</div>
+                    <div className="font-medium">{urlPath.label}</div>
+                    <div className="text-xs text-slate-500">{urlPath.path}</div>
                   </div>
                 ))}
               </div>
             </div>
           )}
         </div>
-        <div className='mt-2'>
-          <Label htmlFor='path'>Target Path</Label>
-          <div className='flex items-center mt-2'>
-            <div className='bg-slate-100 px-3 py-2 rounded-l-md text-sm text-slate-600 whitespace-nowrap'>
+        <div className="mt-2">
+          <Label htmlFor="path">Target Path</Label>
+          <div className="flex items-center mt-2">
+            <div className="bg-slate-100 px-3 py-2 rounded-l-md text-sm text-slate-600 whitespace-nowrap">
               {baseUrl}
             </div>
-            <div className='bg-slate-50 px-3 py-2 rounded-r-md text-sm border border-slate-200 flex-1 overflow-x-auto'>
+            <div className="bg-slate-50 px-3 py-2 rounded-r-md text-sm border border-slate-200 flex-1 overflow-x-auto">
               {path}
             </div>
           </div>
         </div>
       </div>
 
-      <div className='space-y-2'>
-        <Label htmlFor='campaign'>Campaign Name</Label>
+      <div className="space-y-2">
+        <Label htmlFor="campaign">Campaign Name</Label>
         <Input
-          id='campaign'
+          id="campaign"
           value={campaign}
-          onChange={(e) => setCampaign(e.target.value)}
-          placeholder='summer-2025'
+          onChange={e => setCampaign(e.target.value)}
+          placeholder="summer-2025"
         />
       </div>
 
-      <div className='pt-4 space-y-4'>
+      <div className="pt-4 space-y-4">
         <Label>Generated URLs</Label>
-        <div className='space-y-3'>
+        <div className="space-y-3">
           {sources.map((source, index) => {
             const url = generateUtmUrl(source);
             return (
-              <div key={source} className='space-y-1'>
-                <div className='text-sm font-medium capitalize'>{source}</div>
-                <div className='flex flex-col tablet:flex-row items-stretch gap-2'>
-                  <div className='flex-1 bg-slate-50 p-3 rounded-md tablet:rounded-l-md border border-slate-200 tablet:border-r-0 overflow-x-auto text-sm break-all'>
+              <div key={source} className="space-y-1">
+                <div className="text-sm font-medium capitalize">{source}</div>
+                <div className="flex flex-col tablet:flex-row items-stretch gap-2">
+                  <div className="flex-1 bg-slate-50 p-3 rounded-md tablet:rounded-l-md border border-slate-200 tablet:border-r-0 overflow-x-auto text-sm break-all">
                     {url}
                   </div>
                   <Button
-                    variant='outline'
-                    className='h-[42px] tablet:h-auto tablet:rounded-l-none tablet:self-stretch flex-shrink-0'
+                    variant="outline"
+                    className="h-[42px] tablet:h-auto tablet:rounded-l-none tablet:self-stretch flex-shrink-0"
                     onClick={() => copyToClipboard(url, index)}
                   >
                     {copiedIndex === index ? (
-                      <IconCheck className='h-4 w-4 mr-2' />
+                      <IconCheck className="h-4 w-4 mr-2" />
                     ) : (
-                      <IconCopy className='h-4 w-4 mr-2' />
+                      <IconCopy className="h-4 w-4 mr-2" />
                     )}
                     Copy
                   </Button>

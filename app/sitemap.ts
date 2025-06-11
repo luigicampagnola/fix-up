@@ -94,7 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Generate sitemap entries for static pages
   const staticUrls = staticPages.flatMap(
     ({ path, changefreq, priority, lastmod }) =>
-      locales.map((locale) => ({
+      locales.map(locale => ({
         url: `${BASE_URL}${path}?locale=${locale}`,
         lastModified: lastmod,
         changeFrequency: changefreq as 'daily' | 'weekly' | 'monthly',
@@ -104,7 +104,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Generate sitemap entries for services
   const serviceUrls = services.flatMap(({ slug, updatedAt }) =>
-    locales.map((locale) => ({
+    locales.map(locale => ({
       url: `${BASE_URL}/services/${slug}?locale=${locale}`,
       lastModified: new Date(updatedAt).toISOString().split('T')[0],
       changeFrequency: 'weekly' as const,
@@ -115,7 +115,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Generate sitemap entries for locations with nested areas
   const locationUrls = locations.flatMap(({ slug: locationSlug, areas }) =>
     (areas || []).flatMap(({ slug: areaSlug, updatedAt }) =>
-      locales.map((locale) => ({
+      locales.map(locale => ({
         url: `${BASE_URL}/locations/${locationSlug}/${areaSlug}?locale=${locale}`,
         lastModified: new Date(updatedAt).toISOString().split('T')[0],
         changeFrequency: 'weekly' as const,
@@ -126,7 +126,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Generate sitemap entries for articles
   const articleUrls = articles.flatMap(({ slug, updatedAt }) =>
-    locales.map((locale) => ({
+    locales.map(locale => ({
       url: `${BASE_URL}/blog/${slug}?locale=${locale}`,
       lastModified: new Date(updatedAt).toISOString().split('T')[0],
       changeFrequency: 'weekly' as const,

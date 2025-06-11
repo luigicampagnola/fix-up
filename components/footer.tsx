@@ -52,28 +52,28 @@ export default async function Footer() {
   } = footerResponse;
 
   return (
-    <footer className=''>
-      <div className='container py-14'>
-        <div className='grid tablet:grid-rows-2 grid-cols-1 gap-8 tablet:grid-cols-3 desktop:grid-rows-1 desktop:grid-cols-5'>
+    <footer className="">
+      <div className="container py-14">
+        <div className="grid tablet:grid-rows-2 grid-cols-1 gap-8 tablet:grid-cols-3 desktop:grid-rows-1 desktop:grid-cols-5">
           {/* Company Info */}
-          <div className='w-full row-span-2'>
-            <div className='space-y-2'>
+          <div className="w-full row-span-2">
+            <div className="space-y-2">
               <CustomLink
                 styled={false}
                 url={'/'}
-                className='inline-flex relative h-14 w-36 flex-shrink-0'
+                className="inline-flex relative h-14 w-36 flex-shrink-0"
               >
                 <CustomImage
-                  url='/fixup.svg'
-                  alternativeText='Fix Up brand logo'
+                  url="/fixup.svg"
+                  alternativeText="Fix Up brand logo"
                   priority
-                  className='h-full w-full'
+                  className="h-full w-full"
                   fill
                   localImage={true}
                 />
               </CustomLink>
-              <p className='text-sm font-medium'>{license}</p>
-              <div className='inline-flex flex-col items-start gap-2 py-4 '>
+              <p className="text-sm font-medium">{license}</p>
+              <div className="inline-flex flex-col items-start gap-2 py-4 ">
                 {contacts &&
                   contacts.map((contact, index) => (
                     <ContactInformation
@@ -84,7 +84,7 @@ export default async function Footer() {
                   ))}
               </div>
             </div>
-            <div className='inline-flex gap-x-2'>
+            <div className="inline-flex gap-x-2">
               {socials &&
                 socials.map((contact, index) => (
                   <ContactInformationIcon
@@ -97,15 +97,15 @@ export default async function Footer() {
           {/* Group menu links */}
           {groups &&
             groups.map(({ sub, title }, index) => (
-              <div key={`footer-group-item-${index}`} className='space-y-4'>
-                <h3 className='text-lg font-bold'>{title}</h3>
-                <ul className='space-y-2'>
+              <div key={`footer-group-item-${index}`} className="space-y-4">
+                <h3 className="text-lg font-bold">{title}</h3>
+                <ul className="space-y-2">
                   {sub &&
                     sub.map(({ label, url }, index) => (
                       <li key={`footer-group-item-sub-${index}`}>
                         <Link
                           href={url}
-                          className='text-sm hover:text-green-600 hover:underline transition-colors'
+                          className="text-sm hover:text-green-600 hover:underline transition-colors"
                         >
                           {label}
                         </Link>
@@ -117,8 +117,8 @@ export default async function Footer() {
         </div>
       </div>
       {/* Bottom Bar */}
-      <div className='bg-secondary py-2 flex flex-col justify-between px-4 text-white tablet:flex-row tablet:items-center'>
-        <div className='mb-2 text-sm tablet:mb-0 text-background text-center w-full'>
+      <div className="bg-secondary py-2 flex flex-col justify-between px-4 text-white tablet:flex-row tablet:items-center">
+        <div className="mb-2 text-sm tablet:mb-0 text-background text-center w-full">
           Copyright © {new Date().getFullYear()} {copyRight}
         </div>
       </div>

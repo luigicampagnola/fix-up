@@ -14,13 +14,13 @@ export default function Iframe({
     <iframe
       title={title}
       src={src}
-      width='100%'
-      height='100%'
+      width="100%"
+      height="100%"
       style={{ border: 0 }}
       allowFullScreen
-      loading='lazy'
-      referrerPolicy='no-referrer-when-downgrade'
-      className='aspect-[3/2] desktop:aspect-[4/3]'
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      className="aspect-[3/2] desktop:aspect-[4/3]"
     />
   ) : null;
 }

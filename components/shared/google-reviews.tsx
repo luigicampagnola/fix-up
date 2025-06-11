@@ -32,7 +32,7 @@ export default async function GoogleReviews() {
 
   if (!reviews)
     return (
-      <div className='bg-destructive/40 text-center p-4'>
+      <div className="bg-destructive/40 text-center p-4">
         Error while getting the reviews data...
       </div>
     );
@@ -44,17 +44,17 @@ export default async function GoogleReviews() {
   const tReviews = await getTranslations('Reviews');
 
   return (
-    <section className='px-4 py-12 bg-background rounded-md shadow-md flex flex-col items-center'>
-      <h3 className='text-3xl font-bold text-center capitalize'>{title}</h3>
+    <section className="px-4 py-12 bg-background rounded-md shadow-md flex flex-col items-center">
+      <h3 className="text-3xl font-bold text-center capitalize">{title}</h3>
       <ReviewSlider reviews={commentReviews} />
-      <div className='mt-4 inline-flex gap-2 items-center justify-center'>
-        <p className='text-xs text-right tracking-tighter'>{`${total} ${tReviews(
+      <div className="mt-4 inline-flex gap-2 items-center justify-center">
+        <p className="text-xs text-right tracking-tighter">{`${total} ${tReviews(
           'label'
         )} `}</p>
         <CustomImage
-          className='w-10 h-auto'
-          url='/google-logo.svg'
-          alternativeText='Google Logo'
+          className="w-10 h-auto"
+          url="/google-logo.svg"
+          alternativeText="Google Logo"
           width={90}
           height={30}
           localImage

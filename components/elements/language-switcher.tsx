@@ -42,27 +42,27 @@ export default function LocaleSwitcherDropdown({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant='outline'
-          size='sm'
-          className='h-9 min-w-20 gap-1 px-3 text-sm'
+          variant="outline"
+          size="sm"
+          className="h-9 min-w-20 gap-1 px-3 text-sm"
         >
-          <span className='mr-1'>{selectedLocale?.flag}</span>
+          <span className="mr-1">{selectedLocale?.flag}</span>
           {selectedLocale?.label.slice(0, 2)}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end'>
+      <DropdownMenuContent align="end">
         <DropdownMenuLabel>{label}</DropdownMenuLabel>
 
         {items.map(({ value, flag, label }) => (
           <DropdownMenuItem
             key={value}
             onClick={() => handleLocaleChange(value)}
-            className='flex items-center gap-2'
+            className="flex items-center gap-2"
           >
-            <span className='mr-1'>{flag}</span>
+            <span className="mr-1">{flag}</span>
             {label}
             {currentLocale === value && (
-              <IconCheck className='h-4 w-4 ml-auto' />
+              <IconCheck className="h-4 w-4 ml-auto" />
             )}
           </DropdownMenuItem>
         ))}

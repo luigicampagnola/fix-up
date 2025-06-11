@@ -6,9 +6,9 @@ export default async function AhrefsAnalytics({
 }) {
   return (
     <Script
-      id='ahrefs-script'
-      strategy='afterInteractive'
-      src='https://analytics.ahrefs.com/analytics.js'
+      id="ahrefs-script"
+      strategy="afterInteractive"
+      src="https://analytics.ahrefs.com/analytics.js"
       data-ahrefs-id={ahrefsId}
       async
     />

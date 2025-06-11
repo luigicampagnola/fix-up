@@ -32,21 +32,21 @@ export const ContactInformation = ({
     case 'phone':
       return (
         <CustomLink url={`tel:${url}`} {...constants}>
-          <IconPhoneCall className='size-4' />
+          <IconPhoneCall className="size-4" />
           <span>{label}</span>
         </CustomLink>
       );
     case 'email':
       return (
         <CustomLink {...constants} url={`mailto:${url}`}>
-          <IconMail className='size-4' />
+          <IconMail className="size-4" />
           <span>{label}</span>
         </CustomLink>
       );
     case 'address':
       return (
         <CustomLink url={url} {...constants}>
-          <IconMapPin className='size-4' />
+          <IconMapPin className="size-4" />
           <span>{label}</span>
         </CustomLink>
       );
@@ -80,7 +80,7 @@ export const ContactInformationIcon = ({
       return (
         <CustomLink
           {...constants}
-          target='_self'
+          target="_self"
           url={`tel:${url}`}
           aria-label={label}
         >

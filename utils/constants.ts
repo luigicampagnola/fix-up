@@ -73,7 +73,8 @@ export const IS_NOT_PRODUCTION_ENV = process.env.NODE_ENV !== 'production';
   (?:(?:,\s*|\s+)(?:USA|United States))?: Optional country (USA or United States)
   $/i: End of string, case-insensitive
 */
-export const ADDRESS_REGEX: RegExp = /^[1-9]\d{0,5}\s+[A-Za-z0-9\s,.#-]+(?:,\s*|\s+)[A-Za-z\s]+(?:,\s*|\s+)\d{5}(?:(?:,\s*|\s+)(?:FL|Florida))?(?:(?:,\s*|\s+)(?:USA|United States))?$/i
+export const ADDRESS_REGEX: RegExp =
+  /^[1-9]\d{0,5}\s+[A-Za-z0-9\s,.#-]+(?:,\s*|\s+)[A-Za-z\s]+(?:,\s*|\s+)\d{5}(?:(?:,\s*|\s+)(?:FL|Florida))?(?:(?:,\s*|\s+)(?:USA|United States))?$/i;
 
 export const SOUTH_FLORIDA_CITIES = [
   'miami',
@@ -103,9 +104,8 @@ export const SOUTH_FLORIDA_CITIES = [
   'aventura',
   'doral',
   'kendall',
-  'westchester'
-
-].map((city) => city.toLowerCase());
+  'westchester',
+].map(city => city.toLowerCase());
 
 export const SOUTH_FLORIDA_ZIP_RANGES = [
   { min: 33000, max: 33399 }, // Miami-Dade, Broward

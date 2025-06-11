@@ -27,22 +27,22 @@ export default function Cta({
 }: CtaSectionProps) {
   return (
     <Section
-      name='cta'
-      className='flex flex-col items-center relative bg-secondary'
+      name="cta"
+      className="flex flex-col items-center relative bg-secondary"
     >
-      <div className='container py-20'>
-        <div className='flex flex-col items-center gap-4'>
-          <h2 className='text-4xl desktop:text-4xl font-bold tracking-tight text-background capitalize text-center'>
-            {title} <span className='text-primary'>{subtitle}</span>
+      <div className="container py-20">
+        <div className="flex flex-col items-center gap-4">
+          <h2 className="text-4xl desktop:text-4xl font-bold tracking-tight text-background capitalize text-center">
+            {title} <span className="text-primary">{subtitle}</span>
           </h2>
-          <p className='max-w-4xl text-background text-center text-lg'>
+          <p className="max-w-4xl text-background text-center text-lg">
             {description}
           </p>
         </div>
         {button && (
-          <div className='text-center mt-8'>
+          <div className="text-center mt-8">
             <CustomLink
-              url='/estimates'
+              url="/estimates"
               className={cn('capitalize', className)}
             >
               {button?.label}

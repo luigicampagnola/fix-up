@@ -22,7 +22,7 @@ const EstimateFormSchema = z
         message:
           'Full name can only contain letters, spaces, hyphens, or apostrophes',
       })
-      .refine((val) => !val.toLowerCase().includes('test'), {
+      .refine(val => !val.toLowerCase().includes('test'), {
         message: 'Full name cannot contain "test"',
       }),
     phoneNumber: z.string().regex(/^\(\d{3}\)\s\d{3}-\d{4}$/, {
@@ -33,50 +33,52 @@ const EstimateFormSchema = z
       .string()
       .email({ message: 'Please enter a valid email address' })
       .refine(
-        (val) =>
-          !DISPOSABLE_EMAIL_DOMAINS.some((domain) =>
-            val.endsWith(`@${domain}`)
-          ),
+        val =>
+          !DISPOSABLE_EMAIL_DOMAINS.some(domain => val.endsWith(`@${domain}`)),
         { message: 'Disposable email addresses are not allowed' }
       )
-      .refine((val) => !/test(?:ing)?\b/i.test(val.toLowerCase()), {
+      .refine(val => !/test(?:ing)?\b/i.test(val.toLowerCase()), {
         message: 'Email cannot contain "test" or "testing"',
       }),
     street: z
       .string()
-      .transform((val) => val.trim())
+      .transform(val => val.trim())
       .pipe(
         z
           .string()
           .max(90, { message: 'Address cannot exceed 90 characters' })
           .regex(ADDRESS_REGEX, {
-            message: 'Address requires street, city (Broward/Miami-Dade), ZIP code (e.g., 6917 NW 77th Ave Miami 33166)',
+            message:
+              'Address requires street, city (Broward/Miami-Dade), ZIP code (e.g., 6917 NW 77th Ave Miami 33166)',
           })
           .refine(
-            (val) => {
+            val => {
               const lowerVal = val.toLowerCase();
               // Match all 5-digit numbers and take the second one if it exists, otherwise the first
               const zipMatches = lowerVal.match(/\b\d{5}\b/g);
               if (!zipMatches || zipMatches.length === 0) return false;
-              const zipNum = parseInt(zipMatches[zipMatches.length > 1 ? 1 : 0], 10);
+              const zipNum = parseInt(
+                zipMatches[zipMatches.length > 1 ? 1 : 0],
+                10
+              );
               const isSouthFloridaZip = SOUTH_FLORIDA_ZIP_RANGES.some(
-                (range) => zipNum >= range.min && zipNum <= range.max
+                range => zipNum >= range.min && zipNum <= range.max
               );
               return isSouthFloridaZip;
             },
             {
-              message: 'Address requires a valid ZIP code in South Florida (e.g., 6917 NW 77th Ave Miami 33166)',
+              message:
+                'Address requires a valid ZIP code in South Florida (e.g., 6917 NW 77th Ave Miami 33166)',
             }
           )
           .refine(
-            (val) => {
+            val => {
               const lowerVal = val.toLowerCase();
-              return SOUTH_FLORIDA_CITIES.some((city) =>
-                lowerVal.includes(city)
-              );
+              return SOUTH_FLORIDA_CITIES.some(city => lowerVal.includes(city));
             },
             {
-              message: 'Unfortunately, we do not currently serve that city. Please call us at (786) 235-2435 for more information.',
+              message:
+                'Unfortunately, we do not currently serve that city. Please call us at (786) 235-2435 for more information.',
             }
           )
       ),
@@ -85,7 +87,7 @@ const EstimateFormSchema = z
       .min(1, { message: 'reCAPTCHA verification is required' }),
     contactInfo: z.string().max(0, { message: 'Bot detected' }),
     formLoadTime: z.string().refine(
-      (val) => {
+      val => {
         const loadTime = parseInt(val, 10);
         const currentTime = Date.now();
         return currentTime - loadTime >= 3000;
@@ -109,7 +111,6 @@ const EstimateFormSchema = z
       });
     }
   });
-
 
 export type EstimateFormData = z.infer<typeof EstimateFormSchema>;
 

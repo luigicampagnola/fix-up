@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
     return new ImageResponse(
       (
         <div
-          tw='flex w-full h-full relative'
+          tw="flex w-full h-full relative"
           style={{
             backgroundImage: `url(${image})`,
             backgroundSize: 'cover',
@@ -29,15 +29,15 @@ export async function GET(request: NextRequest) {
           }}
         >
           <div
-            tw='flex flex-col w-full h-full items-center justify-center relative'
+            tw="flex flex-col w-full h-full items-center justify-center relative"
             style={{ backgroundColor: 'rgba(19, 18, 69, 0.8)' }}
           >
-            <div tw='flex flex-col md:flex-row w-full h-full md:items-center justify-between p-8'>
-              <div tw='flex flex-col text-4xl sm:text-6xl font-bold items-center tracking-tight text-left w-full'>
-                <span tw='text-white capitalize text-center'>
+            <div tw="flex flex-col md:flex-row w-full h-full md:items-center justify-between p-8">
+              <div tw="flex flex-col text-4xl sm:text-6xl font-bold items-center tracking-tight text-left w-full">
+                <span tw="text-white capitalize text-center">
                   {splitTitle[0]}
                 </span>
-                <a tw='mt-8 flex items-center justify-center rounded-md border border-transparent bg-[#539544] px-5 py-3 text-4xl text-white capitalize'>
+                <a tw="mt-8 flex items-center justify-center rounded-md border border-transparent bg-[#539544] px-5 py-3 text-4xl text-white capitalize">
                   Contact Us Today
                 </a>
               </div>
@@ -54,8 +54,8 @@ export async function GET(request: NextRequest) {
     console.error('ImageResponse Error:', error);
     return new ImageResponse(
       (
-        <div tw='flex w-full h-full items-center justify-center bg-red-500'>
-          <span tw='text-white text-4xl'>
+        <div tw="flex w-full h-full items-center justify-center bg-red-500">
+          <span tw="text-white text-4xl">
             Error: Could not load background image
           </span>
         </div>

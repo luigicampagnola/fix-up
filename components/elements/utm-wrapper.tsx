@@ -23,13 +23,13 @@ export function UTMGeneratorWrapper({
 }) {
   return (
     <Card>
-      <CardHeader className='bg-slate-50 rounded-t-lg'>
+      <CardHeader className="bg-slate-50 rounded-t-lg">
         <CardTitle>UTM Parameter Generator</CardTitle>
         <CardDescription>
           Create tracking URLs for your marketing campaigns
         </CardDescription>
       </CardHeader>
-      <CardContent className='pt-6'>
+      <CardContent className="pt-6">
         <UTMGenerator
           baseUrl={baseUrl}
           sources={sources}

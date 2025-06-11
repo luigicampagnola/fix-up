@@ -26,7 +26,11 @@ async function logUserActivity(request: NextRequest, sessionId: string) {
         refererDomain = parsedReferer.hostname || 'unknown';
         if (refererDomain.includes('google.com')) {
           trafficSource = 'organic_search';
-        } else if (refererDomain.includes('facebook.com') || refererDomain.includes('twitter.com') || refererDomain.includes('linkedin.com')) {
+        } else if (
+          refererDomain.includes('facebook.com') ||
+          refererDomain.includes('twitter.com') ||
+          refererDomain.includes('linkedin.com')
+        ) {
           trafficSource = 'social';
         }
       } catch (error) {
@@ -69,7 +73,8 @@ async function logUserActivity(request: NextRequest, sessionId: string) {
       port: request.headers.get('x-forwarded-port') || 'unknown',
       host: request.headers.get('host') || 'unknown',
       requestId: request.headers.get('x-vercel-id') || 'unknown',
-      deploymentUrl: request.headers.get('x-vercel-deployment-url') || 'unknown',
+      deploymentUrl:
+        request.headers.get('x-vercel-deployment-url') || 'unknown',
       xRequestedWith: request.headers.get('x-requested-with') || null,
       sessionId,
     };
@@ -97,7 +102,6 @@ async function logUserActivity(request: NextRequest, sessionId: string) {
   }
 }
 
-
 export async function middleware(request: NextRequest) {
   // Step 1: Country-based access control
   const country = request.headers.get('x-vercel-ip-country') || 'US';
@@ -108,7 +112,7 @@ export async function middleware(request: NextRequest) {
   }
   const response = NextResponse.next();
 
-  const sessionId = request.cookies.get('SESSION_ID')?.value
+  const sessionId = request.cookies.get('SESSION_ID')?.value;
   if (!sessionId) {
     const sessionId = uuidv4();
     await logUserActivity(request, sessionId);

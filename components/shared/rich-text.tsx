@@ -30,8 +30,8 @@ export default function RichText({ content, className = '' }: RichTextProps) {
           link: ({ children, url }) => (
             <CustomLink
               url={url}
-              variant='link'
-              className='text-primary hover:underline no-underline'
+              variant="link"
+              className="text-primary hover:underline no-underline"
               styled={false}
             >
               {children}
@@ -40,11 +40,11 @@ export default function RichText({ content, className = '' }: RichTextProps) {
           list: ({ children, format }) => (
             <>
               {format === 'ordered' ? (
-                <ol className='list-decimal marker:text-foreground/5'>
+                <ol className="list-decimal marker:text-foreground/5">
                   {children}
                 </ol>
               ) : (
-                <ul className='list-disc marker:text-foreground/50'>
+                <ul className="list-disc marker:text-foreground/50">
                   {children}
                 </ul>
               )}
@@ -59,19 +59,19 @@ export default function RichText({ content, className = '' }: RichTextProps) {
           ),
           image: ({ image }) => (
             <figure>
-              <div className='relative w-full'>
+              <div className="relative w-full">
                 <CustomImage
                   url={image.url}
                   alternativeText={image.alternativeText || ''}
                   width={image.width || 800}
                   height={image.height || 600}
-                  sizes='(max-width: 768px) 100vw, 768px'
-                  className='rounded-md object-cover'
+                  sizes="(max-width: 768px) 100vw, 768px"
+                  className="rounded-md object-cover"
                   priority={false}
                 />
               </div>
               {image.caption && (
-                <figcaption className='text-center'>{image.caption}</figcaption>
+                <figcaption className="text-center">{image.caption}</figcaption>
               )}
             </figure>
           ),

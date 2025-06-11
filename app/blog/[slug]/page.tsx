@@ -88,14 +88,14 @@ export default async function Page({
           title={title}
           background={cover}
           description={`Last updated: ${dateFormated}`}
-          size='small'
-          align='center'
-          width='small'
+          size="small"
+          align="center"
+          width="small"
         />
       )}
       {body && (
-        <div className='my-20 flex flex-col container justify-center items-center'>
-          <MarkdownParser content={body} className='tablet:prose-lg' />
+        <div className="my-20 flex flex-col container justify-center items-center">
+          <MarkdownParser content={body} className="tablet:prose-lg" />
         </div>
       )}
       <Cta

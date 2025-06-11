@@ -17,14 +17,14 @@ export function ReviewSlider({ reviews }: { reviews: Review[] }) {
 
   const goToPrevious = () => {
     setDirection(-1);
-    setCurrentIndex((prevIndex) =>
+    setCurrentIndex(prevIndex =>
       prevIndex === 0 ? reviews.length - 1 : prevIndex - 1
     );
   };
 
   const goToNext = () => {
     setDirection(1);
-    setCurrentIndex((prevIndex) =>
+    setCurrentIndex(prevIndex =>
       prevIndex === reviews.length - 1 ? 0 : prevIndex + 1
     );
   };
@@ -51,53 +51,53 @@ export function ReviewSlider({ reviews }: { reviews: Review[] }) {
   };
 
   return (
-    <div className='relative mx-auto w-full px-4'>
-      <div className='relative h-[17rem] w-full'>
-        <div className='absolute left-0 top-0 z-20 flex h-full w-full items-center justify-between px-0'>
+    <div className="relative mx-auto w-full px-4">
+      <div className="relative h-[17rem] w-full">
+        <div className="absolute left-0 top-0 z-20 flex h-full w-full items-center justify-between px-0">
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className='data-allow-shifts'
+            className="data-allow-shifts"
           >
             <Button
-              variant='outline'
-              size='icon'
-              className='rounded-full shadow-sm'
+              variant="outline"
+              size="icon"
+              className="rounded-full shadow-sm"
               onClick={goToPrevious}
-              aria-label='Previous review'
+              aria-label="Previous review"
             >
-              <IconChevronLeft className='h-5 w-5' />
+              <IconChevronLeft className="h-5 w-5" />
             </Button>
           </motion.div>
 
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className='data-allow-shifts'
+            className="data-allow-shifts"
           >
             <Button
-              variant='outline'
-              size='icon'
-              className='rounded-full shadow-sm'
+              variant="outline"
+              size="icon"
+              className="rounded-full shadow-sm"
               onClick={goToNext}
-              aria-label='Next review'
+              aria-label="Next review"
             >
-              <IconChevronRight className='h-5 w-5' />
+              <IconChevronRight className="h-5 w-5" />
             </Button>
           </motion.div>
         </div>
 
-        <div className='relative h-full w-full overflow-hidden'>
-          <AnimatePresence initial={false} custom={direction} mode='wait'>
+        <div className="relative h-full w-full overflow-hidden">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={currentIndex}
               custom={direction}
               variants={variants}
-              initial='enter'
-              animate='center'
-              exit='exit'
+              initial="enter"
+              animate="center"
+              exit="exit"
               transition={transition}
-              className='absolute inset-0 px-12'
+              className="absolute inset-0 px-12"
             >
               <ReviewCard review={reviews[currentIndex]} />
             </motion.div>
@@ -105,7 +105,7 @@ export function ReviewSlider({ reviews }: { reviews: Review[] }) {
         </div>
       </div>
 
-      <div className='mt-2 flex justify-center gap-2'>
+      <div className="mt-2 flex justify-center gap-2">
         {reviews.map((_, index) => (
           <motion.button
             key={index}
@@ -137,9 +137,9 @@ export function ReviewSlider({ reviews }: { reviews: Review[] }) {
 function ReviewCard({ review }: { review: Review }) {
   const { name, content, rate, date } = review;
   return (
-    <div className='flex h-full w-full flex-col items-center py-4 text-center'>
+    <div className="flex h-full w-full flex-col items-center py-4 text-center">
       <motion.div
-        className='mb-2 flex'
+        className="mb-2 flex"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
@@ -162,7 +162,7 @@ function ReviewCard({ review }: { review: Review }) {
       </motion.div>
 
       <motion.h3
-        className='mb-1 text-lg font-semibold'
+        className="mb-1 text-lg font-semibold"
         initial={{ opacity: 0, y: 5 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
@@ -171,7 +171,7 @@ function ReviewCard({ review }: { review: Review }) {
       </motion.h3>
       {date && (
         <motion.p
-          className='mb-4 text-sm text-foreground/40'
+          className="mb-4 text-sm text-foreground/40"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
@@ -181,7 +181,7 @@ function ReviewCard({ review }: { review: Review }) {
       )}
 
       <motion.p
-        className='text-foreground line-clamp-6'
+        className="text-foreground line-clamp-6"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}

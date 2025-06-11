@@ -51,9 +51,9 @@ export default async function Page({
   return (
     <>
       <NuqsAdapter>
-        <Section name='hero-blog' className='relative w-full h-64 bg-secondary'>
-          <div className='relative container mx-auto h-full flex items-center justify-center'>
-            <h1 className='text-4xl md:text-5xl font-bold text-background'>
+        <Section name="hero-blog" className="relative w-full h-64 bg-secondary">
+          <div className="relative container mx-auto h-full flex items-center justify-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-background">
               BLOGS
             </h1>
           </div>
