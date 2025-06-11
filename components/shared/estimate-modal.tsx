@@ -25,7 +25,7 @@ export default function EstimateModal() {
       }
     }
     checkCookies();
-  }, []);
+  }, [pathName]);
 
   const closeModal = async () => {
     setIsOpen(false);

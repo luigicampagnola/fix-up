@@ -79,7 +79,7 @@ async function logUserActivity(request: NextRequest, sessionId: string) {
     const storageKey = `ua:${Date.now()}:${sessionId}`;
 
     // Increment counters for traffic source and geographic data
-    await redis.incr(counterKey); // Count unique user+source combinations
+    await redis.incr(counterKey);
     await redis.expire(counterKey, 7 * 24 * 60 * 60);
     await redis.incr(`tsc:${trafficSource}`); // Count by traffic source
     await redis.expire(`tsc:${trafficSource}`, 7 * 24 * 60 * 60);
