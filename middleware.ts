@@ -108,6 +108,11 @@ export async function middleware(request: NextRequest) {
   }
   const response = NextResponse.next();
 
+  // Add cache control headers to clear browser cache
+  response.headers.set('Cache-Control', 'no-store, max-age=0');
+  response.headers.set('Pragma', 'no-cache');
+  response.headers.set('Expires', '0');
+
   const sessionId = request.cookies.get('SESSION_ID')?.value
   if (!sessionId) {
     const sessionId = uuidv4();
